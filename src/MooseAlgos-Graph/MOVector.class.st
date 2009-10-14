@@ -654,7 +654,7 @@ MOVector >> unitVector [
 { #category : #enumerating }
 MOVector >> with: vector affect: aBlock [
 	
-	(vector hasSize: self size) ifFalse: [^self noMatchError].
+	(vector size = self size) ifFalse: [^self noMatchError].
 	1
 		to: self size
 		do:

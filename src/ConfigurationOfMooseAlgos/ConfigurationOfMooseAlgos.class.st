@@ -64,7 +64,7 @@ ConfigurationOfMooseAlgos >> default: spec [
 	<version: 'default'>
 	
 	spec for: #common do: [
-		spec blessing: #default.
+		spec blessing: #baseline.
 		spec repository: 'http://www.squeaksource.com/MooseAlgos'.
 		spec 
 			package: 'Moose-Algos-Graph' ;

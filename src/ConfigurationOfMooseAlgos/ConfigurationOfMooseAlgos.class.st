@@ -75,13 +75,6 @@ ConfigurationOfMooseAlgos >> default: spec [
 		spec group: 'Tests' with: #(
 						'Moose-Tests-Algos-Graph'
 						"Dangerous now: Clustering and LinearAlgebra tests chrash the VM"). 
-		spec
-			project: 'Mondrian for MooseAlgos' with: [
-				spec
-					className: 'ConfigurationOfMondrian';
-					file: 'ConfigurationOfMondrian';
-					version: 'default';
-					repository: 'http://www.squeaksource.com/Mondrian' ].
 	]
 ]
 

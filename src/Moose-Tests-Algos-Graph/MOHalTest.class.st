@@ -52,10 +52,7 @@ MOHalTest >> testCycle [
 { #category : #tests }
 MOHalTest >> testModuleGraph [
 
-	self flag: #copyFixture.
-	self fail.
-	hal nodes: GraphFixture moduleGraph.
-	hal computeHierarchyNumbers.
+	(MOGraphFixture moduleGraph: hal) run.
 
 	self assert: (hal findNode: 'v1') hNumber = 0.
 	self assert: (hal findNode: 'v2') hNumber = 1.
@@ -69,17 +66,13 @@ MOHalTest >> testModuleGraph [
 	self assert: (hal findNode: 'v10') hNumber = 6.
 	self assert: (hal findNode: 'v11') hNumber = 6.
 
-
 	hal showLevels 
 ]
 
 { #category : #tests }
 MOHalTest >> testModuleGraph2 [
 
-	self flag: #copyFixture.
-	self fail.
-	hal nodes: GraphFixture moduleGraph2.
-	hal computeHierarchyNumbers.
+	(MOGraphFixture moduleGraph2: hal) run.
 
 	self assert: (hal findNode: $u) hNumber = 0.
 	self assert: (hal findNode: $w) hNumber = 1.

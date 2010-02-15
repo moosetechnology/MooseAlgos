@@ -5,6 +5,45 @@ Class {
 }
 
 { #category : #fixtures }
+MOGraphFixture class >> aseCircuitGraph: builder [
+
+	| nodes edges |
+	nodes := $a to: $h.
+	edges := #(($a $b) ($b $a) ($b $c) ($b $d) ($c $d) ($c $f) ($d $b) ($d $e) ($e $a) ($f $g) ($g $h) ($h $g)).
+
+	builder nodes: nodes.
+	builder edges: edges from: #first to: #second.
+	^ builder	
+
+]
+
+{ #category : #fixtures }
+MOGraphFixture class >> aseSingleCircuitGraph: builder [
+
+	| nodes edges |
+	nodes := $a to: $e.
+	edges := #(($a $b) ($b $a) ($b $c) ($b $d) ($c $d) ($d $b) ($d $e) ($e $a)).
+
+	builder nodes: nodes.
+	builder edges: edges from: #first to: #second.
+	^ builder	
+
+]
+
+{ #category : #fixtures }
+MOGraphFixture class >> aseWeightedCircuitGraph: builder [
+
+	| nodes edges |
+	nodes := $a to: $h.
+	edges := #(($a $b 1) ($b $a 1) ($b $c 1) ($b $d 1) ($c $d 1) ($c $f 1) ($d $b 1) ($d $e 1) ($e $a 1) ($f $g 1) ($g $h 1) ($h $g 1)).
+
+	builder nodes: nodes.
+	builder edges: edges from: #first to: #second weight: #third.
+	^ builder	
+
+]
+
+{ #category : #fixtures }
 MOGraphFixture class >> complexCycleGraph: builder [
 
 	| nodes edges |

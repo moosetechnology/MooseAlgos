@@ -1,6 +1,8 @@
 Class {
 	#name : #MOWeightedHitsNode,
 	#superclass : #MOHitsNode,
+	#traits : 'MATEdgeNode',
+	#classTraits : 'MATEdgeNode classTrait',
 	#instVars : [
 		'nextEdges',
 		'previousEdges'
@@ -8,39 +10,27 @@ Class {
 	#category : #'Moose-Algos-Graph'
 }
 
-{ #category : #'as yet unclassified' }
-MOWeightedHitsNode >> from: aNode edge: anEdge [
-
-	previousEdges add: anEdge
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 MOWeightedHitsNode >> initialize [
 
 	previousEdges := OrderedCollection new.
 	nextEdges := OrderedCollection new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 MOWeightedHitsNode >> label [
 
 	^ 'WH '
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MOWeightedHitsNode >> nextEdges [
 
 	^ nextEdges
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MOWeightedHitsNode >> previousEdges [
 
 	^ previousEdges
-]
-
-{ #category : #'as yet unclassified' }
-MOWeightedHitsNode >> to: aNode edge: anEdge [
-
-	nextEdges add: anEdge
 ]

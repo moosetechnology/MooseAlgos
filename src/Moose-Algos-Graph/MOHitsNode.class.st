@@ -1,6 +1,8 @@
 Class {
 	#name : #MOHitsNode,
 	#superclass : #MOGraphNode,
+	#traits : 'MATNodeNode',
+	#classTraits : 'MATNodeNode classTrait',
 	#instVars : [
 		'previousNodes',
 		'nextNodes',
@@ -18,12 +20,6 @@ MOHitsNode >> auth [
 { #category : #accessing }
 MOHitsNode >> auth: anObject [
 	auth := anObject
-]
-
-{ #category : #accessing }
-MOHitsNode >> from: sourceNode [
-
-	previousNodes add: sourceNode 
 ]
 
 { #category : #accessing }
@@ -69,10 +65,4 @@ MOHitsNode >> printString [
 		' ',
 		(self hub printShowingDecimalPlaces: 2),
 		') '
-]
-
-{ #category : #accessing }
-MOHitsNode >> to: targetNode [
-
-	nextNodes add: targetNode 
 ]

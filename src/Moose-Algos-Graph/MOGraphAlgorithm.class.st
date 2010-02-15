@@ -49,11 +49,6 @@ MOGraphAlgorithm >> edges [
 	^ edges
 ]
 
-{ #category : #private }
-MOGraphAlgorithm >> edges: aCollection [
-	edges := aCollection
-]
-
 { #category : #configuration }
 MOGraphAlgorithm >> edges: aCollection from: source to: target [
 
@@ -134,6 +129,18 @@ MOGraphAlgorithm >> nodes: aCollection [
 		self nodes add: (self nodeClass with: model)
 	]
 
+]
+
+{ #category : #private }
+MOGraphAlgorithm >> privateEdges: aCollection [
+
+	edges := aCollection 
+]
+
+{ #category : #private }
+MOGraphAlgorithm >> privateNodes: aCollection [
+
+	nodes := aCollection 
 ]
 
 { #category : #running }

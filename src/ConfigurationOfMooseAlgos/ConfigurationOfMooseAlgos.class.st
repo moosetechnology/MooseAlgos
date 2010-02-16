@@ -158,6 +158,7 @@ ConfigurationOfMooseAlgos >> version20beta4: spec [
 	<version: '2.0-beta.4' imports: #('default')>
 
 	spec for: #common do: [
+		spec blessing: #beta.
 		spec author: 'tg'.
 		spec timestamp: '2/16/2010 13:01'.
 		spec 

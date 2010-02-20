@@ -91,9 +91,9 @@ ConfigurationOfMooseAlgos >> default: spec [
 			package: 'Moose-Algos-Clustering' ;
 			package: 'Moose-Algos-LinearAlgebra'.
 			"Dangerous now: Clustering and LinearAlgebra tests chrash the VM"
-"			spec group: 'Tests' with: #(
+			spec group: 'Tests' with: #(
 						'Moose-Tests-Algos-Graph' ). 
-"	]
+	]
 ]
 
 { #category : #accessing }

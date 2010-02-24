@@ -1,6 +1,9 @@
 Class {
 	#name : #Unlimited,
 	#superclass : #Magnitude,
+	#instVars : [
+		'positive'
+	],
 	#classVars : [
 		'Negative',
 		'Positive'
@@ -11,7 +14,7 @@ Class {
 { #category : #'as yet unclassified' }
 Unlimited class >> negative [
 
-	^Negative ifNil: [Negative := self new initializeWith: false]
+	^Negative ifNil: [Negative := super new initializeWith: false]
 ]
 
 { #category : #'as yet unclassified' }
@@ -23,7 +26,7 @@ Unlimited class >> new [
 { #category : #'as yet unclassified' }
 Unlimited class >> positive [
 
-	^Positive ifNil: [Positive := self new initializeWith: true ]
+	^Positive ifNil: [Positive := super new initializeWith: true ]
 ]
 
 { #category : #'as yet unclassified' }

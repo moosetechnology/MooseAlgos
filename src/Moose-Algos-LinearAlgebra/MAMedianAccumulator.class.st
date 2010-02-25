@@ -1,5 +1,5 @@
 Class {
-	#name : #MOMedianAccumulator,
+	#name : #MAMedianAccumulator,
 	#superclass : #Object,
 	#instVars : [
 		'values'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-MOMedianAccumulator class >> new [
+MAMedianAccumulator class >> new [
 	
 	^self basicNew initialize
 ]
 
 { #category : #'instance creation' }
-MOMedianAccumulator class >> withAll: aCollection [
+MAMedianAccumulator class >> withAll: aCollection [
 	
 	^(self new)
 		addAll: aCollection;
@@ -22,43 +22,43 @@ MOMedianAccumulator class >> withAll: aCollection [
 ]
 
 { #category : #accumulating }
-MOMedianAccumulator >> add: value [
+MAMedianAccumulator >> add: value [
 	
 	values add: value
 ]
 
 { #category : #accumulating }
-MOMedianAccumulator >> addAll: aCollection [
+MAMedianAccumulator >> addAll: aCollection [
 	
 	values addAll: aCollection
 ]
 
 { #category : #accessing }
-MOMedianAccumulator >> bottom [
+MAMedianAccumulator >> bottom [
 	
 	^values last
 ]
 
 { #category : #accessing }
-MOMedianAccumulator >> firstQuartil [
+MAMedianAccumulator >> firstQuartil [
 	
 	^values at: (values size / 4) asInteger
 ]
 
 { #category : #'initialize-release' }
-MOMedianAccumulator >> initialize [
+MAMedianAccumulator >> initialize [
 	
 	values := SortedCollection new
 ]
 
 { #category : #accessing }
-MOMedianAccumulator >> median [
+MAMedianAccumulator >> median [
 	
 	^values at: (values size / 2) asInteger
 ]
 
 { #category : #printing }
-MOMedianAccumulator >> printOn: aStream [
+MAMedianAccumulator >> printOn: aStream [
 	
 	aStream
 		nextPutAll: 'Median = ';
@@ -82,19 +82,19 @@ MOMedianAccumulator >> printOn: aStream [
 ]
 
 { #category : #accessing }
-MOMedianAccumulator >> thirdQuartil [
+MAMedianAccumulator >> thirdQuartil [
 	
 	^values at: (values size / 4 * 3) asInteger
 ]
 
 { #category : #accessing }
-MOMedianAccumulator >> top [
+MAMedianAccumulator >> top [
 	
 	^values first
 ]
 
 { #category : #accumulating }
-MOMedianAccumulator >> value: value [
+MAMedianAccumulator >> value: value [
 	
 	values add: value
 ]

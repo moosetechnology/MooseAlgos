@@ -2,16 +2,16 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOMatrixCoercionTest,
+	#name : #MAMatrixCoercionTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #test }
-MOMatrixCoercionTest >> testDouble [
+MAMatrixCoercionTest >> testDouble [
 	
 	| m n |
-	m := MOColumnMatrix
+	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2.0d.
@@ -26,10 +26,10 @@ MOMatrixCoercionTest >> testDouble [
 ]
 
 { #category : #test }
-MOMatrixCoercionTest >> testFixedPoint [
+MAMatrixCoercionTest >> testFixedPoint [
 	
 	| m n |
-	m := MOColumnMatrix
+	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2.0s.
@@ -44,10 +44,10 @@ MOMatrixCoercionTest >> testFixedPoint [
 ]
 
 { #category : #test }
-MOMatrixCoercionTest >> testFloat [
+MAMatrixCoercionTest >> testFloat [
 	
 	| m n |
-	m := MOColumnMatrix
+	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2.0.
@@ -62,10 +62,10 @@ MOMatrixCoercionTest >> testFloat [
 ]
 
 { #category : #test }
-MOMatrixCoercionTest >> testFraction [
+MAMatrixCoercionTest >> testFraction [
 	
 	| m n |
-	m := MOColumnMatrix
+	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 1 / 2.
@@ -80,10 +80,10 @@ MOMatrixCoercionTest >> testFraction [
 ]
 
 { #category : #test }
-MOMatrixCoercionTest >> testInteger [
+MAMatrixCoercionTest >> testInteger [
 	
 	| m n |
-	m := MOColumnMatrix
+	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2.
@@ -98,10 +98,10 @@ MOMatrixCoercionTest >> testInteger [
 ]
 
 { #category : #test }
-MOMatrixCoercionTest >> testLargeInteger [
+MAMatrixCoercionTest >> testLargeInteger [
 	
 	| m n |
-	m := MOColumnMatrix
+	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2000000000000.
@@ -116,10 +116,10 @@ MOMatrixCoercionTest >> testLargeInteger [
 ]
 
 { #category : #test }
-MOMatrixCoercionTest >> testPoint [
+MAMatrixCoercionTest >> testPoint [
 	
 	| m n |
-	m := MOColumnMatrix
+	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2 @ 2.

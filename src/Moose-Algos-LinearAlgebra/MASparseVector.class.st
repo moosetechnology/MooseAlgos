@@ -8,8 +8,8 @@ Instance Variables:
 
 "
 Class {
-	#name : #MOSparseVector,
-	#superclass : #MOVector,
+	#name : #MASparseVector,
+	#superclass : #MAVector,
 	#instVars : [
 		'size',
 		'contents'
@@ -18,13 +18,13 @@ Class {
 }
 
 { #category : #adding }
-MOSparseVector >> addLast [
+MASparseVector >> addLast [
 	
 	size := size + 1
 ]
 
 { #category : #accessing }
-MOSparseVector >> at: anIndex [
+MASparseVector >> at: anIndex [
 	
 	| spot |
 	spot := self internalIndexOf: anIndex.
@@ -34,7 +34,7 @@ MOSparseVector >> at: anIndex [
 ]
 
 { #category : #accessing }
-MOSparseVector >> at: anIndex put: aNumber [
+MASparseVector >> at: anIndex put: aNumber [
 	
 	aNumber isZero
 		ifTrue: [self removeValueAt: anIndex]
@@ -43,7 +43,7 @@ MOSparseVector >> at: anIndex put: aNumber [
 ]
 
 { #category : #enumerating }
-MOSparseVector >> collect: aBlock [
+MASparseVector >> collect: aBlock [
 	"Evaluate aBlock with each of the values of the receiver as the  
 	argument.  Collect the resulting values into a collection that is like 
 	the receiver.  Answer the new collection."
@@ -57,13 +57,13 @@ MOSparseVector >> collect: aBlock [
 ]
 
 { #category : #'vector functions' }
-MOSparseVector >> distByAngle: aVector [
+MASparseVector >> distByAngle: aVector [
 	
 	^1 - (self cosine: aVector)
 ]
 
 { #category : #enumerating }
-MOSparseVector >> doSparseWithIndex: aBlock [
+MASparseVector >> doSparseWithIndex: aBlock [
 	
 	contents
 		do:
@@ -74,7 +74,7 @@ MOSparseVector >> doSparseWithIndex: aBlock [
 ]
 
 { #category : #'vector functions' }
-MOSparseVector >> dotProduct: aVector [
+MASparseVector >> dotProduct: aVector [
 	
 	| sum otherValueBlock |
 	(aVector hasSize: self size) ifFalse: [^self noMatchError].
@@ -89,13 +89,13 @@ MOSparseVector >> dotProduct: aVector [
 ]
 
 { #category : #'initialize-release' }
-MOSparseVector >> initializeContents: anAssociationArray [
+MASparseVector >> initializeContents: anAssociationArray [
 	
 	contents := anAssociationArray
 ]
 
 { #category : #'initialize-release' }
-MOSparseVector >> initializeSize: aSize [
+MASparseVector >> initializeSize: aSize [
 
 	self flag: #importChange. "replace ArrayList with OrderedCollection"
 	size := aSize.
@@ -103,7 +103,7 @@ MOSparseVector >> initializeSize: aSize [
 ]
 
 { #category : #private }
-MOSparseVector >> internalIndexOf: anIndex [
+MASparseVector >> internalIndexOf: anIndex [
 	"Searchs for the internal index of anIndex with O(log n) using binary search, returns
 	either the internal index of anIndex or, if anIndex is not found, the negated internal 
 	index to be used for insertion."
@@ -125,7 +125,7 @@ MOSparseVector >> internalIndexOf: anIndex [
 ]
 
 { #category : #private }
-MOSparseVector >> removeValueAt: anIndex [
+MASparseVector >> removeValueAt: anIndex [
 	
 	| spot |
 	spot := self internalIndexOf: anIndex.
@@ -133,7 +133,7 @@ MOSparseVector >> removeValueAt: anIndex [
 ]
 
 { #category : #private }
-MOSparseVector >> setValue: aNumber at: anIndex [
+MASparseVector >> setValue: aNumber at: anIndex [
 	
 	| spot |
 	spot := self internalIndexOf: anIndex.
@@ -146,19 +146,19 @@ MOSparseVector >> setValue: aNumber at: anIndex [
 ]
 
 { #category : #accessing }
-MOSparseVector >> size [
+MASparseVector >> size [
 	
 	^size
 ]
 
 { #category : #accessing }
-MOSparseVector >> sparseSize [
+MASparseVector >> sparseSize [
 	
 	^contents size
 ]
 
 { #category : #'mathematical functions' }
-MOSparseVector >> sum [
+MASparseVector >> sum [
 	
 	^contents
 		inject: 0

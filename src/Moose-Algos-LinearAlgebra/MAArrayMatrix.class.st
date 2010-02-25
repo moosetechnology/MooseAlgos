@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOArrayMatrix,
-	#superclass : #MOMatrix,
+	#name : #MAArrayMatrix,
+	#superclass : #MAMatrix,
 	#instVars : [
 		'array',
 		'columnSize',
@@ -13,13 +13,13 @@ Class {
 }
 
 { #category : #accessing }
-MOArrayMatrix >> at: row and: column [
+MAArrayMatrix >> at: row and: column [
 	
 	^array at: (row - 1) * self columnSize + column
 ]
 
 { #category : #accessing }
-MOArrayMatrix >> at: row and: column put: aNumber [
+MAArrayMatrix >> at: row and: column put: aNumber [
 	
 	^array
 		at: (row - 1) * self columnSize + column
@@ -27,19 +27,19 @@ MOArrayMatrix >> at: row and: column put: aNumber [
 ]
 
 { #category : #private }
-MOArrayMatrix >> checkInvariant [
+MAArrayMatrix >> checkInvariant [
 	
 	^array isCollection and: [(array size = rowSize) * columnSize]
 ]
 
 { #category : #accessing }
-MOArrayMatrix >> columnSize [
+MAArrayMatrix >> columnSize [
 	
 	^columnSize
 ]
 
 { #category : #'initialize-release' }
-MOArrayMatrix >> initializeRows: n columns: m [
+MAArrayMatrix >> initializeRows: n columns: m [
 	
 	rowSize := n.
 	columnSize := m.
@@ -48,7 +48,7 @@ MOArrayMatrix >> initializeRows: n columns: m [
 ]
 
 { #category : #accessing }
-MOArrayMatrix >> rowSize [
+MAArrayMatrix >> rowSize [
 	
 	^rowSize
 ]

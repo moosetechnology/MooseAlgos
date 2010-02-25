@@ -2,26 +2,26 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOMatrixTest,
+	#name : #MAMatrixTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #testing }
-MOMatrixTest class >> isAbstract [
+MAMatrixTest class >> isAbstract [
 	
 	^self name = #MatrixTest
 ]
 
 { #category : #fixture }
-MOMatrixTest >> matrixClass [
+MAMatrixTest >> matrixClass [
 	"comment stating purpose of message"
 	
 	^self subclassResponsibility
 ]
 
 { #category : #test }
-MOMatrixTest >> testAccessors [
+MAMatrixTest >> testAccessors [
 	"comment stating purpose of message"
 	
 	| m |
@@ -36,7 +36,7 @@ MOMatrixTest >> testAccessors [
 ]
 
 { #category : #test }
-MOMatrixTest >> testAddWithMatrix [
+MAMatrixTest >> testAddWithMatrix [
 	"comment stating purpose of message"
 	
 	| m n mn |
@@ -50,7 +50,7 @@ MOMatrixTest >> testAddWithMatrix [
 ]
 
 { #category : #test }
-MOMatrixTest >> testAddWithNumber [
+MAMatrixTest >> testAddWithNumber [
 	"comment stating purpose of message"
 	
 	| m m10 |
@@ -65,31 +65,31 @@ MOMatrixTest >> testAddWithNumber [
 ]
 
 { #category : #test }
-MOMatrixTest >> testArithmeticUnity [
+MAMatrixTest >> testArithmeticUnity [
 	
 	| a |
 	a := self matrixClass new: 2 withAll: #(1 2 3 4).
-	self assert: MOMatrix unity * a = a.
-	self assert: (MOMatrix unity + a) asArray = #(2 3 4 5).
-	self assert: MOMatrix unity * MOMatrix unity = MOMatrix unity.
-	self assert: (MOMatrix unity + MOMatrix unity) asNumber = 2.
-	self assert: MOMatrix unity + MOMatrix zero = MOMatrix unity
+	self assert: MAMatrix unity * a = a.
+	self assert: (MAMatrix unity + a) asArray = #(2 3 4 5).
+	self assert: MAMatrix unity * MAMatrix unity = MAMatrix unity.
+	self assert: (MAMatrix unity + MAMatrix unity) asNumber = 2.
+	self assert: MAMatrix unity + MAMatrix zero = MAMatrix unity
 ]
 
 { #category : #test }
-MOMatrixTest >> testArithmeticZero [
+MAMatrixTest >> testArithmeticZero [
 	
 	| a |
 	a := self matrixClass new: 2 withAll: #(1 2 3 4).
-	self assert: MOMatrix zero * a = MOMatrix zero.
-	self assert: MOMatrix zero + a = a.
-	self assert: MOMatrix zero * MOMatrix zero = MOMatrix zero.
-	self assert: MOMatrix zero + MOMatrix zero = MOMatrix zero.
-	self assert: MOMatrix unity * MOMatrix zero = MOMatrix zero
+	self assert: MAMatrix zero * a = MAMatrix zero.
+	self assert: MAMatrix zero + a = a.
+	self assert: MAMatrix zero * MAMatrix zero = MAMatrix zero.
+	self assert: MAMatrix zero + MAMatrix zero = MAMatrix zero.
+	self assert: MAMatrix unity * MAMatrix zero = MAMatrix zero
 ]
 
 { #category : #test }
-MOMatrixTest >> testDimension [
+MAMatrixTest >> testDimension [
 	"comment stating purpose of message"
 	
 	| m |
@@ -100,7 +100,7 @@ MOMatrixTest >> testDimension [
 ]
 
 { #category : #test }
-MOMatrixTest >> testIsZero [
+MAMatrixTest >> testIsZero [
 	"comment stating purpose of message"
 	
 	| m |
@@ -109,7 +109,7 @@ MOMatrixTest >> testIsZero [
 ]
 
 { #category : #test }
-MOMatrixTest >> testMatrixMultiplicationDimension [
+MAMatrixTest >> testMatrixMultiplicationDimension [
 	"comment stating purpose of message"
 	
 	| A B |
@@ -122,7 +122,7 @@ MOMatrixTest >> testMatrixMultiplicationDimension [
 ]
 
 { #category : #test }
-MOMatrixTest >> testMatrixMultiplicationValues [
+MAMatrixTest >> testMatrixMultiplicationValues [
 	"comment stating purpose of message"
 	
 	| A B |
@@ -143,7 +143,7 @@ MOMatrixTest >> testMatrixMultiplicationValues [
 ]
 
 { #category : #test }
-MOMatrixTest >> testMultWithMatrix [
+MAMatrixTest >> testMultWithMatrix [
 	"comment stating purpose of message"
 	
 	| m n mn |
@@ -157,7 +157,7 @@ MOMatrixTest >> testMultWithMatrix [
 ]
 
 { #category : #test }
-MOMatrixTest >> testMultWithNumber [
+MAMatrixTest >> testMultWithNumber [
 	"comment stating purpose of message"
 	
 	| m m10 |
@@ -172,10 +172,10 @@ MOMatrixTest >> testMultWithNumber [
 ]
 
 { #category : #test }
-MOMatrixTest >> testReadDenseTextFrom [
+MAMatrixTest >> testReadDenseTextFrom [
 	
 	| matrix text stream |
-	matrix := MOArrayMatrix withAll:
+	matrix := MAArrayMatrix withAll:
 			#(#(2.3 0 4.2) #(0 1.3 2.2) #(3.8 0 0.5) #(0 0 0)).
 	text := '4 3\2.3 0 4.2\0 1.3 2.2\3.8 0 0.5\0 0 0\' withCRs.
 	stream := ReadStream on: text.
@@ -183,10 +183,10 @@ MOMatrixTest >> testReadDenseTextFrom [
 ]
 
 { #category : #test }
-MOMatrixTest >> testReadSparseTextFrom [
+MAMatrixTest >> testReadSparseTextFrom [
 	
 	| matrix text stream |
-	matrix := MOArrayMatrix withAll:
+	matrix := MAArrayMatrix withAll:
 			#(#(2.3 0 4.2) #(0 1.3 2.2) #(3.8 0 0.5) #(0 0 0)).
 	matrix := matrix transposed.
 	text := '4 3 6\2\0 2.3\2 3.8\1\1 1.3\3\0 4.2\1 2.2\2 0.5\' withCRs.
@@ -195,7 +195,7 @@ MOMatrixTest >> testReadSparseTextFrom [
 ]
 
 { #category : #test }
-MOMatrixTest >> testRowColumnSize [
+MAMatrixTest >> testRowColumnSize [
 	"comment stating purpose of message"
 	
 	| m |
@@ -206,7 +206,7 @@ MOMatrixTest >> testRowColumnSize [
 ]
 
 { #category : #test }
-MOMatrixTest >> testStoreDenseTextOn [
+MAMatrixTest >> testStoreDenseTextOn [
 	
 	| matrix text stream |
 	matrix := self matrixClass withAll:
@@ -218,7 +218,7 @@ MOMatrixTest >> testStoreDenseTextOn [
 ]
 
 { #category : #test }
-MOMatrixTest >> testStoreSparseTextOn [
+MAMatrixTest >> testStoreSparseTextOn [
 	
 	| matrix text stream |
 	matrix := self matrixClass withAll:

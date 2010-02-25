@@ -2,16 +2,16 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOAccumulatorTest,
+	#name : #MAAccumulatorTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #test }
-MOAccumulatorTest >> testAverage [
+MAAccumulatorTest >> testAverage [
 	
 	| a |
-	a := MOAccumulator sum.
+	a := MAAccumulator sum.
 	a accumulate: 10.
 	self assert: a average = 10.
 	a accumulate: 1.
@@ -21,10 +21,10 @@ MOAccumulatorTest >> testAverage [
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testCustomBlock [
+MAAccumulatorTest >> testCustomBlock [
 	
 	| a |
-	a := MOAccumulator
+	a := MAAccumulator
 		value: 0
 		using: [:current :new | current max: new size].
 	a accumulate: 'ab'.
@@ -36,29 +36,29 @@ MOAccumulatorTest >> testCustomBlock [
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testEnumerate [
+MAAccumulatorTest >> testEnumerate [
 	
 	| a |
-	a := MOAccumulator minimum.
+	a := MAAccumulator minimum.
 	a enumerate: #(10 1 100).
 	self assert: a value = 1
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testEnumerateWithIndex [
+MAAccumulatorTest >> testEnumerateWithIndex [
 	
 	| a |
-	a := MOAccumulator minimum.
+	a := MAAccumulator minimum.
 	a enumerateWithIndex: #(10 1 100).
 	self assert: a index = 2.
 	self assert: a value = 1
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testIfTruePut [
+MAAccumulatorTest >> testIfTruePut [
 	
 	| a |
-	a := MOAccumulator maximum.
+	a := MAAccumulator maximum.
 	a accumulate: 10 withIndex: 'first'.
 	self assert: a index = 'first'.
 	self assert: a value = 10.
@@ -71,10 +71,10 @@ MOAccumulatorTest >> testIfTruePut [
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testMaximum [
+MAAccumulatorTest >> testMaximum [
 	
 	| a |
-	a := MOAccumulator maximum.
+	a := MAAccumulator maximum.
 	a accumulate: 10.
 	self assert: a value = 10.
 	a accumulate: 1.
@@ -84,10 +84,10 @@ MOAccumulatorTest >> testMaximum [
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testMinimum [
+MAAccumulatorTest >> testMinimum [
 	
 	| a |
-	a := MOAccumulator minimum.
+	a := MAAccumulator minimum.
 	a accumulate: 10.
 	self assert: a value = 10.
 	a accumulate: 1.
@@ -97,19 +97,19 @@ MOAccumulatorTest >> testMinimum [
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testSquaredSum [
+MAAccumulatorTest >> testSquaredSum [
 	
 	| a |
-	a := MOAccumulator squaredSum.
+	a := MAAccumulator squaredSum.
 	a enumerate: #(1 2 3 4 5 6 7 8 9 10).
 	self assert: a value = 385
 ]
 
 { #category : #test }
-MOAccumulatorTest >> testSum [
+MAAccumulatorTest >> testSum [
 	
 	| a |
-	a := MOAccumulator sum.
+	a := MAAccumulator sum.
 	a enumerate: #(1 2 3 4 5 6 7 8 9 10).
 	self assert: a value = 55
 ]

@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOColumnMatrix,
-	#superclass : #MOMatrix,
+	#name : #MAColumnMatrix,
+	#superclass : #MAMatrix,
 	#instVars : [
 		'columns'
 	],
@@ -11,19 +11,19 @@ Class {
 }
 
 { #category : #accessing }
-MOColumnMatrix >> at: row and: column [
+MAColumnMatrix >> at: row and: column [
 	
 	^(columns at: column) at: row
 ]
 
 { #category : #accessing }
-MOColumnMatrix >> at: row and: column put: aNumber [
+MAColumnMatrix >> at: row and: column put: aNumber [
 	
 	^(columns at: column) at: row put: aNumber
 ]
 
 { #category : #private }
-MOColumnMatrix >> checkInvariant [
+MAColumnMatrix >> checkInvariant [
 	
 	^columns isCollection
 		and:
@@ -32,25 +32,25 @@ MOColumnMatrix >> checkInvariant [
 ]
 
 { #category : #'accessing vectorwise' }
-MOColumnMatrix >> columnAt: column [
+MAColumnMatrix >> columnAt: column [
 	
 	^columns at: column
 ]
 
 { #category : #accessing }
-MOColumnMatrix >> columnSize [
+MAColumnMatrix >> columnSize [
 	
 	^columns size
 ]
 
 { #category : #'accessing vectorwise' }
-MOColumnMatrix >> columns [
+MAColumnMatrix >> columns [
 	
 	^columns
 ]
 
 { #category : #'initialize-release' }
-MOColumnMatrix >> initializeRows: m columns: n [
+MAColumnMatrix >> initializeRows: m columns: n [
 	
 	columns := Array new: n.
 	1
@@ -63,7 +63,7 @@ MOColumnMatrix >> initializeRows: m columns: n [
 ]
 
 { #category : #accessing }
-MOColumnMatrix >> rowSize [
+MAColumnMatrix >> rowSize [
 	
 	^columns isEmpty
 		ifTrue: [0]

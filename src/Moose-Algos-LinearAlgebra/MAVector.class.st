@@ -2,26 +2,26 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOVector,
+	#name : #MAVector,
 	#superclass : #ArrayedCollection,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #accessing }
-MOVector class >> browserIcon [
+MAVector class >> browserIcon [
 "Answer icon to be displayed with matrix classes."
 	
 	^ nil
 ]
 
 { #category : #'instance creation' }
-MOVector class >> new [
+MAVector class >> new [
 	
 	^self new: Number zero
 ]
 
 { #category : #'instance creation' }
-MOVector class >> new: aSize [
+MAVector class >> new: aSize [
 	
 	^(self basicNew)
 		initializeSize: aSize;
@@ -29,7 +29,7 @@ MOVector class >> new: aSize [
 ]
 
 { #category : #'instance creation' }
-MOVector class >> new: aSize withAll: value [
+MAVector class >> new: aSize withAll: value [
 	
 	^(self new: aSize)
 		atAllPut: value;
@@ -37,7 +37,7 @@ MOVector class >> new: aSize withAll: value [
 ]
 
 { #category : #'instance creation' }
-MOVector class >> readFromDenseText: aStream [
+MAVector class >> readFromDenseText: aStream [
 	
 	| size vector |
 	size := Integer readFrom: aStream skipSeparators.
@@ -53,13 +53,13 @@ MOVector class >> readFromDenseText: aStream [
 ]
 
 { #category : #'constants access' }
-MOVector class >> unity [
+MAVector class >> unity [
 	
-	^MOVectorCoercion with: 1
+	^MAVectorCoercion with: 1
 ]
 
 { #category : #'instance creation' }
-MOVector class >> withAll: aCollection [
+MAVector class >> withAll: aCollection [
 	
 	^(self new: aCollection size)
 		atAllPut: aCollection;
@@ -67,19 +67,19 @@ MOVector class >> withAll: aCollection [
 ]
 
 { #category : #'constants access' }
-MOVector class >> zero [
+MAVector class >> zero [
 	
-	^MOVectorCoercion with: 0
+	^MAVectorCoercion with: 0
 ]
 
 { #category : #arithmetic }
-MOVector >> * aNumber [
+MAVector >> * aNumber [
 	
 	^aNumber productFromVector: self
 ]
 
 { #category : #arithmetic }
-MOVector >> *= aNumber [
+MAVector >> *= aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -87,13 +87,13 @@ MOVector >> *= aNumber [
 ]
 
 { #category : #arithmetic }
-MOVector >> + aNumber [
+MAVector >> + aNumber [
 	
 	^aNumber sumFromVector: self
 ]
 
 { #category : #arithmetic }
-MOVector >> += aNumber [
+MAVector >> += aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -101,13 +101,13 @@ MOVector >> += aNumber [
 ]
 
 { #category : #arithmetic }
-MOVector >> - aNumber [
+MAVector >> - aNumber [
 	
 	^aNumber differenceFromVector: self
 ]
 
 { #category : #arithmetic }
-MOVector >> -= aNumber [
+MAVector >> -= aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -115,13 +115,13 @@ MOVector >> -= aNumber [
 ]
 
 { #category : #arithmetic }
-MOVector >> / aNumber [
+MAVector >> / aNumber [
 	
 	^aNumber quotientFromVector: self
 ]
 
 { #category : #arithmetic }
-MOVector >> /= aNumber [
+MAVector >> /= aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -129,17 +129,17 @@ MOVector >> /= aNumber [
 ]
 
 { #category : #comparing }
-MOVector >> < aMagnitude [
+MAVector >> < aMagnitude [
 	
 	self error: 'Vectors are not ordered'
 ]
 
 { #category : #comparing }
-MOVector >> = vector [
+MAVector >> = vector [
 	
 	^self == vector
 		or:
-			[(vector isKindOf: MOVector)
+			[(vector isKindOf: MAVector)
 				and:
 					[(vector hasSize: self size)
 						and:
@@ -150,19 +150,19 @@ MOVector >> = vector [
 ]
 
 { #category : #converting }
-MOVector >> asVector [
+MAVector >> asVector [
 	
 	^self
 ]
 
 { #category : #accessing }
-MOVector >> at: index [
+MAVector >> at: index [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #arithmetic }
-MOVector >> at: index add: aNumber [
+MAVector >> at: index add: aNumber [
 	
 	^self
 		at: index
@@ -170,7 +170,7 @@ MOVector >> at: index add: aNumber [
 ]
 
 { #category : #accessing }
-MOVector >> at: index ifNilPut: aBlock [
+MAVector >> at: index ifNilPut: aBlock [
 	"Answer the value at anIndex.  If the value is nil, set it to be
 	the result of evaluating valueBlock, and answer that value."
 	
@@ -182,13 +182,13 @@ MOVector >> at: index ifNilPut: aBlock [
 ]
 
 { #category : #accessing }
-MOVector >> at: index put: aNumber [
+MAVector >> at: index put: aNumber [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #accessing }
-MOVector >> atAllPut: collection [
+MAVector >> atAllPut: collection [
 	
 	(collection isKindOf: Collection)
 		ifTrue:
@@ -199,91 +199,91 @@ MOVector >> atAllPut: collection [
 ]
 
 { #category : #coercing }
-MOVector >> coerce: aNumber [
+MAVector >> coerce: aNumber [
 	
-	^MOVectorCoercion with: aNumber
+	^MAVectorCoercion with: aNumber
 ]
 
 { #category : #copying }
-MOVector >> copyEmpty [
+MAVector >> copyEmpty [
 	
 	^self copyEmpty: self size
 ]
 
 { #category : #copying }
-MOVector >> copyEmpty: size [
+MAVector >> copyEmpty: size [
 	
 	^self species new: size
 ]
 
 { #category : #'vector functions' }
-MOVector >> cosine: aVector [
+MAVector >> cosine: aVector [
 	
 	^self unitVector dotProduct: aVector unitVector
 ]
 
 { #category : #copying }
-MOVector >> deepCopy [
+MAVector >> deepCopy [
 	
 	^self species withAll: self
 ]
 
 { #category : #private }
-MOVector >> defaultElement [
+MAVector >> defaultElement [
 	
 	^Float zero
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromDouble: aNumber [
+MAVector >> differenceFromDouble: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromFixedPoint: aNumber [
+MAVector >> differenceFromFixedPoint: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromFloat: aNumber [
+MAVector >> differenceFromFloat: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromFraction: aNumber [
+MAVector >> differenceFromFraction: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromInteger: aNumber [
+MAVector >> differenceFromInteger: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromNumber: aNumber [
+MAVector >> differenceFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber - b]
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromPoint: aNumber [
+MAVector >> differenceFromPoint: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromSmallDouble: aNumber [
+MAVector >> differenceFromSmallDouble: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> differenceFromVector: aVector [
+MAVector >> differenceFromVector: aVector [
 	
 	^aVector
 		with: self
@@ -291,7 +291,7 @@ MOVector >> differenceFromVector: aVector [
 ]
 
 { #category : #'vector functions' }
-MOVector >> dist: aVector [
+MAVector >> dist: aVector [
 	
 	| sum |
 	sum := 0.
@@ -302,7 +302,7 @@ MOVector >> dist: aVector [
 ]
 
 { #category : #enumerating }
-MOVector >> do: aBlock [
+MAVector >> do: aBlock [
 	"Evaluate aBlock with each of the receiver's elements as the argument."
 	
 	1
@@ -311,7 +311,7 @@ MOVector >> do: aBlock [
 ]
 
 { #category : #enumerating }
-MOVector >> doSparseWithIndex: aBlock [
+MAVector >> doSparseWithIndex: aBlock [
 	
 	self
 		doWithIndex:
@@ -320,13 +320,13 @@ MOVector >> doSparseWithIndex: aBlock [
 ]
 
 { #category : #'double dispatching' }
-MOVector >> doesNotUnderstand: aMessage [
+MAVector >> doesNotUnderstand: aMessage [
 	
 	^super doesNotUnderstand: aMessage
 ]
 
 { #category : #'vector functions' }
-MOVector >> dotProduct: aVector [
+MAVector >> dotProduct: aVector [
 	"comment stating purpose of message"
 	
 	| sum |
@@ -339,65 +339,65 @@ MOVector >> dotProduct: aVector [
 ]
 
 { #category : #coercing }
-MOVector >> generality [
+MAVector >> generality [
 	
 	^210
 ]
 
 { #category : #testing }
-MOVector >> hasSize: size [
+MAVector >> hasSize: size [
 	
 	^self size = size
 ]
 
 { #category : #comparing }
-MOVector >> hash [
+MAVector >> hash [
 	
 	^(self size hash bitXor: (self at: 1) hash)
 		bitXor: (self at: self size) hash
 ]
 
 { #category : #'initialize-release' }
-MOVector >> initializeSize: aSize [
+MAVector >> initializeSize: aSize [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #testing }
-MOVector >> isZero [
+MAVector >> isZero [
 	"comment stating purpose of message"
 	
 	^self allSatisfy: #isZero
 ]
 
 { #category : #testing }
-MOVector >> isZeroAt: index [
+MAVector >> isZeroAt: index [
 	
 	^(self at: index) isZero
 ]
 
 { #category : #'vector functions' }
-MOVector >> length [
+MAVector >> length [
 	"comment stating purpose of message"
 	
 	^(self dotProduct: self) sqrt
 ]
 
 { #category : #arithmetic }
-MOVector >> negated [
+MAVector >> negated [
 	"comment stating purpose of message"
 	
 	^self collect: #negated
 ]
 
 { #category : #private }
-MOVector >> noModificationError [
+MAVector >> noModificationError [
 	
 	Error raise
 ]
 
 { #category : #'vector functions' }
-MOVector >> normalize [
+MAVector >> normalize [
 	"comment stating purpose of message"
 	
 	| len |
@@ -409,55 +409,55 @@ MOVector >> normalize [
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromDouble: aVector [
+MAVector >> productFromDouble: aVector [
 	
 	^self productFromNumber: aVector
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromFixedPoint: aVector [
+MAVector >> productFromFixedPoint: aVector [
 	
 	^self productFromNumber: aVector
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromFloat: aVector [
+MAVector >> productFromFloat: aVector [
 	
 	^self productFromNumber: aVector
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromFraction: aVector [
+MAVector >> productFromFraction: aVector [
 	
 	^self productFromNumber: aVector
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromInteger: aVector [
+MAVector >> productFromInteger: aVector [
 	
 	^self productFromNumber: aVector
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromNumber: aNumber [
+MAVector >> productFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber * b]
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromPoint: aVector [
+MAVector >> productFromPoint: aVector [
 	
 	^self productFromNumber: aVector
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromSmallDouble: aVector [
+MAVector >> productFromSmallDouble: aVector [
 	
 	^self productFromNumber: aVector
 ]
 
 { #category : #'double dispatching' }
-MOVector >> productFromVector: aVector [
+MAVector >> productFromVector: aVector [
 	
 	^aVector
 		with: self
@@ -465,7 +465,7 @@ MOVector >> productFromVector: aVector [
 ]
 
 { #category : #enumerating }
-MOVector >> putWithIndex: aBlock [
+MAVector >> putWithIndex: aBlock [
 	
 	1
 		to: self size
@@ -477,55 +477,55 @@ MOVector >> putWithIndex: aBlock [
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromDouble: aNumber [
+MAVector >> quotientFromDouble: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromFixedPoint: aNumber [
+MAVector >> quotientFromFixedPoint: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromFloat: aNumber [
+MAVector >> quotientFromFloat: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromFraction: aNumber [
+MAVector >> quotientFromFraction: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromInteger: aNumber [
+MAVector >> quotientFromInteger: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromNumber: aNumber [
+MAVector >> quotientFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber / b]
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromPoint: aNumber [
+MAVector >> quotientFromPoint: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromSmallDouble: aNumber [
+MAVector >> quotientFromSmallDouble: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> quotientFromVector: aVector [
+MAVector >> quotientFromVector: aVector [
 	
 	^aVector
 		with: self
@@ -533,27 +533,27 @@ MOVector >> quotientFromVector: aVector [
 ]
 
 { #category : #arithmetic }
-MOVector >> reciprocal [
+MAVector >> reciprocal [
 	"comment stating purpose of message"
 	
 	^self collect: #reciprocal
 ]
 
 { #category : #testing }
-MOVector >> respondsToArithmetic [
+MAVector >> respondsToArithmetic [
 	"We are arithmetic, yes."
 	
 	^true
 ]
 
 { #category : #accessing }
-MOVector >> size [
+MAVector >> size [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #accessing }
-MOVector >> sparseSize [
+MAVector >> sparseSize [
 	
 	| tally |
 	tally := 0.
@@ -562,13 +562,13 @@ MOVector >> sparseSize [
 ]
 
 { #category : #'mathematical functions' }
-MOVector >> sqrt [
+MAVector >> sqrt [
 	
 	^self collect: #sqrt
 ]
 
 { #category : #printing }
-MOVector >> storeDenseTextOn: aStream [
+MAVector >> storeDenseTextOn: aStream [
 	
 	aStream
 		print: self size;
@@ -580,7 +580,7 @@ MOVector >> storeDenseTextOn: aStream [
 ]
 
 { #category : #'mathematical functions' }
-MOVector >> sum [
+MAVector >> sum [
 	
 	^self
 		inject: 0
@@ -588,55 +588,55 @@ MOVector >> sum [
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromDouble: aNumber [
+MAVector >> sumFromDouble: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromFixedPoint: aNumber [
+MAVector >> sumFromFixedPoint: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromFloat: aNumber [
+MAVector >> sumFromFloat: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromFraction: aNumber [
+MAVector >> sumFromFraction: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromInteger: aNumber [
+MAVector >> sumFromInteger: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromNumber: aNumber [
+MAVector >> sumFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber + b]
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromPoint: aNumber [
+MAVector >> sumFromPoint: aNumber [
 	
 	^self collect: [:b | aNumber + b]
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromSmallDouble: aNumber [
+MAVector >> sumFromSmallDouble: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MOVector >> sumFromVector: aVector [
+MAVector >> sumFromVector: aVector [
 	
 	^aVector
 		with: self
@@ -644,7 +644,7 @@ MOVector >> sumFromVector: aVector [
 ]
 
 { #category : #'vector functions' }
-MOVector >> unitVector [
+MAVector >> unitVector [
 	"comment stating purpose of message"
 	
 	self isZero ifTrue: [^self].
@@ -652,7 +652,7 @@ MOVector >> unitVector [
 ]
 
 { #category : #enumerating }
-MOVector >> with: vector affect: aBlock [
+MAVector >> with: vector affect: aBlock [
 	
 	(vector size = self size) ifFalse: [^self noMatchError].
 	1
@@ -669,7 +669,7 @@ MOVector >> with: vector affect: aBlock [
 ]
 
 { #category : #enumerating }
-MOVector >> with: vector collect: aBlock [
+MAVector >> with: vector collect: aBlock [
 	
 	| newVector |
 	(vector hasSize: self size) ifFalse: [^self noMatchError].
@@ -688,7 +688,7 @@ MOVector >> with: vector collect: aBlock [
 ]
 
 { #category : #enumerating }
-MOVector >> with: vector do: aBlock [
+MAVector >> with: vector do: aBlock [
 	
 	(vector hasSize: self size) ifFalse: [^self noMatchError].
 	1

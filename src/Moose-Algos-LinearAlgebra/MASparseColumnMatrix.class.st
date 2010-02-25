@@ -2,13 +2,13 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOSparseColumnMatrix,
-	#superclass : #MOColumnMatrix,
+	#name : #MASparseColumnMatrix,
+	#superclass : #MAColumnMatrix,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #'instance creation' }
-MOSparseColumnMatrix class >> onColumns: columnCollection [
+MASparseColumnMatrix class >> onColumns: columnCollection [
 	
 	| new |
 	new := self basicNew.
@@ -20,25 +20,25 @@ MOSparseColumnMatrix class >> onColumns: columnCollection [
 ]
 
 { #category : #private }
-MOSparseColumnMatrix class >> vectorSpecies [
+MASparseColumnMatrix class >> vectorSpecies [
 	
-	^MOSparseVector
+	^MASparseVector
 ]
 
 { #category : #adding }
-MOSparseColumnMatrix >> addColumn [
+MASparseColumnMatrix >> addColumn [
 	
 	columns := columns copyWith: (self vectorSpecies new: self rowSize)
 ]
 
 { #category : #adding }
-MOSparseColumnMatrix >> addRow [
+MASparseColumnMatrix >> addRow [
 	
 	columns do: #addLast
 ]
 
 { #category : #enumerating }
-MOSparseColumnMatrix >> doSparseWithIndices: trinaryBlock [
+MASparseColumnMatrix >> doSparseWithIndices: trinaryBlock [
 	
 	columns
 		doWithIndex:
@@ -50,13 +50,13 @@ MOSparseColumnMatrix >> doSparseWithIndices: trinaryBlock [
 ]
 
 { #category : #testing }
-MOSparseColumnMatrix >> isZeroAt: row and: column [
+MASparseColumnMatrix >> isZeroAt: row and: column [
 	
 	^(columns at: column) isZeroAt: row
 ]
 
 { #category : #accessing }
-MOSparseColumnMatrix >> sparseSize [
+MASparseColumnMatrix >> sparseSize [
 	
 	^columns
 		inject: 0
@@ -64,7 +64,7 @@ MOSparseColumnMatrix >> sparseSize [
 ]
 
 { #category : #printing }
-MOSparseColumnMatrix >> storeOn: stream [
+MASparseColumnMatrix >> storeOn: stream [
 	
 	| text |
 	text := String new writeStream.
@@ -83,7 +83,7 @@ MOSparseColumnMatrix >> storeOn: stream [
 ]
 
 { #category : #'SVD decomposing' }
-MOSparseColumnMatrix >> storeSVDSparseBinaryOn: aStream [
+MASparseColumnMatrix >> storeSVDSparseBinaryOn: aStream [
 	
 	self storeTransposedSparseBinaryOn: aStream
 ]

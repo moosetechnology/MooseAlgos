@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOVectorCoercion,
-	#superclass : #MOVector,
+	#name : #MAVectorCoercion,
+	#superclass : #MAVector,
 	#instVars : [
 		'number'
 	],
@@ -11,9 +11,9 @@ Class {
 }
 
 { #category : #'initialize-release' }
-MOVectorCoercion class >> with: aNumber [
+MAVectorCoercion class >> with: aNumber [
 	
-	^(aNumber isKindOf: MOVector)
+	^(aNumber isKindOf: MAVector)
 		ifTrue: [aNumber]
 		ifFalse:
 			[(self basicNew)
@@ -22,37 +22,37 @@ MOVectorCoercion class >> with: aNumber [
 ]
 
 { #category : #converting }
-MOVectorCoercion >> asNumber [
+MAVectorCoercion >> asNumber [
 	
 	^number
 ]
 
 { #category : #accessing }
-MOVectorCoercion >> at: index [
+MAVectorCoercion >> at: index [
 	
 	^number
 ]
 
 { #category : #testing }
-MOVectorCoercion >> hasSize: aSize [
+MAVectorCoercion >> hasSize: aSize [
 	
 	^true
 ]
 
 { #category : #'initialize-release' }
-MOVectorCoercion >> initializeSize: aSize [
+MAVectorCoercion >> initializeSize: aSize [
 	
 	^self noDimensionError
 ]
 
 { #category : #private }
-MOVectorCoercion >> noDimensionError [
+MAVectorCoercion >> noDimensionError [
 	
 	^self error: 'Coerced matrices do not have dimension.'
 ]
 
 { #category : #printing }
-MOVectorCoercion >> printOn: aStream [
+MAVectorCoercion >> printOn: aStream [
 	
 	aStream
 		print: self class;
@@ -61,33 +61,33 @@ MOVectorCoercion >> printOn: aStream [
 ]
 
 { #category : #'initialize-release' }
-MOVectorCoercion >> setNumber: aNumber [
+MAVectorCoercion >> setNumber: aNumber [
 	
 	^number := aNumber
 ]
 
 { #category : #accessing }
-MOVectorCoercion >> size [
+MAVectorCoercion >> size [
 	
 	^self noDimensionError
 ]
 
 { #category : #'mathematical functions' }
-MOVectorCoercion >> sum [
+MAVectorCoercion >> sum [
 	
 	^self noDimensionError
 ]
 
 { #category : #private }
-MOVectorCoercion >> switch: matrix caseCoercion: coercionBlock caseVector: vectorBlock [
+MAVectorCoercion >> switch: matrix caseCoercion: coercionBlock caseVector: vectorBlock [
 	
-	^(matrix isKindOf: MOVectorCoercion)
+	^(matrix isKindOf: MAVectorCoercion)
 		ifTrue: [coercionBlock value]
 		ifFalse: [vectorBlock value]
 ]
 
 { #category : #enumerating }
-MOVectorCoercion >> with: vector affect: aBlock [
+MAVectorCoercion >> with: vector affect: aBlock [
 	
 	^self
 		switch: vector
@@ -99,12 +99,12 @@ MOVectorCoercion >> with: vector affect: aBlock [
 ]
 
 { #category : #enumerating }
-MOVectorCoercion >> with: vector collect: aBlock [
+MAVectorCoercion >> with: vector collect: aBlock [
 	
 	^self
 		switch: vector
 		caseCoercion:
-			[MOMatrixCoercion
+			[MAMatrixCoercion
 				with:
 					(aBlock
 						value: number
@@ -116,7 +116,7 @@ MOVectorCoercion >> with: vector collect: aBlock [
 ]
 
 { #category : #enumerating }
-MOVectorCoercion >> with: vector do: aBlock [
+MAVectorCoercion >> with: vector do: aBlock [
 	
 	^self
 		switch: vector

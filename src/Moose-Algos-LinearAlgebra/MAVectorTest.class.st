@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOVectorTest,
+	#name : #MAVectorTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'v',
@@ -12,13 +12,13 @@ Class {
 }
 
 { #category : #testing }
-MOVectorTest class >> isAbstract [
+MAVectorTest class >> isAbstract [
 	
 	^self name = #VectorTest
 ]
 
 { #category : #fixture }
-MOVectorTest >> setUp [
+MAVectorTest >> setUp [
 	"comment stating purpose of message"
 	
 	v := self vectorClass withAll: (1 to: 10).
@@ -26,7 +26,7 @@ MOVectorTest >> setUp [
 ]
 
 { #category : #test }
-MOVectorTest >> testAccessors [
+MAVectorTest >> testAccessors [
 	"comment stating purpose of message"
 	
 	v := self vectorClass new: 1.
@@ -36,7 +36,7 @@ MOVectorTest >> testAccessors [
 ]
 
 { #category : #test }
-MOVectorTest >> testAccessors2 [
+MAVectorTest >> testAccessors2 [
 	"comment stating purpose of message"
 	
 	v := self vectorClass new: 3.
@@ -49,7 +49,7 @@ MOVectorTest >> testAccessors2 [
 ]
 
 { #category : #test }
-MOVectorTest >> testAccessors3 [
+MAVectorTest >> testAccessors3 [
 	"comment stating purpose of message"
 	
 	v := self vectorClass withAll: #(4 5 7).
@@ -62,7 +62,7 @@ MOVectorTest >> testAccessors3 [
 ]
 
 { #category : #test }
-MOVectorTest >> testAccessors4 [
+MAVectorTest >> testAccessors4 [
 	"comment stating purpose of message"
 	
 	v := self vectorClass withAll: #(4 5 7).
@@ -75,7 +75,7 @@ MOVectorTest >> testAccessors4 [
 ]
 
 { #category : #test }
-MOVectorTest >> testDifference [
+MAVectorTest >> testDifference [
 	"comment stating purpose of message"
 	
 	self assert: v - 2 = (self vectorClass withAll: #(-1 0 1 2 3 4 5 6 7 8)).
@@ -89,7 +89,7 @@ MOVectorTest >> testDifference [
 ]
 
 { #category : #test }
-MOVectorTest >> testDotProduct [
+MAVectorTest >> testDotProduct [
 	"comment stating purpose of message"
 	
 	v := self vectorClass withAll: #(1 2 3).
@@ -100,7 +100,7 @@ MOVectorTest >> testDotProduct [
 ]
 
 { #category : #test }
-MOVectorTest >> testLength [
+MAVectorTest >> testLength [
 	"comment stating purpose of message"
 	
 	v := self vectorClass withAll: #(1 2 3).
@@ -110,7 +110,7 @@ MOVectorTest >> testLength [
 ]
 
 { #category : #test }
-MOVectorTest >> testNonZeroSize [
+MAVectorTest >> testNonZeroSize [
 	
 	v := self vectorClass new: 100 withAll: 0.
 	self assert: v sparseSize = 0.
@@ -131,7 +131,7 @@ MOVectorTest >> testNonZeroSize [
 ]
 
 { #category : #test }
-MOVectorTest >> testProduct [
+MAVectorTest >> testProduct [
 	"comment stating purpose of message"
 	
 	self
@@ -143,7 +143,7 @@ MOVectorTest >> testProduct [
 ]
 
 { #category : #test }
-MOVectorTest >> testProductVector [
+MAVectorTest >> testProductVector [
 	"comment stating purpose of message"
 	
 	self
@@ -154,7 +154,7 @@ MOVectorTest >> testProductVector [
 ]
 
 { #category : #test }
-MOVectorTest >> testQuotient [
+MAVectorTest >> testQuotient [
 	"comment stating purpose of message"
 	
 	self
@@ -169,17 +169,17 @@ MOVectorTest >> testQuotient [
 ]
 
 { #category : #test }
-MOVectorTest >> testReadDenseTextFrom [
+MAVectorTest >> testReadDenseTextFrom [
 	
 	| vector text stream |
-	vector := MOArrayVector withAll: #(2.3 0 4.2 0 1.3 2.2 3.8 0 0.5 0 0 0).
+	vector := MAArrayVector withAll: #(2.3 0 4.2 0 1.3 2.2 3.8 0 0.5 0 0 0).
 	text := '12\2.3 0 4.2 0 1.3 2.2 3.8 0 0.5 0 0 0\' withCRs.
 	stream := ReadStream on: text.
 	self assert: vector = (self vectorClass readFromDenseText: stream)
 ]
 
 { #category : #test }
-MOVectorTest >> testStoreDenseTextOn [
+MAVectorTest >> testStoreDenseTextOn [
 	
 	| vector text stream |
 	vector := self vectorClass withAll: #(2.3 0 4.2 0 1.3 2.2 3.8 0 0.5 0 0 0).
@@ -190,7 +190,7 @@ MOVectorTest >> testStoreDenseTextOn [
 ]
 
 { #category : #test }
-MOVectorTest >> testSum [
+MAVectorTest >> testSum [
 	"comment stating purpose of message"
 	
 	self assert: v + 2 = (self vectorClass withAll: #(3 4 5 6 7 8 9 10 11 12)).
@@ -201,7 +201,7 @@ MOVectorTest >> testSum [
 ]
 
 { #category : #test }
-MOVectorTest >> testSumVector [
+MAVectorTest >> testSumVector [
 	"comment stating purpose of message"
 	
 	self
@@ -210,7 +210,7 @@ MOVectorTest >> testSumVector [
 ]
 
 { #category : #test }
-MOVectorTest >> testUnitVector [
+MAVectorTest >> testUnitVector [
 	"comment stating purpose of message"
 	
 	self assert: v unitVector length asFloat = 1.0d asFloat.
@@ -218,7 +218,7 @@ MOVectorTest >> testUnitVector [
 ]
 
 { #category : #fixture }
-MOVectorTest >> vectorClass [
+MAVectorTest >> vectorClass [
 	
 	self subclassResponsibility
 ]

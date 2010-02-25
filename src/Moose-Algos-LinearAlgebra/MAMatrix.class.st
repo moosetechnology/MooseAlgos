@@ -901,6 +901,12 @@ MAMatrix >> reciprocal [
 				ifFalse: [each reciprocal]]
 ]
 
+{ #category : #converting }
+MAMatrix >> remap: mapping [
+	
+	^MAMappedMatrix on: self rowMap: mapping columnMap: mapping
+]
+
 { #category : #resizing }
 MAMatrix >> removeColumnAtIndex: anIndex [
 	

@@ -45,10 +45,17 @@ MATerms class >> fromFile: aFile [
 
 { #category : #'instance creation' }
 MATerms class >> fromString: aString [
+
 	
-	^(MATermScanner new)
-		onString: aString;
-		allTerms
+	
+		| scanner |
+	scanner := (MATermScanner new)	..
+				
+			scanner	onString: aString.	
+			
+		^	scanner	allTerms.
+			
+		
 ]
 
 { #category : #examples }
@@ -158,13 +165,19 @@ MATerms >> removeRareTerms: occurrence [
 { #category : #removing }
 MATerms >> removeStopwords [
 	
-	^self removeStopwords: English
+	
+		
+		^self removeStopwords:  MAStopwords English
 ]
 
 { #category : #removing }
 MATerms >> removeStopwords: stopwords [
 	
-	stopwords do: [:each | contents removeKey: each ifAbsent: nil]
+	
+		
+		stopwords do: [:each | 
+			Transcript show: '*',each asString,'************'.
+			contents removeKey: each ifAbsent: nil]
 ]
 
 { #category : #'Mondrian visuals' }

@@ -17,15 +17,22 @@ Class {
 MACorpus class >> deer90 [
 	"(((	self deer90	)))"
 	
+	
 	| data corpus |
+	
 	data := #(#(#c1 'Human machine interface for Lab ABC computer applications') #(#c2 'A survey of user opinion of computer system response time') #(#c3 'The EPS user interface management system') #(#c4 'System and human system engineering testing of EPS') #(#c5 'Relation of user-perceived response time to error measurement') #(#m1 'The generation of random, binary, unordered trees') #(#m2 'The intersection graph of paths in trees') #(#m3 'Graph minors IV: Widths of trees and well-quasi-ordering') #(#m4 'Graph minors: A survey')).
+
+	
 	corpus := MACorpus new.
+	
+	
 	data
-		do:
-			[:each | 
-			corpus
-				addDocument: each first
-				with: (MATerms fromString: each last)].
+do:
+[:each | 	corpus
+addDocument: each first
+with: (MATerms fromString: each last)].
+	
+	
 	^corpus
 ]
 
@@ -38,16 +45,20 @@ MACorpus class >> new [
 { #category : #adding }
 MACorpus >> addDocument: anObject [
 	
-	documents
-		at: anObject
-		ifAbsentPut: [MATerms new]
+	
+		documents
+	at: anObject
+	ifAbsentPut: [
+			
+					MATerms new]
 ]
 
 { #category : #adding }
 MACorpus >> addDocument: anObject with: terms [
+		
+		self addDocument: anObject.
 	
-	self addDocument: anObject.
-	self atDocument: anObject add: terms
+		self atDocument: anObject add: terms
 ]
 
 { #category : #adding }
@@ -124,7 +135,8 @@ MACorpus >> initialize [
 { #category : #removing }
 MACorpus >> removeStopwords [
 	
-	documents do: [:each | each removeStopwords]
+	
+		documents do: [:each | each removeStopwords]
 ]
 
 { #category : #removing }

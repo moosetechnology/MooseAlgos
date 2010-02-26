@@ -16,6 +16,12 @@ Class {
 }
 
 { #category : #constants }
+MAStopwords class >> English [
+
+	^ English ifNil: [English := (self englishStopwordString subStrings: {Character space}). ]
+]
+
+{ #category : #constants }
 MAStopwords class >> basicEnglish [
 	"Answer a list of basic words. This is a list of the 850 words in the Basic English core 
 	vocabulary. These words all denote simple concepts commonly used in everyday life.  
@@ -43,7 +49,15 @@ MAStopwords class >> englishStopwordString [
 { #category : #'instance creation' }
 MAStopwords class >> fromString: stopwords [
 	
-	^self withAll: (stopwords runsFailing: #isSeparator)
+	
+		^ super new addAll: (stopwords runsFailing: #isSeparator).
+		"^self withAll: (stopwords runsFailing: #isSeparator)"
+]
+
+{ #category : #constants }
+MAStopwords class >> initializeEnglish [
+"self initializeEnglish"
+	English := nil.
 ]
 
 { #category : #testing }
@@ -63,24 +77,45 @@ MAStopwords class >> moreBasicEnglish [
 { #category : #adding }
 MAStopwords >> add: aString [
 	
+	
 	| size |
+	
 	size := aString size.
+	
 	array ifNil: [array := Array new].
+	
 	size > array size
-		ifTrue:
-			[array changeSizeTo: size.
-			array
-				doWithIndex:
-					[:each :index | 
-					each
-						ifNil:
-							[array
-								at: index
-								put: Array new]]].
+ifTrue:
+	[
+	"array changeSizeTo: size.
+	"
+	self changeSizeTo: size.		
 	array
-		at: size
-		put: ((array at: size) copyWith: aString).
+	doWithIndex:
+[:each :index | 
+		
+		each
+ifNil:
+[array
+	at: index
+put: Array new]
+		]
+	].
+
+	array
+	at: size
+	put: ((array at: size) copyWith: aString).
 	^aString
+]
+
+{ #category : #'as yet unclassified' }
+MAStopwords >> changeSizeTo: size [
+	"Become larger. Typically, a subclass has to override this if the subclass
+	adds instance variables."
+	| newArray |
+	newArray := Array new: size.
+	newArray replaceFrom: 1 to: array size with: array startingAt: 1.
+	array := newArray
 ]
 
 { #category : #enumerating }

@@ -34,24 +34,33 @@ MATermScanner class >> new [
 { #category : #running }
 MATermScanner class >> scan: input [
 	
-	^(self new)
-		onStream: input readStream;
-		allTerms
+	
+	| scanner |
+	scanner := (self new)
+onStream: input readStream.
+		
+	^ scanner	allTerms.
 ]
 
 { #category : #running }
 MATermScanner >> allTerms [
 	
+	
 	| bag |
+	
 	bag := MATerms new.
+	
 	[self atEnd] whileFalse: [bag add: self next].
+	
 	^bag
 ]
 
 { #category : #scanning }
 MATermScanner >> atEnd [
 	
+	
 	term == Void ifTrue: [term := self privateNext].
+	
 	^term isNil
 ]
 
@@ -95,21 +104,32 @@ MATermScanner >> onString: text [
 { #category : #private }
 MATermScanner >> privateNext [
 	
+	
 	| next |
+	
 	buffer reset.
-	[[(next := stream next) isLetter] whileFalse.
+
+	
+	[
+	[((next := stream informationRetrievalNext) isLetter) ] whileFalse.
+	
 	[buffer nextPut: next asLowercase.
-	(next := stream next) isLetter] whileTrue.
-	[(next := stream next) isLetter] whileFalse.
-	stream skip: -1]
-		on: Stream endOfStreamSignal
-		do:
-			[:ex | 
-			"-- do nothing"
-			].
-	^buffer isEmpty
-		ifTrue: [nil]
-		ifFalse: [buffer contents]
+	(next := stream informationRetrievalNext) isLetter] whileTrue.
+	
+	
+	[((next := stream informationRetrievalNext) isLetter)  ] whileFalse.
+	
+	stream skip: -1.
+	]
+on: Stream endOfStreamSignal
+	do:
+[:ex | 
+"-- do nothing"  
+].
+	
+	^buffer contents isEmpty
+	ifTrue: [nil]
+ifFalse: [buffer contents]
 ]
 
 { #category : #accessing }

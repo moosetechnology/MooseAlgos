@@ -23,59 +23,84 @@ MACamelcaseScanner class >> bible [
 { #category : #'initialize-release' }
 MACamelcaseScanner >> onStream: input [
 	
-	super onStream: input.
-	next := Character space
+	
+		super onStream: input.
+	
+		next := Character space
 ]
 
 { #category : #private }
 MACamelcaseScanner >> privateNext [
 	
-	next isNil ifTrue: [^nil].
-	buffer reset.
-	[self xWhitespace.
-	next isLowercase
-		ifTrue: [self xLowercaseWord]
-		ifFalse: [self xCapitalizedWord]]
-		on: Stream endOfStreamSignal
-		do: [:ex | next := nil].
-	^buffer isEmpty
-		ifTrue: [nil]
-		ifFalse: [buffer contents]
+	
+		next isNil ifTrue: [^nil].
+	
+		buffer reset.
+	
+		[self xWhitespace.
+	
+			next isLowercase
+
+			ifTrue: [self xLowercaseWord]
+		
+			ifFalse: [self xCapitalizedWord]]
+on: Stream endOfStreamSignal	do: [:ex | next := nil].
+	
+		
+		^buffer contents isEmpty
+	ifTrue: [nil]
+ifFalse: [buffer contents]
 ]
 
 { #category : #private }
 MACamelcaseScanner >> xCapitalizedWord [
 	
-	buffer nextPut: next.
-	next := stream next.
-	next isLetter
-		ifTrue:
-			[next isLowercase
-				ifTrue:
-					[buffer collection
-						at: 1
-						put: buffer collection first asLowercase.
-					self xLowercaseWord]
-				ifFalse: [self xUppercaseWord]]
+	
+		buffer nextPut: next.
+	
+		next := stream informationRetrievalNext.
+	
+		next isLetter
+ifTrue:
+[
+			next isLowercase
+ifTrue:
+[
+				buffer collection
+at: 1
+put: buffer collection first asLowercase.
+					
+				self xLowercaseWord
+			]
+				
+						ifFalse: [self xUppercaseWord]
+		]
 ]
 
 { #category : #private }
 MACamelcaseScanner >> xLowercaseWord [
 	
+	
+	
 	[buffer nextPut: next.
-	next := stream next.
+	
+	next := stream informationRetrievalNext.
+	
 	next isLowercase] whileTrue
 ]
 
 { #category : #private }
 MACamelcaseScanner >> xUppercaseWord [
 	
+	
 	[| peek |
+	
 	peek := stream peek.
+	
 	next isLetter and: [peek == nil or: [peek isLowercase not]]]
-		whileTrue:
-			[buffer nextPut: next.
-			next := stream next]
+	whileTrue:
+	[buffer nextPut: next.
+			next := stream informationRetrievalNext]
 ]
 
 { #category : #private }
@@ -85,7 +110,7 @@ MACamelcaseScanner >> xWhitespace [
 	next isLetter
 		ifFalse:
 			[[previous := next.
-			next := stream next.
+			next := stream informationRetrievalNext.
 			($0 == next and: [previous isSeparator]) ifTrue: [self xZeroWord].
 			next isLetter] whileFalse]
 ]
@@ -93,5 +118,5 @@ MACamelcaseScanner >> xWhitespace [
 { #category : #private }
 MACamelcaseScanner >> xZeroWord [
 	
-	[next isAlphaNumeric] whileTrue: [next := stream next]
+	[next isAlphaNumeric] whileTrue: [next := stream informationRetrievalNext]
 ]

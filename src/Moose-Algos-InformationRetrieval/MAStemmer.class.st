@@ -19,9 +19,15 @@ Class {
 }
 
 { #category : #stemming }
+MAStemmer class >> English [
+
+	^ English ifNil: [English := MAPorterStemmer new].
+]
+
+{ #category : #stemming }
 MAStemmer class >> stem: aString [
 	
-	^English stem: aString
+	^self English stem: aString
 ]
 
 { #category : #'private-algorithm' }

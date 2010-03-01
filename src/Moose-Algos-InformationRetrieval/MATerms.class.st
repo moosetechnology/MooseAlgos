@@ -176,7 +176,6 @@ MATerms >> removeStopwords: stopwords [
 	
 		
 		stopwords do: [:each | 
-			Transcript show: '*',each asString,'************'.
 			contents removeKey: each ifAbsent: nil]
 ]
 

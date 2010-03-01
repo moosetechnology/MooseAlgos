@@ -66,7 +66,7 @@ MAMatrix class >> readFromDenseBinary: aBinaryStream [
 { #category : #'instance creation' }
 MAMatrix class >> readFromDenseText: aStream [
 	
-	| m n matrix |
+	| m n matrix tmp |
 	m := Integer readFrom: aStream skipSeparators.
 	n := Integer readFrom: aStream skipSeparators.
 	matrix := self rows: m columns: n.
@@ -81,7 +81,10 @@ MAMatrix class >> readFromDenseText: aStream [
 					matrix
 						at: row
 						and: column
-						put: (Number readSmalltalkAndCSyntaxFrom: aStream skipSeparators)]].
+						"put: (tmp := (Number readSmalltalkAndCSyntaxFrom: aStream skipSeparators))."
+						put: (tmp := (Number readFrom: aStream skipSeparators)).
+						
+						]].
 	^matrix
 ]
 
@@ -270,6 +273,18 @@ MAMatrix >> = matrix [
 								with: matrix
 								do: [:a :b | a = b ifFalse: [^false]].
 							true]]]
+]
+
+{ #category : #arithmetic }
+MAMatrix >> adaptToNumber: rcvr andSend: selector [
+
+	^ self perform: selector with: rcvr
+]
+
+{ #category : #arithmetic }
+MAMatrix >> adaptToPoint: rcvr andSend: selector [
+
+	^ self perform: selector with: rcvr
 ]
 
 { #category : #resizing }

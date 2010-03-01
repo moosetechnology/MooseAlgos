@@ -43,6 +43,21 @@ Unlimited >> = aMagnitude [
 ]
 
 { #category : #'as yet unclassified' }
+Unlimited >> adaptToNumber: rcvr andSend: selector [
+
+	selector = #< ifTrue:[
+		self positive 
+		ifTrue: [ ^ true ]
+		ifFalse: [ ^false ].
+		].
+	selector = #> ifTrue: [
+		self positive 
+		ifTrue: [ ^ false ]
+		ifFalse: [ ^true ].
+		].
+]
+
+{ #category : #'as yet unclassified' }
 Unlimited >> hash [
 
 	^positive 

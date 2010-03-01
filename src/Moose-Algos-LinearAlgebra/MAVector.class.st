@@ -17,7 +17,7 @@ MAVector class >> browserIcon [
 { #category : #'instance creation' }
 MAVector class >> new [
 	
-	^self new: Number zero
+	^self new: 0
 ]
 
 { #category : #'instance creation' }
@@ -48,7 +48,8 @@ MAVector class >> readFromDenseText: aStream [
 			[:index | 
 			vector
 				at: index
-				put: (Number readSmalltalkAndCSyntaxFrom: aStream skipSeparators)].
+				"put: (Number readSmalltalkAndCSyntaxFrom: aStream skipSeparators)"
+				put: (Number readFrom: aStream skipSeparators)].
 	^vector
 ]
 
@@ -654,7 +655,7 @@ MAVector >> unitVector [
 { #category : #enumerating }
 MAVector >> with: vector affect: aBlock [
 	
-	(vector size = self size) ifFalse: [^self noMatchError].
+	(vector hasSize: self size) ifFalse: [^self noMatchError].
 	1
 		to: self size
 		do:

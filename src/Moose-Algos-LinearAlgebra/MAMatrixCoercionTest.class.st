@@ -9,8 +9,8 @@ Class {
 
 { #category : #test }
 MAMatrixCoercionTest >> testDouble [
-	
-	| m n |
+	"no longer Double in Pharo"
+	"| m n |
 	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
@@ -22,13 +22,13 @@ MAMatrixCoercionTest >> testDouble [
 	m * n.
 	n * m.
 	m / n.
-	n / m
+	n / m"
 ]
 
 { #category : #test }
 MAMatrixCoercionTest >> testFixedPoint [
-	
-	| m n |
+	"no longer FixedPoint in Pharo"
+	"| m n |
 	m := MAColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
@@ -40,7 +40,7 @@ MAMatrixCoercionTest >> testFixedPoint [
 	m * n.
 	n * m.
 	m / n.
-	n / m
+	n / m"
 ]
 
 { #category : #test }

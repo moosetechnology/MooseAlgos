@@ -10,7 +10,7 @@ Class {
 { #category : #testing }
 MAMatrixTest class >> isAbstract [
 	
-	^self name = #MatrixTest
+	^self name = #MAMatrixTest
 ]
 
 { #category : #fixture }
@@ -58,8 +58,9 @@ MAMatrixTest >> testAddWithNumber [
 	m10 := self matrixClass withAll: #(#(11 12) #(13 14) #(15 16)).
 	self assert: m + 10 = m10.
 	self assert: 10 + m = m10.
-	self assert: m + 10.0d = m10.
-	self assert: 10.0d + m = m10.
+	"no longer Double in Pharo"
+	"self assert: m + 10.0d = m10."
+	"self assert: 10.0d + m = m10."
 	m += 10.
 	self assert: m = m10
 ]
@@ -165,8 +166,9 @@ MAMatrixTest >> testMultWithNumber [
 	m10 := self matrixClass withAll: #(#(10 20) #(30 40) #(50 60)).
 	self assert: m * 10 = m10.
 	self assert: 10 * m = m10.
-	self assert: m * 10.0d = m10.
-	self assert: 10.0d * m = m10.
+	"no longer Double in Pharo"
+	"self assert: m * 10.0d = m10.
+	self assert: 10.0d * m = m10."
 	m *= 10.
 	self assert: m = m10
 ]
@@ -174,12 +176,13 @@ MAMatrixTest >> testMultWithNumber [
 { #category : #test }
 MAMatrixTest >> testReadDenseTextFrom [
 	
-	| matrix text stream |
+	| matrix text stream result |
 	matrix := MAArrayMatrix withAll:
 			#(#(2.3 0 4.2) #(0 1.3 2.2) #(3.8 0 0.5) #(0 0 0)).
 	text := '4 3\2.3 0 4.2\0 1.3 2.2\3.8 0 0.5\0 0 0\' withCRs.
+
 	stream := ReadStream on: text.
-	self assert: matrix = (self matrixClass readFromDenseText: stream)
+	self assert: matrix = (result := (self matrixClass readFromDenseText: stream))
 ]
 
 { #category : #test }

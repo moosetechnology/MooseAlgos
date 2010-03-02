@@ -21,18 +21,18 @@ MAFormalContext class >> benchmark [
 { #category : #examples }
 MAFormalContext class >> classHierarchy [
 	
-	^self classHierarchy: Pimon allClasses
+	^self classHierarchy: Smalltalk allClasses
 ]
 
 { #category : #examples }
 MAFormalContext class >> classHierarchy: classes [
 	
 	| fca |
-	fca := FormalContext new.
+	fca := MAFormalContext new.
 	fca
 		with: classes
 		using: #yourself
-		using: [:each | each allSelectors \ Object allSelectors].
+		using: [:each | each allSelectors "\"difference: Object allSelectors].
 	^fca
 ]
 
@@ -44,7 +44,7 @@ MAFormalContext class >> mammals [
 	data := #(#(#ostrich #(#walks #laysEggs #featheres #warmblooded)) #(#mosquito #(#laysEggs #flies #small)) #(#vulture #(#laysEggs #featheres #warmblooded #flies)) #(#horse #(#walks #warmblooded #suckles)) #(#bat #(#warmblooded #flies #small #suckles)) #(#frog #(#quacks #laysEggs #small)) #(#dove #(#laysEggs #featheres #warmblooded #flies #small)) #(#crocodile #(#walks #laysEggs)) #(#robin #(#laysEggs #featheres #warmblooded #flies #sings #small)) #(#platypus #(#walks #laysEggs #warmblooded #suckles))).
 	names := #(#robin #dove #vulture #ostrich #bat #horse #platypus #crocodile #frog #mosquito).
 	names := String withAll: (names collect: #first).
-	fca := FormalContext new.
+	fca := MAFormalContext new.
 	fca with: data using: #first using: #last.
 	^fca
 ]
@@ -104,8 +104,8 @@ MAFormalContext >> with: collection using: foBlock using: faBlock [
 	
 	| dict fobject fattribute |
 	dict := Dictionary new.
-	fobjects := ArrayList new.
-	fattributes := ArrayList new.
+	fobjects := "ArrayList"OrderedCollection new.
+	fattributes := "ArrayList"OrderedCollection new.
 	collection
 		do:
 			[:eachFo | 

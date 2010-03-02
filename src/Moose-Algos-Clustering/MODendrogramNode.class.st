@@ -71,7 +71,8 @@ MODendrogramNode >> orderLeafs [
 					self right swap]
 		with: (b dist: c) -> []
 		with: (b dist: d) -> [self right swap].
-	(array sorted: #key asSortBlock) first value value.
+		
+	(array copy sort: [:el1 :el2 | el1 key < el2 key]) first value value.
 	self left orderLeafs.
 	self right orderLeafs
 ]

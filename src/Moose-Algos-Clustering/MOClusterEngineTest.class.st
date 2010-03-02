@@ -62,7 +62,7 @@ MOClusterEngineTest >> testClustering2 [
 MOClusterEngineTest >> testClustering300Elements [
 	
 	| input clusty clusters |
-	input := MORandom new next: 300.
+	input := Random new next: 300.
 	clusty := MOClusterEngine with: input.
 	1
 		to: 1
@@ -75,7 +75,7 @@ MOClusterEngineTest >> testClustering300Elements [
 MOClusterEngineTest >> testClusteringOptimization [
 	
 	| input clusty |
-	input := MORandom new next: 200.
+	input := Random new next: 200.
 	clusty := MOClusteringData onDistanceSquare: (MODistanceSquare on: input).	"internally compares the optimzed and the unoptimized code."
 	clusty testPerformClustering: #averageLinkage
 ]
@@ -85,7 +85,7 @@ MOClusterEngineTest >> testSeriationEngine [
 	
 	| input output |
 	input := #(1 2 3 5 11 12 15 21 22 23 25 31 32 35 41 42 43 45 47).
-	output := MOSeriationEngine applyOn: input asArray shuffle.
+	output := MOSeriationEngine applyOn: input copy asArray shuffle.
 	self assert: output = input | (output reverse = input)
 ]
 

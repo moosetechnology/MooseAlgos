@@ -35,7 +35,8 @@ MODendrogram >> breakAtThreshold: aNumber [
 MODendrogram >> breakInto: numberOfClusters [
 	
 	| all candidates |
-	all := self nodes reverseSort: #threshold.
+	"all := self nodes reverseSort: #threshold."
+	all := self nodes sort: [:a :b | b threshold <= a threshold].
 	candidates := IdentitySet with: all first.
 	all
 		do:
@@ -50,7 +51,7 @@ MODendrogram >> breakInto: numberOfClusters [
 MODendrogram >> dist: dendrogram [
 	
 	| sum |
-	sum := MOAccumulator sum.
+	sum := MAAccumulator sum.
 	self elements
 		cross: dendrogram elements
 		do: [:a :b | sum add: (a dist: b)].

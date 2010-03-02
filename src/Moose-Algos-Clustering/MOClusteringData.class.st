@@ -32,8 +32,8 @@ MOClusteringData class >> vectorSpecies [
 MOClusteringData >> averageLinkage [
 	
 	| weightA weightB sizeA sizeB |
-	sizeA := (clusters at: foundA0) size asDouble.
-	sizeB := (clusters at: foundB0) size asDouble.
+	sizeA := (clusters at: foundA0) size "asDouble"asFloat.
+	sizeB := (clusters at: foundB0) size "asDouble"asFloat.
 	weightA := sizeA / (sizeA + sizeB).
 	weightB := sizeB / (sizeA + sizeB).
 	self
@@ -45,8 +45,8 @@ MOClusteringData >> averageLinkage [
 MOClusteringData >> centroid [
 	
 	| weightA weightB sizeA sizeB valueC |
-	sizeA := (clusters at: foundA0) size asDouble.
-	sizeB := (clusters at: foundB0) size asDouble.
+	sizeA := (clusters at: foundA0) size asFloat.
+	sizeB := (clusters at: foundB0) size asFloat.
 	weightA := sizeA / (sizeA + sizeB).
 	weightB := sizeB / (sizeA + sizeB).
 	valueC := (self at: foundA0 and: foundB0)
@@ -197,7 +197,7 @@ MOClusteringData >> testPerformClustering: linkageSelector [
 	
 	indices size - 1
 		timesRepeat:
-			[IncrementNotification signalWith: indices size.
+			[IncrementNotification signal"With: indices size".
 			self testFindMinimum.
 			self perform: linkageSelector].
 	^self dendrogram
@@ -215,8 +215,8 @@ MOClusteringData >> unsetAt: row and: column [
 MOClusteringData >> wardsMethod [
 	
 	| sizeA sizeB valueC sizeC weightA weightB weightC |
-	sizeA := (clusters at: foundA0) size asDouble.
-	sizeB := (clusters at: foundB0) size asDouble.
+	sizeA := (clusters at: foundA0) size asFloat.
+	sizeB := (clusters at: foundB0) size asFloat.
 	valueC := self at: foundA0 and: foundB0.
 	self
 		privateLinkage:

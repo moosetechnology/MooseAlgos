@@ -18,7 +18,7 @@ MOGraphFixture class >> aseCircuitGraph: builder [
 ]
 
 { #category : #fixtures }
-MOGraphFixture class >> aseSingleCircuitGraph: builder [
+MOGraphFixture class >> aseSccGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $e.
@@ -170,4 +170,26 @@ MOGraphFixture class >> simpleWeightedGraph: builder [
 	builder edges: edges from: #first to: #second weight: #third.
 	^ builder
 
+]
+
+{ #category : #visualization }
+MOGraphFixture class >> view: fixtureSelector [
+	"
+	self view: #simpleGraph:.
+	self view: #cycleGraph:.
+	self view: #aseCircuitGraph:.
+	self view: #moduleGraph:
+	self view: #nestedCycleGraph:
+	"
+
+	| view graph builder |
+	view := MOViewRenderer new.
+	builder := MOGraphStructure new nodeClass: MOGraphNode; edgeClass: MOGraphEdge; yourself.
+	graph := self perform: fixtureSelector with: builder.
+	view shape rectangle text: [:n| n model printString].
+	view nodes: graph nodes.
+	view edges: graph edges from: #from to: #to.
+	view interaction.
+	view treeLayout.
+	view open
 ]

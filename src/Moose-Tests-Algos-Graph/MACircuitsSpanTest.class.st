@@ -31,31 +31,30 @@ MACircuitsSpanTest >> setUp [
 ]
 
 { #category : #tests }
-MACircuitsSpanTest >> testBasicCircuit [
+MACircuitsSpanTest >> testAseCircuit [
 	"
-	self debug: #testBasicCircuit 
+	self debug: #testAseCircuit 
 	"
 
 	MOGraphFixture aseCircuitGraph: cspan.
 	cspan run.
 	self assert: 5
 			equals: cspan circuits size.
-	self assert: (self circuit: #($g $h) equals: cspan circuits first).
-	self assert: (self circuit: #($b $d) equals: cspan circuits second).
-	self assert: (self circuit: #($a $b) equals: cspan circuits third).
-	self assert: (self circuit: #($c $d $b) equals: cspan circuits fourth).
-	self assert: (self circuit: #($e $a $b $d) equals: cspan circuits fifth).
+	#(($g $h) ($b $d) ($a $b) ($c $d $b) ($e $a $b $d)) do: [:c|
+			self assert: (cspan circuits anySatisfy: [:ci|
+				self circuit: c equals: ci]) ].
+
 ]
 
 { #category : #tests }
-MACircuitsSpanTest >> testCseSingleCircuit [
+MACircuitsSpanTest >> testAseScc [
 	"
-	self debug: #testCseSingleCircuit 
+	self debug: #testAseScc 
 	"
 
 	| cse |
 	cse := MACircuitSpanningEdges new.
-	MOGraphFixture aseSingleCircuitGraph: cse.
+	MOGraphFixture aseSccGraph: cse.
 	cse run.
 	self assert: 4
 			equals: cse circuits size.

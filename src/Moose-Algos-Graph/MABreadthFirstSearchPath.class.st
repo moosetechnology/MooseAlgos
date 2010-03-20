@@ -59,7 +59,7 @@ MABreadthFirstSearchPath >> run: depth [
 				ifTrue: [
 					(path first = next model) "backtrack along the path"
 						ifTrue: [ path addFirst: edge from model ].	
-					self flag: #isItUseful.	"reset visited here for next run?"
+					"reset visited for next run"
 					next notVisited ].
 			path ]	"stop recursion, start backtrack"
 ]

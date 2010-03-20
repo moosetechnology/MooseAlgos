@@ -28,7 +28,7 @@ MACyclesCoverage >> directCircuit: aCollection [
 MACyclesCoverage >> initialize [
 
 	super initialize.
-	self useEdgeDecomposition
+	self useNodeDecomposition 
 ]
 
 { #category : #running }
@@ -58,4 +58,10 @@ MACyclesCoverage >> useCircuitSpan [
 MACyclesCoverage >> useEdgeDecomposition [
 
 	sccExtractorClass := MASccEdgeDecomposition 
+]
+
+{ #category : #running }
+MACyclesCoverage >> useNodeDecomposition [
+
+	sccExtractorClass := MASccNodeDecomposition 
 ]

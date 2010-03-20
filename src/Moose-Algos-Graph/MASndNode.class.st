@@ -1,23 +1,16 @@
 Class {
 	#name : #MASndNode,
 	#superclass : #MOGraphNode,
+	#traits : 'MATNodeNode',
+	#classTraits : 'MATNodeNode classTrait',
 	#instVars : [
-		'ancestors',
+		'previousNodes',
+		'nextNodes',
 		'visited',
 		'bfsAncestor'
 	],
 	#category : #'Moose-Algos-Graph'
 }
-
-{ #category : #accessing }
-MASndNode >> ancestors [
-	^ ancestors
-]
-
-{ #category : #accessing }
-MASndNode >> ancestors: anObject [
-	ancestors := anObject
-]
 
 { #category : #accessing }
 MASndNode >> bfsAncestor [
@@ -27,6 +20,33 @@ MASndNode >> bfsAncestor [
 { #category : #accessing }
 MASndNode >> bfsAncestor: anObject [
 	bfsAncestor := anObject
+]
+
+{ #category : #'initialize-release' }
+MASndNode >> initialize [
+
+	previousNodes := OrderedCollection new.
+	nextNodes := OrderedCollection new.
+]
+
+{ #category : #accessing }
+MASndNode >> nextNodes [
+	^ nextNodes
+]
+
+{ #category : #accessing }
+MASndNode >> nextNodes: anObject [
+	nextNodes := anObject
+]
+
+{ #category : #accessing }
+MASndNode >> previousNodes [
+	^ previousNodes
+]
+
+{ #category : #accessing }
+MASndNode >> previousNodes: anObject [
+	previousNodes := anObject
 ]
 
 { #category : #accessing }

@@ -1,28 +1,11 @@
 Class {
 	#name : #MACircuitSpanningEdges,
-	#superclass : #MOGraphAlgorithm,
+	#superclass : #MASccExtractor,
 	#instVars : [
-		'circuits',
 		'dijkstra'
 	],
 	#category : #'Moose-Algos-Graph'
 }
-
-{ #category : #accessing }
-MACircuitSpanningEdges >> addCircuit: aCollectionOfNodes [
-	
-	circuits add: aCollectionOfNodes
-]
-
-{ #category : #accessing }
-MACircuitSpanningEdges >> circuits [
-	^ circuits
-]
-
-{ #category : #accessing }
-MACircuitSpanningEdges >> circuits: anObject [
-	circuits := anObject
-]
 
 { #category : #private }
 MACircuitSpanningEdges >> doUnvisitedEdges: aBlock [
@@ -79,7 +62,7 @@ MACircuitSpanningEdges >> findIndirectCircuits [
 MACircuitSpanningEdges >> initialize [ 
 
 	super initialize.
-	circuits := OrderedCollection new.
+	circuits := OrderedCollection new. "use that instead of Set"
 	dijkstra := MADijkstra new.
 
 ]

@@ -1,36 +1,18 @@
 Class {
 	#name : #MASccEdgeDecomposition,
-	#superclass : #MOGraphAlgorithm,
+	#superclass : #MASccExtractor,
 	#traits : 'MATNormalize',
 	#classTraits : 'MATNormalize classTrait',
 	#instVars : [
-		'circuits',
-		'dijkstra',
 		'bfsp'
 	],
 	#category : #'Moose-Algos-Graph'
 }
 
-{ #category : #accessing }
-MASccEdgeDecomposition >> addCircuit: aCollectionOfNodes [
-	
-	circuits add: aCollectionOfNodes
-]
-
 { #category : #running }
 MASccEdgeDecomposition >> bfsPathFrom: startNode to: endNode [
 
 	^ bfsp start: startNode; end: endNode; run
-]
-
-{ #category : #accessing }
-MASccEdgeDecomposition >> circuits [
-	^ circuits
-]
-
-{ #category : #accessing }
-MASccEdgeDecomposition >> circuits: anObject [
-	circuits := anObject
 ]
 
 { #category : #accessing }
@@ -44,7 +26,6 @@ MASccEdgeDecomposition >> initialize [
 
 	super initialize.
 	bfsp := MABreadthFirstSearchPath new.
-	circuits := Set new.
 
 ]
 

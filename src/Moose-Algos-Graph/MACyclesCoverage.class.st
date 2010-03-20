@@ -5,14 +5,15 @@ Class {
 	#classTraits : 'MATNormalize classTrait',
 	#instVars : [
 		'circuits',
-		'sed'
+		'sccExtractorClass',
+		'sccExtractor'
 	],
 	#category : #'Moose-Algos-Graph'
 }
 
 { #category : #accessing }
 MACyclesCoverage >> circuits [
-	sed circuits do: [:c |
+	sccExtractor circuits do: [:c |
 		circuits add: (c collect: [:n| n model]) ].
 	^ circuits
 ]
@@ -23,19 +24,38 @@ MACyclesCoverage >> directCircuit: aCollection [
 	^ self normalize: (OrderedCollection with: aCollection first model with: aCollection second model)
 ]
 
+{ #category : #'as yet unclassified' }
+MACyclesCoverage >> initialize [
+
+	super initialize.
+	self useEdgeDecomposition
+]
+
 { #category : #running }
 MACyclesCoverage >> run [
 
 	super run.
 	circuits := OrderedCollection new.
-	sed := MASccEdgeDecomposition new.
+	sccExtractor := sccExtractorClass new.
 	self stronglyConnectedComponents do: [:scc|
 		(scc size > 2) ifTrue: [
-			sed nodes: scc.
+			sccExtractor nodes: scc.
 			"graph injection remove outgoing edges from SCC"
-			sed edges: scc from: #yourself toAll: #nextNodes.
-			sed run ].
+			sccExtractor edges: scc from: #yourself toAll: #nextNodes.
+			sccExtractor run ].
 		(scc size = 2) ifTrue: [
 			circuits add: (self directCircuit: scc) ]. "direct circuit"
 		]
+]
+
+{ #category : #running }
+MACyclesCoverage >> useCircuitSpan [
+
+	sccExtractorClass := MACircuitSpanningEdges  
+]
+
+{ #category : #running }
+MACyclesCoverage >> useEdgeDecomposition [
+
+	sccExtractorClass := MASccEdgeDecomposition 
 ]

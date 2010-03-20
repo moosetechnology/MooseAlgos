@@ -13,25 +13,10 @@ MACyclesCoverageTest >> setUp [
 	cc := MACyclesCoverage new.
 ]
 
-{ #category : #'tests-sed' }
-MACyclesCoverageTest >> testAseCircuit [
-	"
-	self debug: #testAseCircuit 
-	"
-
-	MOGraphFixture aseCircuitGraph: cc.
-	cc run.
-	self assert: 5
-			equals: cc circuits size.
-	#(($g $h) ($b $d) ($a $b) ($b $c $d) ($a $b $d $e)) do: [:c|
-			self assert: (cc circuits anySatisfy: [:ci| c hasEqualElements: ci ])].
-
-]
-
 { #category : #'tests-cse' }
-MACyclesCoverageTest >> testAseCircuit2 [
+MACyclesCoverageTest >> testAseCircuitWithCse [
 	"
-	self debug: #testAseCircuit 
+	self debug: #testAseCircuitWithCse 
 	"
 
 	cc useCircuitSpan.
@@ -45,7 +30,56 @@ MACyclesCoverageTest >> testAseCircuit2 [
 ]
 
 { #category : #'tests-sed' }
-MACyclesCoverageTest >> testAseScc [
+MACyclesCoverageTest >> testAseCircuitWithSed [
+	"
+	self debug: #testAseCircuitWithSed 
+	"
+
+	cc useEdgeDecomposition.
+	MOGraphFixture aseCircuitGraph: cc.
+	cc run.
+	self assert: 5
+			equals: cc circuits size.
+	#(($g $h) ($b $d) ($a $b) ($b $c $d) ($a $b $d $e)) do: [:c|
+			self assert: (cc circuits anySatisfy: [:ci| c hasEqualElements: ci ])].
+
+]
+
+{ #category : #'tests-snd' }
+MACyclesCoverageTest >> testAseCircuitWithSnd [
+	"
+	self debug: #testAseCircuitWithSnd 
+	"
+
+	MOGraphFixture aseCircuitGraph: cc.
+	cc run.
+	self assert: 5
+			equals: cc circuits size.
+	#(($g $h) ($b $d) ($a $b) ($b $c $d) ($a $b $d $e)) do: [:c|
+			self assert: (cc circuits anySatisfy: [:ci| c hasEqualElements: ci ])].
+
+]
+
+{ #category : #'tests-cse' }
+MACyclesCoverageTest >> testAseSccWithCse [
+	"
+	self debug: #testAseSccWithCse 
+	"
+
+	| cse |
+	cse := MACircuitSpanningEdges new.
+	MOGraphFixture aseSccGraph: cse.
+	cse run.
+	self assert: 4
+			equals: cse circuits size.
+	self assert: (#($a $b) hasEqualElements: cse circuits first).
+	self assert: (#($b $d) hasEqualElements: cse circuits second).
+	self assert: (#($c $d $b) hasEqualElements: cse circuits third).
+	self assert: (#($e $a $b $d) hasEqualElements: cse circuits fourth).
+]
+
+{ #category : #'tests-sed' }
+MACyclesCoverageTest >> testAseSccWithSed [
 	"
 	self debug: #testAseScc 
 	"
@@ -62,25 +96,25 @@ MACyclesCoverageTest >> testAseScc [
 
 ]
 
-{ #category : #'tests-cse' }
-MACyclesCoverageTest >> testAseScc2 [
+{ #category : #'tests-snd' }
+MACyclesCoverageTest >> testAseSccWithSnd [
 	"
-	self debug: #testAseScc 
+	self debug: #testAseSccWithSnd 
 	"
 
-	| cse |
-	cse := MACircuitSpanningEdges new.
-	MOGraphFixture aseSccGraph: cse.
-	cse run.
+	| sed circuits |
+	sed := MASccNodeDecomposition new.
+	MOGraphFixture aseSccGraph: sed.
+	sed run.
 	self assert: 4
-			equals: cse circuits size.
-	self assert: (#($a $b) hasEqualElements: cse circuits first).
-	self assert: (#($b $d) hasEqualElements: cse circuits second).
-	self assert: (#($c $d $b) hasEqualElements: cse circuits third).
-	self assert: (#($e $a $b $d) hasEqualElements: cse circuits fourth).
+			equals: sed circuits size.
+	circuits := sed circuits asOrderedCollection.
+	#(($b $d) ($a $b) ($b $c $d) ($a $b $d $e)) do: [:c|
+			self assert: (circuits anySatisfy: [:ci| c hasEqualElements: ci ])].
+
 ]
 
-{ #category : #'tests-sed' }
+{ #category : #testing }
 MACyclesCoverageTest >> testNormalize [
 	"
 	self debug: #testNormalize

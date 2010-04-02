@@ -12,7 +12,7 @@ Class {
 { #category : #'private-algorithm' }
 MAGermanStemmer >> isVowelAt: anIndex [
 	
-	^#eiauoy?§???º includes: (string at: anIndex)
+	^#eiauoyäöü includes: (string at: anIndex)
 ]
 
 { #category : #'private-algorithm' }

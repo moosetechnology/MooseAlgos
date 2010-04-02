@@ -30,11 +30,11 @@ MAGermanStemmer >> performStemming: aString [
 	string := string replaceAll: $ö with: $o.
 	string := string replaceAll: $ü with: $u.
 	^string	"German includes the following accented forms, 
-		?§   ??   ?º 
-	and a special letter, ?ü, equivalent to double s. 
+		ä  ö  ü 
+	and a special letter, ß, equivalent to double s. 
 
 	The following letters are vowels: 
-		a   e   i   o   u   y   ?§   ??   ?º 
+		a   e   i   o   u   y   ä  ö  ü 
 	First, replace ?ü by ss, and put u and y between vowels into upper case. R1 and R2 are first set up in the standard way (see the note on R1 and R2), but then R1 is adjusted so that the region before it contains at least 3 letters. 
 
 	Define a valid s-ending as one of b, d, f, g, h, k, l, m, n, r or t. 
@@ -50,7 +50,7 @@ MAGermanStemmer >> performStemming: aString [
 		(b) s (preceded by a valid s-ending) 
 
 	and delete if in R1. (Of course the letter of the valid s-ending is not necessarily in R1) 
-	(For example, ?§ckern -> ?§ck, ackers -> acker, armes -> arm) 
+	(For example, äckern -> äck, ackers -> acker, armes -> arm) 
 
 	Step 2: 
 	Search for the longest among the following suffixes, 

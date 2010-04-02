@@ -86,7 +86,7 @@ MAGermanStemmer >> performStemming: aString [
 { #category : #'private-algorithm' }
 MAGermanStemmer >> preprocessing [
 	
-	string := string copyReplaceAll: #?ü with: #ss.
+	string := string copyReplaceAll: #ß with: #ss.
 	2
 		to: string size - 1
 		do:

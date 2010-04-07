@@ -13,9 +13,9 @@ Class {
 
 { #category : #'instance creation' }
 MANameMapping class >> new [
-	
+
 	^(super new)
-		initialize;
+		 initialize;
 		forEquality;
 		yourself
 ]

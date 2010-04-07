@@ -192,6 +192,7 @@ MAVector >> at: index put: aNumber [
 MAVector >> atAllPut: collection [
 	
 	(collection isKindOf: Collection)
+		
 		ifTrue:
 			[self
 				with: collection

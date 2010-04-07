@@ -11,7 +11,7 @@ Class {
 MANameMappingTest >> testAddDuplicate [
 	
 	| m |
-	m := MANameMapping withAll: #(#a #b #c #d).
+	m := MANameMapping new addAll: #(#a #b #c #d); yourself.
 	self
 		should: [m add: #a]
 		raise: Error
@@ -21,7 +21,7 @@ MANameMappingTest >> testAddDuplicate [
 MANameMappingTest >> testNames [
 	
 	| m |
-	m := MANameMapping withAll: #(#a #b #c #d).
+	m := MANameMapping new addAll: #(#a #b #c #d); yourself.
 	self assert: (m equalsTo: #(1 2 3 4)).
 	self assert: (m names equalsTo: #(#a #b #c #d))
 ]

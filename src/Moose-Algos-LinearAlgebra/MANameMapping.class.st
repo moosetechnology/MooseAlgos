@@ -15,7 +15,7 @@ Class {
 MANameMapping class >> new [
 
 	^(super new)
-		 initialize;
+		initialize;
 		forEquality;
 		yourself
 ]

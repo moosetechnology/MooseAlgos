@@ -59,7 +59,7 @@ MAGanterAlgorithm >> findExtents [
 	
 	| extents |
 	self setUp.
-	extents := ArrayList with: 0.
+	extents := "ArrayList" OrderedCollection  with: 0.
 	[extents last = objectsMask]
 		whileFalse: [extents add: (self findNextExtent: extents last)].
 	^extents

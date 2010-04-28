@@ -58,9 +58,9 @@ MOClusteringVector >> update [
 	1
 		to: self size
 		do:
-			[:index | 
-			(self at: index) < min
+			[:tmpIndex | 
+			(self at: tmpIndex) < min
 				ifTrue:
-					[min := self at: index.
-					found := index]]
+					[min := self at: tmpIndex.
+					found := tmpIndex]]
 ]

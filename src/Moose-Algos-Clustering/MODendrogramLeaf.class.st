@@ -78,5 +78,5 @@ MODendrogramLeaf >> swap [
 { #category : #accessing }
 MODendrogramLeaf >> threshold [
 	
-	^MONumber zero
+	^ Number zero
 ]

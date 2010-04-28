@@ -42,7 +42,7 @@ MAMapping >> atKey: key [
 	
 	^self
 		atKey: key
-		ifAbsent: [KeyNotFoundError raise]
+		ifAbsent: [self error: 'key not found']
 ]
 
 { #category : #'accessing - key' }
@@ -144,7 +144,7 @@ MAMapping >> keyForName: name [
 	
 	^self
 		keyForName: name
-		ifAbsent: [KeyNotFoundError raise]
+		ifAbsent: [self error: 'key not found']
 ]
 
 { #category : #'accessing - name' }
@@ -158,7 +158,7 @@ MAMapping >> keyOf: index [
 	
 	^self
 		keyOf: index
-		ifAbsent: [ValueNotFoundError raise]
+		ifAbsent: [self error: 'value not found']
 ]
 
 { #category : #'accessing - key' }

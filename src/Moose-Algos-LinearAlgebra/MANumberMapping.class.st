@@ -53,7 +53,7 @@ MANumberMapping >> atKey: key ifAbsent: exceptionBlock [
 	that is maps backwards from new to old 'indices'."
 	
 	^[back at: key]
-		on: SubscriptOutOfBoundsError
+		on: Error
 		do: [:ex | exceptionBlock value]
 ]
 
@@ -87,7 +87,7 @@ MANumberMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
 	that is maps forward from old to new indices."
 	
 	^[(forth at: anIndex) ifNil: [exceptionBlock value]]
-		on: SubscriptOutOfBoundsError
+		on: Error
 		do: [:ex | exceptionBlock value]
 ]
 
@@ -106,7 +106,7 @@ MANumberMapping >> lastIndex [
 { #category : #'accessing - name' }
 MANumberMapping >> nameForKey: key [
 	
-	KeyNotFoundError raise
+	self error: 'key not found'
 ]
 
 { #category : #removing }

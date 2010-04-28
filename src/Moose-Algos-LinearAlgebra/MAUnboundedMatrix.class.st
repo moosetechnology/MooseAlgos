@@ -22,7 +22,7 @@ MAUnboundedMatrix class >> on: matrix with: defaultValue [
 MAUnboundedMatrix >> at: row and: column [
 	
 	^[matrix at: row and: column]
-		on: SubscriptOutOfBoundsError
+		on: "SubscriptOutOfBoundsError" Error
 		do: [:ex | backgroundValue]
 ]
 
@@ -30,7 +30,7 @@ MAUnboundedMatrix >> at: row and: column [
 MAUnboundedMatrix >> at: row and: column put: aNumber [
 	
 	^[matrix at: row and: column put: aNumber]
-		on: SubscriptOutOfBoundsError
+		on: "SubscriptOutOfBoundsError" Error
 		do: [:ex | backgroundValue]
 ]
 

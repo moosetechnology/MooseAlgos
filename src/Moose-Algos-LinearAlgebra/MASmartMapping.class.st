@@ -40,7 +40,7 @@ MASmartMapping >> keyForName: name ifAbsent: exceptionBlock [
 MASmartMapping >> nameForKey: key [
 	
 	^self isRoot
-		ifTrue: [KeyNotFoundError raise]
+		ifTrue: [self error: 'key not found']
 		ifFalse: [parent nameForKey: (self atKey: key)]
 ]
 

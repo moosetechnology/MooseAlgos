@@ -12,12 +12,13 @@ Class {
 MOGraphAlgorithm >> addEdge: eModel from: source to: target [ 
 
 	| edge sourceNode targetNode unknownNode |
+	
 	unknownNode := false.
 	sourceNode := self 	findNode: (source value: eModel)
-							ifAbsent: [Transcript show: source printString, ' node unknown'; cr.
+							ifAbsent: ["Transcript show: source printString, ' node unknown'; cr."
 											unknownNode := true].
 	targetNode := self 	findNode: (target value: eModel)
-							ifAbsent: [Transcript show: target printString, ' node unknown'; cr.
+							ifAbsent: ["Transcript show: target printString, ' node unknown'; cr."
 											unknownNode := true].
 
 	unknownNode ifFalse: [

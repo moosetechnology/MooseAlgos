@@ -81,9 +81,3 @@ MASparseRowMatrix >> storeOn: stream [
 		space;
 		nextPutAll: 'readStream'
 ]
-
-{ #category : #'SVD decomposing' }
-MASparseRowMatrix >> storeSVDSparseBinaryOn: aStream [
-	
-	self storeSparseBinaryOn: aStream
-]

@@ -41,29 +41,6 @@ MAMatrix class >> new: numberOrPoint withAll: value [
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> readFromDenseBinary: aBinaryStream [
-	
-	| m n matrix stream |
-	stream := NetworkByteOrderStream wrap: aBinaryStream.
-	m := stream nextLong.
-	n := stream nextLong.
-	matrix := self rows: m columns: n.
-	1
-		to: m
-		do:
-			[:row | 
-			1
-				to: n
-				do:
-					[:column | 
-					matrix
-						at: row
-						and: column
-						put: stream nextFloat]].
-	^matrix
-]
-
-{ #category : #'instance creation' }
 MAMatrix class >> readFromDenseText: aStream [
 	
 	| m n matrix tmp |
@@ -1024,27 +1001,6 @@ MAMatrix >> storeDenseTextOn: aStream [
 ]
 
 { #category : #printing }
-MAMatrix >> storeSparseBinaryOn: aBinaryStream [
-	
-	| stream |
-	stream := NetworkByteOrderStream wrap: aBinaryStream.
-	stream
-		nextLongPut: self columnSize;
-		nextLongPut: self rowSize;
-		nextLongPut: self sparseSize.
-	self rows
-		do:
-			[:rows | 
-			stream nextLongPut: rows sparseSize.
-			rows
-				doSparseWithIndex:
-					[:value :index | 
-					stream
-						nextLongPut: index - 1;
-						nextFloatPut: value]]
-]
-
-{ #category : #printing }
 MAMatrix >> storeSparseTextOn: aStream [
 	"Append to the argument aStream a sequence of characters 
 	that identifies the collection."
@@ -1070,27 +1026,6 @@ MAMatrix >> storeSparseTextOn: aStream [
 						space;
 						print: value;
 						cr]]
-]
-
-{ #category : #printing }
-MAMatrix >> storeTransposedSparseBinaryOn: aBinaryStream [
-	
-	| stream |
-	stream := NetworkByteOrderStream wrap: aBinaryStream.
-	stream
-		nextLongPut: self rowSize;
-		nextLongPut: self columnSize;
-		nextLongPut: self sparseSize.
-	self columns
-		do:
-			[:column | 
-			stream nextLongPut: column sparseSize.
-			column
-				doSparseWithIndex:
-					[:value :index | 
-					stream
-						nextLongPut: index - 1;
-						nextFloatPut: value]]
 ]
 
 { #category : #'double dispatching' }

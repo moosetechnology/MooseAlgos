@@ -10,15 +10,6 @@ Class {
 }
 
 { #category : #examples }
-MAFormalContext class >> benchmark [
-	
-	| all |
-	[all := (self classHierarchy: Core allClasses , SCG allClasses) concepts]
-		profile.
-	all inspect
-]
-
-{ #category : #examples }
 MAFormalContext class >> classHierarchy [
 	
 	^self classHierarchy: Smalltalk allClasses

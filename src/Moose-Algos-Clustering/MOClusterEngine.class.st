@@ -90,13 +90,11 @@ MOClusterEngine >> performClustering: linkageSelector [
 { #category : #clustering }
 MOClusterEngine >> performClusteringShowProgress: linkageSelector [
 	
-	Notice
-		showProgress:
-			('Clustering <1p> items, please wait.'
+	MooseCustomTask
+		runWithProgress:[self performClustering: linkageSelector]
+		description:('Clustering <1p> items, please wait.'
 				expandMacrosWith: distanceMatrix columnSize)
-		complete: distanceMatrix columnSize * (distanceMatrix columnSize - 1) / 2
-		while: [self performClustering: linkageSelector]
-		title: 'Clustering'	"IncrementNotification signalWith: numberOfTicks"
+		length: ( distanceMatrix columnSize * (distanceMatrix columnSize - 1) / 2)
 ]
 
 { #category : #clustering }

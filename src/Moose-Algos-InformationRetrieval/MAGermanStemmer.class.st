@@ -35,7 +35,7 @@ MAGermanStemmer >> performStemming: aString [
 
 	The following letters are vowels: 
 		a   e   i   o   u   y   ä  ö  ü 
-	First, replace ?ü by ss, and put u and y between vowels into upper case. R1 and R2 are first set up in the standard way (see the note on R1 and R2), but then R1 is adjusted so that the region before it contains at least 3 letters. 
+	First, replace √ü by ss, and put u and y between vowels into upper case. R1 and R2 are first set up in the standard way (see the note on R1 and R2), but then R1 is adjusted so that the region before it contains at least 3 letters. 
 
 	Define a valid s-ending as one of b, d, f, g, h, k, l, m, n, r or t. 
 

@@ -180,7 +180,6 @@ MATermsTest >> testTopTen [
 	charts := terms topTen.
 	self assert: charts size = 10.
 	self assert: charts first = 'tree'.
-	self assert: charts second = 'paths'.
-	self assert: charts third = 'root'.
+	self assert: ((charts copyFrom: 2 to: 3) includesAll: {'paths'. 'root'}).
 	^terms
 ]

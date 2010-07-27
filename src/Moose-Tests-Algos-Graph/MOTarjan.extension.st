@@ -16,7 +16,7 @@ MOTarjan classSide >> mondrianSample [
 	view interaction item: 'show me the cycle' action: [:modelNode|
 		g := (view nodeForDomainValue: modelNode).
 		tarjan := MOTarjan new.
- 		tarjan nodes: g children.
+ 		tarjan nodes: g nodes.
 		tarjan edges: g edges from: #source to: #target.
 		tarjan run.
 		colorDic := IdentityDictionary new.

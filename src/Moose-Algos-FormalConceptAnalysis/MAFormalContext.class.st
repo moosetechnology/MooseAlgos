@@ -85,7 +85,7 @@ MAFormalContext >> printOn: stream [
 		space;
 		nextPut: $(;
 		print: self objects size;
-		nextPut: $?ó;
+		nextPut: $√ó;
 		print: self attributes size;
 		nextPut: $)
 ]

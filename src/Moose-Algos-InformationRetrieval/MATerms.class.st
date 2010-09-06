@@ -76,12 +76,6 @@ MATerms class >> sample [
 		then bridges find a spanning tree.'
 ]
 
-{ #category : #examples }
-MATerms class >> termCloud [
-	
-	^self bible prune showTermCloud
-]
-
 { #category : #adding }
 MATerms >> addString: string [
 	
@@ -177,29 +171,6 @@ MATerms >> removeStopwords: stopwords [
 		
 		stopwords do: [:each | 
 			contents removeKey: each ifAbsent: nil]
-]
-
-{ #category : #'Mondrian visuals' }
-MATerms >> showTermCloud [
-	
-	| box counts min span |
-	counts := self sortedCounts first: 100.
-	counts sort: #key.
-	counts do: [:each | each value: each value sqrt].
-	min := counts minValue: #value.
-	span := (counts maxValue: #value) - min.
-	counts do: [:each | each value: (each value - min) / span * 48 + 16].
-	box := LayoutBox new.
-	counts
-		do:
-			[:each | 
-			box
-				add:
-					((LabelFigure with: each value)
-						label: each key
-						size: each value)].
-	box textLayout: 7 width: 800.
-	box open	"	Terms bible prune showTermCloud	"
 ]
 
 { #category : #removing }

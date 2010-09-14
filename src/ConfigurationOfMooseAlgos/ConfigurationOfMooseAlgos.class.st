@@ -315,5 +315,5 @@ ConfigurationOfMooseAlgos >> version20beta9: spec [
 			package: 'Moose-Tests-Algos-Graph' with: 'Moose-Tests-Algos-Graph-Alexandre_Bergel.8';
 			package: 'Moose-Tests-Algos-LinearAlgebra' with: 'Moose-Tests-Algos-LinearAlgebra-cyrille_delaunay.2';
 			package: 'Moose-Tests-Algos-Clustering' with: 'Moose-Tests-Algos-Clustering-cyrille_delaunay.1';
-			package: 'Moose-Tests-Algos-InformationRetrieval' with: 'Moose-Tests-Algos-InformationRetrieval-cyrille_delaunay.2'.].
+			package: 'Moose-Tests-Algos-InformationRetrieval' with: 'Moose-Tests-Algos-InformationRetrieval-simon_denier.2'.].
 ]

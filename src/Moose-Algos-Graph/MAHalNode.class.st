@@ -1,6 +1,6 @@
 Class {
-	#name : #MOHalNode,
-	#superclass : #MOTarjanNode,
+	#name : #MAHalNode,
+	#superclass : #MATarjanNode,
 	#instVars : [
 		'hNumber',
 		'previousNodes'
@@ -9,23 +9,23 @@ Class {
 }
 
 { #category : #accessing }
-MOHalNode >> from: aHalNode [
+MAHalNode >> from: aHalNode [
 
 	previousNodes add: aHalNode
 ]
 
 { #category : #accessing }
-MOHalNode >> hNumber [
+MAHalNode >> hNumber [
 	^ hNumber
 ]
 
 { #category : #accessing }
-MOHalNode >> hNumber: anObject [
+MAHalNode >> hNumber: anObject [
 	hNumber := anObject
 ]
 
 { #category : #initialization }
-MOHalNode >> initialize [
+MAHalNode >> initialize [
 	
 	super initialize.
 	previousNodes := Set new.
@@ -33,32 +33,32 @@ MOHalNode >> initialize [
 ]
 
 { #category : #testing }
-MOHalNode >> isSink [
+MAHalNode >> isSink [
 
 	^ self nextNodes isEmpty 
 ]
 
 { #category : #testing }
-MOHalNode >> isSource [
+MAHalNode >> isSource [
 
 	^ self previousNodes isEmpty 
 ]
 
 { #category : #'hal-algorithm' }
-MOHalNode >> label [
+MAHalNode >> label [
 
 	^ 'Ha '
 ]
 
 { #category : #'hal-algorithm' }
-MOHalNode >> markCycleWith: anInteger [
+MAHalNode >> markCycleWith: anInteger [
 
 	self cycleNodes do: [ :next | next hNumber: anInteger ].
 	^ self cycleNodes 
 ]
 
 { #category : #'hal-algorithm' }
-MOHalNode >> markHNumber: anInteger [
+MAHalNode >> markHNumber: anInteger [
 
 	self hNumber: anInteger.
 	self isInCycle ifTrue: [
@@ -68,17 +68,17 @@ MOHalNode >> markHNumber: anInteger [
 ]
 
 { #category : #accessing }
-MOHalNode >> previousNodes [
+MAHalNode >> previousNodes [
 	^ previousNodes
 ]
 
 { #category : #accessing }
-MOHalNode >> previousNodes: anObject [
+MAHalNode >> previousNodes: anObject [
 	previousNodes := anObject
 ]
 
 { #category : #'hal-algorithm' }
-MOHalNode >> removeCycleFromEdges [
+MAHalNode >> removeCycleFromEdges [
 
 	self nextNodes removeAllFoundIn: self cycleNodes.
 	self previousNodes removeAllFoundIn: self cycleNodes 

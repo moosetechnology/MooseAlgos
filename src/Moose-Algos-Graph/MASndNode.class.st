@@ -1,6 +1,6 @@
 Class {
 	#name : #MASndNode,
-	#superclass : #MOGraphNode,
+	#superclass : #MAGraphNode,
 	#traits : 'MATNodeNode',
 	#classTraits : 'MATNodeNode classTrait',
 	#instVars : [

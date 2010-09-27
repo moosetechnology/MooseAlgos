@@ -1,6 +1,6 @@
 Class {
 	#name : #MADisjointSets,
-	#superclass : #MOGraphAlgorithm,
+	#superclass : #MAGraphAlgorithm,
 	#instVars : [
 		'components'
 	],

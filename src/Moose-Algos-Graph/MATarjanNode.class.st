@@ -1,6 +1,6 @@
 Class {
-	#name : #MOTarjanNode,
-	#superclass : #MOGraphNode,
+	#name : #MATarjanNode,
+	#superclass : #MAGraphNode,
 	#instVars : [
 		'nextNodes',
 		'index',
@@ -12,84 +12,84 @@ Class {
 }
 
 { #category : #accessing }
-MOTarjanNode >> cycleNodes [
+MATarjanNode >> cycleNodes [
 	^ cycleNodes
 ]
 
 { #category : #accessing }
-MOTarjanNode >> cycleNodes: anObject [
+MATarjanNode >> cycleNodes: anObject [
 	cycleNodes := anObject copy remove: self ; yourself
 ]
 
 { #category : #accessing }
-MOTarjanNode >> inStack [
+MATarjanNode >> inStack [
 	^ inStack
 ]
 
 { #category : #accessing }
-MOTarjanNode >> inStack: anObject [
+MATarjanNode >> inStack: anObject [
 	inStack := anObject
 ]
 
 { #category : #accessing }
-MOTarjanNode >> initialize [
+MATarjanNode >> initialize [
 	nextNodes := Set new.
 	index := -1.
 	inStack := false
 ]
 
 { #category : #accessing }
-MOTarjanNode >> isInCycle [
+MATarjanNode >> isInCycle [
 
 	^ self cycleNodes isEmpty not
 ]
 
 { #category : #accessing }
-MOTarjanNode >> isTarjanUndefined [
+MATarjanNode >> isTarjanUndefined [
 
 	^ index = -1
 ]
 
 { #category : #accessing }
-MOTarjanNode >> label [
+MATarjanNode >> label [
 
 	^ 'T '
 ]
 
 { #category : #accessing }
-MOTarjanNode >> nextNodes [
+MATarjanNode >> nextNodes [
 
 	^ nextNodes
 ]
 
 { #category : #accessing }
-MOTarjanNode >> popped [
+MATarjanNode >> popped [
 
 	self inStack: false
 ]
 
 { #category : #accessing }
-MOTarjanNode >> tarjanIndex [
+MATarjanNode >> tarjanIndex [
 	^ index
 ]
 
 { #category : #accessing }
-MOTarjanNode >> tarjanIndex: anInteger [
+MATarjanNode >> tarjanIndex: anInteger [
 	index := anInteger
 ]
 
 { #category : #accessing }
-MOTarjanNode >> tarjanLowlink [
+MATarjanNode >> tarjanLowlink [
 	^ lowlink
 ]
 
 { #category : #accessing }
-MOTarjanNode >> tarjanLowlink: anInteger [
+MATarjanNode >> tarjanLowlink: anInteger [
 	lowlink := anInteger
 ]
 
 { #category : #accessing }
-MOTarjanNode >> to: aNode [
+MATarjanNode >> to: aNode [
 
 	nextNodes add: aNode
 ]

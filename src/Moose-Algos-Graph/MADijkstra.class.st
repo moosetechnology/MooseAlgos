@@ -1,6 +1,6 @@
 Class {
 	#name : #MADijkstra,
-	#superclass : #MOGraphAlgorithm,
+	#superclass : #MAGraphAlgorithm,
 	#instVars : [
 		'start',
 		'end'

@@ -1,6 +1,6 @@
 Class {
-	#name : #MODisjointSetNode,
-	#superclass : #MOGraphNode,
+	#name : #MADisjointSetNode,
+	#superclass : #MAGraphNode,
 	#instVars : [
 		'parent'
 	],
@@ -8,36 +8,36 @@ Class {
 }
 
 { #category : #accessing }
-MODisjointSetNode >> find [
+MADisjointSetNode >> find [
 
 	^ (self = parent) ifTrue: [ self ]
 					ifFalse: [ parent find ]
 ]
 
 { #category : #accessing }
-MODisjointSetNode >> label [
+MADisjointSetNode >> label [
 
 	^ 'DSN '
 ]
 
 { #category : #accessing }
-MODisjointSetNode >> makeSet [
+MADisjointSetNode >> makeSet [
 
 	parent := self
 ]
 
 { #category : #'private-accessing' }
-MODisjointSetNode >> parent [
+MADisjointSetNode >> parent [
 	^ parent
 ]
 
 { #category : #'private-accessing' }
-MODisjointSetNode >> parent: anObject [
+MADisjointSetNode >> parent: anObject [
 	parent := anObject
 ]
 
 { #category : #accessing }
-MODisjointSetNode >> union: aDSNode [
+MADisjointSetNode >> union: aDSNode [
 
 	aDSNode find parent: self find
 ]

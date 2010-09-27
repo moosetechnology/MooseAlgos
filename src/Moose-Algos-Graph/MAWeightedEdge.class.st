@@ -1,6 +1,6 @@
 Class {
-	#name : #MOWeightedEdge,
-	#superclass : #MOGraphEdge,
+	#name : #MAWeightedEdge,
+	#superclass : #MAGraphEdge,
 	#instVars : [
 		'weight'
 	],
@@ -8,23 +8,23 @@ Class {
 }
 
 { #category : #accessing }
-MOWeightedEdge >> asTuple [
+MAWeightedEdge >> asTuple [
 
 	^ {from model. to model. weight}
 ]
 
 { #category : #accessing }
-MOWeightedEdge >> printString [
+MAWeightedEdge >> printString [
 
 	^ self from printString, ' -> ', self to printString, ' (', self weight printString, ')'
 ]
 
 { #category : #accessing }
-MOWeightedEdge >> weight [
+MAWeightedEdge >> weight [
 	^ weight
 ]
 
 { #category : #accessing }
-MOWeightedEdge >> weight: anObject [
+MAWeightedEdge >> weight: anObject [
 	weight := anObject
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #MADijkstraNode,
-	#superclass : #MOGraphNode,
+	#superclass : #MAGraphNode,
 	#traits : 'MATEdgeNode',
 	#classTraits : 'MATEdgeNode classTrait',
 	#instVars : [

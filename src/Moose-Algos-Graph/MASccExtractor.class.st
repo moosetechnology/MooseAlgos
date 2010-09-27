@@ -1,6 +1,6 @@
 Class {
 	#name : #MASccExtractor,
-	#superclass : #MOGraphAlgorithm,
+	#superclass : #MAGraphAlgorithm,
 	#instVars : [
 		'circuits'
 	],

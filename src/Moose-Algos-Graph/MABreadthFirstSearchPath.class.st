@@ -1,6 +1,6 @@
 Class {
 	#name : #MABreadthFirstSearchPath,
-	#superclass : #MOGraphAlgorithm,
+	#superclass : #MAGraphAlgorithm,
 	#instVars : [
 		'start',
 		'end',
@@ -12,7 +12,7 @@ Class {
 { #category : #accessing }
 MABreadthFirstSearchPath >> edgeClass [
 
-	^ MOGraphEdge 
+	^ MAGraphEdge 
 ]
 
 { #category : #private }

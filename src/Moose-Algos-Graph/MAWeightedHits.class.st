@@ -1,29 +1,29 @@
 Class {
-	#name : #MOWeightedHits,
-	#superclass : #MOHits,
+	#name : #MAWeightedHits,
+	#superclass : #MAHits,
 	#category : #'Moose-Algos-Graph'
 }
 
 { #category : #running }
-MOWeightedHits >> computeAuthoritiesFor: aNode [
+MAWeightedHits >> computeAuthoritiesFor: aNode [
 
 	aNode auth: (aNode previousEdges inject: 0 into: [:s :e| s + (e weight * e from hub)])
 ]
 
 { #category : #running }
-MOWeightedHits >> computeHubsFor: aNode [
+MAWeightedHits >> computeHubsFor: aNode [
 
 	aNode hub: (aNode nextEdges inject: 0 into: [:s :e| s + (e weight * e to auth)])
 ]
 
 { #category : #configuration }
-MOWeightedHits >> edgeClass [
+MAWeightedHits >> edgeClass [
 
-	^ MOWeightedEdge
+	^ MAWeightedEdge
 ]
 
 { #category : #configuration }
-MOWeightedHits >> nodeClass [
+MAWeightedHits >> nodeClass [
 
-	^ MOWeightedHitsNode 
+	^ MAWeightedHitsNode 
 ]

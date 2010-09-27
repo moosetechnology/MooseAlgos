@@ -18,7 +18,7 @@ MASccEdgeDecomposition >> bfsPathFrom: startNode to: endNode [
 { #category : #accessing }
 MASccEdgeDecomposition >> edgeClass [
 
-	^ MOGraphEdge 
+	^ MAGraphEdge 
 ]
 
 { #category : #accessing }

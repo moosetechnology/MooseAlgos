@@ -1,6 +1,6 @@
 Class {
 	#name : #MANextNode,
-	#superclass : #MODisjointSetNode,
+	#superclass : #MADisjointSetNode,
 	#traits : 'MATNodeNode - {#from:. #previousNodes}',
 	#classTraits : 'MATNodeNode classTrait',
 	#instVars : [

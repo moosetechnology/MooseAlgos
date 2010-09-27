@@ -1,5 +1,5 @@
 Class {
-	#name : #MOGraphEdge,
+	#name : #MAGraphEdge,
 	#superclass : #Object,
 	#instVars : [
 		'model',
@@ -10,50 +10,50 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MOGraphEdge class >> with: aModel [
+MAGraphEdge class >> with: aModel [
 
 	^ self new model: aModel
 ]
 
 { #category : #accessing }
-MOGraphEdge >> asTuple [
+MAGraphEdge >> asTuple [
 
 	^ {from model. to model}
 ]
 
 { #category : #accessing }
-MOGraphEdge >> from [
+MAGraphEdge >> from [
 	^ from
 ]
 
 { #category : #accessing }
-MOGraphEdge >> from: anObject [
+MAGraphEdge >> from: anObject [
 	from := anObject
 ]
 
 { #category : #accessing }
-MOGraphEdge >> model [
+MAGraphEdge >> model [
 	^ model
 ]
 
 { #category : #accessing }
-MOGraphEdge >> model: aModel [
+MAGraphEdge >> model: aModel [
 	
 	model := aModel
 ]
 
 { #category : #accessing }
-MOGraphEdge >> printString [
+MAGraphEdge >> printString [
 
 	^ self from printString, ' -> ', self to printString
 ]
 
 { #category : #accessing }
-MOGraphEdge >> to [
+MAGraphEdge >> to [
 	^ to
 ]
 
 { #category : #accessing }
-MOGraphEdge >> to: anObject [
+MAGraphEdge >> to: anObject [
 	to := anObject
 ]

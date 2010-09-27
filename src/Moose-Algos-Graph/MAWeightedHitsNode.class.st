@@ -1,6 +1,6 @@
 Class {
-	#name : #MOWeightedHitsNode,
-	#superclass : #MOHitsNode,
+	#name : #MAWeightedHitsNode,
+	#superclass : #MAHitsNode,
 	#traits : 'MATEdgeNode',
 	#classTraits : 'MATEdgeNode classTrait',
 	#instVars : [
@@ -11,26 +11,26 @@ Class {
 }
 
 { #category : #initialization }
-MOWeightedHitsNode >> initialize [
+MAWeightedHitsNode >> initialize [
 
 	previousEdges := OrderedCollection new.
 	nextEdges := OrderedCollection new.
 ]
 
 { #category : #printing }
-MOWeightedHitsNode >> label [
+MAWeightedHitsNode >> label [
 
 	^ 'WH '
 ]
 
 { #category : #accessing }
-MOWeightedHitsNode >> nextEdges [
+MAWeightedHitsNode >> nextEdges [
 
 	^ nextEdges
 ]
 
 { #category : #accessing }
-MOWeightedHitsNode >> previousEdges [
+MAWeightedHitsNode >> previousEdges [
 
 	^ previousEdges
 ]

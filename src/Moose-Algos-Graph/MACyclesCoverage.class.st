@@ -1,6 +1,6 @@
 Class {
 	#name : #MACyclesCoverage,
-	#superclass : #MOTarjan,
+	#superclass : #MATarjan,
 	#traits : 'MATNormalize',
 	#classTraits : 'MATNormalize classTrait',
 	#instVars : [

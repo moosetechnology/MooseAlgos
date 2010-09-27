@@ -1,6 +1,6 @@
 Class {
-	#name : #MOGraphStructure,
-	#superclass : #MOGraphAlgorithm,
+	#name : #MAGraphStructure,
+	#superclass : #MAGraphAlgorithm,
 	#instVars : [
 		'nodeClass',
 		'edgeClass'
@@ -9,35 +9,35 @@ Class {
 }
 
 { #category : #configuration }
-MOGraphStructure >> edgeClass [
+MAGraphStructure >> edgeClass [
 
 	^ edgeClass
 ]
 
 { #category : #configuration }
-MOGraphStructure >> edgeClass: anObject [
+MAGraphStructure >> edgeClass: anObject [
 	edgeClass := anObject
 ]
 
 { #category : #accessing }
-MOGraphStructure >> edgeModels [
+MAGraphStructure >> edgeModels [
 
 	^ self edges collect: [:e | e model]
 ]
 
 { #category : #configuration }
-MOGraphStructure >> nodeClass [
+MAGraphStructure >> nodeClass [
 
 	^ nodeClass
 ]
 
 { #category : #configuration }
-MOGraphStructure >> nodeClass: anObject [
+MAGraphStructure >> nodeClass: anObject [
 	nodeClass := anObject
 ]
 
 { #category : #accessing }
-MOGraphStructure >> nodeModels [
+MAGraphStructure >> nodeModels [
 
 	^ self nodes collect: [:n | n model]
 ]

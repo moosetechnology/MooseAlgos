@@ -1,6 +1,6 @@
 Class {
-	#name : #MOHits,
-	#superclass : #MOGraphAlgorithm,
+	#name : #MAHits,
+	#superclass : #MAGraphAlgorithm,
 	#instVars : [
 		'k'
 	],
@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #running }
-MOHits >> computeAuthoritiesFor: aNode [
+MAHits >> computeAuthoritiesFor: aNode [
 
 	aNode auth: (aNode previousNodes inject: 0 into: [:s :n| s + n hub])
 ]
 
 { #category : #running }
-MOHits >> computeHubsFor: aNode [
+MAHits >> computeHubsFor: aNode [
 
 	aNode hub: (aNode nextNodes inject: 0 into: [:s :n| s + n auth])
 ]
 
 { #category : #displaying }
-MOHits >> display [
+MAHits >> display [
 
 	| view |
 	view := MOViewRenderer new.
@@ -29,7 +29,7 @@ MOHits >> display [
 ]
 
 { #category : #displaying }
-MOHits >> displayOn: view [
+MAHits >> displayOn: view [
 
 	view shape: (MORectangleShape new text: [:n| n printString]).
 	view nodes: nodes.
@@ -39,14 +39,14 @@ MOHits >> displayOn: view [
 ]
 
 { #category : #'initialize-release' }
-MOHits >> initialize [
+MAHits >> initialize [
 
 	super initialize.
 	k := 20
 ]
 
 { #category : #running }
-MOHits >> initializeNodes [
+MAHits >> initializeNodes [
 
 	self nodes do: [:n|
 		n auth: 1.0; hub: 1.0
@@ -54,23 +54,23 @@ MOHits >> initializeNodes [
 ]
 
 { #category : #configuration }
-MOHits >> k [
+MAHits >> k [
 	^ k
 ]
 
 { #category : #configuration }
-MOHits >> k: anObject [
+MAHits >> k: anObject [
 	k := anObject
 ]
 
 { #category : #configuration }
-MOHits >> nodeClass [
+MAHits >> nodeClass [
 
-	^ MOHitsNode
+	^ MAHitsNode
 ]
 
 { #category : #running }
-MOHits >> normalize: aCollectionOfNodes [
+MAHits >> normalize: aCollectionOfNodes [
 
 	| authNorm hubNorm |
 	authNorm := aCollectionOfNodes inject: 0 into: [:s :n| s + n auth].
@@ -83,7 +83,7 @@ MOHits >> normalize: aCollectionOfNodes [
 ]
 
 { #category : #running }
-MOHits >> run [
+MAHits >> run [
 
 	|i|
 	i := 1.

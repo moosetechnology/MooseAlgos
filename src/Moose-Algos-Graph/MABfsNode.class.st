@@ -1,6 +1,6 @@
 Class {
 	#name : #MABfsNode,
-	#superclass : #MOGraphNode,
+	#superclass : #MAGraphNode,
 	#traits : 'MATEdgeNode - {#previousEdges. #from:edge:}',
 	#classTraits : 'MATEdgeNode classTrait',
 	#instVars : [

@@ -1,6 +1,6 @@
 Class {
 	#name : #MADijkstraEdge,
-	#superclass : #MOWeightedEdge,
+	#superclass : #MAWeightedEdge,
 	#instVars : [
 		'visited'
 	],

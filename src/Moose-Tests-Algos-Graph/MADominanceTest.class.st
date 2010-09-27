@@ -1,5 +1,5 @@
 Class {
-	#name : #MODominanceTest,
+	#name : #MADominanceTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'nodes',
@@ -9,16 +9,16 @@ Class {
 }
 
 { #category : #running }
-MODominanceTest >> setUp [
+MADominanceTest >> setUp [
 
-	dom := MODominance new.
+	dom := MADominance new.
 ]
 
 { #category : #tests }
-MODominanceTest >> testCycle [
+MADominanceTest >> testCycle [
 
 	| a b c |
-	MOGraphFixture cycleGraph: dom.
+	MAGraphFixture cycleGraph: dom.
 	dom run.
 	dom nodes do: [:n|
 		n model = $c
@@ -39,10 +39,10 @@ MODominanceTest >> testCycle [
 ]
 
 { #category : #tests }
-MODominanceTest >> testSimple [
+MADominanceTest >> testSimple [
 
 	| a b c d |
-	MOGraphFixture simpleGraph: dom.
+	MAGraphFixture simpleGraph: dom.
 	dom run.
 	dom nodes do: [:n|
 		n model = $a

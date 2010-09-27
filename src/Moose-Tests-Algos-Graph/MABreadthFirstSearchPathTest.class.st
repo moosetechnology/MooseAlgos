@@ -19,7 +19,7 @@ MABreadthFirstSearchPathTest >> testAseGraph [
 	self debug: #testAseGraph
 	"
 
-	MOGraphFixture aseCircuitGraph: bfsp.
+	MAGraphFixture aseCircuitGraph: bfsp.
 	self assert: (#($a $b $c) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#($d $b $c) hasEqualElements: (bfsp runFrom: $d to: $c)).
 	self assert: (#($e $a) hasEqualElements: (bfsp runFrom: $e to: $a)).
@@ -35,7 +35,7 @@ MABreadthFirstSearchPathTest >> testSimpleGraph [
 	self debug: #testSimpleGraph
 	"
 
-	MOGraphFixture simpleGraph: bfsp.
+	MAGraphFixture simpleGraph: bfsp.
 	self assert: (#($a $b $c) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#($d $c) hasEqualElements: (bfsp runFrom: $d to: $c)).
 ]

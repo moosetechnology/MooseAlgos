@@ -19,7 +19,7 @@ MADijkstraTest >> testAseBasicCircuit [
 	self debug: #testAseBasicCircuit 
 	"
 
-	MOGraphFixture aseCircuitGraph: dijsktra.
+	MAGraphFixture aseCircuitGraph: dijsktra.
 	"self halt."
 	self 	assert: 1
 			equals: (dijsktra runFrom: $a to: $b).
@@ -43,7 +43,7 @@ MADijkstraTest >> testAseBasicCircuitBacktrack [
 	self debug: #testAseBasicCircuitBacktrack 
 	"
 
-	MOGraphFixture aseCircuitGraph: dijsktra.
+	MAGraphFixture aseCircuitGraph: dijsktra.
 	"self halt."
 	self assert: (#($a $b) hasEqualElements: (dijsktra runFrom: $a to: $b; backtrack)).
 	dijsktra reset.

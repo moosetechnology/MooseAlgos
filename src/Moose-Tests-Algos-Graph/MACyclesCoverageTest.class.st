@@ -20,7 +20,7 @@ MACyclesCoverageTest >> testAseCircuitWithCse [
 	"
 
 	cc useCircuitSpan.
-	MOGraphFixture aseCircuitGraph: cc.
+	MAGraphFixture aseCircuitGraph: cc.
 	cc run.
 	self assert: 5
 			equals: cc circuits size.
@@ -36,7 +36,7 @@ MACyclesCoverageTest >> testAseCircuitWithSed [
 	"
 
 	cc useEdgeDecomposition.
-	MOGraphFixture aseCircuitGraph: cc.
+	MAGraphFixture aseCircuitGraph: cc.
 	cc run.
 	self assert: 5
 			equals: cc circuits size.
@@ -51,7 +51,7 @@ MACyclesCoverageTest >> testAseCircuitWithSnd [
 	self debug: #testAseCircuitWithSnd 
 	"
 
-	MOGraphFixture aseCircuitGraph: cc.
+	MAGraphFixture aseCircuitGraph: cc.
 	cc run.
 	self assert: 5
 			equals: cc circuits size.
@@ -68,7 +68,7 @@ MACyclesCoverageTest >> testAseSccWithCse [
 
 	| cse |
 	cse := MACircuitSpanningEdges new.
-	MOGraphFixture aseSccGraph: cse.
+	MAGraphFixture aseSccGraph: cse.
 	cse run.
 	self assert: 4
 			equals: cse circuits size.
@@ -86,7 +86,7 @@ MACyclesCoverageTest >> testAseSccWithSed [
 
 	| sed circuits |
 	sed := MASccEdgeDecomposition new.
-	MOGraphFixture aseSccGraph: sed.
+	MAGraphFixture aseSccGraph: sed.
 	sed run.
 	self assert: 4
 			equals: sed circuits size.
@@ -104,7 +104,7 @@ MACyclesCoverageTest >> testAseSccWithSnd [
 
 	| sed circuits |
 	sed := MASccNodeDecomposition new.
-	MOGraphFixture aseSccGraph: sed.
+	MAGraphFixture aseSccGraph: sed.
 	sed run.
 	self assert: 4
 			equals: sed circuits size.

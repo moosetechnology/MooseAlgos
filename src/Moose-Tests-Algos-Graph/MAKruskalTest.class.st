@@ -1,5 +1,5 @@
 Class {
-	#name : #MOKruskalTest,
+	#name : #MAKruskalTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'nodes',
@@ -9,27 +9,27 @@ Class {
 }
 
 { #category : #history }
-MOKruskalTest class >> lastStoredRun [
+MAKruskalTest class >> lastStoredRun [
 	^ ((Dictionary new) add: (#passed->((Set new) add: #testMaxSpanningTree2; add: #testMinSpanningTree; add: #testMaxSpanningTree; add: #testMinSpanningTree1; add: #testUnionFind; yourself)); add: (#timeStamp->'6 July 2009 5:40:15 pm' asTimeStamp); add: (#failures->((Set new))); add: (#errors->((Set new))); yourself)
 ]
 
 { #category : #running }
-MOKruskalTest >> setUp [
+MAKruskalTest >> setUp [
 
-	kruskal := MOKruskal new.
+	kruskal := MAKruskal new.
 	nodes := OrderedCollection new.
-	nodes add: MODisjointSetNode new.
-	nodes add: MODisjointSetNode new.
-	nodes add: MODisjointSetNode new.
-	nodes add: MODisjointSetNode new
+	nodes add: MADisjointSetNode new.
+	nodes add: MADisjointSetNode new.
+	nodes add: MADisjointSetNode new.
+	nodes add: MADisjointSetNode new
 ]
 
 { #category : #tests }
-MOKruskalTest >> testMaxSpanningTree [
+MAKruskalTest >> testMaxSpanningTree [
 
 
 	| tree expectedEdges |
-	MOGraphFixture simpleWeightedGraph: kruskal.
+	MAGraphFixture simpleWeightedGraph: kruskal.
 	kruskal maxSpanningTree.
 	tree := kruskal run collect: [:e| e asTuple].
 
@@ -43,11 +43,11 @@ MOKruskalTest >> testMaxSpanningTree [
 ]
 
 { #category : #tests }
-MOKruskalTest >> testMaxSpanningTree2 [
+MAKruskalTest >> testMaxSpanningTree2 [
 
 
 	| tree expectedEdges |
-	MOGraphFixture complexWeightedGraph: kruskal.
+	MAGraphFixture complexWeightedGraph: kruskal.
 	kruskal maxSpanningTree.
 	tree := kruskal run collect: [:e| e asTuple].
 
@@ -61,10 +61,10 @@ MOKruskalTest >> testMaxSpanningTree2 [
 ]
 
 { #category : #tests }
-MOKruskalTest >> testMinSpanningTree [
+MAKruskalTest >> testMinSpanningTree [
 
 	| tree expectedEdges |
-	MOGraphFixture simpleWeightedGraph: kruskal.
+	MAGraphFixture simpleWeightedGraph: kruskal.
 	tree := kruskal run collect: [:e| e asTuple].
 
 	expectedEdges := #((4 5 1) (5 1 2) (2 3 2) (2 4 3)).
@@ -78,10 +78,10 @@ MOKruskalTest >> testMinSpanningTree [
 ]
 
 { #category : #tests }
-MOKruskalTest >> testMinSpanningTree1 [
+MAKruskalTest >> testMinSpanningTree1 [
 
 	| tree expectedEdges |
-	MOGraphFixture complexWeightedGraph: kruskal.
+	MAGraphFixture complexWeightedGraph: kruskal.
 	tree := kruskal run collect: [:e| e asTuple].
 
 	expectedEdges := #(($a $b 30) ($b $s 1) ($b $p 4) ($d $f 20) ($e $a 15) ($f $m 8) ($g $h 20) ($g $r 3) ($i $a 14) ($i $k 4) ($i $d 3) ($j $q 5) ($k $l 10) ($k $g 5) ($m $n 7) ($m $o 6) ($n $c 5) ($q $i 4)).
@@ -95,7 +95,7 @@ MOKruskalTest >> testMinSpanningTree1 [
 ]
 
 { #category : #tests }
-MOKruskalTest >> testUnionFind [
+MAKruskalTest >> testUnionFind [
 
 	| node1 node2 node3 node4 |
 	nodes do: [:node |

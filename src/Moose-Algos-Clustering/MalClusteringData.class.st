@@ -74,7 +74,7 @@ MalClusteringData >> findMinimum [
 	"This method is written such that it uses primitives only."
 	
 	| columnVector |
-	value := Unlimited positive.
+	value := MalUnlimited positive.
 	2
 		to: indices size
 		do:
@@ -164,7 +164,7 @@ MalClusteringData >> testFindMinimum [
 	pValue := value.
 	pFoundA0 := foundA0.
 	pFoundB0 := foundB0.
-	value := Unlimited positive.
+	value := MalUnlimited positive.
 
 	2
 to: indices size

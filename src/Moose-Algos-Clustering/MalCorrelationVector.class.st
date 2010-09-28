@@ -50,7 +50,7 @@ MalCorrelationVector >> defaultElement [
 MalCorrelationVector >> min [
 	
 	^(self reject: #isNil)
-		inject: Unlimited positive
+		inject: MalUnlimited positive
 		into: [:each :min | min min: each]
 ]
 

@@ -47,14 +47,14 @@ MalClusteringVector >> unsetAt: index [
 	
 	super
 		at: index
-		put: Unlimited positive.
+		put: MalUnlimited positive.
 	found = index ifTrue: [found := nil]
 ]
 
 { #category : #private }
 MalClusteringVector >> update [
 	
-	min := Unlimited positive.
+	min := MalUnlimited positive.
 	1
 		to: self size
 		do:

@@ -2,20 +2,20 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOSimilarityItemTest,
+	#name : #MalSimilarityItemTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-Clustering'
 }
 
 { #category : #'As yet unclassified' }
-MOSimilarityItemTest >> testDistance [
+MalSimilarityItemTest >> testDistance [
 	
 	| a b c elements engine clusters |
-	a := MOVectorItem with: #a and: #(1 0).
-	b := MOVectorItem with: #b and: #(0 1).
-	c := MOVectorItem with: #c and: #(0 7).
+	a := MalVectorItem with: #a and: #(1 0).
+	b := MalVectorItem with: #b and: #(0 1).
+	c := MalVectorItem with: #c and: #(0 7).
 	elements := Array with: a with: b with: c.
-	engine := MOClusterEngine with: elements.
+	engine := MalClusterEngine with: elements.
 	engine hierarchicalClusteringUsing: #averageLinkage.
 	clusters := engine dendrogram breakInto: 2.
 	self assert: clusters size = 2.
@@ -30,14 +30,14 @@ MOSimilarityItemTest >> testDistance [
 ]
 
 { #category : #'As yet unclassified' }
-MOSimilarityItemTest >> testSimilarity [
+MalSimilarityItemTest >> testSimilarity [
 	
 	| a b c elements engine clusters |
-	a := MOSimilarityItem with: #a and: #(1 0).
-	b := MOSimilarityItem with: #b and: #(0 1).
-	c := MOSimilarityItem with: #c and: #(0 7).
+	a := MalSimilarityItem with: #a and: #(1 0).
+	b := MalSimilarityItem with: #b and: #(0 1).
+	c := MalSimilarityItem with: #c and: #(0 7).
 	elements := Array with: a with: b with: c.
-	engine := MOClusterEngine with: elements.
+	engine := MalClusterEngine with: elements.
 	engine hierarchicalClusteringUsing: #averageLinkage.
 	clusters := engine dendrogram breakInto: 2.
 	self assert: clusters size = 2.

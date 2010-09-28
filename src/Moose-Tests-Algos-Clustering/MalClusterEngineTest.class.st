@@ -2,17 +2,17 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOClusterEngineTest,
+	#name : #MalClusterEngineTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-Clustering'
 }
 
 { #category : #testing }
-MOClusterEngineTest >> testCentroid [
+MalClusterEngineTest >> testCentroid [
 	
 	| input clusty clusters |
 	input := #(#(1 2 3 5) #(11 12 15) #(21 22 23 25) #(31 32 35) #(41 42 43 45 47)).
-	clusty := MOClusterEngine with: input flatten shuffle.
+	clusty := MalClusterEngine with: input flatten shuffle.
 	clusty hierarchicalClusteringUsing: #centroid.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size = 5.
@@ -25,11 +25,11 @@ MOClusterEngineTest >> testCentroid [
 ]
 
 { #category : #testing }
-MOClusterEngineTest >> testClustering [
+MalClusterEngineTest >> testClustering [
 	
 	| input clusty clusters |
 	input := #(#(1 2 3 5) #(11 12 15) #(21 22 23 25) #(31 32 35) #(41 42 43 45 47)).
-	clusty := MOClusterEngine with: input flatten shuffle.
+	clusty := MalClusterEngine with: input flatten shuffle.
 	clusty hierarchicalClusteringUsing: #averageLinkage.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size = 5.
@@ -42,11 +42,11 @@ MOClusterEngineTest >> testClustering [
 ]
 
 { #category : #testing }
-MOClusterEngineTest >> testClustering2 [
+MalClusterEngineTest >> testClustering2 [
 	
 	| input clusty clusters |
 	input := #(#(1 2 3 5) #(11 12 15) #(21 22 23 25) #(31 32 35) #(41 42 43 45 47)).
-	clusty := MOClusterEngine with: input flatten shuffle.
+	clusty := MalClusterEngine with: input flatten shuffle.
 	clusty hierarchicalClusteringUsing: #centroid.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size = 5.
@@ -59,11 +59,11 @@ MOClusterEngineTest >> testClustering2 [
 ]
 
 { #category : #testing }
-MOClusterEngineTest >> testClustering300Elements [
+MalClusterEngineTest >> testClustering300Elements [
 	
 	| input clusty clusters |
 	input := Random new next: 300.
-	clusty := MOClusterEngine with: input.
+	clusty := MalClusterEngine with: input.
 	1
 		to: 1
 		do: [:n | clusty averageLinkage].
@@ -72,29 +72,29 @@ MOClusterEngineTest >> testClustering300Elements [
 ]
 
 { #category : #testing }
-MOClusterEngineTest >> testClusteringOptimization [
+MalClusterEngineTest >> testClusteringOptimization [
 	
 	| input clusty |
 	input := Random new next: 200.
-	clusty := MOClusteringData onDistanceSquare: (MODistanceSquare on: input).	"internally compares the optimzed and the unoptimized code."
+	clusty := MalClusteringData onDistanceSquare: (MalDistanceSquare on: input).	"internally compares the optimzed and the unoptimized code."
 	clusty testPerformClustering: #averageLinkage
 ]
 
 { #category : #testing }
-MOClusterEngineTest >> testSeriationEngine [
+MalClusterEngineTest >> testSeriationEngine [
 	
 	| input output |
 	input := #(1 2 3 5 11 12 15 21 22 23 25 31 32 35 41 42 43 45 47).
-	output := MOSeriationEngine applyOn: input copy asArray shuffle.
+	output := MalSeriationEngine applyOn: input copy asArray shuffle.
 	self assert: output = input | (output reverse = input)
 ]
 
 { #category : #testing }
-MOClusterEngineTest >> testWardsMethod [
+MalClusterEngineTest >> testWardsMethod [
 	
 	| input clusty clusters |
 	input := #(#(1 2 3 5) #(11 12 15) #(21 22 23 25) #(31 32 35) #(41 42 43 45 47)).
-	clusty := MOClusterEngine with: input flatten shuffle.
+	clusty := MalClusterEngine with: input flatten shuffle.
 	clusty hierarchicalClusteringUsing: #wardsMethod.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size = 5.

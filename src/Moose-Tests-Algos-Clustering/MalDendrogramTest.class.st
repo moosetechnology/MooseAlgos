@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MODendrogramTest,
+	#name : #MalDendrogramTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'dendrogram'
@@ -11,34 +11,34 @@ Class {
 }
 
 { #category : #fixture }
-MODendrogramTest >> setUp [
+MalDendrogramTest >> setUp [
 	
 	| ab cd ef abcd efg |
-	ab := (MODendrogram with: #a)
-		merge: (MODendrogram with: #b)
+	ab := (MalDendrogram with: #a)
+		merge: (MalDendrogram with: #b)
 		at: 1.
-	cd := (MODendrogram with: #c)
-		merge: (MODendrogram with: #d)
+	cd := (MalDendrogram with: #c)
+		merge: (MalDendrogram with: #d)
 		at: 2.
-	ef := (MODendrogram with: #e)
-		merge: (MODendrogram with: #f)
+	ef := (MalDendrogram with: #e)
+		merge: (MalDendrogram with: #f)
 		at: 3.
 	abcd := ab merge: cd at: 4.
 	efg := ef
-		merge: (MODendrogram with: #g)
+		merge: (MalDendrogram with: #g)
 		at: 5.
 	dendrogram := abcd merge: efg at: 7	"#(((a 1 b) 4 (c 2 d)) 7 ((e 3 f) 5 g))"
 ]
 
 { #category : #test }
-MODendrogramTest >> testAllLeaves [
+MalDendrogramTest >> testAllLeaves [
 	
 	self assert: dendrogram elements size = 7.
 	self assert: (dendrogram elements equalsTo: #(#a #b #c #d #e #f #g))
 ]
 
 { #category : #test }
-MODendrogramTest >> testIndex [
+MalDendrogramTest >> testIndex [
 	
 	self assert: dendrogram index = 1.
 	self assert: dendrogram left index = 1.
@@ -50,7 +50,7 @@ MODendrogramTest >> testIndex [
 ]
 
 { #category : #test }
-MODendrogramTest >> testSize [
+MalDendrogramTest >> testSize [
 	
 	self assert: dendrogram size = 7.
 	self assert: dendrogram left size = 4.

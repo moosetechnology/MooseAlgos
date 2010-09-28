@@ -1,5 +1,5 @@
 Class {
-	#name : #Unlimited,
+	#name : #MalUnlimited,
 	#superclass : #Magnitude,
 	#instVars : [
 		'positive'
@@ -12,38 +12,38 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Unlimited class >> negative [
+MalUnlimited class >> negative [
 
 	^Negative ifNil: [Negative := super new initializeWith: false]
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited class >> new [
+MalUnlimited class >> new [
 
 	^self positive
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited class >> positive [
+MalUnlimited class >> positive [
 
 	^Positive ifNil: [Positive := super new initializeWith: true ]
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> < aMagnitude [
+MalUnlimited >> < aMagnitude [
 	"Any number is larger than Unlimited negative, except Unlimited negative itself."
 
 	^(positive not) and: [ self ~~ aMagnitude ]
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> = aMagnitude [
+MalUnlimited >> = aMagnitude [
 	
 	^self == aMagnitude
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> adaptToNumber: rcvr andSend: selector [
+MalUnlimited >> adaptToNumber: rcvr andSend: selector [
 
 	selector = #< ifTrue:[
 		self positive 
@@ -58,7 +58,7 @@ Unlimited >> adaptToNumber: rcvr andSend: selector [
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> hash [
+MalUnlimited >> hash [
 
 	^positive 
 		ifTrue: [ 16r3FFF ]
@@ -66,14 +66,14 @@ Unlimited >> hash [
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> initializeWith: isPositive [
+MalUnlimited >> initializeWith: isPositive [
 
 	positive := isPositive.
 	^self
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> negated [
+MalUnlimited >> negated [
 
 	^self positive 
 		ifTrue: [ self class negative ] 
@@ -81,13 +81,13 @@ Unlimited >> negated [
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> negative [
+MalUnlimited >> negative [
 
 	^positive not
 ]
 
 { #category : #'as yet unclassified' }
-Unlimited >> positive [
+MalUnlimited >> positive [
 
 	^positive
 ]

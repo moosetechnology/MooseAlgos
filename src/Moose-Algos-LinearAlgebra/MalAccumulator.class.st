@@ -29,7 +29,7 @@ MalAccumulator class >> extreme [
 MalAccumulator class >> maximum [
 	
 	^self
-		value: Unlimited negative
+		value: MalUnlimited negative
 		using: [:max :each | max max: each]
 ]
 
@@ -37,7 +37,7 @@ MalAccumulator class >> maximum [
 MalAccumulator class >> minimum [
 	
 	^self
-		value: Unlimited positive
+		value: MalUnlimited positive
 		using: [:min :each | min min: each]
 ]
 

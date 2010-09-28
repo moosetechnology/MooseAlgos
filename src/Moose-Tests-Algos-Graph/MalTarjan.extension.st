@@ -1,13 +1,13 @@
-Extension { #name : #MATarjan }
+Extension { #name : #MalTarjan }
 
 { #category : #'*Moose-Tests-Algos-Graph' }
-MATarjan classSide >> mondrianSample [
+MalTarjan class >> mondrianSample [
 	"
 	MOTarjan mondrianSample
 	"
 
 	| nodes edges g tarjan colorDic i color view b |
-	b := MAGraphStructure new nodeClass: MAGraphNode; edgeClass: MAGraphEdge.
+	b := MalGraphStructure new nodeClass: MalGraphNode; edgeClass: MalGraphEdge.
 	MAGraphFixture complexCycleGraph: b.
 	nodes := b nodes.
 	edges := b edges.
@@ -15,7 +15,7 @@ MATarjan classSide >> mondrianSample [
 	view := MOViewRenderer new.
 	view interaction item: 'show me the cycle' action: [:modelNode|
 		g := (view nodeForDomainValue: modelNode).
-		tarjan := MATarjan new.
+		tarjan := MalTarjan new.
  		tarjan nodes: g nodes.
 		tarjan edges: g edges from: #source to: #target.
 		tarjan run.

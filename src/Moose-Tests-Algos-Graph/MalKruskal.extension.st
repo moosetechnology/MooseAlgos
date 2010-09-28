@@ -1,13 +1,13 @@
-Extension { #name : #MAKruskal }
+Extension { #name : #MalKruskal }
 
 { #category : #'*Moose-Tests-Algos-Graph' }
-MAKruskal classSide >> mondrianSample [
+MalKruskal class >> mondrianSample [
 	"
 	MOKruskal mondrianSample
 	"
  
 	| kruskal tree otherEdges edges view |
-	kruskal := MAKruskal new.
+	kruskal := MalKruskal new.
 	MAGraphFixture complexWeightedGraph: kruskal.
 	tree := kruskal run.
 	

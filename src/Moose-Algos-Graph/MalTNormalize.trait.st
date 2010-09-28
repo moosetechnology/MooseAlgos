@@ -1,10 +1,10 @@
 Trait {
-	#name : #MATNormalize,
+	#name : #MalTNormalize,
 	#category : #'Moose-Algos-Graph'
 }
 
 { #category : #running }
-MATNormalize >> normalize: aCollectionOfNodes [
+MalTNormalize >> normalize: aCollectionOfNodes [
 
 	| firstNode perm |
 	firstNode := aCollectionOfNodes detectMin: [:n| n printString ].

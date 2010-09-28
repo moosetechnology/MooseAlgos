@@ -1,28 +1,28 @@
 Trait {
-	#name : #MATNodeNode,
+	#name : #MalTNodeNode,
 	#category : #'Moose-Algos-Graph'
 }
 
 { #category : #accessing }
-MATNodeNode >> from: sourceNode [
+MalTNodeNode >> from: sourceNode [
 
 	self previousNodes add: sourceNode 
 ]
 
 { #category : #accessing }
-MATNodeNode >> nextNodes [
+MalTNodeNode >> nextNodes [
 
 	self explicitRequirement
 ]
 
 { #category : #accessing }
-MATNodeNode >> previousNodes [
+MalTNodeNode >> previousNodes [
 
 	self explicitRequirement
 ]
 
 { #category : #accessing }
-MATNodeNode >> to: targetNode [
+MalTNodeNode >> to: targetNode [
 
 	self nextNodes add: targetNode 
 ]

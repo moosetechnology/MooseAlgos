@@ -1,8 +1,8 @@
 Class {
 	#name : #MalDijkstraNode,
 	#superclass : #MalGraphNode,
-	#traits : 'MATEdgeNode',
-	#classTraits : 'MATEdgeNode classTrait',
+	#traits : 'MalTEdgeNode',
+	#classTraits : 'MalTEdgeNode classTrait',
 	#instVars : [
 		'pathWeight',
 		'previousEdges',

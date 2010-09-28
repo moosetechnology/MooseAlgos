@@ -1,8 +1,8 @@
 Class {
 	#name : #MalSccNodeDecomposition,
 	#superclass : #MalSccExtractor,
-	#traits : 'MATNormalize',
-	#classTraits : 'MATNormalize classTrait',
+	#traits : 'MalTNormalize',
+	#classTraits : 'MalTNormalize classTrait',
 	#category : #'Moose-Algos-Graph'
 }
 

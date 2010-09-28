@@ -1,8 +1,8 @@
 Class {
 	#name : #MalNextNode,
 	#superclass : #MalDisjointSetNode,
-	#traits : 'MATNodeNode - {#from:. #previousNodes}',
-	#classTraits : 'MATNodeNode classTrait',
+	#traits : 'MalTNodeNode - {#from:. #previousNodes}',
+	#classTraits : 'MalTNodeNode classTrait',
 	#instVars : [
 		'nextNodes'
 	],

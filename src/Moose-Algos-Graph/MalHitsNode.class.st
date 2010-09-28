@@ -1,8 +1,8 @@
 Class {
 	#name : #MalHitsNode,
 	#superclass : #MalGraphNode,
-	#traits : 'MATNodeNode',
-	#classTraits : 'MATNodeNode classTrait',
+	#traits : 'MalTNodeNode',
+	#classTraits : 'MalTNodeNode classTrait',
 	#instVars : [
 		'previousNodes',
 		'nextNodes',

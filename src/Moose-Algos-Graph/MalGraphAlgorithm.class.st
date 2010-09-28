@@ -1,8 +1,8 @@
 Class {
 	#name : #MalGraphAlgorithm,
 	#superclass : #Object,
-	#traits : 'MATGraphBuilder',
-	#classTraits : 'MATGraphBuilder classTrait',
+	#traits : 'MalTGraphBuilder',
+	#classTraits : 'MalTGraphBuilder classTrait',
 	#instVars : [
 		'nodes',
 		'edges'

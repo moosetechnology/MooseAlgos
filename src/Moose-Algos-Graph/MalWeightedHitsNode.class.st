@@ -1,8 +1,8 @@
 Class {
 	#name : #MalWeightedHitsNode,
 	#superclass : #MalHitsNode,
-	#traits : 'MATEdgeNode',
-	#classTraits : 'MATEdgeNode classTrait',
+	#traits : 'MalTEdgeNode',
+	#classTraits : 'MalTEdgeNode classTrait',
 	#instVars : [
 		'nextEdges',
 		'previousEdges'

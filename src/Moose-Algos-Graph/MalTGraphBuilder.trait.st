@@ -1,10 +1,10 @@
 Trait {
-	#name : #MATGraphBuilder,
+	#name : #MalTGraphBuilder,
 	#category : #'Moose-Algos-Graph'
 }
 
 { #category : #private }
-MATGraphBuilder >> addEdge: eModel from: source to: target [ 
+MalTGraphBuilder >> addEdge: eModel from: source to: target [ 
 
 	| edge sourceNode targetNode unknownNode |
 	unknownNode := false.
@@ -32,19 +32,19 @@ MATGraphBuilder >> addEdge: eModel from: source to: target [
 ]
 
 { #category : #configuration }
-MATGraphBuilder >> edgeClass [
+MalTGraphBuilder >> edgeClass [
 
 	^ nil
 ]
 
 { #category : #accessing }
-MATGraphBuilder >> edges [
+MalTGraphBuilder >> edges [
 	
 	self explicitRequirement
 ]
 
 { #category : #configuration }
-MATGraphBuilder >> edges: aCollection from: source to: target [
+MalTGraphBuilder >> edges: aCollection from: source to: target [
 
 	aCollection do: [ :eModel |
 		self addEdge: eModel from: source to: target
@@ -52,7 +52,7 @@ MATGraphBuilder >> edges: aCollection from: source to: target [
 ]
 
 { #category : #configuration }
-MATGraphBuilder >> edges: aCollection from: source to: target weight: weightFunction [
+MalTGraphBuilder >> edges: aCollection from: source to: target weight: weightFunction [
 
 	| edge |
 	aCollection do: [ :eModel |
@@ -62,7 +62,7 @@ MATGraphBuilder >> edges: aCollection from: source to: target weight: weightFunc
 ]
 
 { #category : #configuration }
-MATGraphBuilder >> edges: aCollection from: source toAll: targets [
+MalTGraphBuilder >> edges: aCollection from: source toAll: targets [
 
 	aCollection do: [ :eModel |
 		(targets value: eModel) do: [:target| 
@@ -72,43 +72,43 @@ MATGraphBuilder >> edges: aCollection from: source toAll: targets [
 ]
 
 { #category : #accessing }
-MATGraphBuilder >> findEdge: aModel [
+MalTGraphBuilder >> findEdge: aModel [
 
 	^ self edges detect: [:edge | edge model = aModel]
 ]
 
 { #category : #accessing }
-MATGraphBuilder >> findNode: aModel [
+MalTGraphBuilder >> findNode: aModel [
 
 	^ self nodes detect: [:aNode | aNode model = aModel ]
 ]
 
 { #category : #accessing }
-MATGraphBuilder >> findNode: aModel ifAbsent: aBlock [
+MalTGraphBuilder >> findNode: aModel ifAbsent: aBlock [
 
 	^ self nodes detect: [:node | node model = aModel] ifNone: aBlock
 ]
 
 { #category : #accessing }
-MATGraphBuilder >> graph [
+MalTGraphBuilder >> graph [
 
 	^ {self nodes. self edges}
 ]
 
 { #category : #configuration }
-MATGraphBuilder >> nodeClass [
+MalTGraphBuilder >> nodeClass [
 
 	^ MAGraphNode
 ]
 
 { #category : #accessing }
-MATGraphBuilder >> nodes [
+MalTGraphBuilder >> nodes [
 	
 	self explicitRequirement
 ]
 
 { #category : #configuration }
-MATGraphBuilder >> nodes: aCollection [
+MalTGraphBuilder >> nodes: aCollection [
 
 	aCollection do: [ :model |
 		self nodes add: (self nodeClass with: model)

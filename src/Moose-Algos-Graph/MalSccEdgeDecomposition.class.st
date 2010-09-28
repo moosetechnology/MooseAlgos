@@ -1,8 +1,8 @@
 Class {
 	#name : #MalSccEdgeDecomposition,
 	#superclass : #MalSccExtractor,
-	#traits : 'MATNormalize',
-	#classTraits : 'MATNormalize classTrait',
+	#traits : 'MalTNormalize',
+	#classTraits : 'MalTNormalize classTrait',
 	#instVars : [
 		'bfsp'
 	],

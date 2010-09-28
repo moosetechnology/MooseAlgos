@@ -1,8 +1,8 @@
 Class {
 	#name : #MalBfsNode,
 	#superclass : #MalGraphNode,
-	#traits : 'MATEdgeNode - {#previousEdges. #from:edge:}',
-	#classTraits : 'MATEdgeNode classTrait',
+	#traits : 'MalTEdgeNode - {#previousEdges. #from:edge:}',
+	#classTraits : 'MalTEdgeNode classTrait',
 	#instVars : [
 		'nextEdges',
 		'firstDepth'

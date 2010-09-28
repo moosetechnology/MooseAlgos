@@ -51,7 +51,7 @@ MODendrogram >> breakInto: numberOfClusters [
 MODendrogram >> dist: dendrogram [
 	
 	| sum |
-	sum := MAAccumulator sum.
+	sum := MalAccumulator sum.
 	self elements
 		cross: dendrogram elements
 		do: [:a :b | sum add: (a dist: b)].

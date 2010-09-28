@@ -3,7 +3,7 @@ Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is dist
 "
 Class {
 	#name : #MOCorrelationVector,
-	#superclass : #MAVector,
+	#superclass : #MalVector,
 	#type : #bytes,
 	#category : #'Moose-Algos-Clustering'
 }

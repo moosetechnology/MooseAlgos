@@ -3,7 +3,7 @@ Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is dist
 "
 Class {
 	#name : #MOVectorItem,
-	#superclass : #MAVectorDecorator,
+	#superclass : #MalVectorDecorator,
 	#instVars : [
 		'item'
 	],
@@ -21,7 +21,7 @@ MOVectorItem class >> with: anElement and: aVector [
 { #category : #'instance creation' }
 MOVectorItem class >> with: anElement andAll: aCollection [
 	
-	^(self on: (MAArrayVector withAll: aCollection))
+	^(self on: (MalArrayVector withAll: aCollection))
 		item: anElement;
 		yourself
 ]

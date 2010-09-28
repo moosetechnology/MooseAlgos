@@ -39,7 +39,7 @@ MOTimeWarpingEngine >> getCostMatrix [
 		on: vectorA
 		and: vectorB
 		using: self distanceBlock.
-	cost := MAArrayMatrix new: matrix dimension.
+	cost := MalArrayMatrix new: matrix dimension.
 	cost
 		at: 1
 		and: 1

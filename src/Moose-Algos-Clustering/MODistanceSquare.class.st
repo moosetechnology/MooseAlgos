@@ -3,7 +3,7 @@ Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is dist
 "
 Class {
 	#name : #MODistanceSquare,
-	#superclass : #MASymetricMatrix,
+	#superclass : #MalSymetricMatrix,
 	#instVars : [
 		'distanceBlock',
 		'columnVector',
@@ -47,7 +47,7 @@ MODistanceSquare class >> on: items using: distanceBlock [
 { #category : #private }
 MODistanceSquare class >> vectorSpecies [
 	
-	^MAArrayVector	"FloatVector"
+	^MalArrayVector	"FloatVector"
 ]
 
 { #category : #accessing }

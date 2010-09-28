@@ -26,7 +26,7 @@ MOFeatureCollection >> chroniaHausdorffDistance: aFeatureCollection [
 	Limitations of the implementation see FeatureCollection>>hausdorffMinima:."
 	
 	| distance |
-	distance := MAAccumulator squaredSum.
+	distance := MalAccumulator squaredSum.
 	distance enumerate: (self hausdorffMinima: aFeatureCollection).
 	distance enumerate: (aFeatureCollection hausdorffMinima: self).
 	^distance value
@@ -44,7 +44,7 @@ MOFeatureCollection >> hausdorffDistance: aFeatureCollection [
 	Limitations of the implementation see FeatureCollection>>hausdorffMinima:."
 	
 	| distance |
-	distance := MAAccumulator maximum.
+	distance := MalAccumulator maximum.
 	distance enumerate: (self hausdorffMinima: aFeatureCollection).
 	distance enumerate: (aFeatureCollection hausdorffMinima: self).
 	^distance value

@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MABooleanVectorTest,
+	#name : #MalBooleanVectorTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'v'
@@ -11,9 +11,9 @@ Class {
 }
 
 { #category : #running }
-MABooleanVectorTest >> testAccessingLarge [
+MalBooleanVectorTest >> testAccessingLarge [
 	
-	v := MABooleanVector new: 100.
+	v := MalBooleanVector new: 100.
 	v at: 83 put: true.
 	self assert: v size = 100.
 	self assert: (v at: 82) not.
@@ -24,9 +24,9 @@ MABooleanVectorTest >> testAccessingLarge [
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testAccessingSmall [
+MalBooleanVectorTest >> testAccessingSmall [
 	
-	v := MABooleanVector new: 5.
+	v := MalBooleanVector new: 5.
 	v at: 3 put: true.
 	self assert: v size = 5.
 	self assert: (v at: 2) not.
@@ -37,12 +37,12 @@ MABooleanVectorTest >> testAccessingSmall [
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testAnd [
+MalBooleanVectorTest >> testAnd [
 	
 	| w vw |
-	v := MABooleanVector withAll:
+	v := MalBooleanVector withAll:
 			#(false false true true false false true true).
-	w := MABooleanVector withAll:
+	w := MalBooleanVector withAll:
 			#(false true false true true false true false).
 	vw := v & w.
 	self assert: vw size = 8.
@@ -50,40 +50,40 @@ MABooleanVectorTest >> testAnd [
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testNew [
+MalBooleanVectorTest >> testNew [
 	
-	v := MABooleanVector new.
+	v := MalBooleanVector new.
 	self assert: v size = 0
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testNewLarge [
+MalBooleanVectorTest >> testNewLarge [
 	
-	v := MABooleanVector new: 100.
+	v := MalBooleanVector new: 100.
 	self assert: v size = 100.
 	self assert: (v allSatisfy: #not)
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testNewSmall [
+MalBooleanVectorTest >> testNewSmall [
 	
-	v := MABooleanVector new: 5.
+	v := MalBooleanVector new: 5.
 	self assert: v size = 5.
 	self assert: (v allSatisfy: #not)
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testNewWithAll [
+MalBooleanVectorTest >> testNewWithAll [
 	
-	v := MABooleanVector new: 100 withAll: true.
+	v := MalBooleanVector new: 100 withAll: true.
 	self assert: v size = 100.
 	self assert: (v allSatisfy: #yourself)
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testNot [
+MalBooleanVectorTest >> testNot [
 	
-	v := MABooleanVector withAll:
+	v := MalBooleanVector withAll:
 			#(false false true true false false true true).
 	self assert: v not size = 8.
 	self
@@ -91,12 +91,12 @@ MABooleanVectorTest >> testNot [
 ]
 
 { #category : #running }
-MABooleanVectorTest >> testOr [
+MalBooleanVectorTest >> testOr [
 	
 	| w vw |
-	v := MABooleanVector withAll:
+	v := MalBooleanVector withAll:
 			#(false false true true false false true true).
-	w := MABooleanVector withAll:
+	w := MalBooleanVector withAll:
 			#(false true false true true false true false).
 	vw := v | w.
 	self assert: vw size = 8.

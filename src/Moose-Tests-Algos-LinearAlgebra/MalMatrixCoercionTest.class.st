@@ -2,13 +2,13 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMatrixCoercionTest,
+	#name : #MalMatrixCoercionTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-LinearAlgebra'
 }
 
 { #category : #test }
-MAMatrixCoercionTest >> testDouble [
+MalMatrixCoercionTest >> testDouble [
 	"no longer Double in Pharo"
 	"| m n |
 	m := MAColumnMatrix
@@ -26,7 +26,7 @@ MAMatrixCoercionTest >> testDouble [
 ]
 
 { #category : #test }
-MAMatrixCoercionTest >> testFixedPoint [
+MalMatrixCoercionTest >> testFixedPoint [
 	"no longer FixedPoint in Pharo"
 	"| m n |
 	m := MAColumnMatrix
@@ -44,10 +44,10 @@ MAMatrixCoercionTest >> testFixedPoint [
 ]
 
 { #category : #test }
-MAMatrixCoercionTest >> testFloat [
+MalMatrixCoercionTest >> testFloat [
 	
 	| m n |
-	m := MAColumnMatrix
+	m := MalColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2.0.
@@ -62,10 +62,10 @@ MAMatrixCoercionTest >> testFloat [
 ]
 
 { #category : #test }
-MAMatrixCoercionTest >> testFraction [
+MalMatrixCoercionTest >> testFraction [
 	
 	| m n |
-	m := MAColumnMatrix
+	m := MalColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 1 / 2.
@@ -80,10 +80,10 @@ MAMatrixCoercionTest >> testFraction [
 ]
 
 { #category : #test }
-MAMatrixCoercionTest >> testInteger [
+MalMatrixCoercionTest >> testInteger [
 	
 	| m n |
-	m := MAColumnMatrix
+	m := MalColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2.
@@ -98,10 +98,10 @@ MAMatrixCoercionTest >> testInteger [
 ]
 
 { #category : #test }
-MAMatrixCoercionTest >> testLargeInteger [
+MalMatrixCoercionTest >> testLargeInteger [
 	
 	| m n |
-	m := MAColumnMatrix
+	m := MalColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2000000000000.
@@ -116,10 +116,10 @@ MAMatrixCoercionTest >> testLargeInteger [
 ]
 
 { #category : #test }
-MAMatrixCoercionTest >> testPoint [
+MalMatrixCoercionTest >> testPoint [
 	
 	| m n |
-	m := MAColumnMatrix
+	m := MalColumnMatrix
 		new: 4 @ 3
 		withAll: 2.
 	n := 2 @ 2.

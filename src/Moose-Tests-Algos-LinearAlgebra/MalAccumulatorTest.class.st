@@ -2,16 +2,16 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAAccumulatorTest,
+	#name : #MalAccumulatorTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-LinearAlgebra'
 }
 
 { #category : #test }
-MAAccumulatorTest >> testAverage [
+MalAccumulatorTest >> testAverage [
 	
 	| a |
-	a := MAAccumulator sum.
+	a := MalAccumulator sum.
 	a accumulate: 10.
 	self assert: a average = 10.
 	a accumulate: 1.
@@ -21,10 +21,10 @@ MAAccumulatorTest >> testAverage [
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testCustomBlock [
+MalAccumulatorTest >> testCustomBlock [
 	
 	| a |
-	a := MAAccumulator
+	a := MalAccumulator
 		value: 0
 		using: [:current :new | current max: new size].
 	a accumulate: 'ab'.
@@ -36,29 +36,29 @@ MAAccumulatorTest >> testCustomBlock [
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testEnumerate [
+MalAccumulatorTest >> testEnumerate [
 	
 	| a |
-	a := MAAccumulator minimum.
+	a := MalAccumulator minimum.
 	a enumerate: #(10 1 100).
 	self assert: a value = 1
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testEnumerateWithIndex [
+MalAccumulatorTest >> testEnumerateWithIndex [
 	
 	| a |
-	a := MAAccumulator minimum.
+	a := MalAccumulator minimum.
 	a enumerateWithIndex: #(10 1 100).
 	self assert: a index = 2.
 	self assert: a value = 1
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testIfTruePut [
+MalAccumulatorTest >> testIfTruePut [
 	
 	| a |
-	a := MAAccumulator maximum.
+	a := MalAccumulator maximum.
 	a accumulate: 10 withIndex: 'first'.
 	self assert: a index = 'first'.
 	self assert: a value = 10.
@@ -71,10 +71,10 @@ MAAccumulatorTest >> testIfTruePut [
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testMaximum [
+MalAccumulatorTest >> testMaximum [
 	
 	| a |
-	a := MAAccumulator maximum.
+	a := MalAccumulator maximum.
 	a accumulate: 10.
 	self assert: a value = 10.
 	a accumulate: 1.
@@ -84,10 +84,10 @@ MAAccumulatorTest >> testMaximum [
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testMinimum [
+MalAccumulatorTest >> testMinimum [
 	
 	| a |
-	a := MAAccumulator minimum.
+	a := MalAccumulator minimum.
 	a accumulate: 10.
 	self assert: a value = 10.
 	a accumulate: 1.
@@ -97,19 +97,19 @@ MAAccumulatorTest >> testMinimum [
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testSquaredSum [
+MalAccumulatorTest >> testSquaredSum [
 	
 	| a |
-	a := MAAccumulator squaredSum.
+	a := MalAccumulator squaredSum.
 	a enumerate: #(1 2 3 4 5 6 7 8 9 10).
 	self assert: a value = 385
 ]
 
 { #category : #test }
-MAAccumulatorTest >> testSum [
+MalAccumulatorTest >> testSum [
 	
 	| a |
-	a := MAAccumulator sum.
+	a := MalAccumulator sum.
 	a enumerate: #(1 2 3 4 5 6 7 8 9 10).
 	self assert: a value = 55
 ]

@@ -1,6 +1,6 @@
 Class {
-	#name : #MACyclesCoverage,
-	#superclass : #MATarjan,
+	#name : #MalCyclesCoverage,
+	#superclass : #MalTarjan,
 	#traits : 'MATNormalize',
 	#classTraits : 'MATNormalize classTrait',
 	#instVars : [
@@ -11,32 +11,32 @@ Class {
 }
 
 { #category : #accessing }
-MACyclesCoverage >> circuits [
+MalCyclesCoverage >> circuits [
 	^ circuits
 ]
 
 { #category : #running }
-MACyclesCoverage >> directCircuit: aCollection [
+MalCyclesCoverage >> directCircuit: aCollection [
 
 	^ self normalize: (OrderedCollection with: aCollection first model with: aCollection second model)
 ]
 
 { #category : #'as yet unclassified' }
-MACyclesCoverage >> initialize [
+MalCyclesCoverage >> initialize [
 
 	super initialize.
 	self useNodeDecomposition 
 ]
 
 { #category : #accessing }
-MACyclesCoverage >> retrieveCircuitsFromSccExtractor: sccExtractor [
+MalCyclesCoverage >> retrieveCircuitsFromSccExtractor: sccExtractor [
 
 	sccExtractor circuits do: [:c |
 		circuits add: (c collect: [:n| n model]) ]
 ]
 
 { #category : #running }
-MACyclesCoverage >> run [
+MalCyclesCoverage >> run [
 
 	super run.
 	circuits := OrderedCollection new.
@@ -54,19 +54,19 @@ MACyclesCoverage >> run [
 ]
 
 { #category : #running }
-MACyclesCoverage >> useCircuitSpan [
+MalCyclesCoverage >> useCircuitSpan [
 
-	sccExtractorClass := MACircuitSpanningEdges  
+	sccExtractorClass := MalCircuitSpanningEdges  
 ]
 
 { #category : #running }
-MACyclesCoverage >> useEdgeDecomposition [
+MalCyclesCoverage >> useEdgeDecomposition [
 
-	sccExtractorClass := MASccEdgeDecomposition 
+	sccExtractorClass := MalSccEdgeDecomposition 
 ]
 
 { #category : #running }
-MACyclesCoverage >> useNodeDecomposition [
+MalCyclesCoverage >> useNodeDecomposition [
 
-	sccExtractorClass := MASccNodeDecomposition 
+	sccExtractorClass := MalSccNodeDecomposition 
 ]

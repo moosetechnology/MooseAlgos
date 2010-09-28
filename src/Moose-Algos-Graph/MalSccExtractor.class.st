@@ -1,6 +1,6 @@
 Class {
-	#name : #MASccExtractor,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalSccExtractor,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'circuits'
 	],
@@ -8,18 +8,18 @@ Class {
 }
 
 { #category : #accessing }
-MASccExtractor >> addCircuit: aCollectionOfNodes [
+MalSccExtractor >> addCircuit: aCollectionOfNodes [
 	
 	circuits add: aCollectionOfNodes
 ]
 
 { #category : #accessing }
-MASccExtractor >> circuits [
+MalSccExtractor >> circuits [
 	^ circuits
 ]
 
 { #category : #accessing }
-MASccExtractor >> initialize [ 
+MalSccExtractor >> initialize [ 
 
 	super initialize.
 	circuits := Set new.
@@ -27,7 +27,7 @@ MASccExtractor >> initialize [
 ]
 
 { #category : #running }
-MASccExtractor >> run [
+MalSccExtractor >> run [
 
 	self subclassResponsibility
 ]

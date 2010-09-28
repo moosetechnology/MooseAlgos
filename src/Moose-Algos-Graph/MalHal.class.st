@@ -1,6 +1,6 @@
 Class {
-	#name : #MAHal,
-	#superclass : #MATarjan,
+	#name : #MalHal,
+	#superclass : #MalTarjan,
 	#instVars : [
 		'nodesToVisit'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MAHal >> hierarchyLevels [
+MalHal >> hierarchyLevels [
 
 	| map level |
 	map := Dictionary new.
@@ -20,13 +20,13 @@ MAHal >> hierarchyLevels [
 ]
 
 { #category : #'as yet unclassified' }
-MAHal >> nodeClass [
+MalHal >> nodeClass [
 
-	^ MAHalNode
+	^ MalHalNode
 ]
 
 { #category : #'as yet unclassified' }
-MAHal >> run [
+MalHal >> run [
 
 	| entryNodes cnode touchedCycle |
 	
@@ -52,7 +52,7 @@ MAHal >> run [
 ]
 
 { #category : #'as yet unclassified' }
-MAHal >> showLevels [
+MalHal >> showLevels [
 
 	self hierarchyLevels keysAndValuesDo: [ :k :v |
 			Transcript show: k.

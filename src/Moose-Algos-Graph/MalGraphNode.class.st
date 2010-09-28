@@ -1,5 +1,5 @@
 Class {
-	#name : #MAGraphNode,
+	#name : #MalGraphNode,
 	#superclass : #Object,
 	#instVars : [
 		'model'
@@ -8,46 +8,46 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MAGraphNode class >> with: aModel [
+MalGraphNode class >> with: aModel [
 
 	^ self new model: aModel
 ]
 
 { #category : #accessing }
-MAGraphNode >> from: sourceNode [
+MalGraphNode >> from: sourceNode [
 ]
 
 { #category : #accessing }
-MAGraphNode >> from: sourceNode edge: anEdge [
+MalGraphNode >> from: sourceNode edge: anEdge [
 ]
 
 { #category : #accessing }
-MAGraphNode >> label [
+MalGraphNode >> label [
 
 	^ 'N '
 ]
 
 { #category : #accessing }
-MAGraphNode >> model [
+MalGraphNode >> model [
 	^ model
 ]
 
 { #category : #accessing }
-MAGraphNode >> model: aModel [
+MalGraphNode >> model: aModel [
 
 	model := aModel
 ]
 
 { #category : #accessing }
-MAGraphNode >> printString [
+MalGraphNode >> printString [
 
 	^ self label, self model printString
 ]
 
 { #category : #accessing }
-MAGraphNode >> to: targetNode [
+MalGraphNode >> to: targetNode [
 ]
 
 { #category : #accessing }
-MAGraphNode >> to: targetNode edge: anEdge [
+MalGraphNode >> to: targetNode edge: anEdge [
 ]

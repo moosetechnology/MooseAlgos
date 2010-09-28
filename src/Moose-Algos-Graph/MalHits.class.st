@@ -1,6 +1,6 @@
 Class {
-	#name : #MAHits,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalHits,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'k'
 	],
@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #running }
-MAHits >> computeAuthoritiesFor: aNode [
+MalHits >> computeAuthoritiesFor: aNode [
 
 	aNode auth: (aNode previousNodes inject: 0 into: [:s :n| s + n hub])
 ]
 
 { #category : #running }
-MAHits >> computeHubsFor: aNode [
+MalHits >> computeHubsFor: aNode [
 
 	aNode hub: (aNode nextNodes inject: 0 into: [:s :n| s + n auth])
 ]
 
 { #category : #displaying }
-MAHits >> display [
+MalHits >> display [
 
 	| view |
 	view := MOViewRenderer new.
@@ -29,7 +29,7 @@ MAHits >> display [
 ]
 
 { #category : #displaying }
-MAHits >> displayOn: view [
+MalHits >> displayOn: view [
 
 	view shape: (MORectangleShape new text: [:n| n printString]).
 	view nodes: nodes.
@@ -39,14 +39,14 @@ MAHits >> displayOn: view [
 ]
 
 { #category : #'initialize-release' }
-MAHits >> initialize [
+MalHits >> initialize [
 
 	super initialize.
 	k := 20
 ]
 
 { #category : #running }
-MAHits >> initializeNodes [
+MalHits >> initializeNodes [
 
 	self nodes do: [:n|
 		n auth: 1.0; hub: 1.0
@@ -54,23 +54,23 @@ MAHits >> initializeNodes [
 ]
 
 { #category : #configuration }
-MAHits >> k [
+MalHits >> k [
 	^ k
 ]
 
 { #category : #configuration }
-MAHits >> k: anObject [
+MalHits >> k: anObject [
 	k := anObject
 ]
 
 { #category : #configuration }
-MAHits >> nodeClass [
+MalHits >> nodeClass [
 
-	^ MAHitsNode
+	^ MalHitsNode
 ]
 
 { #category : #running }
-MAHits >> normalize: aCollectionOfNodes [
+MalHits >> normalize: aCollectionOfNodes [
 
 	| authNorm hubNorm |
 	authNorm := aCollectionOfNodes inject: 0 into: [:s :n| s + n auth].
@@ -83,7 +83,7 @@ MAHits >> normalize: aCollectionOfNodes [
 ]
 
 { #category : #running }
-MAHits >> run [
+MalHits >> run [
 
 	|i|
 	i := 1.

@@ -1,6 +1,6 @@
 Class {
-	#name : #MADijkstraNode,
-	#superclass : #MAGraphNode,
+	#name : #MalDijkstraNode,
+	#superclass : #MalGraphNode,
 	#traits : 'MATEdgeNode',
 	#classTraits : 'MATEdgeNode classTrait',
 	#instVars : [
@@ -13,14 +13,14 @@ Class {
 }
 
 { #category : #accessing }
-MADijkstraNode >> from: aNode edge: anEdge [
+MalDijkstraNode >> from: aNode edge: anEdge [
 
 	self previousNodes add: aNode.
 	self previousEdges add: anEdge
 ]
 
 { #category : #initialization }
-MADijkstraNode >> initialize [
+MalDijkstraNode >> initialize [
 
 	previousNodes := OrderedCollection new.
 	previousEdges := OrderedCollection new.
@@ -29,29 +29,29 @@ MADijkstraNode >> initialize [
 ]
 
 { #category : #accessing }
-MADijkstraNode >> nextEdges [
+MalDijkstraNode >> nextEdges [
 
 	^ nextEdges
 ]
 
 { #category : #accessing }
-MADijkstraNode >> pathWeight [
+MalDijkstraNode >> pathWeight [
 	^ pathWeight
 ]
 
 { #category : #accessing }
-MADijkstraNode >> pathWeight: anObject [
+MalDijkstraNode >> pathWeight: anObject [
 	pathWeight := anObject
 ]
 
 { #category : #accessing }
-MADijkstraNode >> previousEdges [
+MalDijkstraNode >> previousEdges [
 
 	^ previousEdges
 ]
 
 { #category : #accessing }
-MADijkstraNode >> previousNodes [
+MalDijkstraNode >> previousNodes [
 
 	^ previousNodes
 ]

@@ -1,6 +1,6 @@
 Class {
-	#name : #MACseEdge,
-	#superclass : #MADijkstraEdge,
+	#name : #MalCseEdge,
+	#superclass : #MalDijkstraEdge,
 	#instVars : [
 		'cseVisited'
 	],
@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #accessing }
-MACseEdge >> cseVisited [
+MalCseEdge >> cseVisited [
 	^ cseVisited
 ]
 
 { #category : #accessing }
-MACseEdge >> cseVisited: aBoolean [
+MalCseEdge >> cseVisited: aBoolean [
 	cseVisited := aBoolean
 ]
 
 { #category : #initialization }
-MACseEdge >> initialize [ 
+MalCseEdge >> initialize [ 
 
 	super initialize.
 	self cseVisited: false.

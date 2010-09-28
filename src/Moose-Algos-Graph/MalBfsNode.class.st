@@ -1,6 +1,6 @@
 Class {
-	#name : #MABfsNode,
-	#superclass : #MAGraphNode,
+	#name : #MalBfsNode,
+	#superclass : #MalGraphNode,
 	#traits : 'MATEdgeNode - {#previousEdges. #from:edge:}',
 	#classTraits : 'MATEdgeNode classTrait',
 	#instVars : [
@@ -11,36 +11,36 @@ Class {
 }
 
 { #category : #accessing }
-MABfsNode >> firstDepth [
+MalBfsNode >> firstDepth [
 	^ firstDepth
 ]
 
 { #category : #accessing }
-MABfsNode >> firstDepth: anObject [
+MalBfsNode >> firstDepth: anObject [
 	firstDepth := anObject
 ]
 
 { #category : #'as yet unclassified' }
-MABfsNode >> initialize [ 
+MalBfsNode >> initialize [ 
 
 	nextEdges := OrderedCollection new.
 
 ]
 
 { #category : #'as yet unclassified' }
-MABfsNode >> nextEdges [
+MalBfsNode >> nextEdges [
 
 	^ nextEdges 
 ]
 
 { #category : #accessing }
-MABfsNode >> notVisited [
+MalBfsNode >> notVisited [
 
 	firstDepth := nil
 ]
 
 { #category : #accessing }
-MABfsNode >> visited [
+MalBfsNode >> visited [
 
 	^ firstDepth notNil
 ]

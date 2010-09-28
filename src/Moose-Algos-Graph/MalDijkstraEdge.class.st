@@ -1,6 +1,6 @@
 Class {
-	#name : #MADijkstraEdge,
-	#superclass : #MAWeightedEdge,
+	#name : #MalDijkstraEdge,
+	#superclass : #MalWeightedEdge,
 	#instVars : [
 		'visited'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #initialization }
-MADijkstraEdge >> initialize [ 
+MalDijkstraEdge >> initialize [ 
 
 	super initialize.
 	weight := 1.
@@ -16,13 +16,13 @@ MADijkstraEdge >> initialize [
 ]
 
 { #category : #accessing }
-MADijkstraEdge >> isVisited [
+MalDijkstraEdge >> isVisited [
 
 	^ visited
 ]
 
 { #category : #accessing }
-MADijkstraEdge >> visited: aBoolean [
+MalDijkstraEdge >> visited: aBoolean [
 
 	visited := aBoolean 
 ]

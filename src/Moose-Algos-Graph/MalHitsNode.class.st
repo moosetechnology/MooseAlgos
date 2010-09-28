@@ -1,6 +1,6 @@
 Class {
-	#name : #MAHitsNode,
-	#superclass : #MAGraphNode,
+	#name : #MalHitsNode,
+	#superclass : #MalGraphNode,
 	#traits : 'MATNodeNode',
 	#classTraits : 'MATNodeNode classTrait',
 	#instVars : [
@@ -13,50 +13,50 @@ Class {
 }
 
 { #category : #accessing }
-MAHitsNode >> auth [
+MalHitsNode >> auth [
 	^ auth
 ]
 
 { #category : #accessing }
-MAHitsNode >> auth: anObject [
+MalHitsNode >> auth: anObject [
 	auth := anObject
 ]
 
 { #category : #accessing }
-MAHitsNode >> hub [
+MalHitsNode >> hub [
 	^ hub
 ]
 
 { #category : #accessing }
-MAHitsNode >> hub: anObject [
+MalHitsNode >> hub: anObject [
 	hub := anObject
 ]
 
 { #category : #accessing }
-MAHitsNode >> initialize [
+MalHitsNode >> initialize [
 
 	previousNodes := OrderedCollection new.
 	nextNodes := OrderedCollection new.
 ]
 
 { #category : #printing }
-MAHitsNode >> label [
+MalHitsNode >> label [
 
 	^ 'H '
 ]
 
 { #category : #accessing }
-MAHitsNode >> nextNodes [
+MalHitsNode >> nextNodes [
 	^ nextNodes
 ]
 
 { #category : #accessing }
-MAHitsNode >> previousNodes [
+MalHitsNode >> previousNodes [
 	^ previousNodes
 ]
 
 { #category : #printing }
-MAHitsNode >> printString [
+MalHitsNode >> printString [
 
 	^ 	'(',
 		self model printString,

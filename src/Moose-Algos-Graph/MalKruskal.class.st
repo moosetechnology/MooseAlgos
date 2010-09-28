@@ -1,6 +1,6 @@
 Class {
-	#name : #MAKruskal,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalKruskal,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'sortedEdges',
 		'treeEdges',
@@ -10,40 +10,40 @@ Class {
 }
 
 { #category : #configuration }
-MAKruskal >> edgeClass [
+MalKruskal >> edgeClass [
 
-	^ MAWeightedEdge 
+	^ MalWeightedEdge 
 ]
 
 { #category : #initialization }
-MAKruskal >> initialize [
+MalKruskal >> initialize [
 
 	super initialize.
 	self minSpanningTree 
 ]
 
 { #category : #configuration }
-MAKruskal >> maxSpanningTree [
+MalKruskal >> maxSpanningTree [
 
 	sortBlock := [:e1 :e2 | e1 weight > e2 weight].
 
 ]
 
 { #category : #configuration }
-MAKruskal >> minSpanningTree [
+MalKruskal >> minSpanningTree [
 
 	sortBlock := [:e1 :e2 | e1 weight < e2 weight].
 
 ]
 
 { #category : #configuration }
-MAKruskal >> nodeClass [
+MalKruskal >> nodeClass [
 
-	^ MADisjointSetNode 
+	^ MalDisjointSetNode 
 ]
 
 { #category : #running }
-MAKruskal >> run [
+MalKruskal >> run [
 
 	treeEdges := OrderedCollection new.
 	self sortedEdges: edges.
@@ -59,13 +59,13 @@ MAKruskal >> run [
 ]
 
 { #category : #configuration }
-MAKruskal >> sortBlock: aBlock [
+MalKruskal >> sortBlock: aBlock [
 
 	sortBlock := aBlock
 ]
 
 { #category : #running }
-MAKruskal >> sortedEdges: aCollectionOfWeightedEdges [
+MalKruskal >> sortedEdges: aCollectionOfWeightedEdges [
 
 	sortedEdges := SortedCollection sortBlock: sortBlock.
 	sortedEdges addAll: aCollectionOfWeightedEdges 

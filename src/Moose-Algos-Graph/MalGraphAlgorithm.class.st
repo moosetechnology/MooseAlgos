@@ -1,5 +1,5 @@
 Class {
-	#name : #MAGraphAlgorithm,
+	#name : #MalGraphAlgorithm,
 	#superclass : #Object,
 	#traits : 'MATGraphBuilder',
 	#classTraits : 'MATGraphBuilder classTrait',
@@ -11,38 +11,44 @@ Class {
 }
 
 { #category : #accessing }
-MAGraphAlgorithm >> edges [
+MalGraphAlgorithm >> edges [
 
 	^ edges
 ]
 
 { #category : #'initialize-release' }
-MAGraphAlgorithm >> initialize [
+MalGraphAlgorithm >> initialize [
 
 	nodes := OrderedCollection new.
 	edges := OrderedCollection new.
 ]
 
+{ #category : #configuration }
+MalGraphAlgorithm >> nodeClass [
+
+	^ MalGraphNode
+]
+
 { #category : #accessing }
-MAGraphAlgorithm >> nodes [
+MalGraphAlgorithm >> nodes [
 
 	^ nodes
 ]
 
 { #category : #private }
-MAGraphAlgorithm >> privateEdges: aCollection [
+MalGraphAlgorithm >> privateEdges: aCollection [
 
 	edges := aCollection 
 ]
 
 { #category : #private }
-MAGraphAlgorithm >> privateNodes: aCollection [
+MalGraphAlgorithm >> privateNodes: aCollection [
 
 	nodes := aCollection 
 ]
 
 { #category : #running }
-MAGraphAlgorithm >> run [
+MalGraphAlgorithm >> run [
 
 	self subclassResponsibility 
 ]

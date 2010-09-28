@@ -1,6 +1,6 @@
 Class {
-	#name : #MASccEdgeDecomposition,
-	#superclass : #MASccExtractor,
+	#name : #MalSccEdgeDecomposition,
+	#superclass : #MalSccExtractor,
 	#traits : 'MATNormalize',
 	#classTraits : 'MATNormalize classTrait',
 	#instVars : [
@@ -10,33 +10,33 @@ Class {
 }
 
 { #category : #running }
-MASccEdgeDecomposition >> bfsPathFrom: startNode to: endNode [
+MalSccEdgeDecomposition >> bfsPathFrom: startNode to: endNode [
 
 	^ bfsp start: startNode; end: endNode; run
 ]
 
 { #category : #accessing }
-MASccEdgeDecomposition >> edgeClass [
+MalSccEdgeDecomposition >> edgeClass [
 
-	^ MAGraphEdge 
+	^ MalGraphEdge 
 ]
 
 { #category : #accessing }
-MASccEdgeDecomposition >> initialize [ 
+MalSccEdgeDecomposition >> initialize [ 
 
 	super initialize.
-	bfsp := MABreadthFirstSearchPath new.
+	bfsp := MalBreadthFirstSearchPath new.
 
 ]
 
 { #category : #accessing }
-MASccEdgeDecomposition >> nodeClass [
+MalSccEdgeDecomposition >> nodeClass [
 
-	^ MABfsNode 
+	^ MalBfsNode 
 ]
 
 { #category : #running }
-MASccEdgeDecomposition >> run [
+MalSccEdgeDecomposition >> run [
 
 	bfsp privateNodes: self nodes; privateEdges: self edges.
 	self edges do: [:e||c|

@@ -1,6 +1,6 @@
 Class {
-	#name : #MADijkstra,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalDijkstra,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'start',
 		'end'
@@ -9,13 +9,13 @@ Class {
 }
 
 { #category : #backtracking }
-MADijkstra >> backtrack [ 
+MalDijkstra >> backtrack [ 
 
 	^ self backtrack: self end
 ]
 
 { #category : #backtracking }
-MADijkstra >> backtrack: b [
+MalDijkstra >> backtrack: b [
 
 	| p |
 	b pathWeight = Float infinity
@@ -28,7 +28,7 @@ MADijkstra >> backtrack: b [
 ]
 
 { #category : #backtracking }
-MADijkstra >> backtrack: b edgeDo: aBlock [
+MalDijkstra >> backtrack: b edgeDo: aBlock [
 	"special purpose backtracking for CSE: backtrack through edge and do something on each edge 
 	while traversing.
 	 do not check if there is a solution (pathWeight ~= Float infinity)"
@@ -44,34 +44,34 @@ MADijkstra >> backtrack: b edgeDo: aBlock [
 ]
 
 { #category : #accessing }
-MADijkstra >> edgeClass [
+MalDijkstra >> edgeClass [
 
-	^ MADijkstraEdge
+	^ MalDijkstraEdge
 ]
 
 { #category : #private }
-MADijkstra >> end [
+MalDijkstra >> end [
 	^ end
 ]
 
 { #category : #private }
-MADijkstra >> end: aDijsktraNode [
+MalDijkstra >> end: aDijsktraNode [
 	end := aDijsktraNode
 ]
 
 { #category : #accessing }
-MADijkstra >> nodeClass [
+MalDijkstra >> nodeClass [
 
-	^ MADijkstraNode 
+	^ MalDijkstraNode 
 ]
 
 { #category : #running }
-MADijkstra >> pathWeight [
+MalDijkstra >> pathWeight [
 	^ self end pathWeight
 ]
 
 { #category : #running }
-MADijkstra >> reset [
+MalDijkstra >> reset [
 
 	self nodes do: [:n|
 		n pathWeight: Float infinity ].
@@ -80,13 +80,13 @@ MADijkstra >> reset [
 ]
 
 { #category : #running }
-MADijkstra >> run [
+MalDijkstra >> run [
 	
 	self traverse: self start
 ]
 
 { #category : #running }
-MADijkstra >> runFrom: start to: end [
+MalDijkstra >> runFrom: start to: end [
 
 	self start: (self findNode: start); end: (self findNode: end).
 	self run.
@@ -94,18 +94,18 @@ MADijkstra >> runFrom: start to: end [
 ]
 
 { #category : #private }
-MADijkstra >> start [
+MalDijkstra >> start [
 	^ start
 ]
 
 { #category : #private }
-MADijkstra >> start: aDijsktraNode [
+MalDijkstra >> start: aDijsktraNode [
 	start := aDijsktraNode.
 	aDijsktraNode pathWeight: 0
 ]
 
 { #category : #running }
-MADijkstra >> traverse: node [
+MalDijkstra >> traverse: node [
 
 	self flag: #todo. "optimize traversal of nodes"
 	node nextEdges do: [:edge |

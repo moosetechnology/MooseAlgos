@@ -1,19 +1,19 @@
 Class {
-	#name : #MASccNodeDecomposition,
-	#superclass : #MASccExtractor,
+	#name : #MalSccNodeDecomposition,
+	#superclass : #MalSccExtractor,
 	#traits : 'MATNormalize',
 	#classTraits : 'MATNormalize classTrait',
 	#category : #'Moose-Algos-Graph'
 }
 
 { #category : #running }
-MASccNodeDecomposition >> nodeClass [
+MalSccNodeDecomposition >> nodeClass [
 
-	^ MASndNode
+	^ MalSndNode
 ]
 
 { #category : #running }
-MASccNodeDecomposition >> retrieveCircuit: aNode [
+MalSccNodeDecomposition >> retrieveCircuit: aNode [
 
 	|c n i|
 	c := OrderedCollection new.
@@ -26,7 +26,7 @@ MASccNodeDecomposition >> retrieveCircuit: aNode [
 ]
 
 { #category : #running }
-MASccNodeDecomposition >> run [
+MalSccNodeDecomposition >> run [
 
 	self nodes do: [:n|
 		self run: n
@@ -34,7 +34,7 @@ MASccNodeDecomposition >> run [
 ]
 
 { #category : #running }
-MASccNodeDecomposition >> run: aNode [
+MalSccNodeDecomposition >> run: aNode [
 
 	| fifo visited ancestors |
 	visited := Set new.

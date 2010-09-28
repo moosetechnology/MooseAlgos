@@ -1,6 +1,6 @@
 Class {
-	#name : #MAGraphStructure,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalGraphStructure,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'nodeClass',
 		'edgeClass'
@@ -9,35 +9,35 @@ Class {
 }
 
 { #category : #configuration }
-MAGraphStructure >> edgeClass [
+MalGraphStructure >> edgeClass [
 
 	^ edgeClass
 ]
 
 { #category : #configuration }
-MAGraphStructure >> edgeClass: anObject [
+MalGraphStructure >> edgeClass: anObject [
 	edgeClass := anObject
 ]
 
 { #category : #accessing }
-MAGraphStructure >> edgeModels [
+MalGraphStructure >> edgeModels [
 
 	^ self edges collect: [:e | e model]
 ]
 
 { #category : #configuration }
-MAGraphStructure >> nodeClass [
+MalGraphStructure >> nodeClass [
 
 	^ nodeClass
 ]
 
 { #category : #configuration }
-MAGraphStructure >> nodeClass: anObject [
+MalGraphStructure >> nodeClass: anObject [
 	nodeClass := anObject
 ]
 
 { #category : #accessing }
-MAGraphStructure >> nodeModels [
+MalGraphStructure >> nodeModels [
 
 	^ self nodes collect: [:n | n model]
 ]

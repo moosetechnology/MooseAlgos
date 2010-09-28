@@ -1,6 +1,6 @@
 Class {
-	#name : #MATarjan,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalTarjan,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'stack',
 		'runningIndex',
@@ -10,20 +10,20 @@ Class {
 }
 
 { #category : #configuration }
-MATarjan >> nodeClass [
+MalTarjan >> nodeClass [
 
-	^ MATarjanNode 
+	^ MalTarjanNode 
 ]
 
 { #category : #running }
-MATarjan >> putOnStack: aTarjanNode [
+MalTarjan >> putOnStack: aTarjanNode [
 
 	stack push: aTarjanNode.
 	aTarjanNode inStack: true. "I use a flag to avoid stack access"
 ]
 
 { #category : #running }
-MATarjan >> run [
+MalTarjan >> run [
 	"Tarjan's algorithm to detect strongly connected components (aka cycles) in O(m+n)"
 	sccs := OrderedCollection new.
 	stack := Stack new.
@@ -32,13 +32,13 @@ MATarjan >> run [
 ]
 
 { #category : #accessing }
-MATarjan >> stronglyConnectedComponents [
+MalTarjan >> stronglyConnectedComponents [
 
 	^ sccs 
 ]
 
 { #category : #running }
-MATarjan >> traverse: aTarjanNode [ 
+MalTarjan >> traverse: aTarjanNode [ 
 	| pNode component |
 	aTarjanNode tarjanIndex: runningIndex.
 	aTarjanNode tarjanLowlink: runningIndex.

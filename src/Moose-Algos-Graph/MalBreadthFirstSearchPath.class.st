@@ -1,6 +1,6 @@
 Class {
-	#name : #MABreadthFirstSearchPath,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalBreadthFirstSearchPath,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'start',
 		'end',
@@ -10,29 +10,29 @@ Class {
 }
 
 { #category : #accessing }
-MABreadthFirstSearchPath >> edgeClass [
+MalBreadthFirstSearchPath >> edgeClass [
 
-	^ MAGraphEdge 
+	^ MalGraphEdge 
 ]
 
 { #category : #private }
-MABreadthFirstSearchPath >> end [
+MalBreadthFirstSearchPath >> end [
 	^ end
 ]
 
 { #category : #private }
-MABreadthFirstSearchPath >> end: aDijsktraNode [
+MalBreadthFirstSearchPath >> end: aDijsktraNode [
 	end := aDijsktraNode
 ]
 
 { #category : #accessing }
-MABreadthFirstSearchPath >> nodeClass [
+MalBreadthFirstSearchPath >> nodeClass [
 
-	^ MABfsNode 
+	^ MalBfsNode 
 ]
 
 { #category : #running }
-MABreadthFirstSearchPath >> run [
+MalBreadthFirstSearchPath >> run [
 	
 	| path |
 	fifo := OrderedCollection withAll: start nextEdges.
@@ -43,7 +43,7 @@ MABreadthFirstSearchPath >> run [
 ]
 
 { #category : #running }
-MABreadthFirstSearchPath >> run: depth [
+MalBreadthFirstSearchPath >> run: depth [
 	| edge path next |
 	edge := fifo removeFirst.
 	next := edge to.
@@ -65,19 +65,19 @@ MABreadthFirstSearchPath >> run: depth [
 ]
 
 { #category : #running }
-MABreadthFirstSearchPath >> runFrom: start to: end [
+MalBreadthFirstSearchPath >> runFrom: start to: end [
 
 	self start: (self findNode: start); end: (self findNode: end).
 	^ self run
 ]
 
 { #category : #private }
-MABreadthFirstSearchPath >> start [
+MalBreadthFirstSearchPath >> start [
 	^ start
 ]
 
 { #category : #private }
-MABreadthFirstSearchPath >> start: aDijsktraNode [
+MalBreadthFirstSearchPath >> start: aDijsktraNode [
 	start := aDijsktraNode.
 
 ]

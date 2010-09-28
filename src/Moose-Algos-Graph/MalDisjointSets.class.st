@@ -1,6 +1,6 @@
 Class {
-	#name : #MADisjointSets,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalDisjointSets,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'components'
 	],
@@ -8,20 +8,20 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MADisjointSets >> components [
+MalDisjointSets >> components [
 
 	^ (components keys collect: [:parent| 
 		(components at: parent) collect: [:n| n model] ]) asOrderedCollection 
 ]
 
 { #category : #'as yet unclassified' }
-MADisjointSets >> nodeClass [
+MalDisjointSets >> nodeClass [
 
-	^ MANextNode 
+	^ MalNextNode 
 ]
 
 { #category : #'as yet unclassified' }
-MADisjointSets >> run [
+MalDisjointSets >> run [
 
 	"partition nodes by connectivity"
 	self nodes do: [:n|

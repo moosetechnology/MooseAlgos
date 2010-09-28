@@ -1,17 +1,17 @@
 Class {
-	#name : #MADominance,
-	#superclass : #MAGraphAlgorithm,
+	#name : #MalDominance,
+	#superclass : #MalGraphAlgorithm,
 	#category : #'Moose-Algos-Graph'
 }
 
 { #category : #configuration }
-MADominance >> nodeClass [
+MalDominance >> nodeClass [
 
-	^ MADominanceNode
+	^ MalDominanceNode
 ]
 
 { #category : #running }
-MADominance >> run [
+MalDominance >> run [
 
 	| source |
 	self nodes do: [ :n | n makeSet ].

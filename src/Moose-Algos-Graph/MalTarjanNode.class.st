@@ -1,6 +1,6 @@
 Class {
-	#name : #MATarjanNode,
-	#superclass : #MAGraphNode,
+	#name : #MalTarjanNode,
+	#superclass : #MalGraphNode,
 	#instVars : [
 		'nextNodes',
 		'index',
@@ -12,84 +12,84 @@ Class {
 }
 
 { #category : #accessing }
-MATarjanNode >> cycleNodes [
+MalTarjanNode >> cycleNodes [
 	^ cycleNodes
 ]
 
 { #category : #accessing }
-MATarjanNode >> cycleNodes: anObject [
+MalTarjanNode >> cycleNodes: anObject [
 	cycleNodes := anObject copy remove: self ; yourself
 ]
 
 { #category : #accessing }
-MATarjanNode >> inStack [
+MalTarjanNode >> inStack [
 	^ inStack
 ]
 
 { #category : #accessing }
-MATarjanNode >> inStack: anObject [
+MalTarjanNode >> inStack: anObject [
 	inStack := anObject
 ]
 
 { #category : #accessing }
-MATarjanNode >> initialize [
+MalTarjanNode >> initialize [
 	nextNodes := Set new.
 	index := -1.
 	inStack := false
 ]
 
 { #category : #accessing }
-MATarjanNode >> isInCycle [
+MalTarjanNode >> isInCycle [
 
 	^ self cycleNodes isEmpty not
 ]
 
 { #category : #accessing }
-MATarjanNode >> isTarjanUndefined [
+MalTarjanNode >> isTarjanUndefined [
 
 	^ index = -1
 ]
 
 { #category : #accessing }
-MATarjanNode >> label [
+MalTarjanNode >> label [
 
 	^ 'T '
 ]
 
 { #category : #accessing }
-MATarjanNode >> nextNodes [
+MalTarjanNode >> nextNodes [
 
 	^ nextNodes
 ]
 
 { #category : #accessing }
-MATarjanNode >> popped [
+MalTarjanNode >> popped [
 
 	self inStack: false
 ]
 
 { #category : #accessing }
-MATarjanNode >> tarjanIndex [
+MalTarjanNode >> tarjanIndex [
 	^ index
 ]
 
 { #category : #accessing }
-MATarjanNode >> tarjanIndex: anInteger [
+MalTarjanNode >> tarjanIndex: anInteger [
 	index := anInteger
 ]
 
 { #category : #accessing }
-MATarjanNode >> tarjanLowlink [
+MalTarjanNode >> tarjanLowlink [
 	^ lowlink
 ]
 
 { #category : #accessing }
-MATarjanNode >> tarjanLowlink: anInteger [
+MalTarjanNode >> tarjanLowlink: anInteger [
 	lowlink := anInteger
 ]
 
 { #category : #accessing }
-MATarjanNode >> to: aNode [
+MalTarjanNode >> to: aNode [
 
 	nextNodes add: aNode
 ]

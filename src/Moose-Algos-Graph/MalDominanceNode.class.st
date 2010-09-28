@@ -1,6 +1,6 @@
 Class {
-	#name : #MADominanceNode,
-	#superclass : #MADisjointSetNode,
+	#name : #MalDominanceNode,
+	#superclass : #MalDisjointSetNode,
 	#instVars : [
 		'previousNodes',
 		'uniqueSource'
@@ -9,61 +9,61 @@ Class {
 }
 
 { #category : #accessing }
-MADominanceNode >> dominantNode [
+MalDominanceNode >> dominantNode [
 
 	^ self find
 ]
 
 { #category : #accessing }
-MADominanceNode >> firstSource [
+MalDominanceNode >> firstSource [
 
 	^ previousNodes first
 ]
 
 { #category : #accessing }
-MADominanceNode >> flagUnique [
+MalDominanceNode >> flagUnique [
 
 	uniqueSource := true
 ]
 
 { #category : #accessing }
-MADominanceNode >> from: sourceNode [
+MalDominanceNode >> from: sourceNode [
 
 	previousNodes add: sourceNode 
 ]
 
 { #category : #accessing }
-MADominanceNode >> hasUniqueSource [
+MalDominanceNode >> hasUniqueSource [
 	^ self previousNodes size = 1
 ]
 
 { #category : #accessing }
-MADominanceNode >> initialize [
+MalDominanceNode >> initialize [
 
 	previousNodes := OrderedCollection new.
 	uniqueSource := false
 ]
 
 { #category : #accessing }
-MADominanceNode >> isDominant [
+MalDominanceNode >> isDominant [
 	"A node is dominant if it has been flagged as the unique Source by one of its target
 	 AND it is its own parent in the partition"
 	^ uniqueSource and: [self find = self]
 ]
 
 { #category : #accessing }
-MADominanceNode >> isDominated [
+MalDominanceNode >> isDominated [
 
 	^ self isDominant not and: [self find isDominant]
 ]
 
 { #category : #accessing }
-MADominanceNode >> label [
+MalDominanceNode >> label [
 
 	^ 'Dm '
 ]
 
 { #category : #accessing }
-MADominanceNode >> previousNodes [
+MalDominanceNode >> previousNodes [
 	^ previousNodes
 ]

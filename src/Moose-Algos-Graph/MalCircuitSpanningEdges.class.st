@@ -1,6 +1,6 @@
 Class {
-	#name : #MACircuitSpanningEdges,
-	#superclass : #MASccExtractor,
+	#name : #MalCircuitSpanningEdges,
+	#superclass : #MalSccExtractor,
 	#instVars : [
 		'dijkstra'
 	],
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #private }
-MACircuitSpanningEdges >> doUnvisitedEdges: aBlock [
+MalCircuitSpanningEdges >> doUnvisitedEdges: aBlock [
 
 	self edges do: [:e|
 		e cseVisited ifFalse: [
@@ -19,13 +19,13 @@ MACircuitSpanningEdges >> doUnvisitedEdges: aBlock [
 ]
 
 { #category : #accessing }
-MACircuitSpanningEdges >> edgeClass [
+MalCircuitSpanningEdges >> edgeClass [
 
-	^ MACseEdge 
+	^ MalCseEdge 
 ]
 
 { #category : #running }
-MACircuitSpanningEdges >> findDirectCircuits [
+MalCircuitSpanningEdges >> findDirectCircuits [
 
 	"detect direct circuits"
 	| returnNode returnEdge |
@@ -42,7 +42,7 @@ MACircuitSpanningEdges >> findDirectCircuits [
 ]
 
 { #category : #running }
-MACircuitSpanningEdges >> findIndirectCircuits [
+MalCircuitSpanningEdges >> findIndirectCircuits [
 	
 	"for each unvisited edge, pop and detect circuit with Dijsktra, backtrack"
 	dijkstra privateNodes: self nodes; privateEdges: self edges.
@@ -59,22 +59,22 @@ MACircuitSpanningEdges >> findIndirectCircuits [
 ]
 
 { #category : #accessing }
-MACircuitSpanningEdges >> initialize [ 
+MalCircuitSpanningEdges >> initialize [ 
 
 	super initialize.
 	circuits := OrderedCollection new. "use that instead of Set"
-	dijkstra := MADijkstra new.
+	dijkstra := MalDijkstra new.
 
 ]
 
 { #category : #accessing }
-MACircuitSpanningEdges >> nodeClass [
+MalCircuitSpanningEdges >> nodeClass [
 
-	^ MADijkstraNode
+	^ MalDijkstraNode
 ]
 
 { #category : #running }
-MACircuitSpanningEdges >> run [
+MalCircuitSpanningEdges >> run [
 
 	self flag: #todo.	"for stability, we should sort edges by their label"
 	self findDirectCircuits.

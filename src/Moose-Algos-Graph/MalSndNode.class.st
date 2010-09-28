@@ -1,6 +1,6 @@
 Class {
-	#name : #MASndNode,
-	#superclass : #MAGraphNode,
+	#name : #MalSndNode,
+	#superclass : #MalGraphNode,
 	#traits : 'MATNodeNode',
 	#classTraits : 'MATNodeNode classTrait',
 	#instVars : [
@@ -13,48 +13,48 @@ Class {
 }
 
 { #category : #accessing }
-MASndNode >> bfsAncestor [
+MalSndNode >> bfsAncestor [
 	^ bfsAncestor
 ]
 
 { #category : #accessing }
-MASndNode >> bfsAncestor: anObject [
+MalSndNode >> bfsAncestor: anObject [
 	bfsAncestor := anObject
 ]
 
 { #category : #'initialize-release' }
-MASndNode >> initialize [
+MalSndNode >> initialize [
 
 	previousNodes := OrderedCollection new.
 	nextNodes := OrderedCollection new.
 ]
 
 { #category : #accessing }
-MASndNode >> nextNodes [
+MalSndNode >> nextNodes [
 	^ nextNodes
 ]
 
 { #category : #accessing }
-MASndNode >> nextNodes: anObject [
+MalSndNode >> nextNodes: anObject [
 	nextNodes := anObject
 ]
 
 { #category : #accessing }
-MASndNode >> previousNodes [
+MalSndNode >> previousNodes [
 	^ previousNodes
 ]
 
 { #category : #accessing }
-MASndNode >> previousNodes: anObject [
+MalSndNode >> previousNodes: anObject [
 	previousNodes := anObject
 ]
 
 { #category : #accessing }
-MASndNode >> visited [
+MalSndNode >> visited [
 	^ visited
 ]
 
 { #category : #accessing }
-MASndNode >> visited: anObject [
+MalSndNode >> visited: anObject [
 	visited := anObject
 ]

@@ -4,19 +4,19 @@ GermanStemmer stems German words.
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAGermanStemmer,
-	#superclass : #MAAbstractStemmer,
+	#name : #MalGermanStemmer,
+	#superclass : #MalAbstractStemmer,
 	#category : #'Moose-Algos-InformationRetrieval'
 }
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> isVowelAt: anIndex [
+MalGermanStemmer >> isVowelAt: anIndex [
 	
 	^#eiauoyäöü includes: (string at: anIndex)
 ]
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> performStemming: aString [
+MalGermanStemmer >> performStemming: aString [
 	
 	string := aString.
 	self toLowercase.
@@ -84,7 +84,7 @@ MAGermanStemmer >> performStemming: aString [
 ]
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> preprocessing [
+MalGermanStemmer >> preprocessing [
 	
 	string := string copyReplaceAll: #ß with: #ss.
 	2
@@ -100,14 +100,14 @@ MAGermanStemmer >> preprocessing [
 ]
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> setMarks [
+MalGermanStemmer >> setMarks [
 	
 	super setMarks.
 	r1 < 3 ifTrue: [r1 := 3]
 ]
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> step1 [
+MalGermanStemmer >> step1 [
 	
 	#(#ern #em #en #er #es #e)
 		do:
@@ -118,7 +118,7 @@ MAGermanStemmer >> step1 [
 ]
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> step2 [
+MalGermanStemmer >> step2 [
 	
 	#(#est #en #er)
 		do:
@@ -131,7 +131,7 @@ MAGermanStemmer >> step2 [
 ]
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> step3 [
+MalGermanStemmer >> step3 [
 	
 	| rule2 rule1 rule3 rule4 |
 	rule2 := [(string at: cursor) ~~ $e ifTrue: [^self removeSuffix]].
@@ -164,7 +164,7 @@ MAGermanStemmer >> step3 [
 ]
 
 { #category : #'private-algorithm' }
-MAGermanStemmer >> toLowercase [
+MalGermanStemmer >> toLowercase [
 	"Converts the current string to lowercase (reimplemented here for performance reasons)."
 	
 	| copy |

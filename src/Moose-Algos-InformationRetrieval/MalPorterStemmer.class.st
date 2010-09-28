@@ -4,19 +4,19 @@ PorterStemmer stems English words.
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAPorterStemmer,
-	#superclass : #MAAbstractStemmer,
+	#name : #MalPorterStemmer,
+	#superclass : #MalAbstractStemmer,
 	#category : #'Moose-Algos-InformationRetrieval'
 }
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> isVowelAt: anIndex [
+MalPorterStemmer >> isVowelAt: anIndex [
 	
 	^#eaoiuy includes: (string at: anIndex)
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> performStemming: aString [
+MalPorterStemmer >> performStemming: aString [
 	"Performs the Porter stemming algrothim. More see:
 	M. Porter, An algorithm for suffix stripping, Program (1980)/ Vol. 14, No. 3, 130-137"
 	
@@ -39,7 +39,7 @@ MAPorterStemmer >> performStemming: aString [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> preprocessing [
+MalPorterStemmer >> preprocessing [
 	
 	string first = $y ifTrue: [string at: 1 put: $Y].
 	2
@@ -51,7 +51,7 @@ MAPorterStemmer >> preprocessing [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> stemEndsWithConsonantVowelConsonant [
+MalPorterStemmer >> stemEndsWithConsonantVowelConsonant [
 	
 	^cursor >= 3
 		and:
@@ -63,7 +63,7 @@ MAPorterStemmer >> stemEndsWithConsonantVowelConsonant [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> stemEndsWithDoubleConsonant [
+MalPorterStemmer >> stemEndsWithDoubleConsonant [
 	"comment stating purpose of message"
 	
 	^cursor >= 2
@@ -73,7 +73,7 @@ MAPorterStemmer >> stemEndsWithDoubleConsonant [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> stemIncludesVowel [
+MalPorterStemmer >> stemIncludesVowel [
 	"comment stating purpose of message"
 	
 	1
@@ -83,7 +83,7 @@ MAPorterStemmer >> stemIncludesVowel [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step1a [
+MalPorterStemmer >> step1a [
 	"comment stating purpose of message"
 	
 	string last == $s
@@ -113,7 +113,7 @@ MAPorterStemmer >> step1a [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step1b [
+MalPorterStemmer >> step1b [
 	"comment stating purpose of message"
 	
 	(self endsWith: 'eed')
@@ -146,7 +146,7 @@ MAPorterStemmer >> step1b [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step1c [
+MalPorterStemmer >> step1c [
 	
 	(((self endsWith: 'y') or: [self endsWith: 'Y'])
 		and: [self stemIncludesVowel])
@@ -157,7 +157,7 @@ MAPorterStemmer >> step1c [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step2 [
+MalPorterStemmer >> step2 [
 	"comment stating purpose of message"
 	
 	#(#(#iveness #ive) #(#fulness #ful) #(#ousness #ous) #(#ization #ize) #(#ational #ate) #(#tional #tion) #(#biliti #ble) #(#ation #ate) #(#alism #al) #(#aliti #al) #(#iviti #ive) #(#ousli #ous) #(#entli #ent) #(#ator #ate) #(#enci #ence) #(#anci #ance) #(#logi #log) #(#izer #ize) #(#bli #ble) #(#alli #al) #(#eli #e))
@@ -170,7 +170,7 @@ MAPorterStemmer >> step2 [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step3 [
+MalPorterStemmer >> step3 [
 	
 	#(#(#ative #'') #(#icate #ic) #(#alize #al) #(#iciti #ic) #(#ical #ic) #(#ness #'') #(#ful #''))
 		do:
@@ -182,7 +182,7 @@ MAPorterStemmer >> step3 [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step4 [
+MalPorterStemmer >> step4 [
 	
 	#(#ement #ance #ence #able #ible #ment)
 		do:
@@ -207,7 +207,7 @@ MAPorterStemmer >> step4 [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step5a [
+MalPorterStemmer >> step5a [
 	
 	cursor := string size - 1.
 	(string last == $e
@@ -221,7 +221,7 @@ MAPorterStemmer >> step5a [
 ]
 
 { #category : #'private-algorithm' }
-MAPorterStemmer >> step5b [
+MalPorterStemmer >> step5b [
 	
 	cursor := string size.
 	((self endsWith: 'll') and: [cursor + 1 >= r2])

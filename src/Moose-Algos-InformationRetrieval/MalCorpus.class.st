@@ -5,7 +5,7 @@ For convenience, there is special support for file documents.
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MACorpus,
+	#name : #MalCorpus,
 	#superclass : #Object,
 	#instVars : [
 		'documents'
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #example }
-MACorpus class >> deer90 [
+MalCorpus class >> deer90 [
 	"(((	self deer90	)))"
 	
 	
@@ -23,38 +23,38 @@ MACorpus class >> deer90 [
 	data := #(#(#c1 'Human machine interface for Lab ABC computer applications') #(#c2 'A survey of user opinion of computer system response time') #(#c3 'The EPS user interface management system') #(#c4 'System and human system engineering testing of EPS') #(#c5 'Relation of user-perceived response time to error measurement') #(#m1 'The generation of random, binary, unordered trees') #(#m2 'The intersection graph of paths in trees') #(#m3 'Graph minors IV: Widths of trees and well-quasi-ordering') #(#m4 'Graph minors: A survey')).
 
 	
-	corpus := MACorpus new.
+	corpus := MalCorpus new.
 	
 	
 	data
 do:
 [:each | 	corpus
 addDocument: each first
-with: (MATerms fromString: each last)].
+with: (MalTerms fromString: each last)].
 	
 	
 	^corpus
 ]
 
 { #category : #'instance creation' }
-MACorpus class >> new [
+MalCorpus class >> new [
 	
 	^self basicNew initialize
 ]
 
 { #category : #adding }
-MACorpus >> addDocument: anObject [
+MalCorpus >> addDocument: anObject [
 	
 	
 		documents
 	at: anObject
 	ifAbsentPut: [
 			
-					MATerms new]
+					MalTerms new]
 ]
 
 { #category : #adding }
-MACorpus >> addDocument: anObject with: terms [
+MalCorpus >> addDocument: anObject with: terms [
 		
 		self addDocument: anObject.
 	
@@ -62,18 +62,18 @@ MACorpus >> addDocument: anObject with: terms [
 ]
 
 { #category : #adding }
-MACorpus >> addDocument: aString withContent: contentString [
+MalCorpus >> addDocument: aString withContent: contentString [
 	
 	self
 		addDocument: aString
 		with:
-			((MATerms new)
-				addString: contentString using: MACamelcaseScanner;
+			((MalTerms new)
+				addString: contentString using: MalCamelcaseScanner;
 				yourself)
 ]
 
 { #category : #adding }
-MACorpus >> addFile: aFilename [
+MalCorpus >> addFile: aFilename [
 	
 	self
 		addDocument: aFilename asString
@@ -81,16 +81,16 @@ MACorpus >> addFile: aFilename [
 ]
 
 { #category : #adding }
-MACorpus >> addFolder: aFoldername [
+MalCorpus >> addFolder: aFoldername [
 	
 	aFoldername asFilename filesDo: [:each | self addFile: each]
 ]
 
 { #category : #adding }
-MACorpus >> addSimpleDocument: aSimpleDocument [
+MalCorpus >> addSimpleDocument: aSimpleDocument [
 	
 	| terms |
-	terms := MATerms new.
+	terms := MalTerms new.
 	aSimpleDocument termBag
 		valuesAndCountsDo:
 			[:value :count | terms add: value withOccurrences: count].
@@ -98,19 +98,19 @@ MACorpus >> addSimpleDocument: aSimpleDocument [
 ]
 
 { #category : #adding }
-MACorpus >> atDocument: anObject [
+MalCorpus >> atDocument: anObject [
 	
 	^documents at: anObject
 ]
 
 { #category : #adding }
-MACorpus >> atDocument: anObject add: terms [
+MalCorpus >> atDocument: anObject add: terms [
 	
 	(documents at: anObject) addAll: terms
 ]
 
 { #category : #enumerating }
-MACorpus >> documentTermCountDo: aBlock [
+MalCorpus >> documentTermCountDo: aBlock [
 	
 	documents
 		keysAndValuesDo:
@@ -121,35 +121,35 @@ MACorpus >> documentTermCountDo: aBlock [
 ]
 
 { #category : #accessing }
-MACorpus >> documents [
+MalCorpus >> documents [
 	
 	^documents keys
 ]
 
 { #category : #'initialize-release' }
-MACorpus >> initialize [
+MalCorpus >> initialize [
 	
 	documents := Dictionary new
 ]
 
 { #category : #removing }
-MACorpus >> removeStopwords [
+MalCorpus >> removeStopwords [
 	
 	
 		documents do: [:each | each removeStopwords]
 ]
 
 { #category : #removing }
-MACorpus >> stemAll [
+MalCorpus >> stemAll [
 	
 	documents do: [:each | each stemAll]
 ]
 
 { #category : #accessing }
-MACorpus >> terms [
+MalCorpus >> terms [
 	
 	| all |
-	all := MATerms new.
+	all := MalTerms new.
 	documents do: [:each | all addAll: each].
 	^all
 ]

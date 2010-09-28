@@ -4,8 +4,8 @@ AbstractStemmer is an abstract superclass for Porter-like stemmers.
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAAbstractStemmer,
-	#superclass : #MAStemmer,
+	#name : #MalAbstractStemmer,
+	#superclass : #MalStemmer,
 	#instVars : [
 		'string',
 		'r1',
@@ -16,7 +16,7 @@ Class {
 }
 
 { #category : #'private-algorithm' }
-MAAbstractStemmer >> endsWith: aSuffix [
+MalAbstractStemmer >> endsWith: aSuffix [
 	"comment stating purpose of message"
 	
 	| position |
@@ -31,32 +31,32 @@ MAAbstractStemmer >> endsWith: aSuffix [
 ]
 
 { #category : #'private-algorithm' }
-MAAbstractStemmer >> endsWith: aSuffix in: aMark [
+MalAbstractStemmer >> endsWith: aSuffix in: aMark [
 	
 	^(self endsWith: aSuffix) and: [cursor >= aMark]
 ]
 
 { #category : #'private-algorithm' }
-MAAbstractStemmer >> isConsonantAt: anIndex [
+MalAbstractStemmer >> isConsonantAt: anIndex [
 	
 	^(self isVowelAt: anIndex) not
 ]
 
 { #category : #'private-algorithm' }
-MAAbstractStemmer >> isVowelAt: anIndex [
+MalAbstractStemmer >> isVowelAt: anIndex [
 	
 	self subclassResponsibility
 ]
 
 { #category : #'private-algorithm' }
-MAAbstractStemmer >> removeSuffix [
+MalAbstractStemmer >> removeSuffix [
 	"comment stating purpose of message"
 	
 	string := string copyFrom: 1 to: cursor
 ]
 
 { #category : #'private-algorithm' }
-MAAbstractStemmer >> setMarks [
+MalAbstractStemmer >> setMarks [
 	"All the stemmers make use of at least one of the region definitions R1 and R2. They are defined as follows: 
 		R1 is the region after the first non-vowel following a vowel, or is the null region at the end of the word if there is no such non-vowel. 
 		R2 is the region after the first non-vowel following a vowel in R1, or is the null region at the end of the word if there is no such non-vowel. 
@@ -76,7 +76,7 @@ MAAbstractStemmer >> setMarks [
 ]
 
 { #category : #'private-algorithm' }
-MAAbstractStemmer >> setSuffix: newSuffix [
+MalAbstractStemmer >> setSuffix: newSuffix [
 	"comment stating purpose of message"
 	
 	string := (string copyFrom: 1 to: cursor) , newSuffix

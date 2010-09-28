@@ -4,8 +4,8 @@ CamelcaseScanner breaks an input stream into tokens, with respect to camel case.
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MACamelcaseScanner,
-	#superclass : #MATermScanner,
+	#name : #MalCamelcaseScanner,
+	#superclass : #MalTermScanner,
 	#instVars : [
 		'next'
 	],
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #example }
-MACamelcaseScanner class >> bible [
+MalCamelcaseScanner class >> bible [
 	
 	^(self new)
 		onFile: 'bible10.txt';
@@ -21,7 +21,7 @@ MACamelcaseScanner class >> bible [
 ]
 
 { #category : #'initialize-release' }
-MACamelcaseScanner >> onStream: input [
+MalCamelcaseScanner >> onStream: input [
 	
 	
 		super onStream: input.
@@ -30,7 +30,7 @@ MACamelcaseScanner >> onStream: input [
 ]
 
 { #category : #private }
-MACamelcaseScanner >> privateNext [
+MalCamelcaseScanner >> privateNext [
 	
 	
 		next isNil ifTrue: [^nil].
@@ -53,7 +53,7 @@ ifFalse: [buffer contents]
 ]
 
 { #category : #private }
-MACamelcaseScanner >> xCapitalizedWord [
+MalCamelcaseScanner >> xCapitalizedWord [
 	
 	
 		buffer nextPut: next.
@@ -78,7 +78,7 @@ put: buffer collection first asLowercase.
 ]
 
 { #category : #private }
-MACamelcaseScanner >> xLowercaseWord [
+MalCamelcaseScanner >> xLowercaseWord [
 	
 	
 	
@@ -90,7 +90,7 @@ MACamelcaseScanner >> xLowercaseWord [
 ]
 
 { #category : #private }
-MACamelcaseScanner >> xUppercaseWord [
+MalCamelcaseScanner >> xUppercaseWord [
 	
 	
 	[| peek |
@@ -104,7 +104,7 @@ MACamelcaseScanner >> xUppercaseWord [
 ]
 
 { #category : #private }
-MACamelcaseScanner >> xWhitespace [
+MalCamelcaseScanner >> xWhitespace [
 	
 	| previous |
 	next isLetter
@@ -116,7 +116,7 @@ MACamelcaseScanner >> xWhitespace [
 ]
 
 { #category : #private }
-MACamelcaseScanner >> xZeroWord [
+MalCamelcaseScanner >> xZeroWord [
 	
 	[next isAlphaNumeric] whileTrue: [next := stream informationRetrievalNext]
 ]

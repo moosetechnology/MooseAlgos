@@ -4,7 +4,7 @@ Stopwords subclasses Collection to store stopwords, ie words to be removed from 
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAStopwords,
+	#name : #MalStopwords,
 	#superclass : #Collection,
 	#instVars : [
 		'array'
@@ -16,13 +16,13 @@ Class {
 }
 
 { #category : #constants }
-MAStopwords class >> English [
+MalStopwords class >> English [
 
 	^ English ifNil: [English := (self englishStopwordString subStrings: {Character space}). ]
 ]
 
 { #category : #constants }
-MAStopwords class >> basicEnglish [
+MalStopwords class >> basicEnglish [
 	"Answer a list of basic words. This is a list of the 850 words in the Basic English core 
 	vocabulary. These words all denote simple concepts commonly used in everyday life.  
 	@see	http://www2.educ.fukushima-u.ac.jp/~ryota/word-list.html	"
@@ -39,7 +39,7 @@ MAStopwords class >> basicEnglish [
 ]
 
 { #category : #constants }
-MAStopwords class >> englishStopwordString [
+MalStopwords class >> englishStopwordString [
 	"Answer a list of english stop words, a defind by SMART.  
 	@see	ftp://ftp.cs.cornell.edu/pub/smart/	"
 	
@@ -47,7 +47,7 @@ MAStopwords class >> englishStopwordString [
 ]
 
 { #category : #'instance creation' }
-MAStopwords class >> fromString: stopwords [
+MalStopwords class >> fromString: stopwords [
 	
 	
 		^ super new addAll: (stopwords runsFailing: #isSeparator).
@@ -55,19 +55,19 @@ MAStopwords class >> fromString: stopwords [
 ]
 
 { #category : #constants }
-MAStopwords class >> initializeEnglish [
+MalStopwords class >> initializeEnglish [
 "self initializeEnglish"
 	English := nil.
 ]
 
 { #category : #testing }
-MAStopwords class >> isStopword: aString [
+MalStopwords class >> isStopword: aString [
 	
 	^English includes: aString
 ]
 
 { #category : #constants }
-MAStopwords class >> moreBasicEnglish [
+MalStopwords class >> moreBasicEnglish [
 	"Answer a comprehensive list of words as used in basic english.  
 	@see	http://www.basic-english.org/down/toddlist.zip	"
 	
@@ -75,7 +75,7 @@ MAStopwords class >> moreBasicEnglish [
 ]
 
 { #category : #adding }
-MAStopwords >> add: aString [
+MalStopwords >> add: aString [
 	
 	
 	| size |
@@ -109,7 +109,7 @@ put: Array new]
 ]
 
 { #category : #'as yet unclassified' }
-MAStopwords >> changeSizeTo: size [
+MalStopwords >> changeSizeTo: size [
 	"Become larger. Typically, a subclass has to override this if the subclass
 	adds instance variables."
 	| newArray |
@@ -119,13 +119,13 @@ MAStopwords >> changeSizeTo: size [
 ]
 
 { #category : #enumerating }
-MAStopwords >> do: aBlock [
+MalStopwords >> do: aBlock [
 	
 	^array do: [:each | each do: aBlock]
 ]
 
 { #category : #testing }
-MAStopwords >> includes: aString [
+MalStopwords >> includes: aString [
 	
 	| size |
 	size := aString size.
@@ -134,7 +134,7 @@ MAStopwords >> includes: aString [
 ]
 
 { #category : #printing }
-MAStopwords >> printOn: aStream [
+MalStopwords >> printOn: aStream [
 	
 	self asSortedCollection
 		do: [:each | aStream nextPutAll: each]

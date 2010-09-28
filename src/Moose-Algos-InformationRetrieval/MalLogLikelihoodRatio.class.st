@@ -6,7 +6,7 @@ Copyright (c), 2009 Adrian Kuhn. This class is part of Hapax. Hapax is distribut
 
 "
 Class {
-	#name : #MALogLikelihoodRatio,
+	#name : #MalLogLikelihoodRatio,
 	#superclass : #Object,
 	#instVars : [
 		'terms1',
@@ -16,7 +16,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MALogLikelihoodRatio class >> with: terms1 and: terms2 [
+MalLogLikelihoodRatio class >> with: terms1 and: terms2 [
 	
 	^(self new)
 		setTerms1: terms1;
@@ -25,19 +25,19 @@ MALogLikelihoodRatio class >> with: terms1 and: terms2 [
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> bottom: ten [
+MalLogLikelihoodRatio >> bottom: ten [
 	
 	^self computeAll last: ten
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> bottomTen [
+MalLogLikelihoodRatio >> bottomTen [
 	
 	^self bottom: 10
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> computeAll [
+MalLogLikelihoodRatio >> computeAll [
 	
 	| comparison |
 	comparison := (terms1 asSet union: terms2 asSet) asArray
@@ -46,7 +46,7 @@ MALogLikelihoodRatio >> computeAll [
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> computeAllOfTerms1 [
+MalLogLikelihoodRatio >> computeAllOfTerms1 [
 	
 	| comparison |
 	comparison := terms1 asSet asArray
@@ -55,7 +55,7 @@ MALogLikelihoodRatio >> computeAllOfTerms1 [
 ]
 
 { #category : #computing }
-MALogLikelihoodRatio >> computeLogLR: aString [
+MalLogLikelihoodRatio >> computeLogLR: aString [
 	
 	| k1 k2 n1 n2 p1 p2 p |
 	k1 := terms1 occurrencesOf: aString.
@@ -72,7 +72,7 @@ MALogLikelihoodRatio >> computeLogLR: aString [
 ]
 
 { #category : #computing }
-MALogLikelihoodRatio >> logL: p and: k and: n [
+MalLogLikelihoodRatio >> logL: p and: k and: n [
 	
 	^0 = k
 		ifTrue: [0]
@@ -85,37 +85,37 @@ MALogLikelihoodRatio >> logL: p and: k and: n [
 ]
 
 { #category : #'initialize-release' }
-MALogLikelihoodRatio >> setTerms1: aHapaxTerms [
+MalLogLikelihoodRatio >> setTerms1: aHapaxTerms [
 	
 	terms1 := aHapaxTerms
 ]
 
 { #category : #'initialize-release' }
-MALogLikelihoodRatio >> setTerms2: aHapaxTerms [
+MalLogLikelihoodRatio >> setTerms2: aHapaxTerms [
 	
 	terms2 := aHapaxTerms
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> terms1 [
+MalLogLikelihoodRatio >> terms1 [
 	
 	^terms1
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> terms2 [
+MalLogLikelihoodRatio >> terms2 [
 	
 	^terms2
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> top: ten [
+MalLogLikelihoodRatio >> top: ten [
 	
 	^self computeAll first: ten
 ]
 
 { #category : #accessing }
-MALogLikelihoodRatio >> topTen [
+MalLogLikelihoodRatio >> topTen [
 	
 	^self top: 10
 ]

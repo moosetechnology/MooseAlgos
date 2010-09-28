@@ -11,7 +11,7 @@ example: string
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MATerms,
+	#name : #MalTerms,
 	#superclass : #Bag,
 	#instVars : [
 		'size'
@@ -20,36 +20,36 @@ Class {
 }
 
 { #category : #examples }
-MATerms class >> bible [
+MalTerms class >> bible [
 	
-	^(MATermScanner new)
+	^(MalTermScanner new)
 		onFile: 'bible10.txt';
 		allTerms
 ]
 
 { #category : #'instance creation' }
-MATerms class >> fromCamelcaseString: aString [
+MalTerms class >> fromCamelcaseString: aString [
 	
-	^((MACamelcaseScanner new onString: aString) allTerms)
+	^((MalCamelcaseScanner new onString: aString) allTerms)
 		stemAll;
 		removeStopwords
 ]
 
 { #category : #'instance creation' }
-MATerms class >> fromFile: aFile [
+MalTerms class >> fromFile: aFile [
 	
-	^(MATermScanner new)
+	^(MalTermScanner new)
 		onFile: aFile;
 		allTerms
 ]
 
 { #category : #'instance creation' }
-MATerms class >> fromString: aString [
+MalTerms class >> fromString: aString [
 
 	
 	
 		| scanner |
-	scanner := (MATermScanner new)	..
+	scanner := (MalTermScanner new)	..
 				
 			scanner	onString: aString.	
 			
@@ -59,7 +59,7 @@ MATerms class >> fromString: aString [
 ]
 
 { #category : #examples }
-MATerms class >> sample [
+MalTerms class >> sample [
 	
 	^self fromString:
 			'I think that I shall never see
@@ -77,13 +77,13 @@ MATerms class >> sample [
 ]
 
 { #category : #adding }
-MATerms >> addString: string [
+MalTerms >> addString: string [
 	
-	^self addString: string using: MATermScanner
+	^self addString: string using: MalTermScanner
 ]
 
 { #category : #adding }
-MATerms >> addString: string using: scannerClass [
+MalTerms >> addString: string using: scannerClass [
 	
 	| scanner |
 	scanner := scannerClass new.
@@ -92,28 +92,28 @@ MATerms >> addString: string using: scannerClass [
 ]
 
 { #category : #adding }
-MATerms >> addTerms: aTerms [
+MalTerms >> addTerms: aTerms [
 	
 	aTerms withCountDo: [:each :count | self add: each withOccurrences: count]
 ]
 
 { #category : #accessing }
-MATerms >> distinctSize [
+MalTerms >> distinctSize [
 	
 	^contents associations size
 ]
 
 { #category : #accessing }
-MATerms >> fastSize [
+MalTerms >> fastSize [
 	
 	^size ifNil: [size := super size]
 ]
 
 { #category : #converting }
-MATerms >> normalized [
+MalTerms >> normalized [
 	
 	| newTerms sum length |
-	newTerms := MATerms new: contents size.
+	newTerms := MalTerms new: contents size.
 	sum := 0.
 	contents do: [:count | sum := sum + (count * count)].
 	length := sum sqrt.
@@ -127,7 +127,7 @@ MATerms >> normalized [
 ]
 
 { #category : #removing }
-MATerms >> prune [
+MalTerms >> prune [
 	
 	self removeStopwords.
 	self removeHapaxes.
@@ -135,37 +135,37 @@ MATerms >> prune [
 ]
 
 { #category : #removing }
-MATerms >> removeHapaxes [
+MalTerms >> removeHapaxes [
 	
 	self removeRareTerms: 1
 ]
 
 { #category : #removing }
-MATerms >> removeRareTerms: occurrence [
+MalTerms >> removeRareTerms: occurrence [
 	
 	| newTerms |
-	newTerms := MATerms new: contents capacity.
+	newTerms := MalTerms new: contents capacity.
 	self
 		withCountDo:
 			[:term :count | 
 			count > occurrence
 				ifTrue:
 					[newTerms
-						add: (MAStemmer stem: term 
+						add: (MalStemmer stem: term 
 	)					withOccurrences: count]].
 	self become: newTerms
 ]
 
 { #category : #removing }
-MATerms >> removeStopwords [
+MalTerms >> removeStopwords [
 	
 	
 		
-		^self removeStopwords:  MAStopwords English
+		^self removeStopwords:  MalStopwords English
 ]
 
 { #category : #removing }
-MATerms >> removeStopwords: stopwords [
+MalTerms >> removeStopwords: stopwords [
 	
 	
 		
@@ -174,39 +174,39 @@ MATerms >> removeStopwords: stopwords [
 ]
 
 { #category : #removing }
-MATerms >> stemAll [
+MalTerms >> stemAll [
 	
 	| newTerms |
-	newTerms := MATerms new: contents capacity.
+	newTerms := MalTerms new: contents capacity.
 	self
 		withCountDo:
 			[:term :count | 
 			newTerms
-				add: (MAStemmer stem: term) 
+				add: (MalStemmer stem: term) 
 				withOccurrences: count].
 	self become: newTerms
 ]
 
 { #category : #enumerating }
-MATerms >> termsDo: aBlock [
+MalTerms >> termsDo: aBlock [
 	
 	contents associationsDo: [:each | aBlock value: each key]	"!!! value -> count !!!"
 ]
 
 { #category : #converting }
-MATerms >> top: topTenSize [
+MalTerms >> top: topTenSize [
 	
 	^(self sortedCounts first: topTenSize) collect: #key
 ]
 
 { #category : #converting }
-MATerms >> topTen [
+MalTerms >> topTen [
 	
 	^(self sortedCounts first: 10) collect: #value
 ]
 
 { #category : #enumerating }
-MATerms >> withCountDo: aBlock [
+MalTerms >> withCountDo: aBlock [
 	
 	contents
 		associationsDo:

@@ -12,7 +12,7 @@ example: stream
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MATermScanner,
+	#name : #MalTermScanner,
 	#superclass : #Object,
 	#instVars : [
 		'stream',
@@ -26,13 +26,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-MATermScanner class >> new [
+MalTermScanner class >> new [
 	
 	^self basicNew initialize
 ]
 
 { #category : #running }
-MATermScanner class >> scan: input [
+MalTermScanner class >> scan: input [
 	
 	
 	| scanner |
@@ -43,12 +43,12 @@ onStream: input readStream.
 ]
 
 { #category : #running }
-MATermScanner >> allTerms [
+MalTermScanner >> allTerms [
 	
 	
 	| bag |
 	
-	bag := MATerms new.
+	bag := MalTerms new.
 	
 	[self atEnd] whileFalse: [bag add: self next].
 	
@@ -56,7 +56,7 @@ MATermScanner >> allTerms [
 ]
 
 { #category : #scanning }
-MATermScanner >> atEnd [
+MalTermScanner >> atEnd [
 	
 	
 	term == Void ifTrue: [term := self privateNext].
@@ -65,13 +65,13 @@ MATermScanner >> atEnd [
 ]
 
 { #category : #'initialize-release' }
-MATermScanner >> initialize [
+MalTermScanner >> initialize [
 	
 	buffer := String new writeStream
 ]
 
 { #category : #scanning }
-MATermScanner >> next [
+MalTermScanner >> next [
 	
 	^term == Void
 		ifTrue: [self privateNext]
@@ -83,26 +83,26 @@ MATermScanner >> next [
 ]
 
 { #category : #running }
-MATermScanner >> onFile: filename [
+MalTermScanner >> onFile: filename [
 	
 	self onStream: filename asFilename readStream
 ]
 
 { #category : #running }
-MATermScanner >> onStream: input [
+MalTermScanner >> onStream: input [
 	
 	stream := input.
 	term := Void
 ]
 
 { #category : #running }
-MATermScanner >> onString: text [
+MalTermScanner >> onString: text [
 	
 	self onStream: text readStream
 ]
 
 { #category : #private }
-MATermScanner >> privateNext [
+MalTermScanner >> privateNext [
 	
 	
 	| next |
@@ -133,7 +133,7 @@ ifFalse: [buffer contents]
 ]
 
 { #category : #accessing }
-MATermScanner >> stream [
+MalTermScanner >> stream [
 	
 	^stream
 ]

@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMatrixPath,
-	#superclass : #MAVector,
+	#name : #MalMatrixPath,
+	#superclass : #MalVector,
 	#instVars : [
 		'matrix',
 		'mapBlock',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAMatrixPath class >> column: columnIndex on: matrix [
+MalMatrixPath class >> column: columnIndex on: matrix [
 	
 	^(super new: matrix rowSize)
 		setMatrix: matrix;
@@ -22,7 +22,7 @@ MAMatrixPath class >> column: columnIndex on: matrix [
 ]
 
 { #category : #'instance creation' }
-MAMatrixPath class >> diagonalOn: matrix [
+MalMatrixPath class >> diagonalOn: matrix [
 	
 	[matrix isSquare] assert.
 	^(super new: matrix columnSize)
@@ -32,7 +32,7 @@ MAMatrixPath class >> diagonalOn: matrix [
 ]
 
 { #category : #'instance creation' }
-MAMatrixPath class >> row: rowIndex on: matrix [
+MalMatrixPath class >> row: rowIndex on: matrix [
 	
 	^(super new: matrix columnSize)
 		setMatrix: matrix;
@@ -41,13 +41,13 @@ MAMatrixPath class >> row: rowIndex on: matrix [
 ]
 
 { #category : #accessing }
-MAMatrixPath >> at: index [
+MalMatrixPath >> at: index [
 	
 	^matrix atPoint: (mapBlock value: index)
 ]
 
 { #category : #accessing }
-MAMatrixPath >> at: index put: aNumber [
+MalMatrixPath >> at: index put: aNumber [
 	
 	^matrix
 		atPoint: (mapBlock value: index)
@@ -55,31 +55,31 @@ MAMatrixPath >> at: index put: aNumber [
 ]
 
 { #category : #'initialize-release' }
-MAMatrixPath >> initializeSize: aSize [
+MalMatrixPath >> initializeSize: aSize [
 	
 	^size := aSize
 ]
 
 { #category : #'initialize-release' }
-MAMatrixPath >> setMapBlock: aBlock [
+MalMatrixPath >> setMapBlock: aBlock [
 	
 	^mapBlock := aBlock
 ]
 
 { #category : #'initialize-release' }
-MAMatrixPath >> setMatrix: aMatrix [
+MalMatrixPath >> setMatrix: aMatrix [
 	
 	^matrix := aMatrix
 ]
 
 { #category : #accessing }
-MAMatrixPath >> size [
+MalMatrixPath >> size [
 	
 	^size
 ]
 
 { #category : #'initialize-release' }
-MAMatrixPath >> species [
+MalMatrixPath >> species [
 	
 	^matrix vectorSpecies
 ]

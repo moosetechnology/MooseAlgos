@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMatrixDecorator,
-	#superclass : #MAMatrix,
+	#name : #MalMatrixDecorator,
+	#superclass : #MalMatrix,
 	#instVars : [
 		'matrix'
 	],
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAMatrixDecorator class >> on: aMatrix [
+MalMatrixDecorator class >> on: aMatrix [
 	
 	^(self basicNew)
 		setMatrix: aMatrix;
@@ -19,49 +19,49 @@ MAMatrixDecorator class >> on: aMatrix [
 ]
 
 { #category : #accessing }
-MAMatrixDecorator >> at: row and: column [
+MalMatrixDecorator >> at: row and: column [
 	
 	^matrix at: row and: column
 ]
 
 { #category : #accessing }
-MAMatrixDecorator >> at: row and: column put: aNumber [
+MalMatrixDecorator >> at: row and: column put: aNumber [
 	
 	^matrix at: row and: column put: aNumber
 ]
 
 { #category : #private }
-MAMatrixDecorator >> checkInvariant [
+MalMatrixDecorator >> checkInvariant [
 	
 	^matrix checkInvariant
 ]
 
 { #category : #accessing }
-MAMatrixDecorator >> columnSize [
+MalMatrixDecorator >> columnSize [
 	
 	^matrix columnSize
 ]
 
 { #category : #'initialize-release' }
-MAMatrixDecorator >> initializeRows: m columns: n [
+MalMatrixDecorator >> initializeRows: m columns: n [
 	
 	self shouldNotImplement
 ]
 
 { #category : #accessing }
-MAMatrixDecorator >> rowSize [
+MalMatrixDecorator >> rowSize [
 	
 	^matrix rowSize
 ]
 
 { #category : #'initialize-release' }
-MAMatrixDecorator >> setMatrix: aMatrix [
+MalMatrixDecorator >> setMatrix: aMatrix [
 	
 	^matrix := aMatrix
 ]
 
 { #category : #'initialize-release' }
-MAMatrixDecorator >> species [
+MalMatrixDecorator >> species [
 	
 	^matrix species
 ]

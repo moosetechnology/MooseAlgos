@@ -2,25 +2,25 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMapping,
+	#name : #MalMapping,
 	#superclass : #Collection,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #adding }
-MAMapping >> add: newObject [
+MalMapping >> add: newObject [
 	
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
-MAMapping >> at: name [
+MalMapping >> at: name [
 	
 	^self atKey: (self keyForName: name)
 ]
 
 { #category : #accessing }
-MAMapping >> at: name ifAbsent: exceptionBlock [
+MalMapping >> at: name ifAbsent: exceptionBlock [
 	
 	^self
 		atKey: (self keyForName: name ifAbsent: exceptionBlock)
@@ -28,7 +28,7 @@ MAMapping >> at: name ifAbsent: exceptionBlock [
 ]
 
 { #category : #accessing }
-MAMapping >> at: name ifPresent: unaryBlock [
+MalMapping >> at: name ifPresent: unaryBlock [
 	
 	^unaryBlock
 		value:
@@ -38,7 +38,7 @@ MAMapping >> at: name ifPresent: unaryBlock [
 ]
 
 { #category : #'accessing - key' }
-MAMapping >> atKey: key [
+MalMapping >> atKey: key [
 	
 	^self
 		atKey: key
@@ -46,13 +46,13 @@ MAMapping >> atKey: key [
 ]
 
 { #category : #'accessing - key' }
-MAMapping >> atKey: aKey ifAbsent: exceptionBlock [
+MalMapping >> atKey: aKey ifAbsent: exceptionBlock [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #application }
-MAMapping >> convertCollection: aSequencableCollection [
+MalMapping >> convertCollection: aSequencableCollection [
 	
 	| collection |
 	collection := aSequencableCollection species new.
@@ -61,51 +61,51 @@ MAMapping >> convertCollection: aSequencableCollection [
 ]
 
 { #category : #application }
-MAMapping >> convertMatrixColumnwise: aMatrix [
+MalMapping >> convertMatrixColumnwise: aMatrix [
 	
-	^aMatrix species withMatrix: (MAMappedMatrix on: aMatrix columnMap: self)
+	^aMatrix species withMatrix: (MalMappedMatrix on: aMatrix columnMap: self)
 ]
 
 { #category : #application }
-MAMapping >> convertMatrixRowwise: aMatrix [
+MalMapping >> convertMatrixRowwise: aMatrix [
 	
-	^aMatrix species withAll: (MAMappedMatrix on: aMatrix rowMap: self)
+	^aMatrix species withAll: (MalMappedMatrix on: aMatrix rowMap: self)
 ]
 
 { #category : #application }
-MAMapping >> convertSquareMatrix: aMatrix [
+MalMapping >> convertSquareMatrix: aMatrix [
 	
-	^aMatrix species withMatrix: (MAMappedMatrix on: aMatrix map: self)
+	^aMatrix species withMatrix: (MalMappedMatrix on: aMatrix map: self)
 ]
 
 { #category : #converting }
-MAMapping >> derive: aBlock [
+MalMapping >> derive: aBlock [
 	
 	| derivate |
-	derivate := MASmartMapping new.
+	derivate := MalSmartMapping new.
 	derivate setParent: self.
 	self do: [:index | (aBlock value: index) ifTrue: [derivate add: index]].
 	^derivate
 ]
 
 { #category : #converting }
-MAMapping >> deriveWithNames: names [
+MalMapping >> deriveWithNames: names [
 	
 	| derivate |
-	derivate := MASmartMapping new.
+	derivate := MalSmartMapping new.
 	derivate setParent: self.
 	names do: [:name | derivate add: (self keyForName: name)].
 	^derivate
 ]
 
 { #category : #enumerating }
-MAMapping >> do: aBlock [
+MalMapping >> do: aBlock [
 	
 	self subclassResponsibility
 ]
 
 { #category : #testing }
-MAMapping >> includesIndex: index [
+MalMapping >> includesIndex: index [
 	
 	self
 		keyOf: index
@@ -114,7 +114,7 @@ MAMapping >> includesIndex: index [
 ]
 
 { #category : #testing }
-MAMapping >> includesKey: key [
+MalMapping >> includesKey: key [
 	
 	self
 		atKey: key
@@ -123,7 +123,7 @@ MAMapping >> includesKey: key [
 ]
 
 { #category : #testing }
-MAMapping >> includesName: name [
+MalMapping >> includesName: name [
 	
 	self
 		at: name
@@ -132,7 +132,7 @@ MAMapping >> includesName: name [
 ]
 
 { #category : #'user interface' }
-MAMapping >> inspectorClasses [
+MalMapping >> inspectorClasses [
 	
 	^self size > 10000
 		ifTrue: [Array with: BasicInspector]
@@ -140,7 +140,7 @@ MAMapping >> inspectorClasses [
 ]
 
 { #category : #'accessing - name' }
-MAMapping >> keyForName: name [
+MalMapping >> keyForName: name [
 	
 	^self
 		keyForName: name
@@ -148,13 +148,13 @@ MAMapping >> keyForName: name [
 ]
 
 { #category : #'accessing - name' }
-MAMapping >> keyForName: name ifAbsent: exceptionBlock [
+MalMapping >> keyForName: name ifAbsent: exceptionBlock [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #'accessing - key' }
-MAMapping >> keyOf: index [
+MalMapping >> keyOf: index [
 	
 	^self
 		keyOf: index
@@ -162,55 +162,55 @@ MAMapping >> keyOf: index [
 ]
 
 { #category : #'accessing - key' }
-MAMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
+MalMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #'accessing - key' }
-MAMapping >> keys [
+MalMapping >> keys [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #'accessing - name' }
-MAMapping >> nameForKey: key [
+MalMapping >> nameForKey: key [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #'accessing - name' }
-MAMapping >> nameOf: index [
+MalMapping >> nameOf: index [
 	
 	^self nameForKey: (self keyOf: index)
 ]
 
 { #category : #'accessing - name' }
-MAMapping >> nameOf: index ifAbsent: exceptionBlock [
+MalMapping >> nameOf: index ifAbsent: exceptionBlock [
 	
 	^self nameForKey: (self keyOf: index ifAbsent: exceptionBlock)
 ]
 
 { #category : #'accessing - name' }
-MAMapping >> names [
+MalMapping >> names [
 	
 	^self keys collect: [:key | self nameForKey: key]
 ]
 
 { #category : #removing }
-MAMapping >> remove: oldObject ifAbsent: anExceptionBlock [
+MalMapping >> remove: oldObject ifAbsent: anExceptionBlock [
 	
 	self shouldNotImplement
 ]
 
 { #category : #accessing }
-MAMapping >> size [
+MalMapping >> size [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #converting }
-MAMapping >> with: aCollection derive: aBlock [
+MalMapping >> with: aCollection derive: aBlock [
 	
 	^self derive: [:index | aBlock value: (aCollection at: index)]
 ]

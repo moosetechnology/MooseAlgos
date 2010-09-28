@@ -2,13 +2,13 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MADiagonalMatrix,
-	#superclass : #MASymetricMatrix,
+	#name : #MalDiagonalMatrix,
+	#superclass : #MalSymetricMatrix,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #'instance creation' }
-MADiagonalMatrix class >> withDiagonal: vector [
+MalDiagonalMatrix class >> withDiagonal: vector [
 	
 	| newMatrix |
 	newMatrix := self new: vector size.
@@ -24,7 +24,7 @@ MADiagonalMatrix class >> withDiagonal: vector [
 ]
 
 { #category : #accessing }
-MADiagonalMatrix >> at: row and: column [
+MalDiagonalMatrix >> at: row and: column [
 	
 	^row = column
 		ifTrue: [partialColumns at: column]
@@ -32,7 +32,7 @@ MADiagonalMatrix >> at: row and: column [
 ]
 
 { #category : #accessing }
-MADiagonalMatrix >> at: row and: column put: aNumber [
+MalDiagonalMatrix >> at: row and: column put: aNumber [
 	
 	^row = column
 		ifTrue: [partialColumns at: column put: aNumber]
@@ -44,19 +44,19 @@ MADiagonalMatrix >> at: row and: column put: aNumber [
 ]
 
 { #category : #private }
-MADiagonalMatrix >> checkInvariant [
+MalDiagonalMatrix >> checkInvariant [
 	
 	^partialColumns isCollection	"(DiagonalMatrix new: 10) checkInvariant"
 ]
 
 { #category : #accessing }
-MADiagonalMatrix >> columnSize [
+MalDiagonalMatrix >> columnSize [
 	
 	^partialColumns size
 ]
 
 { #category : #'initialize-release' }
-MADiagonalMatrix >> initializeRows: m columns: n [
+MalDiagonalMatrix >> initializeRows: m columns: n [
 	
 	m = n ifFalse: [Array new noMatchError].
 	partialColumns := Array new: m.
@@ -64,7 +64,7 @@ MADiagonalMatrix >> initializeRows: m columns: n [
 ]
 
 { #category : #accessing }
-MADiagonalMatrix >> rowSize [
+MalDiagonalMatrix >> rowSize [
 	
 	^partialColumns size
 ]

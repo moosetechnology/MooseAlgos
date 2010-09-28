@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMatrixView,
-	#superclass : #MAMatrixDecorator,
+	#name : #MalMatrixView,
+	#superclass : #MalMatrixDecorator,
 	#instVars : [
 		'rowSize',
 		'columnSize',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAMatrixView class >> from: top to: bottom on: matrix [
+MalMatrixView class >> from: top to: bottom on: matrix [
 	
 	^(self new: bottom - top + 1)
 		setMatrix: matrix;
@@ -22,7 +22,7 @@ MAMatrixView class >> from: top to: bottom on: matrix [
 ]
 
 { #category : #'As yet unclassified' }
-MAMatrixView class >> fromColumn: start to: end on: matrix [
+MalMatrixView class >> fromColumn: start to: end on: matrix [
 	
 	^self
 		from: 1
@@ -31,7 +31,7 @@ MAMatrixView class >> fromColumn: start to: end on: matrix [
 ]
 
 { #category : #'instance creation' }
-MAMatrixView class >> transposeOn: matrix [
+MalMatrixView class >> transposeOn: matrix [
 	
 	^(self new: matrix dimension transpose)
 		setMatrix: matrix;
@@ -40,38 +40,38 @@ MAMatrixView class >> transposeOn: matrix [
 ]
 
 { #category : #accessing }
-MAMatrixView >> at: row and: column [
+MalMatrixView >> at: row and: column [
 	
 	^matrix atPoint: (mapBlock value: row value: column)
 ]
 
 { #category : #accessing }
-MAMatrixView >> at: row and: column put: aNumber [
+MalMatrixView >> at: row and: column put: aNumber [
 	
 	self noModificationError
 ]
 
 { #category : #accessing }
-MAMatrixView >> columnSize [
+MalMatrixView >> columnSize [
 	
 	^columnSize
 ]
 
 { #category : #'initialize-release' }
-MAMatrixView >> initializeRows: m columns: n [
+MalMatrixView >> initializeRows: m columns: n [
 	
 	rowSize := m.
 	columnSize := n
 ]
 
 { #category : #accessing }
-MAMatrixView >> rowSize [
+MalMatrixView >> rowSize [
 	
 	^rowSize
 ]
 
 { #category : #'initialize-release' }
-MAMatrixView >> setMapBlock: block [
+MalMatrixView >> setMapBlock: block [
 	
 	^mapBlock := block
 ]

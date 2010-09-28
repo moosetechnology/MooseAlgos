@@ -2,32 +2,32 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAArrayVector,
-	#superclass : #MAVector,
+	#name : #MalArrayVector,
+	#superclass : #MalVector,
 	#type : #variable,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #'instance creation' }
-MAArrayVector class >> new: size [
+MalArrayVector class >> new: size [
 	
 	^self basicNew: size
 ]
 
 { #category : #accessing }
-MAArrayVector >> at: index [
+MalArrayVector >> at: index [
 	
 	^self basicAt: index
 ]
 
 { #category : #accessing }
-MAArrayVector >> at: index put: aNumber [
+MalArrayVector >> at: index put: aNumber [
 	
 	^self basicAt: index put: aNumber
 ]
 
 { #category : #accessing }
-MAArrayVector >> size [
+MalArrayVector >> size [
 	
 	^self basicSize
 ]

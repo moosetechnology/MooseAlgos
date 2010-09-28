@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MARowMatrix,
-	#superclass : #MAMatrix,
+	#name : #MalRowMatrix,
+	#superclass : #MalMatrix,
 	#instVars : [
 		'rows'
 	],
@@ -11,19 +11,19 @@ Class {
 }
 
 { #category : #accessing }
-MARowMatrix >> at: row and: column [
+MalRowMatrix >> at: row and: column [
 	
 	^(rows at: row) at: column
 ]
 
 { #category : #accessing }
-MARowMatrix >> at: row and: column put: aNumber [
+MalRowMatrix >> at: row and: column put: aNumber [
 	
 	^(rows at: row) at: column put: aNumber
 ]
 
 { #category : #private }
-MARowMatrix >> checkInvariant [
+MalRowMatrix >> checkInvariant [
 	
 	^rows isCollection
 		and:
@@ -32,7 +32,7 @@ MARowMatrix >> checkInvariant [
 ]
 
 { #category : #accessing }
-MARowMatrix >> columnSize [
+MalRowMatrix >> columnSize [
 	
 	^rows isEmpty
 		ifTrue: [0]
@@ -40,7 +40,7 @@ MARowMatrix >> columnSize [
 ]
 
 { #category : #'initialize-release' }
-MARowMatrix >> initializeRows: m columns: n [
+MalRowMatrix >> initializeRows: m columns: n [
 	
 	rows := Array new: m.
 	1
@@ -53,19 +53,19 @@ MARowMatrix >> initializeRows: m columns: n [
 ]
 
 { #category : #'accessing vectorwise' }
-MARowMatrix >> rowAt: rowIndex [
+MalRowMatrix >> rowAt: rowIndex [
 	
 	^rows at: rowIndex
 ]
 
 { #category : #accessing }
-MARowMatrix >> rowSize [
+MalRowMatrix >> rowSize [
 	
 	^rows size
 ]
 
 { #category : #'accessing vectorwise' }
-MARowMatrix >> rows [
+MalRowMatrix >> rows [
 	
 	^rows
 ]

@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMatrixCoercion,
-	#superclass : #MAMatrix,
+	#name : #MalMatrixCoercion,
+	#superclass : #MalMatrix,
 	#instVars : [
 		'number'
 	],
@@ -11,9 +11,9 @@ Class {
 }
 
 { #category : #'initialize-release' }
-MAMatrixCoercion class >> with: aNumber [
+MalMatrixCoercion class >> with: aNumber [
 	
-	^(aNumber isKindOf: MAMatrix)
+	^(aNumber isKindOf: MalMatrix)
 		ifTrue: [aNumber]
 		ifFalse:
 			[(self basicNew)
@@ -22,7 +22,7 @@ MAMatrixCoercion class >> with: aNumber [
 ]
 
 { #category : #comparing }
-MAMatrixCoercion >> = matrix [
+MalMatrixCoercion >> = matrix [
 	
 	^self
 		switch: matrix
@@ -31,49 +31,49 @@ MAMatrixCoercion >> = matrix [
 ]
 
 { #category : #converting }
-MAMatrixCoercion >> asNumber [
+MalMatrixCoercion >> asNumber [
 	
 	^number
 ]
 
 { #category : #accessing }
-MAMatrixCoercion >> at: row and: column [
+MalMatrixCoercion >> at: row and: column [
 	
 	^number
 ]
 
 { #category : #private }
-MAMatrixCoercion >> checkInvariant [
+MalMatrixCoercion >> checkInvariant [
 	
 	^number respondsToArithmetic
 ]
 
 { #category : #accessing }
-MAMatrixCoercion >> columnSize [
+MalMatrixCoercion >> columnSize [
 	
 	self noDimensionError
 ]
 
 { #category : #testing }
-MAMatrixCoercion >> hasDimension: aDimension [
+MalMatrixCoercion >> hasDimension: aDimension [
 	
 	^true
 ]
 
 { #category : #'initialize-release' }
-MAMatrixCoercion >> initializeRows: m columns: n [
+MalMatrixCoercion >> initializeRows: m columns: n [
 	
 	^self noDimensionError
 ]
 
 { #category : #private }
-MAMatrixCoercion >> noDimensionError [
+MalMatrixCoercion >> noDimensionError [
 	
 	^self error: 'Coerced matrices do not have dimension.'
 ]
 
 { #category : #printing }
-MAMatrixCoercion >> printOn: aStream [
+MalMatrixCoercion >> printOn: aStream [
 	"Append to the argument aStream a sequence of characters that identifies the matrix."
 	
 	aStream
@@ -83,27 +83,27 @@ MAMatrixCoercion >> printOn: aStream [
 ]
 
 { #category : #accessing }
-MAMatrixCoercion >> rowSize [
+MalMatrixCoercion >> rowSize [
 	
 	self noDimensionError
 ]
 
 { #category : #'initialize-release' }
-MAMatrixCoercion >> setNumber: aNumber [
+MalMatrixCoercion >> setNumber: aNumber [
 	
 	^number := aNumber
 ]
 
 { #category : #private }
-MAMatrixCoercion >> switch: matrix caseCoercion: coercionBlock caseMatrix: matrixBlock [
+MalMatrixCoercion >> switch: matrix caseCoercion: coercionBlock caseMatrix: matrixBlock [
 	
-	^(matrix isKindOf: MAMatrixCoercion)
+	^(matrix isKindOf: MalMatrixCoercion)
 		ifTrue: [coercionBlock value]
 		ifFalse: [matrixBlock value]
 ]
 
 { #category : #enumerating }
-MAMatrixCoercion >> with: matrix affect: aBlock [
+MalMatrixCoercion >> with: matrix affect: aBlock [
 	
 	^self
 		switch: matrix
@@ -115,12 +115,12 @@ MAMatrixCoercion >> with: matrix affect: aBlock [
 ]
 
 { #category : #enumerating }
-MAMatrixCoercion >> with: matrix collect: aBlock [
+MalMatrixCoercion >> with: matrix collect: aBlock [
 	
 	^self
 		switch: matrix
 		caseCoercion:
-			[MAMatrixCoercion
+			[MalMatrixCoercion
 				with:
 					(aBlock
 						value: number
@@ -132,7 +132,7 @@ MAMatrixCoercion >> with: matrix collect: aBlock [
 ]
 
 { #category : #enumerating }
-MAMatrixCoercion >> with: matrix do: aBlock [
+MalMatrixCoercion >> with: matrix do: aBlock [
 	
 	^self
 		switch: matrix

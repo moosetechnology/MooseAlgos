@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAUnboundedMatrix,
-	#superclass : #MAMatrixDecorator,
+	#name : #MalUnboundedMatrix,
+	#superclass : #MalMatrixDecorator,
 	#instVars : [
 		'backgroundValue'
 	],
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAUnboundedMatrix class >> on: matrix with: defaultValue [
+MalUnboundedMatrix class >> on: matrix with: defaultValue [
 	
 	^(self on: matrix)
 		backgroundValue: defaultValue;
@@ -19,7 +19,7 @@ MAUnboundedMatrix class >> on: matrix with: defaultValue [
 ]
 
 { #category : #'initialize-release' }
-MAUnboundedMatrix >> at: row and: column [
+MalUnboundedMatrix >> at: row and: column [
 	
 	^[matrix at: row and: column]
 		on: "SubscriptOutOfBoundsError" Error
@@ -27,7 +27,7 @@ MAUnboundedMatrix >> at: row and: column [
 ]
 
 { #category : #'initialize-release' }
-MAUnboundedMatrix >> at: row and: column put: aNumber [
+MalUnboundedMatrix >> at: row and: column put: aNumber [
 	
 	^[matrix at: row and: column put: aNumber]
 		on: "SubscriptOutOfBoundsError" Error
@@ -35,13 +35,13 @@ MAUnboundedMatrix >> at: row and: column put: aNumber [
 ]
 
 { #category : #accessing }
-MAUnboundedMatrix >> backgroundValue [
+MalUnboundedMatrix >> backgroundValue [
 	
 	^backgroundValue
 ]
 
 { #category : #accessing }
-MAUnboundedMatrix >> backgroundValue: anObject [
+MalUnboundedMatrix >> backgroundValue: anObject [
 	
 	backgroundValue := anObject
 ]

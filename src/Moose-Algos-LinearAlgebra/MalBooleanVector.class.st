@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MABooleanVector,
-	#superclass : #MAVector,
+	#name : #MalBooleanVector,
+	#superclass : #MalVector,
 	#instVars : [
 		'bits',
 		'size'
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #'logical operations' }
-MABooleanVector >> & booleanVector [
+MalBooleanVector >> & booleanVector [
 	
 	[self size = booleanVector size] assert.
 	^(self class new: self size)
@@ -21,13 +21,13 @@ MABooleanVector >> & booleanVector [
 ]
 
 { #category : #accessing }
-MABooleanVector >> at: index [
+MalBooleanVector >> at: index [
 	
 	^bits allMask: (1 bitShift: index - 1)
 ]
 
 { #category : #accessing }
-MABooleanVector >> at: index put: boolean [
+MalBooleanVector >> at: index put: boolean [
 	
 	^boolean
 		ifTrue: [bits := bits maskSet: 1 << (index - 1)]
@@ -35,26 +35,26 @@ MABooleanVector >> at: index put: boolean [
 ]
 
 { #category : #private }
-MABooleanVector >> bits [
+MalBooleanVector >> bits [
 	
 	^bits
 ]
 
 { #category : #private }
-MABooleanVector >> getBits [
+MalBooleanVector >> getBits [
 	
 	^bits
 ]
 
 { #category : #'initialize-release' }
-MABooleanVector >> initializeSize: aSize [
+MalBooleanVector >> initializeSize: aSize [
 	
 	bits := 0.
 	size := aSize
 ]
 
 { #category : #'logical operations' }
-MABooleanVector >> not [
+MalBooleanVector >> not [
 	
 	^(self class new: self size)
 		setBits: self getBits bitInvert;
@@ -62,19 +62,19 @@ MABooleanVector >> not [
 ]
 
 { #category : #private }
-MABooleanVector >> setBits: integer [
+MalBooleanVector >> setBits: integer [
 	
 	^bits := integer
 ]
 
 { #category : #accessing }
-MABooleanVector >> size [
+MalBooleanVector >> size [
 	
 	^size
 ]
 
 { #category : #'logical operations' }
-MABooleanVector >> | booleanVector [
+MalBooleanVector >> | booleanVector [
 	
 	[self size = booleanVector size] assert.
 	^(self class new: self size)

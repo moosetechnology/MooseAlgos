@@ -8,8 +8,8 @@ Instance Variables:
 
 "
 Class {
-	#name : #MASparseVector,
-	#superclass : #MAVector,
+	#name : #MalSparseVector,
+	#superclass : #MalVector,
 	#instVars : [
 		'size',
 		'contents'
@@ -18,13 +18,13 @@ Class {
 }
 
 { #category : #adding }
-MASparseVector >> addLast [
+MalSparseVector >> addLast [
 	
 	size := size + 1
 ]
 
 { #category : #accessing }
-MASparseVector >> at: anIndex [
+MalSparseVector >> at: anIndex [
 	
 	| spot |
 	spot := self internalIndexOf: anIndex.
@@ -34,7 +34,7 @@ MASparseVector >> at: anIndex [
 ]
 
 { #category : #accessing }
-MASparseVector >> at: anIndex put: aNumber [
+MalSparseVector >> at: anIndex put: aNumber [
 	
 	aNumber isZero
 		ifTrue: [self removeValueAt: anIndex]
@@ -43,7 +43,7 @@ MASparseVector >> at: anIndex put: aNumber [
 ]
 
 { #category : #enumerating }
-MASparseVector >> collect: aBlock [
+MalSparseVector >> collect: aBlock [
 	"Evaluate aBlock with each of the values of the receiver as the  
 	argument.  Collect the resulting values into a collection that is like 
 	the receiver.  Answer the new collection."
@@ -57,13 +57,13 @@ MASparseVector >> collect: aBlock [
 ]
 
 { #category : #'vector functions' }
-MASparseVector >> distByAngle: aVector [
+MalSparseVector >> distByAngle: aVector [
 	
 	^1 - (self cosine: aVector)
 ]
 
 { #category : #enumerating }
-MASparseVector >> doSparseWithIndex: aBlock [
+MalSparseVector >> doSparseWithIndex: aBlock [
 	
 	contents
 		do:
@@ -74,7 +74,7 @@ MASparseVector >> doSparseWithIndex: aBlock [
 ]
 
 { #category : #'vector functions' }
-MASparseVector >> dotProduct: aVector [
+MalSparseVector >> dotProduct: aVector [
 	
 	| sum otherValueBlock |
 	(aVector hasSize: self size) ifFalse: [^self noMatchError].
@@ -89,13 +89,13 @@ MASparseVector >> dotProduct: aVector [
 ]
 
 { #category : #'initialize-release' }
-MASparseVector >> initializeContents: anAssociationArray [
+MalSparseVector >> initializeContents: anAssociationArray [
 	
 	contents := anAssociationArray
 ]
 
 { #category : #'initialize-release' }
-MASparseVector >> initializeSize: aSize [
+MalSparseVector >> initializeSize: aSize [
 
 	self flag: #importChange. "replace ArrayList with OrderedCollection"
 	size := aSize.
@@ -103,7 +103,7 @@ MASparseVector >> initializeSize: aSize [
 ]
 
 { #category : #private }
-MASparseVector >> internalIndexOf: anIndex [
+MalSparseVector >> internalIndexOf: anIndex [
 	"Searchs for the internal index of anIndex with O(log n) using binary search, returns
 	either the internal index of anIndex or, if anIndex is not found, the negated internal 
 	index to be used for insertion."
@@ -125,7 +125,7 @@ MASparseVector >> internalIndexOf: anIndex [
 ]
 
 { #category : #private }
-MASparseVector >> removeValueAt: anIndex [
+MalSparseVector >> removeValueAt: anIndex [
 	
 	| spot |
 	spot := self internalIndexOf: anIndex.
@@ -133,7 +133,7 @@ MASparseVector >> removeValueAt: anIndex [
 ]
 
 { #category : #private }
-MASparseVector >> setValue: aNumber at: anIndex [
+MalSparseVector >> setValue: aNumber at: anIndex [
 	
 	| spot |
 	spot := self internalIndexOf: anIndex.
@@ -146,19 +146,19 @@ MASparseVector >> setValue: aNumber at: anIndex [
 ]
 
 { #category : #accessing }
-MASparseVector >> size [
+MalSparseVector >> size [
 	
 	^size
 ]
 
 { #category : #accessing }
-MASparseVector >> sparseSize [
+MalSparseVector >> sparseSize [
 	
 	^contents size
 ]
 
 { #category : #'mathematical functions' }
-MASparseVector >> sum [
+MalSparseVector >> sum [
 	
 	^contents
 		inject: 0

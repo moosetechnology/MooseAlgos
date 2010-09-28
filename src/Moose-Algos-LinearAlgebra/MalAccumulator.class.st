@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAAccumulator,
+	#name : #MalAccumulator,
 	#superclass : #Object,
 	#instVars : [
 		'accumulateBlock',
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAAccumulator class >> extreme [
+MalAccumulator class >> extreme [
 	
 	^self
 		value: 0
@@ -26,7 +26,7 @@ MAAccumulator class >> extreme [
 ]
 
 { #category : #'instance creation' }
-MAAccumulator class >> maximum [
+MalAccumulator class >> maximum [
 	
 	^self
 		value: Unlimited negative
@@ -34,7 +34,7 @@ MAAccumulator class >> maximum [
 ]
 
 { #category : #'instance creation' }
-MAAccumulator class >> minimum [
+MalAccumulator class >> minimum [
 	
 	^self
 		value: Unlimited positive
@@ -42,13 +42,13 @@ MAAccumulator class >> minimum [
 ]
 
 { #category : #'instance creation' }
-MAAccumulator class >> new [
+MalAccumulator class >> new [
 	
 	self shouldNotImplement
 ]
 
 { #category : #'instance creation' }
-MAAccumulator class >> squaredSum [
+MalAccumulator class >> squaredSum [
 	
 	^self
 		value: 0
@@ -56,7 +56,7 @@ MAAccumulator class >> squaredSum [
 ]
 
 { #category : #'instance creation' }
-MAAccumulator class >> sum [
+MalAccumulator class >> sum [
 	
 	^self
 		value: 0
@@ -64,7 +64,7 @@ MAAccumulator class >> sum [
 ]
 
 { #category : #'instance creation' }
-MAAccumulator class >> using: anAccumulationBlock [
+MalAccumulator class >> using: anAccumulationBlock [
 	
 	^self
 		value: Number zero
@@ -72,7 +72,7 @@ MAAccumulator class >> using: anAccumulationBlock [
 ]
 
 { #category : #'instance creation' }
-MAAccumulator class >> value: initialValue using: anAccumulationBlock [
+MalAccumulator class >> value: initialValue using: anAccumulationBlock [
 	
 	^(self basicNew)
 		setAccumulateBlock: anAccumulationBlock;
@@ -81,14 +81,14 @@ MAAccumulator class >> value: initialValue using: anAccumulationBlock [
 ]
 
 { #category : #accumulate }
-MAAccumulator >> accumulate: aValue [
+MalAccumulator >> accumulate: aValue [
 	
 	size := size + 1.
 	^value := accumulateBlock value: value value: aValue
 ]
 
 { #category : #accumulate }
-MAAccumulator >> accumulate: aValue withIndex: anIndex [
+MalAccumulator >> accumulate: aValue withIndex: anIndex [
 	
 	size := size + 1.
 	^(value = (value := accumulateBlock value: value value: aValue))
@@ -96,33 +96,33 @@ MAAccumulator >> accumulate: aValue withIndex: anIndex [
 ]
 
 { #category : #accumulate }
-MAAccumulator >> add: aValue [
+MalAccumulator >> add: aValue [
 	
 	^self accumulate: aValue
 ]
 
 { #category : #accessing }
-MAAccumulator >> average [
+MalAccumulator >> average [
 	
 	^value / size
 ]
 
 { #category : #accumulate }
-MAAccumulator >> enumerate: aCollection [
+MalAccumulator >> enumerate: aCollection [
 	
 	aCollection do: [:each | self accumulate: each].
 	^value
 ]
 
 { #category : #accumulate }
-MAAccumulator >> enumerate: aCollection atAll: indices [
+MalAccumulator >> enumerate: aCollection atAll: indices [
 	
 	indices do: [:key | self accumulate: (aCollection at: key)].
 	^value
 ]
 
 { #category : #accumulate }
-MAAccumulator >> enumerate: aMatrix atAll: rowIndices andAll: columnIndices [
+MalAccumulator >> enumerate: aMatrix atAll: rowIndices andAll: columnIndices [
 	
 	rowIndices
 		do:
@@ -133,7 +133,7 @@ MAAccumulator >> enumerate: aMatrix atAll: rowIndices andAll: columnIndices [
 ]
 
 { #category : #accumulate }
-MAAccumulator >> enumerateWithIndex: aSequencableCollection [
+MalAccumulator >> enumerateWithIndex: aSequencableCollection [
 	
 	aSequencableCollection
 		doWithIndex: [:each :index0 | self accumulate: each withIndex: index0].
@@ -141,7 +141,7 @@ MAAccumulator >> enumerateWithIndex: aSequencableCollection [
 ]
 
 { #category : #accumulate }
-MAAccumulator >> from: start to: end do: aBlock [
+MalAccumulator >> from: start to: end do: aBlock [
 	
 	start
 		to: end
@@ -150,13 +150,13 @@ MAAccumulator >> from: start to: end do: aBlock [
 ]
 
 { #category : #accessing }
-MAAccumulator >> index [
+MalAccumulator >> index [
 	
 	^index
 ]
 
 { #category : #'initialize-release' }
-MAAccumulator >> merge: anAccumulator [
+MalAccumulator >> merge: anAccumulator [
 	
 	size := size + anAccumulator size.
 	^self
@@ -165,13 +165,13 @@ MAAccumulator >> merge: anAccumulator [
 ]
 
 { #category : #printing }
-MAAccumulator >> printOn: stream [
+MalAccumulator >> printOn: stream [
 	
 	| method |
 	method := accumulateBlock method outerMethod.
 	stream
 		nextPutAll:
-				(method mclass == MAAccumulator class
+				(method mclass == MalAccumulator class
 						ifTrue: [method selector]
 						ifFalse: ['custom']);
 		space;
@@ -181,7 +181,7 @@ MAAccumulator >> printOn: stream [
 ]
 
 { #category : #'initialize-release' }
-MAAccumulator >> resetValue: aValue [
+MalAccumulator >> resetValue: aValue [
 	
 	size := 0.
 	index := nil.
@@ -189,32 +189,32 @@ MAAccumulator >> resetValue: aValue [
 ]
 
 { #category : #'initialize-release' }
-MAAccumulator >> setAccumulateBlock: aBlock [
+MalAccumulator >> setAccumulateBlock: aBlock [
 	
 	accumulateBlock := aBlock
 ]
 
 { #category : #'initialize-release' }
-MAAccumulator >> setValue: aValue [
+MalAccumulator >> setValue: aValue [
 	
 	size := 0.
 	^value := value
 ]
 
 { #category : #accessing }
-MAAccumulator >> size [
+MalAccumulator >> size [
 	
 	^size
 ]
 
 { #category : #accumulate }
-MAAccumulator >> upTo: end do: aBlock [
+MalAccumulator >> upTo: end do: aBlock [
 	
 	^self from: 1 to: end do: aBlock
 ]
 
 { #category : #accessing }
-MAAccumulator >> value [
+MalAccumulator >> value [
 	
 	^value
 ]

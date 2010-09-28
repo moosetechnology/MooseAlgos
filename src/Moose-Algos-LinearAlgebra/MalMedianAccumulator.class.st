@@ -1,5 +1,5 @@
 Class {
-	#name : #MAMedianAccumulator,
+	#name : #MalMedianAccumulator,
 	#superclass : #Object,
 	#instVars : [
 		'values'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAMedianAccumulator class >> new [
+MalMedianAccumulator class >> new [
 	
 	^self basicNew initialize
 ]
 
 { #category : #'instance creation' }
-MAMedianAccumulator class >> withAll: aCollection [
+MalMedianAccumulator class >> withAll: aCollection [
 	
 	^(self new)
 		addAll: aCollection;
@@ -22,43 +22,43 @@ MAMedianAccumulator class >> withAll: aCollection [
 ]
 
 { #category : #accumulating }
-MAMedianAccumulator >> add: value [
+MalMedianAccumulator >> add: value [
 	
 	values add: value
 ]
 
 { #category : #accumulating }
-MAMedianAccumulator >> addAll: aCollection [
+MalMedianAccumulator >> addAll: aCollection [
 	
 	values addAll: aCollection
 ]
 
 { #category : #accessing }
-MAMedianAccumulator >> bottom [
+MalMedianAccumulator >> bottom [
 	
 	^values last
 ]
 
 { #category : #accessing }
-MAMedianAccumulator >> firstQuartil [
+MalMedianAccumulator >> firstQuartil [
 	
 	^values at: (values size / 4) asInteger
 ]
 
 { #category : #'initialize-release' }
-MAMedianAccumulator >> initialize [
+MalMedianAccumulator >> initialize [
 	
 	values := SortedCollection new
 ]
 
 { #category : #accessing }
-MAMedianAccumulator >> median [
+MalMedianAccumulator >> median [
 	
 	^values at: (values size / 2) asInteger
 ]
 
 { #category : #printing }
-MAMedianAccumulator >> printOn: aStream [
+MalMedianAccumulator >> printOn: aStream [
 	
 	aStream
 		nextPutAll: 'Median = ';
@@ -82,19 +82,19 @@ MAMedianAccumulator >> printOn: aStream [
 ]
 
 { #category : #accessing }
-MAMedianAccumulator >> thirdQuartil [
+MalMedianAccumulator >> thirdQuartil [
 	
 	^values at: (values size / 4 * 3) asInteger
 ]
 
 { #category : #accessing }
-MAMedianAccumulator >> top [
+MalMedianAccumulator >> top [
 	
 	^values first
 ]
 
 { #category : #accumulating }
-MAMedianAccumulator >> value: value [
+MalMedianAccumulator >> value: value [
 	
 	values add: value
 ]

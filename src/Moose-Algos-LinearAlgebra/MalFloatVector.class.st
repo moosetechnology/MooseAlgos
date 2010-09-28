@@ -2,27 +2,27 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAFloatVector,
-	#superclass : #MAVector,
+	#name : #MalFloatVector,
+	#superclass : #MalVector,
 	#type : #variable,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #'instance creation' }
-MAFloatVector class >> new: size [
+MalFloatVector class >> new: size [
 	
 	^self basicNew: size "<< 2"
 ]
 
 { #category : #accessing }
-MAFloatVector >> at: anIndex [
+MalFloatVector >> at: anIndex [
 	
 	"^self floatAt: (anIndex bitShift: 2) - 3"
 	^ (self basicAt: anIndex) 
 ]
 
 { #category : #accessing }
-MAFloatVector >> at: anIndex put: aNumber [
+MalFloatVector >> at: anIndex put: aNumber [
 	
 	"^self
 		floatAt: (anIndex bitShift: 2) - 3
@@ -32,7 +32,7 @@ MAFloatVector >> at: anIndex put: aNumber [
 ]
 
 { #category : #private }
-MAFloatVector >> floatAt: byteIndex [
+MalFloatVector >> floatAt: byteIndex [
 	
 	<primitive: 548>
 	^self primitiveFailed
@@ -40,7 +40,7 @@ MAFloatVector >> floatAt: byteIndex [
 ]
 
 { #category : #private }
-MAFloatVector >> floatAt: byteIndex put: float [
+MalFloatVector >> floatAt: byteIndex put: float [
 	
 	<primitive: 549>
 	^self primitiveFailed
@@ -49,7 +49,7 @@ MAFloatVector >> floatAt: byteIndex put: float [
 ]
 
 { #category : #accessing }
-MAFloatVector >> size [
+MalFloatVector >> size [
 	
 	^self basicSize" >> 2"
 ]

@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMappedVector,
-	#superclass : #MAVectorDecorator,
+	#name : #MalMappedVector,
+	#superclass : #MalVectorDecorator,
 	#instVars : [
 		'indices'
 	],
@@ -11,13 +11,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAMappedVector class >> on: aVector [
+MalMappedVector class >> on: aVector [
 	
 	^self on: aVector indices: nil
 ]
 
 { #category : #'instance creation' }
-MAMappedVector class >> on: aVector indices: aReindexing [
+MalMappedVector class >> on: aVector indices: aReindexing [
 	
 	^(super on: aVector)
 		setIndices: aReindexing;
@@ -25,13 +25,13 @@ MAMappedVector class >> on: aVector indices: aReindexing [
 ]
 
 { #category : #accessing }
-MAMappedVector >> at: anIndex [
+MalMappedVector >> at: anIndex [
 	
 	^vector at: (indices at: anIndex)
 ]
 
 { #category : #accessing }
-MAMappedVector >> at: anIndex put: aNumber [
+MalMappedVector >> at: anIndex put: aNumber [
 	
 	^vector
 		at: (indices at: anIndex)
@@ -39,13 +39,13 @@ MAMappedVector >> at: anIndex put: aNumber [
 ]
 
 { #category : #'initialize-release' }
-MAMappedVector >> setIndices: aReindexing [
+MalMappedVector >> setIndices: aReindexing [
 	
-	indices := aReindexing ifNil: [MANumberMapping new: vector size]
+	indices := aReindexing ifNil: [MalNumberMapping new: vector size]
 ]
 
 { #category : #accessing }
-MAMappedVector >> size [
+MalMappedVector >> size [
 	
 	^indices size
 ]

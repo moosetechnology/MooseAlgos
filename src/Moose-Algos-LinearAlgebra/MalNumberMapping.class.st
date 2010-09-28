@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MANumberMapping,
-	#superclass : #MAMapping,
+	#name : #MalNumberMapping,
+	#superclass : #MalMapping,
 	#instVars : [
 		'back',
 		'forth'
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MANumberMapping class >> new [
+MalNumberMapping class >> new [
 	
 	^(super new)
 		initialize;
@@ -20,7 +20,7 @@ MANumberMapping class >> new [
 ]
 
 { #category : #'instance creation' }
-MANumberMapping class >> new: aSize [
+MalNumberMapping class >> new: aSize [
 	
 	^(super new)
 		setSize: aSize;
@@ -28,7 +28,7 @@ MANumberMapping class >> new: aSize [
 ]
 
 { #category : #adding }
-MANumberMapping >> add: index [
+MalNumberMapping >> add: index [
 	"Maps an index to the next free key.
 	If the index is already mapped, throws an error.
 	@post-condition: 
@@ -48,7 +48,7 @@ MANumberMapping >> add: index [
 ]
 
 { #category : #accessing }
-MANumberMapping >> atKey: key ifAbsent: exceptionBlock [
+MalNumberMapping >> atKey: key ifAbsent: exceptionBlock [
 	"Returns index of an ordinal key,
 	that is maps backwards from new to old 'indices'."
 	
@@ -58,13 +58,13 @@ MANumberMapping >> atKey: key ifAbsent: exceptionBlock [
 ]
 
 { #category : #enumerating }
-MANumberMapping >> do: aBlock [
+MalNumberMapping >> do: aBlock [
 	
 	back do: aBlock
 ]
 
 { #category : #'initialize-release' }
-MANumberMapping >> initialize [
+MalNumberMapping >> initialize [
 	"Sets up instance variables.
 	back -- maps from ordinal keys to indices, ie. its values are indices (old indices).
 	forth -- maps from indices to ordinal keys, ie. its values are ordinal keys (new indices) and thus may be nil."
@@ -74,7 +74,7 @@ MANumberMapping >> initialize [
 ]
 
 { #category : #'accessing - name' }
-MANumberMapping >> keyForName: name ifAbsent: exceptionBlock [
+MalNumberMapping >> keyForName: name ifAbsent: exceptionBlock [
 	
 	^name isInteger
 		ifTrue: [name]
@@ -82,7 +82,7 @@ MANumberMapping >> keyForName: name ifAbsent: exceptionBlock [
 ]
 
 { #category : #accessing }
-MANumberMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
+MalNumberMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
 	"Returns ordinal key of a index.
 	that is maps forward from old to new indices."
 	
@@ -92,38 +92,38 @@ MANumberMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
 ]
 
 { #category : #accessing }
-MANumberMapping >> keys [
+MalNumberMapping >> keys [
 	
 	^1 to: self size
 ]
 
 { #category : #adding }
-MANumberMapping >> lastIndex [
+MalNumberMapping >> lastIndex [
 	
 	^forth size
 ]
 
 { #category : #'accessing - name' }
-MANumberMapping >> nameForKey: key [
+MalNumberMapping >> nameForKey: key [
 	
 	self error: 'key not found'
 ]
 
 { #category : #removing }
-MANumberMapping >> replaceAll: aCollection [
+MalNumberMapping >> replaceAll: aCollection [
 	
 	self initialize.
 	self addAll: aCollection
 ]
 
 { #category : #'initialize-release' }
-MANumberMapping >> setSize: size [
+MalNumberMapping >> setSize: size [
 	
 	back := forth := 1 to: size
 ]
 
 { #category : #accessing }
-MANumberMapping >> size [
+MalNumberMapping >> size [
 	
 	^back size
 ]

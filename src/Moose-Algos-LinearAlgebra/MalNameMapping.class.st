@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MANameMapping,
-	#superclass : #MAMapping,
+	#name : #MalNameMapping,
+	#superclass : #MalMapping,
 	#instVars : [
 		'names',
 		'comparisonBlock'
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MANameMapping class >> new [
+MalNameMapping class >> new [
 
 	^(super new)
 		initialize;
@@ -21,7 +21,7 @@ MANameMapping class >> new [
 ]
 
 { #category : #'instance creation' }
-MANameMapping class >> newUsing: aComparisonBlock [
+MalNameMapping class >> newUsing: aComparisonBlock [
 	
 	^(super new)
 		initialize;
@@ -30,7 +30,7 @@ MANameMapping class >> newUsing: aComparisonBlock [
 ]
 
 { #category : #adding }
-MANameMapping >> add: name [
+MalNameMapping >> add: name [
 	
 	(self includesName: name) ifTrue: [Error raise].
 	names addLast: name.
@@ -38,7 +38,7 @@ MANameMapping >> add: name [
 ]
 
 { #category : #accessing }
-MANameMapping >> atKey: key ifAbsent: exceptionBlock [
+MalNameMapping >> atKey: key ifAbsent: exceptionBlock [
 	
 	^(key
 		between: 1
@@ -48,7 +48,7 @@ MANameMapping >> atKey: key ifAbsent: exceptionBlock [
 ]
 
 { #category : #enumerating }
-MANameMapping >> do: aBlock [
+MalNameMapping >> do: aBlock [
 	
 	1
 		to: self size
@@ -56,31 +56,31 @@ MANameMapping >> do: aBlock [
 ]
 
 { #category : #'initialize-release' }
-MANameMapping >> forEquality [
+MalNameMapping >> forEquality [
 	
 	self setComparisonBlock: [:a :b | a = b]
 ]
 
 { #category : #'initialize-release' }
-MANameMapping >> forIdentity [
+MalNameMapping >> forIdentity [
 	
 	self setComparisonBlock: [:a :b | a == b]
 ]
 
 { #category : #testing }
-MANameMapping >> includesName: name [
+MalNameMapping >> includesName: name [
 	
 	^names contains: [:each | comparisonBlock value: each value: name]
 ]
 
 { #category : #'initialize-release' }
-MANameMapping >> initialize [
+MalNameMapping >> initialize [
 	
 	names := OrderedCollection new
 ]
 
 { #category : #'accessing - name' }
-MANameMapping >> keyForName: name ifAbsent: exceptionBlock [
+MalNameMapping >> keyForName: name ifAbsent: exceptionBlock [
 	
 	^name isInteger
 		ifTrue: [name]
@@ -91,37 +91,37 @@ MANameMapping >> keyForName: name ifAbsent: exceptionBlock [
 ]
 
 { #category : #accessing }
-MANameMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
+MalNameMapping >> keyOf: anIndex ifAbsent: exceptionBlock [
 	
 	^self atKey: anIndex ifAbsent: exceptionBlock
 ]
 
 { #category : #'accessing - name' }
-MANameMapping >> keys [
+MalNameMapping >> keys [
 	
 	^names
 ]
 
 { #category : #'accessing - name' }
-MANameMapping >> nameForKey: key [
+MalNameMapping >> nameForKey: key [
 	
 	^names at: key
 ]
 
 { #category : #'accessing - name' }
-MANameMapping >> names [
+MalNameMapping >> names [
 	
 	^names
 ]
 
 { #category : #'initialize-release' }
-MANameMapping >> setComparisonBlock: aComparisonBlock [
+MalNameMapping >> setComparisonBlock: aComparisonBlock [
 	
 	^comparisonBlock := aComparisonBlock
 ]
 
 { #category : #accessing }
-MANameMapping >> size [
+MalNameMapping >> size [
 	
 	^names size
 ]

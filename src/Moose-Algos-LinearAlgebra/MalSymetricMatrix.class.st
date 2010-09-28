@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MASymetricMatrix,
-	#superclass : #MAMatrix,
+	#name : #MalSymetricMatrix,
+	#superclass : #MalMatrix,
 	#instVars : [
 		'partialColumns'
 	],
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #accessing }
-MASymetricMatrix >> at: row and: column [
+MalSymetricMatrix >> at: row and: column [
 	
 	^row < column
 		ifTrue: [(partialColumns at: column) at: row]
@@ -19,7 +19,7 @@ MASymetricMatrix >> at: row and: column [
 ]
 
 { #category : #accessing }
-MASymetricMatrix >> at: row and: column put: aNumber [
+MalSymetricMatrix >> at: row and: column put: aNumber [
 	
 	^row < column
 		ifTrue: [(partialColumns at: column) at: row put: aNumber]
@@ -27,7 +27,7 @@ MASymetricMatrix >> at: row and: column put: aNumber [
 ]
 
 { #category : #private }
-MASymetricMatrix >> checkInvariant [
+MalSymetricMatrix >> checkInvariant [
 	
 	^partialColumns isCollection
 		and:
@@ -39,13 +39,13 @@ MASymetricMatrix >> checkInvariant [
 ]
 
 { #category : #accessing }
-MASymetricMatrix >> columnSize [
+MalSymetricMatrix >> columnSize [
 	
 	^partialColumns size
 ]
 
 { #category : #'initialize-release' }
-MASymetricMatrix >> initializeRows: m columns: n [
+MalSymetricMatrix >> initializeRows: m columns: n [
 	
 	m = n ifFalse: [Array new noMatchError].
 	partialColumns := Array new: n.
@@ -59,34 +59,34 @@ MASymetricMatrix >> initializeRows: m columns: n [
 ]
 
 { #category : #testing }
-MASymetricMatrix >> isSquare [
+MalSymetricMatrix >> isSquare [
 	"Each symatric matrix is square."
 	
 	^true
 ]
 
 { #category : #testing }
-MASymetricMatrix >> isSymetric [
+MalSymetricMatrix >> isSymetric [
 	"Each symetric matrix is symatric."
 	
 	^true
 ]
 
 { #category : #accessing }
-MASymetricMatrix >> rowSize [
+MalSymetricMatrix >> rowSize [
 	
 	^partialColumns size	"since we are square"
 ]
 
 { #category : #'matrix functions' }
-MASymetricMatrix >> transposed [
+MalSymetricMatrix >> transposed [
 	"Answer self, since symatric matrices are invariant under transposition."
 	
 	^self
 ]
 
 { #category : #enumerating }
-MASymetricMatrix >> upperTriangleDoWithIndices: aBlock [
+MalSymetricMatrix >> upperTriangleDoWithIndices: aBlock [
 	
 	1
 		to: self columnSize

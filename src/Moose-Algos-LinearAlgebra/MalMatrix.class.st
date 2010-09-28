@@ -2,27 +2,27 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAMatrix,
+	#name : #MalMatrix,
 	#superclass : #Object,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #accessing }
-MAMatrix class >> browserIcon [
+MalMatrix class >> browserIcon [
 "Answer icon to be displayed with matrix classes."
 	
 	^ nil
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> new [
+MalMatrix class >> new [
 	"Create a new matrix with dimension zero."
 	
 	^self new: Number zero
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> new: numberOrPoint [
+MalMatrix class >> new: numberOrPoint [
 	"Create a new square matrix with the given dimension."
 	
 	| point |
@@ -33,7 +33,7 @@ MAMatrix class >> new: numberOrPoint [
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> new: numberOrPoint withAll: value [
+MalMatrix class >> new: numberOrPoint withAll: value [
 	
 	^(self new: numberOrPoint)
 		atAllPut: value;
@@ -41,7 +41,7 @@ MAMatrix class >> new: numberOrPoint withAll: value [
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> readFromDenseText: aStream [
+MalMatrix class >> readFromDenseText: aStream [
 	
 	| m n matrix tmp |
 	m := Integer readFrom: aStream skipSeparators.
@@ -66,7 +66,7 @@ MAMatrix class >> readFromDenseText: aStream [
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> readFromSparseText: aStream [
+MalMatrix class >> readFromSparseText: aStream [
 	
 	| m n matrix |
 	n := Integer readFrom: aStream skipSeparators.
@@ -92,7 +92,7 @@ MAMatrix class >> readFromSparseText: aStream [
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> rows: m columns: n [
+MalMatrix class >> rows: m columns: n [
 	"Create a new matrix with m rows and n columns."
 	
 	^(self basicNew)
@@ -101,7 +101,7 @@ MAMatrix class >> rows: m columns: n [
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> rows: m columns: n withAll: value [
+MalMatrix class >> rows: m columns: n withAll: value [
 	
 	^(self rows: m columns: n)
 		atAllPut: value;
@@ -109,9 +109,9 @@ MAMatrix class >> rows: m columns: n withAll: value [
 ]
 
 { #category : #private }
-MAMatrix class >> switch: anObject caseMatrix: matrixBlock caseNestedCollection: nestedColletionBlock caseCollection: collectionBlock default: defaultBlock [
+MalMatrix class >> switch: anObject caseMatrix: matrixBlock caseNestedCollection: nestedColletionBlock caseCollection: collectionBlock default: defaultBlock [
 	
-	(anObject isKindOf: MAMatrix) ifTrue: [^matrixBlock value].
+	(anObject isKindOf: MalMatrix) ifTrue: [^matrixBlock value].
 	(anObject isKindOf: Collection)
 		ifTrue:
 			[(anObject isEmpty not
@@ -125,19 +125,19 @@ MAMatrix class >> switch: anObject caseMatrix: matrixBlock caseNestedCollection:
 ]
 
 { #category : #'constants access' }
-MAMatrix class >> unity [
+MalMatrix class >> unity [
 	
-	^MAMatrixCoercion with: 1
+	^MalMatrixCoercion with: 1
 ]
 
 { #category : #private }
-MAMatrix class >> vectorSpecies [
+MalMatrix class >> vectorSpecies [
 	
-	^MAArrayVector
+	^MalArrayVector
 ]
 
 { #category : #'instance creation' }
-MAMatrix class >> withAll: object [
+MalMatrix class >> withAll: object [
 	
 	| dimension |
 	dimension := self
@@ -152,19 +152,19 @@ MAMatrix class >> withAll: object [
 ]
 
 { #category : #'constants access' }
-MAMatrix class >> zero [
+MalMatrix class >> zero [
 	
-	^MAMatrixCoercion with: 0
+	^MalMatrixCoercion with: 0
 ]
 
 { #category : #arithmetic }
-MAMatrix >> * aNumber [
+MalMatrix >> * aNumber [
 	
 	^aNumber productFromMatrix: self
 ]
 
 { #category : #arithmetic }
-MAMatrix >> *= aNumber [
+MalMatrix >> *= aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -172,7 +172,7 @@ MAMatrix >> *= aNumber [
 ]
 
 { #category : #'matrix functions' }
-MAMatrix >> *~ aMatrix [
+MalMatrix >> *~ aMatrix [
 	"Answer the matrix multiplication of the reciever with the argument."
 	
 	| newMatrix |
@@ -182,7 +182,7 @@ MAMatrix >> *~ aMatrix [
 		columns: aMatrix columnSize.	"workaround: this should be done in a more generic way with double dispatch."
 	newMatrix
 		putWithIndices:
-			((aMatrix isKindOf: MADiagonalMatrix)
+			((aMatrix isKindOf: MalDiagonalMatrix)
 				ifTrue: [[:i :j | (self at: i and: j) * (aMatrix at: j and: j)]]
 				ifFalse:
 					[[:i :j | 
@@ -194,13 +194,13 @@ MAMatrix >> *~ aMatrix [
 ]
 
 { #category : #arithmetic }
-MAMatrix >> + aNumber [
+MalMatrix >> + aNumber [
 	
 	^aNumber sumFromMatrix: self
 ]
 
 { #category : #arithmetic }
-MAMatrix >> += aNumber [
+MalMatrix >> += aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -208,13 +208,13 @@ MAMatrix >> += aNumber [
 ]
 
 { #category : #arithmetic }
-MAMatrix >> - aNumber [
+MalMatrix >> - aNumber [
 	
 	^aNumber differenceFromMatrix: self
 ]
 
 { #category : #arithmetic }
-MAMatrix >> -= aNumber [
+MalMatrix >> -= aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -222,13 +222,13 @@ MAMatrix >> -= aNumber [
 ]
 
 { #category : #arithmetic }
-MAMatrix >> / aNumber [
+MalMatrix >> / aNumber [
 	
 	^aNumber quotientFromMatrix: self
 ]
 
 { #category : #arithmetic }
-MAMatrix >> /= aNumber [
+MalMatrix >> /= aNumber [
 	
 	^self
 		with: (self coerce: aNumber)
@@ -236,13 +236,13 @@ MAMatrix >> /= aNumber [
 ]
 
 { #category : #comparing }
-MAMatrix >> = matrix [
+MalMatrix >> = matrix [
 	"Answer whether the dimension of the receiver is the same as otherMatrix' dimension,
 	and each of the receiver's elements equal the corresponding element of otherMatrix."
 	
 	^self == matrix
 		or:
-			[(matrix isKindOf: MAMatrix)
+			[(matrix isKindOf: MalMatrix)
 				and:
 					[(matrix hasDimension: self dimension)
 						and:
@@ -253,47 +253,47 @@ MAMatrix >> = matrix [
 ]
 
 { #category : #arithmetic }
-MAMatrix >> adaptToNumber: rcvr andSend: selector [
+MalMatrix >> adaptToNumber: rcvr andSend: selector [
 
 	^ self perform: selector with: rcvr
 ]
 
 { #category : #arithmetic }
-MAMatrix >> adaptToPoint: rcvr andSend: selector [
+MalMatrix >> adaptToPoint: rcvr andSend: selector [
 
 	^ self perform: selector with: rcvr
 ]
 
 { #category : #resizing }
-MAMatrix >> addColumn [
+MalMatrix >> addColumn [
 	"Add a column. Must implement if isExtendable returns true."
 	
 	self shouldNotImplement
 ]
 
 { #category : #resizing }
-MAMatrix >> addColumnBeforeIndex: anIndex [
+MalMatrix >> addColumnBeforeIndex: anIndex [
 	"Insert a column before anIndex. Must implement if isResizebale returns true."
 	
 	self shouldNotImplement
 ]
 
 { #category : #resizing }
-MAMatrix >> addRow [
+MalMatrix >> addRow [
 	"Add a row. Must implement if isExtendable returns true."
 	
 	self shouldNotImplement
 ]
 
 { #category : #resizing }
-MAMatrix >> addRowBeforeIndex: anIndex [
+MalMatrix >> addRowBeforeIndex: anIndex [
 	"Insert a row before anIndex. Must implement if isResizebale returns true."
 	
 	self shouldNotImplement
 ]
 
 { #category : #converting }
-MAMatrix >> asArray [
+MalMatrix >> asArray [
 	
 	| array stream |
 	array := Array new: self rowSize * self columnSize.
@@ -303,14 +303,14 @@ MAMatrix >> asArray [
 ]
 
 { #category : #accessing }
-MAMatrix >> at: row and: column [
+MalMatrix >> at: row and: column [
 	"Answer the vakue at the given indices."
 	
 	^self subclassResponsibility
 ]
 
 { #category : #arithmetic }
-MAMatrix >> at: row and: column add: aNumber [
+MalMatrix >> at: row and: column add: aNumber [
 	"Add aNumber to the element at row and column.  Answer the sum."
 	
 	^self
@@ -320,7 +320,7 @@ MAMatrix >> at: row and: column add: aNumber [
 ]
 
 { #category : #arithmetic }
-MAMatrix >> at: row and: column divide: aNumber [
+MalMatrix >> at: row and: column divide: aNumber [
 	"Divide the element at row and column by aNumber.  Answer the quotient."
 	
 	^self
@@ -330,7 +330,7 @@ MAMatrix >> at: row and: column divide: aNumber [
 ]
 
 { #category : #arithmetic }
-MAMatrix >> at: row and: column multiply: aNumber [
+MalMatrix >> at: row and: column multiply: aNumber [
 	"Multiply aNumber with the element at row and column.  Answer the product."
 	
 	^self
@@ -340,14 +340,14 @@ MAMatrix >> at: row and: column multiply: aNumber [
 ]
 
 { #category : #accessing }
-MAMatrix >> at: row and: column put: aNumber [
+MalMatrix >> at: row and: column put: aNumber [
 	"Store the vakue at the given indices."
 	
 	^self subclassResponsibility
 ]
 
 { #category : #arithmetic }
-MAMatrix >> at: row and: column subtract: aNumber [
+MalMatrix >> at: row and: column subtract: aNumber [
 	"Subtract aNumber from the element at row and column.  Answer the difference."
 	
 	^self
@@ -357,7 +357,7 @@ MAMatrix >> at: row and: column subtract: aNumber [
 ]
 
 { #category : #accessing }
-MAMatrix >> atAllPut: object [
+MalMatrix >> atAllPut: object [
 	
 	self class
 		switch: object
@@ -393,7 +393,7 @@ MAMatrix >> atAllPut: object [
 ]
 
 { #category : #accessing }
-MAMatrix >> atPoint: rowColumnCoordinate [
+MalMatrix >> atPoint: rowColumnCoordinate [
 	
 	^self
 		at: rowColumnCoordinate x
@@ -401,7 +401,7 @@ MAMatrix >> atPoint: rowColumnCoordinate [
 ]
 
 { #category : #accessing }
-MAMatrix >> atPoint: rowColumnCoordinate put: aNumber [
+MalMatrix >> atPoint: rowColumnCoordinate put: aNumber [
 	
 	^self
 		at: rowColumnCoordinate x
@@ -410,19 +410,19 @@ MAMatrix >> atPoint: rowColumnCoordinate put: aNumber [
 ]
 
 { #category : #private }
-MAMatrix >> checkInvariant [
+MalMatrix >> checkInvariant [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #coercing }
-MAMatrix >> coerce: aNumber [
+MalMatrix >> coerce: aNumber [
 	
-	^MAMatrixCoercion with: aNumber
+	^MalMatrixCoercion with: aNumber
 ]
 
 { #category : #enumerating }
-MAMatrix >> collect: aBlock [
+MalMatrix >> collect: aBlock [
 	
 	| newMatrix |
 	newMatrix := self copyEmpty.
@@ -437,26 +437,26 @@ MAMatrix >> collect: aBlock [
 ]
 
 { #category : #'accessing vectorwise' }
-MAMatrix >> columnAt: columnIndex [
+MalMatrix >> columnAt: columnIndex [
 	
-	^MAMatrixPath column: columnIndex on: self
+	^MalMatrixPath column: columnIndex on: self
 ]
 
 { #category : #'accessing vectorwise' }
-MAMatrix >> columnAt: columnIndex put: vector [
+MalMatrix >> columnAt: columnIndex put: vector [
 	
 	vector doWithIndex: [:each :row | self at: row and: columnIndex put: each].
 	^vector
 ]
 
 { #category : #accessing }
-MAMatrix >> columnSize [
+MalMatrix >> columnSize [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #'accessing vectorwise' }
-MAMatrix >> columns [
+MalMatrix >> columns [
 	
 	| array |
 	array := Array new: self columnSize.
@@ -471,33 +471,33 @@ MAMatrix >> columns [
 ]
 
 { #category : #copying }
-MAMatrix >> copyEmpty [
+MalMatrix >> copyEmpty [
 	"Answer a copy of the receiver that contains no elements."
 	
 	^self copyEmpty: self dimension
 ]
 
 { #category : #copying }
-MAMatrix >> copyEmpty: dimension [
+MalMatrix >> copyEmpty: dimension [
 	"Answer a copy of the receiver that contains no elements."
 	
 	^self species new: dimension
 ]
 
 { #category : #copying }
-MAMatrix >> deepCopy [
+MalMatrix >> deepCopy [
 	
 	^self species withAll: self
 ]
 
 { #category : #accessing }
-MAMatrix >> density [
+MalMatrix >> density [
 	
 	^self sparseSize / self size
 ]
 
 { #category : #arithmetic }
-MAMatrix >> determinant [
+MalMatrix >> determinant [
 	
 	| a11 a12 a21 a22 |
 	[self hasDimension: 2 @ 2] assert.
@@ -509,43 +509,43 @@ MAMatrix >> determinant [
 ]
 
 { #category : #'accessing vectorwise' }
-MAMatrix >> diagonal [
+MalMatrix >> diagonal [
 	
-	^MAMatrixPath diagonalOn: self
+	^MalMatrixPath diagonalOn: self
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromDouble: aNumber [
-	
-	^self differenceFromNumber: aNumber
-]
-
-{ #category : #'double dispatching' }
-MAMatrix >> differenceFromFixedPoint: aNumber [
+MalMatrix >> differenceFromDouble: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromFloat: aNumber [
+MalMatrix >> differenceFromFixedPoint: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromFraction: aNumber [
+MalMatrix >> differenceFromFloat: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromInteger: aNumber [
+MalMatrix >> differenceFromFraction: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromMatrix: aMatrix [
+MalMatrix >> differenceFromInteger: aNumber [
+	
+	^self differenceFromNumber: aNumber
+]
+
+{ #category : #'double dispatching' }
+MalMatrix >> differenceFromMatrix: aMatrix [
 	
 	^aMatrix
 		with: self
@@ -553,31 +553,31 @@ MAMatrix >> differenceFromMatrix: aMatrix [
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromNumber: aNumber [
+MalMatrix >> differenceFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber - b]
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromPoint: aNumber [
+MalMatrix >> differenceFromPoint: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> differenceFromSmallDouble: aNumber [
+MalMatrix >> differenceFromSmallDouble: aNumber [
 	
 	^self differenceFromNumber: aNumber
 ]
 
 { #category : #accessing }
-MAMatrix >> dimension [
+MalMatrix >> dimension [
 	
 	^self rowSize @ self columnSize
 ]
 
 { #category : #enumerating }
-MAMatrix >> do: aBlock [
+MalMatrix >> do: aBlock [
 	
 	self
 		withIndices: [:row :column | aBlock value: (self at: row and: column)].
@@ -585,7 +585,7 @@ MAMatrix >> do: aBlock [
 ]
 
 { #category : #enumerating }
-MAMatrix >> doSparseWithIndices: eachRowColumnBlock [
+MalMatrix >> doSparseWithIndices: eachRowColumnBlock [
 	
 	self
 		doWithIndices:
@@ -596,7 +596,7 @@ MAMatrix >> doSparseWithIndices: eachRowColumnBlock [
 ]
 
 { #category : #enumerating }
-MAMatrix >> doWithIndices: eachRowColumnBlock [
+MalMatrix >> doWithIndices: eachRowColumnBlock [
 	
 	self
 		withIndices:
@@ -608,38 +608,38 @@ MAMatrix >> doWithIndices: eachRowColumnBlock [
 ]
 
 { #category : #accessing }
-MAMatrix >> first [
+MalMatrix >> first [
 	
 	^self at: 1 and: 1
 ]
 
 { #category : #coercing }
-MAMatrix >> generality [
+MalMatrix >> generality [
 	
 	^240
 ]
 
 { #category : #testing }
-MAMatrix >> hasDimension: aDimension [
+MalMatrix >> hasDimension: aDimension [
 	
 	^self dimension = aDimension
 ]
 
 { #category : #comparing }
-MAMatrix >> hash [
+MalMatrix >> hash [
 	
 	^(self dimension hash bitXor: (self at: 1) hash)
 		bitXor: (self at: self dimension) hash
 ]
 
 { #category : #'initialize-release' }
-MAMatrix >> initializeRows: m columns: n [
+MalMatrix >> initializeRows: m columns: n [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #enumerating }
-MAMatrix >> inject: value into: aBlock [
+MalMatrix >> inject: value into: aBlock [
 	
 	| result |
 	result := value.
@@ -648,13 +648,13 @@ MAMatrix >> inject: value into: aBlock [
 ]
 
 { #category : #testing }
-MAMatrix >> isComplex [
+MalMatrix >> isComplex [
 	
 	^false
 ]
 
 { #category : #testing }
-MAMatrix >> isDiagonal [
+MalMatrix >> isDiagonal [
 	"Answer if the reciever is a diagonal matrix."
 	
 	self isSquare ifFalse: [^false].
@@ -665,20 +665,20 @@ MAMatrix >> isDiagonal [
 ]
 
 { #category : #testing }
-MAMatrix >> isResizeable [
+MalMatrix >> isResizeable [
 	
 	^false
 ]
 
 { #category : #testing }
-MAMatrix >> isSquare [
+MalMatrix >> isSquare [
 	"Answer if the reciever is a square matrix."
 	
 	^self rowSize = self columnSize
 ]
 
 { #category : #testing }
-MAMatrix >> isSymetric [
+MalMatrix >> isSymetric [
 	"Answer if the reciever is a symetric matrix."
 	
 	self isSquare ifFalse: [^false].
@@ -694,7 +694,7 @@ MAMatrix >> isSymetric [
 ]
 
 { #category : #testing }
-MAMatrix >> isZero [
+MalMatrix >> isZero [
 	"Answer if the reciever contains no non-zero numbers."
 	
 	self doSparseWithIndices: [:value :row :column | ^false].
@@ -702,13 +702,13 @@ MAMatrix >> isZero [
 ]
 
 { #category : #testing }
-MAMatrix >> isZeroAt: row and: column [
+MalMatrix >> isZeroAt: row and: column [
 	
 	^(self at: row and: column) isZero
 ]
 
 { #category : #accessing }
-MAMatrix >> last [
+MalMatrix >> last [
 	
 	^self
 		at: self rowSize
@@ -716,19 +716,19 @@ MAMatrix >> last [
 ]
 
 { #category : #private }
-MAMatrix >> noMatchError [
+MalMatrix >> noMatchError [
 	
 	Error raise
 ]
 
 { #category : #private }
-MAMatrix >> noModificationError [
+MalMatrix >> noModificationError [
 	
 	Error raise
 ]
 
 { #category : #printing }
-MAMatrix >> printOn: aStream [
+MalMatrix >> printOn: aStream [
 	"Append to the argument aStream a sequence of characters that identifies the matrix."
 	
 	| tooMany |
@@ -758,37 +758,37 @@ MAMatrix >> printOn: aStream [
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromDouble: aNumber [
+MalMatrix >> productFromDouble: aNumber [
 	
 	^self productFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromFixedPoint: aNumber [
+MalMatrix >> productFromFixedPoint: aNumber [
 	
 	^self productFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromFloat: aNumber [
+MalMatrix >> productFromFloat: aNumber [
 	
 	^self productFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromFraction: aNumber [
+MalMatrix >> productFromFraction: aNumber [
 	
 	^self productFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromInteger: aNumber [
+MalMatrix >> productFromInteger: aNumber [
 	
 	^self productFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromMatrix: aMatrix [
+MalMatrix >> productFromMatrix: aMatrix [
 	
 	^aMatrix
 		with: self
@@ -796,25 +796,25 @@ MAMatrix >> productFromMatrix: aMatrix [
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromNumber: aNumber [
+MalMatrix >> productFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber * b]
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromPoint: aNumber [
+MalMatrix >> productFromPoint: aNumber [
 	
 	^self productFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> productFromSmallDouble: aNumber [
+MalMatrix >> productFromSmallDouble: aNumber [
 	
 	^self productFromNumber: aNumber
 ]
 
 { #category : #enumerating }
-MAMatrix >> putWithIndices: rowColumnBlock [
+MalMatrix >> putWithIndices: rowColumnBlock [
 	
 	self
 		withIndices:
@@ -827,37 +827,37 @@ MAMatrix >> putWithIndices: rowColumnBlock [
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromDouble: aNumber [
+MalMatrix >> quotientFromDouble: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromFixedPoint: aNumber [
+MalMatrix >> quotientFromFixedPoint: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromFloat: aNumber [
+MalMatrix >> quotientFromFloat: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromFraction: aNumber [
+MalMatrix >> quotientFromFraction: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromInteger: aNumber [
+MalMatrix >> quotientFromInteger: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromMatrix: aMatrix [
+MalMatrix >> quotientFromMatrix: aMatrix [
 	
 	^aMatrix
 		with: self
@@ -865,25 +865,25 @@ MAMatrix >> quotientFromMatrix: aMatrix [
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromNumber: aNumber [
+MalMatrix >> quotientFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber / b]
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromPoint: aNumber [
+MalMatrix >> quotientFromPoint: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> quotientFromSmallDouble: aNumber [
+MalMatrix >> quotientFromSmallDouble: aNumber [
 	
 	^self quotientFromNumber: aNumber
 ]
 
 { #category : #arithmetic }
-MAMatrix >> reciprocal [
+MalMatrix >> reciprocal [
 	
 	^self
 		collect:
@@ -894,44 +894,44 @@ MAMatrix >> reciprocal [
 ]
 
 { #category : #converting }
-MAMatrix >> remap: mapping [
+MalMatrix >> remap: mapping [
 	
-	^MAMappedMatrix on: self rowMap: mapping columnMap: mapping
+	^MalMappedMatrix on: self rowMap: mapping columnMap: mapping
 ]
 
 { #category : #resizing }
-MAMatrix >> removeColumnAtIndex: anIndex [
+MalMatrix >> removeColumnAtIndex: anIndex [
 	
 	self shouldNotImplement
 ]
 
 { #category : #resizing }
-MAMatrix >> removeRowAtIndex: anIndex [
+MalMatrix >> removeRowAtIndex: anIndex [
 	
 	self shouldNotImplement
 ]
 
 { #category : #testing }
-MAMatrix >> respondsToArithmetic [
+MalMatrix >> respondsToArithmetic [
 	"We are arithmetic, yes."
 	
 	^true
 ]
 
 { #category : #arithmetic }
-MAMatrix >> roundTo: aNumber [
+MalMatrix >> roundTo: aNumber [
 	
 	^self collect: [:each | each roundTo: aNumber]
 ]
 
 { #category : #'accessing vectorwise' }
-MAMatrix >> rowAt: rowIndex [
+MalMatrix >> rowAt: rowIndex [
 	
-	^MAMatrixPath row: rowIndex on: self
+	^MalMatrixPath row: rowIndex on: self
 ]
 
 { #category : #'accessing vectorwise' }
-MAMatrix >> rowAt: rowIndex put: vector [
+MalMatrix >> rowAt: rowIndex put: vector [
 	
 	vector
 		doWithIndex: [:each :column | self at: rowIndex and: column put: each].
@@ -939,13 +939,13 @@ MAMatrix >> rowAt: rowIndex put: vector [
 ]
 
 { #category : #accessing }
-MAMatrix >> rowSize [
+MalMatrix >> rowSize [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #'accessing vectorwise' }
-MAMatrix >> rows [
+MalMatrix >> rows [
 	
 	| array |
 	array := Array new: self rowSize.
@@ -960,13 +960,13 @@ MAMatrix >> rows [
 ]
 
 { #category : #accessing }
-MAMatrix >> size [
+MalMatrix >> size [
 	
 	^self rowSize * self columnSize
 ]
 
 { #category : #accessing }
-MAMatrix >> sparseSize [
+MalMatrix >> sparseSize [
 	
 	| tally |
 	tally := 0.
@@ -975,13 +975,13 @@ MAMatrix >> sparseSize [
 ]
 
 { #category : #private }
-MAMatrix >> species [
+MalMatrix >> species [
 	
 	^self class
 ]
 
 { #category : #printing }
-MAMatrix >> storeDenseTextOn: aStream [
+MalMatrix >> storeDenseTextOn: aStream [
 	"Append to the argument aStream a sequence of characters 
 	that identifies the collection."
 	
@@ -1001,7 +1001,7 @@ MAMatrix >> storeDenseTextOn: aStream [
 ]
 
 { #category : #printing }
-MAMatrix >> storeSparseTextOn: aStream [
+MalMatrix >> storeSparseTextOn: aStream [
 	"Append to the argument aStream a sequence of characters 
 	that identifies the collection."
 	
@@ -1029,37 +1029,37 @@ MAMatrix >> storeSparseTextOn: aStream [
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromDouble: aNumber [
+MalMatrix >> sumFromDouble: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromFixedPoint: aNumber [
+MalMatrix >> sumFromFixedPoint: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromFloat: aNumber [
+MalMatrix >> sumFromFloat: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromFraction: aNumber [
+MalMatrix >> sumFromFraction: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromInteger: aNumber [
+MalMatrix >> sumFromInteger: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromMatrix: aMatrix [
+MalMatrix >> sumFromMatrix: aMatrix [
 	
 	^aMatrix
 		with: self
@@ -1067,37 +1067,37 @@ MAMatrix >> sumFromMatrix: aMatrix [
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromNumber: aNumber [
+MalMatrix >> sumFromNumber: aNumber [
 	
 	^self collect: [:b | aNumber + b]
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromPoint: aNumber [
+MalMatrix >> sumFromPoint: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'double dispatching' }
-MAMatrix >> sumFromSmallDouble: aNumber [
+MalMatrix >> sumFromSmallDouble: aNumber [
 	
 	^self sumFromNumber: aNumber
 ]
 
 { #category : #'matrix functions' }
-MAMatrix >> transposed [
+MalMatrix >> transposed [
 	
-	^MAMatrixView transposeOn: self
+	^MalMatrixView transposeOn: self
 ]
 
 { #category : #private }
-MAMatrix >> vectorSpecies [
+MalMatrix >> vectorSpecies [
 	
 	^self class vectorSpecies
 ]
 
 { #category : #enumerating }
-MAMatrix >> with: aMatrix affect: eachOtherBlock [
+MalMatrix >> with: aMatrix affect: eachOtherBlock [
 	
 	[aMatrix hasDimension: self dimension] assert.
 	self
@@ -1109,7 +1109,7 @@ MAMatrix >> with: aMatrix affect: eachOtherBlock [
 ]
 
 { #category : #enumerating }
-MAMatrix >> with: aMatrix collect: eachOtherBlock [
+MalMatrix >> with: aMatrix collect: eachOtherBlock [
 	
 	| newMatrix |
 	[aMatrix hasDimension: self dimension] assert.
@@ -1124,7 +1124,7 @@ MAMatrix >> with: aMatrix collect: eachOtherBlock [
 ]
 
 { #category : #enumerating }
-MAMatrix >> with: aMatrix do: eachOtherBlock [
+MalMatrix >> with: aMatrix do: eachOtherBlock [
 	
 	[aMatrix hasDimension: self dimension] assert.
 	self
@@ -1136,7 +1136,7 @@ MAMatrix >> with: aMatrix do: eachOtherBlock [
 ]
 
 { #category : #enumerating }
-MAMatrix >> withIndices: aBlock [
+MalMatrix >> withIndices: aBlock [
 	
 	1
 		to: self rowSize

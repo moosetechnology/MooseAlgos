@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAVectorDecorator,
-	#superclass : #MAVector,
+	#name : #MalVectorDecorator,
+	#superclass : #MalVector,
 	#instVars : [
 		'vector'
 	],
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAVectorDecorator class >> on: aVector [
+MalVectorDecorator class >> on: aVector [
 	
 	^(self basicNew)
 		setVector: aVector asVector;
@@ -19,37 +19,37 @@ MAVectorDecorator class >> on: aVector [
 ]
 
 { #category : #accessing }
-MAVectorDecorator >> at: index [
+MalVectorDecorator >> at: index [
 	
 	^vector at: index
 ]
 
 { #category : #accessing }
-MAVectorDecorator >> at: index put: aNumber [
+MalVectorDecorator >> at: index put: aNumber [
 	
 	^vector at: index put: aNumber
 ]
 
 { #category : #'initialize-release' }
-MAVectorDecorator >> initializeSize: aSize [
+MalVectorDecorator >> initializeSize: aSize [
 	
 	^self shouldNotImplement
 ]
 
 { #category : #'initialize-release' }
-MAVectorDecorator >> setVector: aVector [
+MalVectorDecorator >> setVector: aVector [
 	
 	^vector := aVector
 ]
 
 { #category : #accessing }
-MAVectorDecorator >> size [
+MalVectorDecorator >> size [
 	
 	^vector size
 ]
 
 { #category : #private }
-MAVectorDecorator >> species [
+MalVectorDecorator >> species [
 	
 	^vector species
 ]

@@ -2,13 +2,13 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MASparseRowMatrix,
-	#superclass : #MARowMatrix,
+	#name : #MalSparseRowMatrix,
+	#superclass : #MalRowMatrix,
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
 { #category : #private }
-MASparseRowMatrix class >> onRows: rowCollection [
+MalSparseRowMatrix class >> onRows: rowCollection [
 	
 	| new |
 	new := self basicNew.
@@ -20,25 +20,25 @@ MASparseRowMatrix class >> onRows: rowCollection [
 ]
 
 { #category : #private }
-MASparseRowMatrix class >> vectorSpecies [
+MalSparseRowMatrix class >> vectorSpecies [
 	
-	^MASparseVector
+	^MalSparseVector
 ]
 
 { #category : #adding }
-MASparseRowMatrix >> addColumn [
+MalSparseRowMatrix >> addColumn [
 	
 	rows do: #addLast
 ]
 
 { #category : #adding }
-MASparseRowMatrix >> addRow [
+MalSparseRowMatrix >> addRow [
 	
 	rows := rows copyWith: (self vectorSpecies new: self columnSize)
 ]
 
 { #category : #enumerating }
-MASparseRowMatrix >> doSparseWithIndices: trinaryBlock [
+MalSparseRowMatrix >> doSparseWithIndices: trinaryBlock [
 	
 	rows
 		doWithIndex:
@@ -50,13 +50,13 @@ MASparseRowMatrix >> doSparseWithIndices: trinaryBlock [
 ]
 
 { #category : #testing }
-MASparseRowMatrix >> isZeroAt: row and: column [
+MalSparseRowMatrix >> isZeroAt: row and: column [
 	
 	^(rows at: row) isZeroAt: column
 ]
 
 { #category : #accessing }
-MASparseRowMatrix >> sparseSize [
+MalSparseRowMatrix >> sparseSize [
 	
 	^rows
 		inject: 0
@@ -64,7 +64,7 @@ MASparseRowMatrix >> sparseSize [
 ]
 
 { #category : #printing }
-MASparseRowMatrix >> storeOn: stream [
+MalSparseRowMatrix >> storeOn: stream [
 	
 	| text |
 	text := String new writeStream.

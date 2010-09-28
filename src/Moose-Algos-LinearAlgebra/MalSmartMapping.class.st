@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MASmartMapping,
-	#superclass : #MANumberMapping,
+	#name : #MalSmartMapping,
+	#superclass : #MalNumberMapping,
 	#instVars : [
 		'parent'
 	],
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MASmartMapping class >> on: parent [
+MalSmartMapping class >> on: parent [
 	
 	^(self new)
 		setParent: parent;
@@ -19,13 +19,13 @@ MASmartMapping class >> on: parent [
 ]
 
 { #category : #'initialize-release' }
-MASmartMapping >> isRoot [
+MalSmartMapping >> isRoot [
 	
 	^parent isNil
 ]
 
 { #category : #'accessing - name' }
-MASmartMapping >> keyForName: name ifAbsent: exceptionBlock [
+MalSmartMapping >> keyForName: name ifAbsent: exceptionBlock [
 	
 	^name isInteger
 		ifTrue: [name]
@@ -37,7 +37,7 @@ MASmartMapping >> keyForName: name ifAbsent: exceptionBlock [
 ]
 
 { #category : #'accessing - name' }
-MASmartMapping >> nameForKey: key [
+MalSmartMapping >> nameForKey: key [
 	
 	^self isRoot
 		ifTrue: [self error: 'key not found']
@@ -45,7 +45,7 @@ MASmartMapping >> nameForKey: key [
 ]
 
 { #category : #'initialize-release' }
-MASmartMapping >> setParent: mapping [
+MalSmartMapping >> setParent: mapping [
 	
 	^parent := mapping
 ]

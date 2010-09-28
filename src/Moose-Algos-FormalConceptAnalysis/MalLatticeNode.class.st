@@ -1,42 +1,42 @@
 Class {
-	#name : #MALatticeNode,
+	#name : #MalLatticeNode,
 	#superclass : #ProtoObject,
 	#category : #'Moose-Algos-FormalConceptAnalysis'
 }
 
 { #category : #accessing }
-MALatticeNode >> concept [
+MalLatticeNode >> concept [
 	
 	^self pimonValue
 ]
 
 { #category : #displaying }
-MALatticeNode >> displayFigureOn: gc [
+MalLatticeNode >> displayFigureOn: gc [
 	
 	self basicDisplayFigureOn: gc
 ]
 
 { #category : #displaying }
-MALatticeNode >> displayOn: gc [
+MalLatticeNode >> displayOn: gc [
 	
 	self basicDisplayFigureOn: gc
 ]
 
 { #category : #enumerating }
-MALatticeNode >> hasDescendant: aNode [
+MalLatticeNode >> hasDescendant: aNode [
 	
 	self descendantsDo: [:each | each = aNode ifTrue: [^true]].
 	^false
 ]
 
 { #category : #accessing }
-MALatticeNode >> layer [
+MalLatticeNode >> layer [
 	
 	^self concept numAttributes
 ]
 
 { #category : #accessing }
-MALatticeNode >> maybeAppendChild: aNode [
+MalLatticeNode >> maybeAppendChild: aNode [
 	
 	[self layer < aNode layer] assert.
 	(self hasDescendant: aNode)

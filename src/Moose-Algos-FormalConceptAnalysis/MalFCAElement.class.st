@@ -1,5 +1,5 @@
 Class {
-	#name : #MAFCAElement,
+	#name : #MalFCAElement,
 	#superclass : #Object,
 	#instVars : [
 		'index',
@@ -10,26 +10,26 @@ Class {
 }
 
 { #category : #'initialize-release' }
-MAFCAElement class >> with: anObject [
+MalFCAElement class >> with: anObject [
 	
 	^self basicNew initialize: anObject
 ]
 
 { #category : #private }
-MAFCAElement >> appendTo: aCollection [
+MalFCAElement >> appendTo: aCollection [
 	
 	index := aCollection size.
 	aCollection add: self
 ]
 
 { #category : #accessing }
-MAFCAElement >> bits [
+MalFCAElement >> bits [
 	
 	^bits
 ]
 
 { #category : #'initialize-release' }
-MAFCAElement >> initialize: anObject [
+MalFCAElement >> initialize: anObject [
 	
 	value := anObject.
 	index := nil.
@@ -37,25 +37,25 @@ MAFCAElement >> initialize: anObject [
 ]
 
 { #category : #accessing }
-MAFCAElement >> mask [
+MalFCAElement >> mask [
 	
 	^1 << index
 ]
 
 { #category : #printing }
-MAFCAElement >> printOn: aStream [
+MalFCAElement >> printOn: aStream [
 	
 	self value printOn: aStream
 ]
 
 { #category : #accessing }
-MAFCAElement >> setBit: crossingElement [
+MalFCAElement >> setBit: crossingElement [
 	
 	bits := bits maskSet: crossingElement mask
 ]
 
 { #category : #accessing }
-MAFCAElement >> value [
+MalFCAElement >> value [
 	
 	^value
 ]

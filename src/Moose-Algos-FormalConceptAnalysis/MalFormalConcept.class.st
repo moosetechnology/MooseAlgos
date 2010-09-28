@@ -1,5 +1,5 @@
 Class {
-	#name : #MAFormalConcept,
+	#name : #MalFormalConcept,
 	#superclass : #Object,
 	#instVars : [
 		'context',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAFormalConcept class >> on: formalContext extent: objectsMask intent: attributesMask [
+MalFormalConcept class >> on: formalContext extent: objectsMask intent: attributesMask [
 	
 	^(self new on: formalContext)
 		extent: objectsMask;
@@ -19,61 +19,61 @@ MAFormalConcept class >> on: formalContext extent: objectsMask intent: attribute
 ]
 
 { #category : #accessing }
-MAFormalConcept >> attributes [
+MalFormalConcept >> attributes [
 	
 	^context attributes selectMask: intent
 ]
 
 { #category : #accessing }
-MAFormalConcept >> extent [
+MalFormalConcept >> extent [
 	
 	^extent
 ]
 
 { #category : #'initialize-release' }
-MAFormalConcept >> extent: anObject [
+MalFormalConcept >> extent: anObject [
 	
 	extent := anObject
 ]
 
 { #category : #accessing }
-MAFormalConcept >> intent [
+MalFormalConcept >> intent [
 	
 	^intent
 ]
 
 { #category : #'initialize-release' }
-MAFormalConcept >> intent: anObject [
+MalFormalConcept >> intent: anObject [
 	
 	intent := anObject
 ]
 
 { #category : #accessing }
-MAFormalConcept >> numAttributes [
+MalFormalConcept >> numAttributes [
 	
 	^intent cardinality
 ]
 
 { #category : #accessing }
-MAFormalConcept >> numObjects [
+MalFormalConcept >> numObjects [
 	
 	^extent cardinality
 ]
 
 { #category : #accessing }
-MAFormalConcept >> objects [
+MalFormalConcept >> objects [
 	
 	^context objects selectMask: extent
 ]
 
 { #category : #'initialize-release' }
-MAFormalConcept >> on: formalContext [
+MalFormalConcept >> on: formalContext [
 	
 	context := formalContext
 ]
 
 { #category : #printing }
-MAFormalConcept >> printOn: stream [
+MalFormalConcept >> printOn: stream [
 	
 	stream
 		nextPut: ${;

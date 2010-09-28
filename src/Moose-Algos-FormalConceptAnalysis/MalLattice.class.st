@@ -1,5 +1,5 @@
 Class {
-	#name : #MALattice,
+	#name : #MalLattice,
 	#superclass : #ProtoObject,
 	#instVars : [
 		'layers'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-MALattice class >> on: formalContext [
+MalLattice class >> on: formalContext [
 	
 	^self new on: formalContext
 ]
 
 { #category : #displaying }
-MALattice >> displayFigureOn: gc [
+MalLattice >> displayFigureOn: gc [
 	
 	| start |
 	gc paint: Color gray.
@@ -31,10 +31,10 @@ MALattice >> displayFigureOn: gc [
 ]
 
 { #category : #'initialize-release' }
-MALattice >> on: formalContext [
+MalLattice >> on: formalContext [
 	
 	formalContext concepts
-		collect: [:each | self add: (MALatticeNode with: each)].
+		collect: [:each | self add: (MalLatticeNode with: each)].
 	layers := ((self children asArray groupedBy: #layer) associations sort:
 			#key) collect: #value.
 	layers size - 1

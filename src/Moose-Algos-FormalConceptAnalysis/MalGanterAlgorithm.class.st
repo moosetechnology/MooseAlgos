@@ -1,5 +1,5 @@
 Class {
-	#name : #MAGanterAlgorithm,
+	#name : #MalGanterAlgorithm,
 	#superclass : #Object,
 	#instVars : [
 		'context',
@@ -10,30 +10,30 @@ Class {
 }
 
 { #category : #'instance creation' }
-MAGanterAlgorithm class >> on: formalContext [
+MalGanterAlgorithm class >> on: formalContext [
 	
 	^self basicNew on: formalContext
 ]
 
 { #category : #accessing }
-MAGanterAlgorithm >> allConcepts [
+MalGanterAlgorithm >> allConcepts [
 	
 	| intent |
 	^self findExtents
 		collect:
 			[:extent | 
 			intent := self commonAttributesOf: extent.
-			MAFormalConcept on: context extent: extent intent: intent]
+			MalFormalConcept on: context extent: extent intent: intent]
 ]
 
 { #category : #algorithm }
-MAGanterAlgorithm >> closureFor: objectMask [
+MalGanterAlgorithm >> closureFor: objectMask [
 	
 	^self commonObjectsOf: (self commonAttributesOf: objectMask)
 ]
 
 { #category : #algorithm }
-MAGanterAlgorithm >> commonAttributesOf: objectMask [
+MalGanterAlgorithm >> commonAttributesOf: objectMask [
 	
 	| mask |
 	mask := attributesMask.
@@ -44,7 +44,7 @@ MAGanterAlgorithm >> commonAttributesOf: objectMask [
 ]
 
 { #category : #algorithm }
-MAGanterAlgorithm >> commonObjectsOf: attributeMask [
+MalGanterAlgorithm >> commonObjectsOf: attributeMask [
 	
 	| mask |
 	mask := objectsMask.
@@ -55,7 +55,7 @@ MAGanterAlgorithm >> commonObjectsOf: attributeMask [
 ]
 
 { #category : #algorithm }
-MAGanterAlgorithm >> findExtents [
+MalGanterAlgorithm >> findExtents [
 	
 	| extents |
 	self setUp.
@@ -66,7 +66,7 @@ MAGanterAlgorithm >> findExtents [
 ]
 
 { #category : #algorithm }
-MAGanterAlgorithm >> findNextExtent: extent [
+MalGanterAlgorithm >> findNextExtent: extent [
 	
 	context objects size
 		to: 1
@@ -81,13 +81,13 @@ MAGanterAlgorithm >> findNextExtent: extent [
 ]
 
 { #category : #'initialize-release' }
-MAGanterAlgorithm >> on: formalContext [
+MalGanterAlgorithm >> on: formalContext [
 	
 	context := formalContext
 ]
 
 { #category : #algorithm }
-MAGanterAlgorithm >> setUp [
+MalGanterAlgorithm >> setUp [
 	
 	attributesMask := Integer maskTrue: context attributes size.
 	objectsMask := Integer maskTrue: context objects size

@@ -2,18 +2,18 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MACorpusTest,
+	#name : #MalCorpusTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-InformationRetrieval'
 }
 
 { #category : #running }
-MACorpusTest >> testDeer90 [
+MalCorpusTest >> testDeer90 [
 	
 	
 		| deer |
 	
-		deer := MACorpus deer90.
+		deer := MalCorpus deer90.
 
 		self assert: deer documents size = 9.
 	
@@ -23,7 +23,7 @@ MACorpusTest >> testDeer90 [
 ]
 
 { #category : #running }
-MACorpusTest >> testRemoveStopwords [
+MalCorpusTest >> testRemoveStopwords [
 	
 	
 	| deer |
@@ -43,7 +43,7 @@ MACorpusTest >> testRemoveStopwords [
 ]
 
 { #category : #running }
-MACorpusTest >> testStemDeer90 [
+MalCorpusTest >> testStemDeer90 [
 	
 	| deer |
 	deer := self testDeer90.

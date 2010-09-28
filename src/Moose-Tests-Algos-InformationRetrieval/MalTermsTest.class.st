@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MATermsTest,
+	#name : #MalTermsTest,
 	#superclass : #TestCase,
 	#type : #variable,
 	#instVars : [
@@ -12,28 +12,28 @@ Class {
 }
 
 { #category : #running }
-MATermsTest >> testAddFew [
+MalTermsTest >> testAddFew [
 	
-	terms := MATerms fromString: 'and the super of a'.
+	terms := MalTerms fromString: 'and the super of a'.
 	self assert: terms size = 5.
 	self assert: terms distinctSize = 5.
 	^terms
 ]
 
 { #category : #running }
-MATermsTest >> testAddMany [
+MalTermsTest >> testAddMany [
 	
-	terms := MATerms fromString: 'and the super of the a of the a'.
+	terms := MalTerms fromString: 'and the super of the a of the a'.
 	self assert: terms size = 9.
 	self assert: terms distinctSize = 5.
 	^terms
 ]
 
 { #category : #running }
-MATermsTest >> testCollect [
+MalTermsTest >> testCollect [
 	
 	| collection |
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	collection := terms collect: [:each | each first].
 	self
 		assert:
@@ -45,40 +45,40 @@ MATermsTest >> testCollect [
 ]
 
 { #category : #running }
-MATermsTest >> testDistinctSize [
+MalTermsTest >> testDistinctSize [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: terms distinctSize = 56.
 	^terms
 ]
 
 { #category : #running }
-MATermsTest >> testEmpty [
+MalTermsTest >> testEmpty [
 	
-	terms := MATerms new.
+	terms := MalTerms new.
 	self assert: terms size = 0.
 	self assert: terms distinctSize = 0.
 	terms do: [:each | self assert: false]
 ]
 
 { #category : #running }
-MATermsTest >> testEnumerate [
+MalTermsTest >> testEnumerate [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	terms do: [:each | self assert: each isString]
 ]
 
 { #category : #running }
-MATermsTest >> testEnumerateValues [
+MalTermsTest >> testEnumerateValues [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	terms termsDo: [:each | self assert: each isString]
 ]
 
 { #category : #running }
-MATermsTest >> testIncludesFalse [
+MalTermsTest >> testIncludesFalse [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: (terms includes: 'super') not.	"not there, but has bucket"
 	self assert: (terms includes: '123456789abcdef') not.	"off bounds"
 	self assert: (terms includes: '') not.	"off bounds"
@@ -88,9 +88,9 @@ MATermsTest >> testIncludesFalse [
 ]
 
 { #category : #running }
-MATermsTest >> testIncludesTrue [
+MalTermsTest >> testIncludesTrue [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: (terms includes: 'tree').
 	self assert: (terms includes: 'a').	"first bucket"
 	self assert: (terms includes: 'connectivity').	"last bucket"
@@ -100,17 +100,17 @@ MATermsTest >> testIncludesTrue [
 ]
 
 { #category : #running }
-MATermsTest >> testNewColon [
+MalTermsTest >> testNewColon [
 	
-	terms := MATerms new: 7.
+	terms := MalTerms new: 7.
 	self assert: terms size = 0.
 	^terms
 ]
 
 { #category : #running }
-MATermsTest >> testOccurrencesOf [
+MalTermsTest >> testOccurrencesOf [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: (terms occurrencesOf: 'tree') = 5.
 	self assert: (terms occurrencesOf: 'a') = 6.
 	self assert: (terms occurrencesOf: 'connectivity') = 1.
@@ -120,9 +120,9 @@ MATermsTest >> testOccurrencesOf [
 ]
 
 { #category : #running }
-MATermsTest >> testPrune [
+MalTermsTest >> testPrune [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: terms distinctSize = 56.
 	self assert: terms size = 76.
 	terms prune.
@@ -132,9 +132,9 @@ MATermsTest >> testPrune [
 ]
 
 { #category : #running }
-MATermsTest >> testRemoveHapaxes [
+MalTermsTest >> testRemoveHapaxes [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: terms distinctSize = 56.
 	terms removeHapaxes.
 	self assert: terms distinctSize = 12.
@@ -142,9 +142,9 @@ MATermsTest >> testRemoveHapaxes [
 ]
 
 { #category : #running }
-MATermsTest >> testRemoveStopwords [
+MalTermsTest >> testRemoveStopwords [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: terms distinctSize = 56.
 	terms removeStopwords.
 	self assert: terms distinctSize = 24.
@@ -152,17 +152,17 @@ MATermsTest >> testRemoveStopwords [
 ]
 
 { #category : #running }
-MATermsTest >> testSize [
+MalTermsTest >> testSize [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: terms size = 76.
 	^terms
 ]
 
 { #category : #running }
-MATermsTest >> testStellAll [
+MalTermsTest >> testStellAll [
 	
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	self assert: terms distinctSize = 56.
 	self assert: terms size = 76.
 	terms stemAll.
@@ -172,10 +172,10 @@ MATermsTest >> testStellAll [
 ]
 
 { #category : #running }
-MATermsTest >> testTopTen [
+MalTermsTest >> testTopTen [
 	
 	| charts |
-	terms := MATerms sample.
+	terms := MalTerms sample.
 	terms removeStopwords.
 	charts := terms topTen.
 	self assert: charts size = 10.

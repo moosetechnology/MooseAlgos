@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAStopwordsTest,
+	#name : #MalStopwordsTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'sw'
@@ -11,17 +11,17 @@ Class {
 }
 
 { #category : #running }
-MAStopwordsTest >> testFewWords [
+MalStopwordsTest >> testFewWords [
 	
-	sw := MAStopwords fromString: 'and the super of a'.
+	sw := MalStopwords fromString: 'and the super of a'.
 	self assert: sw size = 5.
 	^sw
 ]
 
 { #category : #running }
-MAStopwordsTest >> testIncludesFalse [
+MalStopwordsTest >> testIncludesFalse [
 	
-	sw := MAStopwords fromString: 'and the super of a'.
+	sw := MalStopwords fromString: 'and the super of a'.
 	self assert: (sw includes: 'A') not.
 	self assert: (sw includes: 'offer') not.
 	self assert: (sw includes: '') not.
@@ -31,9 +31,9 @@ MAStopwordsTest >> testIncludesFalse [
 ]
 
 { #category : #running }
-MAStopwordsTest >> testIncludesTrue [
+MalStopwordsTest >> testIncludesTrue [
 	
-	sw := MAStopwords fromString: 'and the super of a'.
+	sw := MalStopwords fromString: 'and the super of a'.
 	self assert: (sw includes: 'a').
 	self assert: (sw includes: 'of').
 	self assert: (sw includes: 'and').

@@ -2,13 +2,13 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MAPorterStemmerTest,
+	#name : #MalPorterStemmerTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-InformationRetrieval'
 }
 
 { #category : #constants }
-MAPorterStemmerTest class >> porterTestData [
+MalPorterStemmerTest class >> porterTestData [
 	"For more comprehensive test data, ie about 300 KB
  	@see		http://www.tartarus.org/martin/PorterStemmer/voc.txt
 	@see		http://www.tartarus.org/martin/PorterStemmer/output.txt	"
@@ -17,7 +17,7 @@ MAPorterStemmerTest class >> porterTestData [
 ]
 
 { #category : #test }
-MAPorterStemmerTest >> testEnglishStemmer [
+MalPorterStemmerTest >> testEnglishStemmer [
 	
 	
 	| data |
@@ -34,5 +34,5 @@ to: data size
 | each stem |
 	each := data at: index + 1.
 	stem := data at: index.
-self assert: (MAPorterStemmer new stem: each) = stem]]
+self assert: (MalPorterStemmer new stem: each) = stem]]
 ]

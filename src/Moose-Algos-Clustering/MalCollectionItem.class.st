@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOCollectionItem,
+	#name : #MalCollectionItem,
 	#superclass : #Collection,
 	#instVars : [
 		'item',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #adding }
-MOCollectionItem >> add: newObject [
+MalCollectionItem >> add: newObject [
 	" *** This method was defined by Collection as a subclass responsibility.
 	Replace its body with a proper implementation. *** "
 	
@@ -20,19 +20,19 @@ MOCollectionItem >> add: newObject [
 ]
 
 { #category : #accessing }
-MOCollectionItem >> collection [
+MalCollectionItem >> collection [
 	
 	^collection
 ]
 
 { #category : #accessing }
-MOCollectionItem >> collection: anObject [
+MalCollectionItem >> collection: anObject [
 	
 	collection := anObject
 ]
 
 { #category : #enumerating }
-MOCollectionItem >> do: aBlock [
+MalCollectionItem >> do: aBlock [
 	" *** This method was defined by Collection as a subclass responsibility.
 	Replace its body with a proper implementation. *** "
 	
@@ -40,19 +40,19 @@ MOCollectionItem >> do: aBlock [
 ]
 
 { #category : #accessing }
-MOCollectionItem >> item [
+MalCollectionItem >> item [
 	
 	^item
 ]
 
 { #category : #accessing }
-MOCollectionItem >> item: anObject [
+MalCollectionItem >> item: anObject [
 	
 	item := anObject
 ]
 
 { #category : #removing }
-MOCollectionItem >> remove: oldObject ifAbsent: anExceptionBlock [
+MalCollectionItem >> remove: oldObject ifAbsent: anExceptionBlock [
 	" *** This method was defined by Collection as a subclass responsibility.
 	Replace its body with a proper implementation. *** "
 	

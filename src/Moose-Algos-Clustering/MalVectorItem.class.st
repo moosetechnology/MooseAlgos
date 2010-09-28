@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOVectorItem,
+	#name : #MalVectorItem,
 	#superclass : #MalVectorDecorator,
 	#instVars : [
 		'item'
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MOVectorItem class >> with: anElement and: aVector [
+MalVectorItem class >> with: anElement and: aVector [
 	
 	^(self on: aVector)
 		item: anElement;
@@ -19,7 +19,7 @@ MOVectorItem class >> with: anElement and: aVector [
 ]
 
 { #category : #'instance creation' }
-MOVectorItem class >> with: anElement andAll: aCollection [
+MalVectorItem class >> with: anElement andAll: aCollection [
 	
 	^(self on: (MalArrayVector withAll: aCollection))
 		item: anElement;
@@ -27,44 +27,44 @@ MOVectorItem class >> with: anElement andAll: aCollection [
 ]
 
 { #category : #accessing }
-MOVectorItem >> = anObject [
+MalVectorItem >> = anObject [
 	
 	^super = anObject
-		or: [(anObject isKindOf: MOVectorItem) and: [self item = anObject item]]
+		or: [(anObject isKindOf: MalVectorItem) and: [self item = anObject item]]
 ]
 
 { #category : #'distance functions' }
-MOVectorItem >> dist: anItem [
+MalVectorItem >> dist: anItem [
 	
 	^self vector dist: anItem vector
 ]
 
 { #category : #accessing }
-MOVectorItem >> item [
+MalVectorItem >> item [
 	
 	^item
 ]
 
 { #category : #accessing }
-MOVectorItem >> item: anObject [
+MalVectorItem >> item: anObject [
 	
 	item := anObject
 ]
 
 { #category : #printing }
-MOVectorItem >> printOn: aStream [
+MalVectorItem >> printOn: aStream [
 	
 	item printOn: aStream
 ]
 
 { #category : #accessing }
-MOVectorItem >> vector [
+MalVectorItem >> vector [
 	
 	^vector
 ]
 
 { #category : #accessing }
-MOVectorItem >> vector: anObject [
+MalVectorItem >> vector: anObject [
 	
 	vector := anObject
 ]

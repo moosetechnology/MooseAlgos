@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOClusteringData,
+	#name : #MalClusteringData,
 	#superclass : #MalSymetricMatrix,
 	#instVars : [
 		'indices',
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MOClusteringData class >> onDistanceSquare: distanceSquare [
+MalClusteringData class >> onDistanceSquare: distanceSquare [
 	
 	^(self basicNew)
 		initialize: distanceSquare;
@@ -23,13 +23,13 @@ MOClusteringData class >> onDistanceSquare: distanceSquare [
 ]
 
 { #category : #private }
-MOClusteringData class >> vectorSpecies [
+MalClusteringData class >> vectorSpecies [
 	
 	^Array
 ]
 
 { #category : #'linkage functions' }
-MOClusteringData >> averageLinkage [
+MalClusteringData >> averageLinkage [
 	
 	| weightA weightB sizeA sizeB |
 	sizeA := (clusters at: foundA0) size "asDouble"asFloat.
@@ -42,7 +42,7 @@ MOClusteringData >> averageLinkage [
 ]
 
 { #category : #'linkage functions' }
-MOClusteringData >> centroid [
+MalClusteringData >> centroid [
 	
 	| weightA weightB sizeA sizeB valueC |
 	sizeA := (clusters at: foundA0) size asFloat.
@@ -57,20 +57,20 @@ MOClusteringData >> centroid [
 ]
 
 { #category : #'linkage functions' }
-MOClusteringData >> completeLinkage [
+MalClusteringData >> completeLinkage [
 	
 	self privateLinkage: [:index0 :valueA :valueB | valueA max: valueB]
 ]
 
 { #category : #accessing }
-MOClusteringData >> dendrogram [
+MalClusteringData >> dendrogram [
 	
 	[indices size = 1] assert.
 	^clusters at: indices first
 ]
 
 { #category : #private }
-MOClusteringData >> findMinimum [
+MalClusteringData >> findMinimum [
 	"This method is written such that it uses primitives only."
 	
 	| columnVector |
@@ -88,13 +88,13 @@ MOClusteringData >> findMinimum [
 ]
 
 { #category : #'initialize-release' }
-MOClusteringData >> initialize: distanceMatrix [
+MalClusteringData >> initialize: distanceMatrix [
 	
 	partialColumns := distanceMatrix copyClusteringData
-		collect: [:each | MOClusteringVector withAll: each].
+		collect: [:each | MalClusteringVector withAll: each].
 	value := foundA0 := foundB0 := nil.
 	clusters := distanceMatrix items
-		collect: [:item | MODendrogram with: item].
+		collect: [:item | MalDendrogram with: item].
 	indices := (1 to: partialColumns size) asArray.
 	1
 		to: partialColumns size
@@ -102,19 +102,19 @@ MOClusteringData >> initialize: distanceMatrix [
 ]
 
 { #category : #'initialize-release' }
-MOClusteringData >> initializeRows: m columns: n [
+MalClusteringData >> initializeRows: m columns: n [
 	
 	^self shouldNotImplement
 ]
 
 { #category : #'linkage functions' }
-MOClusteringData >> meanLinkage [
+MalClusteringData >> meanLinkage [
 	
 	self privateLinkage: [:index0 :valueA :valueB | (valueA + valueB) / 2]
 ]
 
 { #category : #clustering }
-MOClusteringData >> performClustering: linkageSelector [
+MalClusteringData >> performClustering: linkageSelector [
 	
 	indices size - 1
 		timesRepeat:
@@ -125,7 +125,7 @@ MOClusteringData >> performClustering: linkageSelector [
 ]
 
 { #category : #private }
-MOClusteringData >> privateLinkage: aBlock [
+MalClusteringData >> privateLinkage: aBlock [
 	
 	indices := indices copyRemoveAtIndex: (indices indexOf: foundB0).
 	indices
@@ -152,13 +152,13 @@ MOClusteringData >> privateLinkage: aBlock [
 ]
 
 { #category : #'linkage functions' }
-MOClusteringData >> singleLinkage [
+MalClusteringData >> singleLinkage [
 	
 	self privateLinkage: [:index0 :valueA :valueB | valueA min: valueB]
 ]
 
 { #category : #private }
-MOClusteringData >> testFindMinimum [
+MalClusteringData >> testFindMinimum [
 	| pValue pFoundA0 pFoundB0 column0 temp row0 |
 	self findMinimum.
 	pValue := value.
@@ -193,18 +193,18 @@ foundB0 := column0]]
 ]
 
 { #category : #private }
-MOClusteringData >> testPerformClustering: linkageSelector [
+MalClusteringData >> testPerformClustering: linkageSelector [
 	
 	indices size - 1
 		timesRepeat:
-			[IncrementNotification signal"With: indices size".
+			[MalIncrementNotification signal"With: indices size".
 			self testFindMinimum.
 			self perform: linkageSelector].
 	^self dendrogram
 ]
 
 { #category : #private }
-MOClusteringData >> unsetAt: row and: column [
+MalClusteringData >> unsetAt: row and: column [
 	
 	^row < column
 		ifTrue: [(partialColumns at: column) unsetAt: row]
@@ -212,7 +212,7 @@ MOClusteringData >> unsetAt: row and: column [
 ]
 
 { #category : #'linkage functions' }
-MOClusteringData >> wardsMethod [
+MalClusteringData >> wardsMethod [
 	
 	| sizeA sizeB valueC sizeC weightA weightB weightC |
 	sizeA := (clusters at: foundA0) size asFloat.

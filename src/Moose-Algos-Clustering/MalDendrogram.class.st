@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MODendrogram,
+	#name : #MalDendrogram,
 	#superclass : #Collection,
 	#instVars : [
 		'parent'
@@ -11,19 +11,19 @@ Class {
 }
 
 { #category : #'instance creation' }
-MODendrogram class >> with: anElement [
+MalDendrogram class >> with: anElement [
 	
-	^MODendrogramLeaf with: anElement
+	^MalDendrogramLeaf with: anElement
 ]
 
 { #category : #adding }
-MODendrogram >> add: newObject [
+MalDendrogram >> add: newObject [
 	
 	self shouldNotImplement
 ]
 
 { #category : #'break into clusters' }
-MODendrogram >> breakAtThreshold: aNumber [
+MalDendrogram >> breakAtThreshold: aNumber [
 	
 	| candidates |
 	candidates := (self nodes select: [:each | each threshold < aNumber])
@@ -32,7 +32,7 @@ MODendrogram >> breakAtThreshold: aNumber [
 ]
 
 { #category : #'break into clusters' }
-MODendrogram >> breakInto: numberOfClusters [
+MalDendrogram >> breakInto: numberOfClusters [
 	
 	| all candidates |
 	"all := self nodes reverseSort: #threshold."
@@ -48,7 +48,7 @@ MODendrogram >> breakInto: numberOfClusters [
 ]
 
 { #category : #seriation }
-MODendrogram >> dist: dendrogram [
+MalDendrogram >> dist: dendrogram [
 	
 	| sum |
 	sum := MalAccumulator sum.
@@ -59,13 +59,13 @@ MODendrogram >> dist: dendrogram [
 ]
 
 { #category : #enumerating }
-MODendrogram >> do: aBlock [
+MalDendrogram >> do: aBlock [
 	
 	self elementsDo: aBlock
 ]
 
 { #category : #accessing }
-MODendrogram >> elements [
+MalDendrogram >> elements [
 	
 	| stream |
 	stream := Array new writeStream.
@@ -74,13 +74,13 @@ MODendrogram >> elements [
 ]
 
 { #category : #enumerating }
-MODendrogram >> elementsDo: aBlock [
+MalDendrogram >> elementsDo: aBlock [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #accessing }
-MODendrogram >> index [
+MalDendrogram >> index [
 	
 	^self isRoot
 		ifTrue: [1]
@@ -91,25 +91,25 @@ MODendrogram >> index [
 ]
 
 { #category : #testing }
-MODendrogram >> isLeft [
+MalDendrogram >> isLeft [
 	
 	^self parent left == self
 ]
 
 { #category : #testing }
-MODendrogram >> isRight [
+MalDendrogram >> isRight [
 	
 	^self parent right == self
 ]
 
 { #category : #testing }
-MODendrogram >> isRoot [
+MalDendrogram >> isRoot [
 	
 	^parent == nil
 ]
 
 { #category : #accessing }
-MODendrogram >> leaves [
+MalDendrogram >> leaves [
 	
 	| stream |
 	stream := Array new writeStream.
@@ -118,25 +118,25 @@ MODendrogram >> leaves [
 ]
 
 { #category : #enumerating }
-MODendrogram >> leavesDo: aBlock [
+MalDendrogram >> leavesDo: aBlock [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #accessing }
-MODendrogram >> left [
+MalDendrogram >> left [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #'instance creation' }
-MODendrogram >> merge: dendrogram at: threshold [
+MalDendrogram >> merge: dendrogram at: threshold [
 	
-	^MODendrogramNode with: self with: dendrogram at: threshold
+	^MalDendrogramNode with: self with: dendrogram at: threshold
 ]
 
 { #category : #accessing }
-MODendrogram >> nodes [
+MalDendrogram >> nodes [
 	
 	| stream |
 	stream := Array new writeStream.
@@ -145,55 +145,55 @@ MODendrogram >> nodes [
 ]
 
 { #category : #enumerating }
-MODendrogram >> nodesDo: aBlock [
+MalDendrogram >> nodesDo: aBlock [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #seriation }
-MODendrogram >> orderLeafs [
+MalDendrogram >> orderLeafs [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #accessing }
-MODendrogram >> parent [
+MalDendrogram >> parent [
 	
 	^parent
 ]
 
 { #category : #removing }
-MODendrogram >> remove: oldObject ifAbsent: anExceptionBlock [
+MalDendrogram >> remove: oldObject ifAbsent: anExceptionBlock [
 	
 	self shouldNotImplement
 ]
 
 { #category : #accessing }
-MODendrogram >> right [
+MalDendrogram >> right [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #accessing }
-MODendrogram >> size [
+MalDendrogram >> size [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #private }
-MODendrogram >> species [
+MalDendrogram >> species [
 	
 	^OrderedCollection
 ]
 
 { #category : #seriation }
-MODendrogram >> swap [
+MalDendrogram >> swap [
 	
 	^self subclassResponsibility
 ]
 
 { #category : #accessing }
-MODendrogram >> threshold [
+MalDendrogram >> threshold [
 	
 	^self subclassResponsibility
 ]

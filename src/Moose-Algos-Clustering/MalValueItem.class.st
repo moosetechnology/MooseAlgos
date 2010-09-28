@@ -2,31 +2,31 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOValueItem,
+	#name : #MalValueItem,
 	#superclass : #Association,
 	#category : #'Moose-Algos-Clustering'
 }
 
 { #category : #'distance functions' }
-MOValueItem >> dist: anItem [
+MalValueItem >> dist: anItem [
 	
 	^self value dist: anItem value
 ]
 
 { #category : #accessing }
-MOValueItem >> item [
+MalValueItem >> item [
 	
 	^self key
 ]
 
 { #category : #accessing }
-MOValueItem >> item: anObject [
+MalValueItem >> item: anObject [
 	
 	^self key: anObject
 ]
 
 { #category : #'distance functions' }
-MOValueItem >> similarity: anItem [
+MalValueItem >> similarity: anItem [
 	
 	^self value similarity: anItem value
 ]

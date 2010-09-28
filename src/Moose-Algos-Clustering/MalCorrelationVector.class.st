@@ -2,20 +2,20 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOCorrelationVector,
+	#name : #MalCorrelationVector,
 	#superclass : #MalVector,
 	#type : #bytes,
 	#category : #'Moose-Algos-Clustering'
 }
 
 { #category : #'instance creation' }
-MOCorrelationVector class >> new: size [
+MalCorrelationVector class >> new: size [
 	
 	^self basicNew: size << 1
 ]
 
 { #category : #accessing }
-MOCorrelationVector >> at: anIndex [
+MalCorrelationVector >> at: anIndex [
 	"Answer a number between 1.0 and -1.0 at the given index.
 	The numbers are internally stored as 16-bit integer; and nil as zero."
 	
@@ -27,7 +27,7 @@ MOCorrelationVector >> at: anIndex [
 ]
 
 { #category : #accessing }
-MOCorrelationVector >> at: anIndex put: aNumber [
+MalCorrelationVector >> at: anIndex put: aNumber [
 	"Store a number between 1.0 and -1.0 at the given index.
 	The number is stores as 16-bit integer; nil is stored as zero."
 	
@@ -41,13 +41,13 @@ MOCorrelationVector >> at: anIndex put: aNumber [
 ]
 
 { #category : #private }
-MOCorrelationVector >> defaultElement [
+MalCorrelationVector >> defaultElement [
 	
 	^nil
 ]
 
 { #category : #'As yet unclassified' }
-MOCorrelationVector >> min [
+MalCorrelationVector >> min [
 	
 	^(self reject: #isNil)
 		inject: Unlimited positive
@@ -55,20 +55,20 @@ MOCorrelationVector >> min [
 ]
 
 { #category : #accessing }
-MOCorrelationVector >> size [
+MalCorrelationVector >> size [
 	
 	^self basicSize >> 1
 ]
 
 { #category : #private }
-MOCorrelationVector >> unsignedShortAt: byteIndex [
+MalCorrelationVector >> unsignedShortAt: byteIndex [
 	
 	<primitive: 540>
 	^self primitiveFailed
 ]
 
 { #category : #private }
-MOCorrelationVector >> unsignedShortAt: byteIndex put: anUnsignedShort [
+MalCorrelationVector >> unsignedShortAt: byteIndex put: anUnsignedShort [
 	
 	<primitive: 541>
 	^self primitiveFailed

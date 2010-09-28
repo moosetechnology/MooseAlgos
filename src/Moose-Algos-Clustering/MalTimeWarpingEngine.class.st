@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOTimeWarpingEngine,
+	#name : #MalTimeWarpingEngine,
 	#superclass : #Object,
 	#instVars : [
 		'vectorA',
@@ -15,27 +15,27 @@ Class {
 }
 
 { #category : #accessing }
-MOTimeWarpingEngine >> distanceBlock [
+MalTimeWarpingEngine >> distanceBlock [
 	
 	^distanceBlock
 ]
 
 { #category : #accessing }
-MOTimeWarpingEngine >> distanceBlock: anObject [
+MalTimeWarpingEngine >> distanceBlock: anObject [
 	
 	distanceBlock := anObject
 ]
 
 { #category : #accessing }
-MOTimeWarpingEngine >> getCost [
+MalTimeWarpingEngine >> getCost [
 	
 	^self getCostMatrix last
 ]
 
 { #category : #private }
-MOTimeWarpingEngine >> getCostMatrix [
+MalTimeWarpingEngine >> getCostMatrix [
 	
-	matrix := MODistanceSquare
+	matrix := MalDistanceSquare
 		on: vectorA
 		and: vectorB
 		using: self distanceBlock.
@@ -95,25 +95,25 @@ MOTimeWarpingEngine >> getCostMatrix [
 ]
 
 { #category : #accessing }
-MOTimeWarpingEngine >> vectorA [
+MalTimeWarpingEngine >> vectorA [
 	
 	^vectorA
 ]
 
 { #category : #accessing }
-MOTimeWarpingEngine >> vectorA: anObject [
+MalTimeWarpingEngine >> vectorA: anObject [
 	
 	vectorA := anObject
 ]
 
 { #category : #accessing }
-MOTimeWarpingEngine >> vectorB [
+MalTimeWarpingEngine >> vectorB [
 	
 	^vectorB
 ]
 
 { #category : #accessing }
-MOTimeWarpingEngine >> vectorB: anObject [
+MalTimeWarpingEngine >> vectorB: anObject [
 	
 	vectorB := anObject
 ]

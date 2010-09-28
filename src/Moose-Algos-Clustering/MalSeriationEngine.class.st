@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOSeriationEngine,
+	#name : #MalSeriationEngine,
 	#superclass : #Object,
 	#instVars : [
 		'elements'
@@ -11,13 +11,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-MOSeriationEngine class >> applyOn: elements [
+MalSeriationEngine class >> applyOn: elements [
 	
 	^(self with: elements) defaultAlgorithm
 ]
 
 { #category : #'instance creation' }
-MOSeriationEngine class >> with: elements [
+MalSeriationEngine class >> with: elements [
 	
 	^(self new)
 		elements: elements;
@@ -25,28 +25,28 @@ MOSeriationEngine class >> with: elements [
 ]
 
 { #category : #algorithm }
-MOSeriationEngine >> defaultAlgorithm [
+MalSeriationEngine >> defaultAlgorithm [
 	
 	^self orderDendrogramLeaves
 ]
 
 { #category : #accessing }
-MOSeriationEngine >> elements [
+MalSeriationEngine >> elements [
 	
 	^elements
 ]
 
 { #category : #accessing }
-MOSeriationEngine >> elements: anObject [
+MalSeriationEngine >> elements: anObject [
 	
 	elements := anObject
 ]
 
 { #category : #algorithm }
-MOSeriationEngine >> orderDendrogramLeaves [
+MalSeriationEngine >> orderDendrogramLeaves [
 	
 	| clusty |
-	clusty := MOClusterEngine with: elements.
+	clusty := MalClusterEngine with: elements.
 	clusty hierarchicalClusteringUsing: #averageLinkage.
 	^clusty dendrogram orderLeafs asArray
 ]

@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOClusterEngine,
+	#name : #MalClusterEngine,
 	#superclass : #Object,
 	#instVars : [
 		'distanceMatrix',
@@ -12,30 +12,30 @@ Class {
 }
 
 { #category : #examples }
-MOClusterEngine class >> numbers: aCollection [
+MalClusterEngine class >> numbers: aCollection [
 	"ClusterEngine numbers: #(1 2 9 0 7 2 4 3)"
 	
-	^(MOClusterEngine
+	^(MalClusterEngine
 		with: aCollection
 		using: [:a :b | (a - b) * (a - b)]) averageLinkage elements
 ]
 
 { #category : #'instance creation' }
-MOClusterEngine class >> with: aCollection [
+MalClusterEngine class >> with: aCollection [
 	
-	^self withDistanceMatrix: (MODistanceSquare on: aCollection)
+	^self withDistanceMatrix: (MalDistanceSquare on: aCollection)
 ]
 
 { #category : #'instance creation' }
-MOClusterEngine class >> with: aCollection using: aDistanceBlock [
+MalClusterEngine class >> with: aCollection using: aDistanceBlock [
 	
 	^self
 		withDistanceMatrix:
-			(MODistanceSquare on: aCollection using: aDistanceBlock)
+			(MalDistanceSquare on: aCollection using: aDistanceBlock)
 ]
 
 { #category : #'instance creation' }
-MOClusterEngine class >> withDistanceMatrix: distanceMatrix [
+MalClusterEngine class >> withDistanceMatrix: distanceMatrix [
 	
 	^(self new)
 		instVarNamed: 'distanceMatrix' put: distanceMatrix;
@@ -43,52 +43,52 @@ MOClusterEngine class >> withDistanceMatrix: distanceMatrix [
 ]
 
 { #category : #clustering }
-MOClusterEngine >> averageLinkage [
+MalClusterEngine >> averageLinkage [
 	
 	^self performClustering: #averageLinkage
 ]
 
 { #category : #clustering }
-MOClusterEngine >> completeLinkage [
+MalClusterEngine >> completeLinkage [
 	
 	^self performClustering: #completeLinkage
 ]
 
 { #category : #accessing }
-MOClusterEngine >> dendrogram [
+MalClusterEngine >> dendrogram [
 	
 	^dendrogram ifNil: [dendrogram := self averageLinkage]
 ]
 
 { #category : #'private - deprecated' }
-MOClusterEngine >> hierarchicalClusteringShowProgressUsing: selector [
+MalClusterEngine >> hierarchicalClusteringShowProgressUsing: selector [
 	
 	^self performClusteringShowProgress: selector
 ]
 
 { #category : #'private - deprecated' }
-MOClusterEngine >> hierarchicalClusteringUsing: selector [
+MalClusterEngine >> hierarchicalClusteringUsing: selector [
 	
 	^self performClustering: selector
 ]
 
 { #category : #accessing }
-MOClusterEngine >> items [
+MalClusterEngine >> items [
 	
 	^distanceMatrix items
 ]
 
 { #category : #clustering }
-MOClusterEngine >> performClustering: linkageSelector [
+MalClusterEngine >> performClustering: linkageSelector [
 	
 	| data |
-	data := MOClusteringData onDistanceSquare: distanceMatrix.
+	data := MalClusteringData onDistanceSquare: distanceMatrix.
 	data performClustering: linkageSelector.
 	^dendrogram := data dendrogram
 ]
 
 { #category : #clustering }
-MOClusterEngine >> performClusteringShowProgress: linkageSelector [
+MalClusterEngine >> performClusteringShowProgress: linkageSelector [
 	
 	MooseCustomTask
 		runWithProgress:[self performClustering: linkageSelector]
@@ -98,7 +98,7 @@ MOClusterEngine >> performClusteringShowProgress: linkageSelector [
 ]
 
 { #category : #clustering }
-MOClusterEngine >> singleLinkage [
+MalClusterEngine >> singleLinkage [
 	
 	^self performClustering: #singleLinkage
 ]

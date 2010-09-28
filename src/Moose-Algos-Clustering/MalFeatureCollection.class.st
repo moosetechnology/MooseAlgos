@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOFeatureCollection,
+	#name : #MalFeatureCollection,
 	#superclass : #OrderedCollection,
 	#type : #variable,
 	#instVars : [
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MOFeatureCollection class >> item: anItem features: aCollection [
+MalFeatureCollection class >> item: anItem features: aCollection [
 	
 	^((self withAll: aCollection) sorted)
 		setItem: anItem;
@@ -20,7 +20,7 @@ MOFeatureCollection class >> item: anItem features: aCollection [
 ]
 
 { #category : #distance }
-MOFeatureCollection >> chroniaHausdorffDistance: aFeatureCollection [
+MalFeatureCollection >> chroniaHausdorffDistance: aFeatureCollection [
 	"Answer a modified hausdorff distance between myself and aFeatureCollection. 
 	Further information see 'How Developers Drive Software Evolution' (to be published at IWPSE 2005).
 	Limitations of the implementation see FeatureCollection>>hausdorffMinima:."
@@ -33,13 +33,13 @@ MOFeatureCollection >> chroniaHausdorffDistance: aFeatureCollection [
 ]
 
 { #category : #distance }
-MOFeatureCollection >> dist: aFeatureCollection [
+MalFeatureCollection >> dist: aFeatureCollection [
 	
 	^self hausdorffDistance: aFeatureCollection
 ]
 
 { #category : #distance }
-MOFeatureCollection >> hausdorffDistance: aFeatureCollection [
+MalFeatureCollection >> hausdorffDistance: aFeatureCollection [
 	"Answer the hausdorff distance between myself and aFeatureCollection. 
 	Limitations of the implementation see FeatureCollection>>hausdorffMinima:."
 	
@@ -51,7 +51,7 @@ MOFeatureCollection >> hausdorffDistance: aFeatureCollection [
 ]
 
 { #category : #private }
-MOFeatureCollection >> hausdorffMinima: aFeatureCollection [
+MalFeatureCollection >> hausdorffMinima: aFeatureCollection [
 	"Answer for each element in myself the distance to the nearest element in aFeatureCollection.
 	Assumes that the elements of both collections are sorted using an ordering that is compatible
 	with the distance metric defined between these elements. Thus this implementation works fine
@@ -70,19 +70,19 @@ MOFeatureCollection >> hausdorffMinima: aFeatureCollection [
 ]
 
 { #category : #accessing }
-MOFeatureCollection >> item [
+MalFeatureCollection >> item [
 	
 	^item
 ]
 
 { #category : #accessing }
-MOFeatureCollection >> setItem: anObject [
+MalFeatureCollection >> setItem: anObject [
 	
 	item := anObject
 ]
 
 { #category : #distance }
-MOFeatureCollection >> sizeDistance: aFeatureCollection [
+MalFeatureCollection >> sizeDistance: aFeatureCollection [
 	
 	^self size dist: aFeatureCollection size
 ]

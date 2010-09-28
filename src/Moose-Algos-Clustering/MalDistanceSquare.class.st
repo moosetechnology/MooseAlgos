@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MODistanceSquare,
+	#name : #MalDistanceSquare,
 	#superclass : #MalSymetricMatrix,
 	#instVars : [
 		'distanceBlock',
@@ -14,13 +14,13 @@ Class {
 }
 
 { #category : #constants }
-MODistanceSquare class >> defaultDistanceBlock [
+MalDistanceSquare class >> defaultDistanceBlock [
 	
 	^[:a :b | a dist: b]
 ]
 
 { #category : #'instance creation' }
-MODistanceSquare class >> on: items [
+MalDistanceSquare class >> on: items [
 	
 	^self
 		on: items
@@ -28,7 +28,7 @@ MODistanceSquare class >> on: items [
 ]
 
 { #category : #'instance creation' }
-MODistanceSquare class >> on: vectorA and: vectorB using: distanceBlock [
+MalDistanceSquare class >> on: vectorA and: vectorB using: distanceBlock [
 	
 	[vectorA size = vectorB size] assert.
 	^(self new: vectorA size)
@@ -37,7 +37,7 @@ MODistanceSquare class >> on: vectorA and: vectorB using: distanceBlock [
 ]
 
 { #category : #'instance creation' }
-MODistanceSquare class >> on: items using: distanceBlock [
+MalDistanceSquare class >> on: items using: distanceBlock [
 	
 	^(self new: items size)
 		initialize: items using: distanceBlock;
@@ -45,19 +45,19 @@ MODistanceSquare class >> on: items using: distanceBlock [
 ]
 
 { #category : #private }
-MODistanceSquare class >> vectorSpecies [
+MalDistanceSquare class >> vectorSpecies [
 	
 	^MalArrayVector	"FloatVector"
 ]
 
 { #category : #accessing }
-MODistanceSquare >> at: row and: column put: aNumber [
+MalDistanceSquare >> at: row and: column put: aNumber [
 	
 	^self noModificationError
 ]
 
 { #category : #private }
-MODistanceSquare >> checkInvariant [
+MalDistanceSquare >> checkInvariant [
 	
 	^super checkInvariant
 		and:
@@ -65,32 +65,32 @@ MODistanceSquare >> checkInvariant [
 ]
 
 { #category : #private }
-MODistanceSquare >> copyClusteringData [
+MalDistanceSquare >> copyClusteringData [
 	
 	^partialColumns collect: [:each | each copy]
 ]
 
 { #category : #accessing }
-MODistanceSquare >> dendrogram [
+MalDistanceSquare >> dendrogram [
 	
 	dendrogram == nil ifTrue: [self performSeriation].
 	^dendrogram
 ]
 
 { #category : #accessing }
-MODistanceSquare >> distanceBlock [
+MalDistanceSquare >> distanceBlock [
 	
 	^distanceBlock
 ]
 
 { #category : #accessing }
-MODistanceSquare >> distanceBlock: anObject [
+MalDistanceSquare >> distanceBlock: anObject [
 	
 	distanceBlock := anObject
 ]
 
 { #category : #'initialize-release' }
-MODistanceSquare >> initialize: vectorA and: vectorB using: aDistanceBlock [
+MalDistanceSquare >> initialize: vectorA and: vectorB using: aDistanceBlock [
 	
 	items := nil.
 	distanceBlock := aDistanceBlock.
@@ -106,7 +106,7 @@ MODistanceSquare >> initialize: vectorA and: vectorB using: aDistanceBlock [
 ]
 
 { #category : #'initialize-release' }
-MODistanceSquare >> initialize: someItems using: aDistanceBlock [
+MalDistanceSquare >> initialize: someItems using: aDistanceBlock [
 	
 	items := someItems.
 	distanceBlock := aDistanceBlock.
@@ -122,16 +122,16 @@ MODistanceSquare >> initialize: someItems using: aDistanceBlock [
 ]
 
 { #category : #accessing }
-MODistanceSquare >> items [
+MalDistanceSquare >> items [
 	
 	^items
 ]
 
 { #category : #actions }
-MODistanceSquare >> performSeriation [
+MalDistanceSquare >> performSeriation [
 	
 	| clusty newOrder |
-	clusty := MOClusterEngine withDistanceMatrix: self.
+	clusty := MalClusterEngine withDistanceMatrix: self.
 	clusty performClusteringShowProgress: #averageLinkage.
 	dendrogram := clusty dendrogram.
 	newOrder := self dendrogram orderLeafs asArray.
@@ -139,7 +139,7 @@ MODistanceSquare >> performSeriation [
 ]
 
 { #category : #private }
-MODistanceSquare >> rearrange: newItems [
+MalDistanceSquare >> rearrange: newItems [
 	
 	| newColumns indices |
 	[items equalsTo: newItems] assert.	"create new column vectors."

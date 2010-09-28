@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MODendrogramNode,
-	#superclass : #MODendrogram,
+	#name : #MalDendrogramNode,
+	#superclass : #MalDendrogram,
 	#instVars : [
 		'left',
 		'right',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MODendrogramNode class >> with: left with: right at: threshold [
+MalDendrogramNode class >> with: left with: right at: threshold [
 	
 	| new |
 	new := (self new)
@@ -27,27 +27,27 @@ MODendrogramNode class >> with: left with: right at: threshold [
 ]
 
 { #category : #enumerating }
-MODendrogramNode >> elementsDo: aBlock [
+MalDendrogramNode >> elementsDo: aBlock [
 	
 	left elementsDo: aBlock.
 	right elementsDo: aBlock
 ]
 
 { #category : #enumerating }
-MODendrogramNode >> leavesDo: aBlock [
+MalDendrogramNode >> leavesDo: aBlock [
 	
 	left leavesDo: aBlock.
 	right leavesDo: aBlock
 ]
 
 { #category : #accessing }
-MODendrogramNode >> left [
+MalDendrogramNode >> left [
 	
 	^left
 ]
 
 { #category : #enumerating }
-MODendrogramNode >> nodesDo: aBlock [
+MalDendrogramNode >> nodesDo: aBlock [
 	
 	aBlock value: self.
 	left nodesDo: aBlock.
@@ -55,7 +55,7 @@ MODendrogramNode >> nodesDo: aBlock [
 ]
 
 { #category : #seriation }
-MODendrogramNode >> orderLeafs [
+MalDendrogramNode >> orderLeafs [
 	
 	| a b c d array |
 	a := self left left.
@@ -78,19 +78,19 @@ MODendrogramNode >> orderLeafs [
 ]
 
 { #category : #accessing }
-MODendrogramNode >> right [
+MalDendrogramNode >> right [
 	
 	^right
 ]
 
 { #category : #accessing }
-MODendrogramNode >> size [
+MalDendrogramNode >> size [
 	
 	^left size + right size
 ]
 
 { #category : #seriation }
-MODendrogramNode >> swap [
+MalDendrogramNode >> swap [
 	
 	| swap |
 	swap := left.
@@ -99,7 +99,7 @@ MODendrogramNode >> swap [
 ]
 
 { #category : #accessing }
-MODendrogramNode >> threshold [
+MalDendrogramNode >> threshold [
 	
 	^threshold
 ]

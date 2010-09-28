@@ -2,7 +2,7 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOClusteringVector,
+	#name : #MalClusteringVector,
 	#superclass : #MalArrayVector,
 	#type : #variable,
 	#instVars : [
@@ -16,7 +16,7 @@ Class {
 }
 
 { #category : #accessing }
-MOClusteringVector >> at: index put: aNumber [
+MalClusteringVector >> at: index put: aNumber [
 	
 	super at: index put: aNumber.
 	(found ~~ nil and: [found = index or: [aNumber < min]])
@@ -25,13 +25,13 @@ MOClusteringVector >> at: index put: aNumber [
 ]
 
 { #category : #accessing }
-MOClusteringVector >> found [
+MalClusteringVector >> found [
 	
 	^found
 ]
 
 { #category : #accessing }
-MOClusteringVector >> min [
+MalClusteringVector >> min [
 	"| min0 found0 |"
 	
 	found == nil ifTrue: [self update].	"min0 := Unlimited positive.
@@ -43,7 +43,7 @@ MOClusteringVector >> min [
 ]
 
 { #category : #accessing }
-MOClusteringVector >> unsetAt: index [
+MalClusteringVector >> unsetAt: index [
 	
 	super
 		at: index
@@ -52,7 +52,7 @@ MOClusteringVector >> unsetAt: index [
 ]
 
 { #category : #private }
-MOClusteringVector >> update [
+MalClusteringVector >> update [
 	
 	min := Unlimited positive.
 	1

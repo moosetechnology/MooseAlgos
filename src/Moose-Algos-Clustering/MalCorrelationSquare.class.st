@@ -2,25 +2,25 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MOCorrelationSquare,
-	#superclass : #MODistanceSquare,
+	#name : #MalCorrelationSquare,
+	#superclass : #MalDistanceSquare,
 	#category : #'Moose-Algos-Clustering'
 }
 
 { #category : #constants }
-MOCorrelationSquare class >> defaultDistanceBlock [
+MalCorrelationSquare class >> defaultDistanceBlock [
 	
 	^[:a :b | a similarity: b]
 ]
 
 { #category : #private }
-MOCorrelationSquare class >> vectorSpecies [
+MalCorrelationSquare class >> vectorSpecies [
 	
-	^MOCorrelationVector
+	^MalCorrelationVector
 ]
 
 { #category : #private }
-MOCorrelationSquare >> copyClusteringData [
+MalCorrelationSquare >> copyClusteringData [
 	
 	^partialColumns collect: [:each | each negated]
 ]

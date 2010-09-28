@@ -2,8 +2,8 @@
 Copyright (c), 2004-2007 Adrian Kuhn. This class is part of Hapax. Hapax is distributed under BSD License, see package comment.
 "
 Class {
-	#name : #MODendrogramLeaf,
-	#superclass : #MODendrogram,
+	#name : #MalDendrogramLeaf,
+	#superclass : #MalDendrogram,
 	#instVars : [
 		'element'
 	],
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MODendrogramLeaf class >> with: anElement [
+MalDendrogramLeaf class >> with: anElement [
 	
 	^(self new)
 		instVarNamed: 'element' put: anElement;
@@ -19,64 +19,64 @@ MODendrogramLeaf class >> with: anElement [
 ]
 
 { #category : #accessing }
-MODendrogramLeaf >> element [
+MalDendrogramLeaf >> element [
 	
 	^element
 ]
 
 { #category : #enumerating }
-MODendrogramLeaf >> elementsDo: aBlock [
+MalDendrogramLeaf >> elementsDo: aBlock [
 	
 	aBlock value: element
 ]
 
 { #category : #enumerating }
-MODendrogramLeaf >> leavesDo: aBlock [
+MalDendrogramLeaf >> leavesDo: aBlock [
 	
 	aBlock value: self
 ]
 
 { #category : #accessing }
-MODendrogramLeaf >> left [
+MalDendrogramLeaf >> left [
 	
 	^self
 ]
 
 { #category : #enumerating }
-MODendrogramLeaf >> nodesDo: aBlock [
+MalDendrogramLeaf >> nodesDo: aBlock [
 	"does nothing"
 	
 	
 ]
 
 { #category : #seriation }
-MODendrogramLeaf >> orderLeafs [
+MalDendrogramLeaf >> orderLeafs [
 	"do nothing"
 	
 	
 ]
 
 { #category : #accessing }
-MODendrogramLeaf >> right [
+MalDendrogramLeaf >> right [
 	
 	^self
 ]
 
 { #category : #accessing }
-MODendrogramLeaf >> size [
+MalDendrogramLeaf >> size [
 	
 	^1
 ]
 
 { #category : #seriation }
-MODendrogramLeaf >> swap [
+MalDendrogramLeaf >> swap [
 	"does nothing"
 	
 	
 ]
 
 { #category : #accessing }
-MODendrogramLeaf >> threshold [
+MalDendrogramLeaf >> threshold [
 	
 	^ Number zero
 ]

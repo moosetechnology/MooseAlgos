@@ -8,7 +8,7 @@ MalTarjan class >> mondrianSample [
 
 	| nodes edges g tarjan colorDic i color view b |
 	b := MalGraphStructure new nodeClass: MalGraphNode; edgeClass: MalGraphEdge.
-	MAGraphFixture complexCycleGraph: b.
+	MalGraphFixture complexCycleGraph: b.
 	nodes := b nodes.
 	edges := b edges.
 

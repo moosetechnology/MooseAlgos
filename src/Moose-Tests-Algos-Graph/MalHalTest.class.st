@@ -1,5 +1,5 @@
 Class {
-	#name : #MAHalTest,
+	#name : #MalHalTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'hal'
@@ -8,21 +8,21 @@ Class {
 }
 
 { #category : #history }
-MAHalTest class >> lastStoredRun [
+MalHalTest class >> lastStoredRun [
 	^ ((Dictionary new) add: (#passed->((Set new) add: #testComplexCycle; add: #testCycle; add: #testNestedCycle; add: #testSimpleGraph; yourself)); add: (#timeStamp->'4 September 2009 11:02:20 pm' asTimeStamp); add: (#failures->((Set new) add: #testModuleGraph; add: #testModuleGraph2; yourself)); add: (#errors->((Set new))); yourself)
 ]
 
 { #category : #tests }
-MAHalTest >> setUp [
+MalHalTest >> setUp [
 
-	hal := MAHal new.
+	hal := MalHal new.
 
 ]
 
 { #category : #tests }
-MAHalTest >> testComplexCycle [
+MalHalTest >> testComplexCycle [
 
-	(MAGraphFixture complexCycleGraph: hal) run.
+	(MalGraphFixture complexCycleGraph: hal) run.
 
 	self assert: (hal findNode: $a) hNumber = 0.
 	self assert: (hal findNode: $b) hNumber = 3.
@@ -37,9 +37,9 @@ MAHalTest >> testComplexCycle [
 ]
 
 { #category : #tests }
-MAHalTest >> testCycle [
+MalHalTest >> testCycle [
 
-	(MAGraphFixture cycleGraph: hal) run.
+	(MalGraphFixture cycleGraph: hal) run.
 
 	self assert: (hal findNode: $a) hNumber = 1.
 	self assert: (hal findNode: $b) hNumber = 1.
@@ -50,9 +50,9 @@ MAHalTest >> testCycle [
 ]
 
 { #category : #tests }
-MAHalTest >> testModuleGraph [
+MalHalTest >> testModuleGraph [
 
-	(MAGraphFixture moduleGraph: hal) run.
+	(MalGraphFixture moduleGraph: hal) run.
 
 	self assert: (hal findNode: 'v1') hNumber = 0.
 	self assert: (hal findNode: 'v2') hNumber = 1.
@@ -70,9 +70,9 @@ MAHalTest >> testModuleGraph [
 ]
 
 { #category : #tests }
-MAHalTest >> testModuleGraph2 [
+MalHalTest >> testModuleGraph2 [
 
-	(MAGraphFixture moduleGraph2: hal) run.
+	(MalGraphFixture moduleGraph2: hal) run.
 
 	self assert: (hal findNode: $u) hNumber = 0.
 	self assert: (hal findNode: $w) hNumber = 1.
@@ -87,9 +87,9 @@ MAHalTest >> testModuleGraph2 [
 ]
 
 { #category : #tests }
-MAHalTest >> testNestedCycle [
+MalHalTest >> testNestedCycle [
 
-	(MAGraphFixture nestedCycleGraph: hal) run.
+	(MalGraphFixture nestedCycleGraph: hal) run.
 	
 	self assert: (hal findNode: $a) hNumber = 0.
 	self assert: (hal findNode: $b) hNumber = 0.
@@ -105,9 +105,9 @@ MAHalTest >> testNestedCycle [
 ]
 
 { #category : #tests }
-MAHalTest >> testSimpleGraph [
+MalHalTest >> testSimpleGraph [
 
-	(MAGraphFixture simpleGraph: hal) run.
+	(MalGraphFixture simpleGraph: hal) run.
 	
 	self assert: (hal findNode: $a) hNumber = 0.
 	self assert: (hal findNode: $d) hNumber = 0.

@@ -1,11 +1,11 @@
 Class {
-	#name : #MAGraphFixture,
+	#name : #MalGraphFixture,
 	#superclass : #Object,
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
 { #category : #fixtures }
-MAGraphFixture class >> aseCircuitGraph: builder [
+MalGraphFixture class >> aseCircuitGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $h.
@@ -18,7 +18,7 @@ MAGraphFixture class >> aseCircuitGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> aseSccGraph: builder [
+MalGraphFixture class >> aseSccGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $e.
@@ -31,7 +31,7 @@ MAGraphFixture class >> aseSccGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> aseWeightedCircuitGraph: builder [
+MalGraphFixture class >> aseWeightedCircuitGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $h.
@@ -44,7 +44,7 @@ MAGraphFixture class >> aseWeightedCircuitGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> complexCycleGraph: builder [
+MalGraphFixture class >> complexCycleGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $h.
@@ -56,7 +56,7 @@ MAGraphFixture class >> complexCycleGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> complexWeightedGraph: builder [
+MalGraphFixture class >> complexWeightedGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $s.
@@ -69,7 +69,7 @@ MAGraphFixture class >> complexWeightedGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> cycleGraph: builder [
+MalGraphFixture class >> cycleGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $d.
@@ -81,7 +81,7 @@ MAGraphFixture class >> cycleGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> dependencyGraph: builder [
+MalGraphFixture class >> dependencyGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $k.
@@ -93,7 +93,7 @@ MAGraphFixture class >> dependencyGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> moduleGraph2: builder [
+MalGraphFixture class >> moduleGraph2: builder [
 	"sample graph from Habib et al for modular decomposition"
 
 	| nodes edges |
@@ -113,7 +113,7 @@ MAGraphFixture class >> moduleGraph2: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> moduleGraph: builder [
+MalGraphFixture class >> moduleGraph: builder [
 
 	| nodes edges |
 	nodes := #('v1' 'v2' 'v3' 'v4' 'v5'	'v6' 'v7' 'v8' 'v9' 'v10' 'v11').
@@ -134,7 +134,7 @@ MAGraphFixture class >> moduleGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> nestedCycleGraph: builder [
+MalGraphFixture class >> nestedCycleGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $i.
@@ -147,7 +147,7 @@ MAGraphFixture class >> nestedCycleGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> simpleGraph: builder [
+MalGraphFixture class >> simpleGraph: builder [
 
 	| nodes edges |
 	nodes := $a to: $d.
@@ -160,7 +160,7 @@ MAGraphFixture class >> simpleGraph: builder [
 ]
 
 { #category : #fixtures }
-MAGraphFixture class >> simpleWeightedGraph: builder [
+MalGraphFixture class >> simpleWeightedGraph: builder [
 
 	| nodes edges |
 	nodes := 1 to: 5.
@@ -173,7 +173,7 @@ MAGraphFixture class >> simpleWeightedGraph: builder [
 ]
 
 { #category : #visualization }
-MAGraphFixture class >> view: fixtureSelector [
+MalGraphFixture class >> view: fixtureSelector [
 	"
 	self view: #simpleGraph:.
 	self view: #cycleGraph:.
@@ -184,7 +184,7 @@ MAGraphFixture class >> view: fixtureSelector [
 
 	| view graph builder |
 	view := MOViewRenderer new.
-	builder := MAGraphStructure new nodeClass: MAGraphNode; edgeClass: MAGraphEdge; yourself.
+	builder := MalGraphStructure new nodeClass: MalGraphNode; edgeClass: MalGraphEdge; yourself.
 	graph := self perform: fixtureSelector with: builder.
 	view shape rectangle text: [:n| n model printString].
 	view nodes: graph nodes.

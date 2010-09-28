@@ -1,5 +1,5 @@
 Class {
-	#name : #MACyclesCoverageTest,
+	#name : #MalCyclesCoverageTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'cc'
@@ -8,19 +8,19 @@ Class {
 }
 
 { #category : #running }
-MACyclesCoverageTest >> setUp [ 
+MalCyclesCoverageTest >> setUp [ 
 
-	cc := MACyclesCoverage new.
+	cc := MalCyclesCoverage new.
 ]
 
 { #category : #'tests-cse' }
-MACyclesCoverageTest >> testAseCircuitWithCse [
+MalCyclesCoverageTest >> testAseCircuitWithCse [
 	"
 	self debug: #testAseCircuitWithCse 
 	"
 
 	cc useCircuitSpan.
-	MAGraphFixture aseCircuitGraph: cc.
+	MalGraphFixture aseCircuitGraph: cc.
 	cc run.
 	self assert: 5
 			equals: cc circuits size.
@@ -30,13 +30,13 @@ MACyclesCoverageTest >> testAseCircuitWithCse [
 ]
 
 { #category : #'tests-sed' }
-MACyclesCoverageTest >> testAseCircuitWithSed [
+MalCyclesCoverageTest >> testAseCircuitWithSed [
 	"
 	self debug: #testAseCircuitWithSed 
 	"
 
 	cc useEdgeDecomposition.
-	MAGraphFixture aseCircuitGraph: cc.
+	MalGraphFixture aseCircuitGraph: cc.
 	cc run.
 	self assert: 5
 			equals: cc circuits size.
@@ -46,12 +46,12 @@ MACyclesCoverageTest >> testAseCircuitWithSed [
 ]
 
 { #category : #'tests-snd' }
-MACyclesCoverageTest >> testAseCircuitWithSnd [
+MalCyclesCoverageTest >> testAseCircuitWithSnd [
 	"
 	self debug: #testAseCircuitWithSnd 
 	"
 
-	MAGraphFixture aseCircuitGraph: cc.
+	MalGraphFixture aseCircuitGraph: cc.
 	cc run.
 	self assert: 5
 			equals: cc circuits size.
@@ -61,14 +61,14 @@ MACyclesCoverageTest >> testAseCircuitWithSnd [
 ]
 
 { #category : #'tests-cse' }
-MACyclesCoverageTest >> testAseSccWithCse [
+MalCyclesCoverageTest >> testAseSccWithCse [
 	"
 	self debug: #testAseSccWithCse 
 	"
 
 	| cse |
-	cse := MACircuitSpanningEdges new.
-	MAGraphFixture aseSccGraph: cse.
+	cse := MalCircuitSpanningEdges new.
+	MalGraphFixture aseSccGraph: cse.
 	cse run.
 	self assert: 4
 			equals: cse circuits size.
@@ -79,14 +79,14 @@ MACyclesCoverageTest >> testAseSccWithCse [
 ]
 
 { #category : #'tests-sed' }
-MACyclesCoverageTest >> testAseSccWithSed [
+MalCyclesCoverageTest >> testAseSccWithSed [
 	"
 	self debug: #testAseScc 
 	"
 
 	| sed circuits |
-	sed := MASccEdgeDecomposition new.
-	MAGraphFixture aseSccGraph: sed.
+	sed := MalSccEdgeDecomposition new.
+	MalGraphFixture aseSccGraph: sed.
 	sed run.
 	self assert: 4
 			equals: sed circuits size.
@@ -97,14 +97,14 @@ MACyclesCoverageTest >> testAseSccWithSed [
 ]
 
 { #category : #'tests-snd' }
-MACyclesCoverageTest >> testAseSccWithSnd [
+MalCyclesCoverageTest >> testAseSccWithSnd [
 	"
 	self debug: #testAseSccWithSnd 
 	"
 
 	| sed circuits |
-	sed := MASccNodeDecomposition new.
-	MAGraphFixture aseSccGraph: sed.
+	sed := MalSccNodeDecomposition new.
+	MalGraphFixture aseSccGraph: sed.
 	sed run.
 	self assert: 4
 			equals: sed circuits size.
@@ -115,7 +115,7 @@ MACyclesCoverageTest >> testAseSccWithSnd [
 ]
 
 { #category : #testing }
-MACyclesCoverageTest >> testNormalize [
+MalCyclesCoverageTest >> testNormalize [
 	"
 	self debug: #testNormalize
 	"

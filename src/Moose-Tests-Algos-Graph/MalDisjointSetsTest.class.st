@@ -1,5 +1,5 @@
 Class {
-	#name : #MADisjointSetsTest,
+	#name : #MalDisjointSetsTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'ds'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MADisjointSetsTest >> setUp [
+MalDisjointSetsTest >> setUp [
 
-	ds := MADisjointSets new
+	ds := MalDisjointSets new
 ]
 
 { #category : #'as yet unclassified' }
-MADisjointSetsTest >> test1Component [
+MalDisjointSetsTest >> test1Component [
 	| components twoNodes threeNodes |
 	ds nodes: (1 to: 5).
 	ds edges: {1 -> 2. 2 -> 3 . 4 -> 5. 1 -> 5} from: #key to: #value.
@@ -27,7 +27,7 @@ MADisjointSetsTest >> test1Component [
 ]
 
 { #category : #'as yet unclassified' }
-MADisjointSetsTest >> test2Components [
+MalDisjointSetsTest >> test2Components [
 	| components twoNodes threeNodes |
 	ds nodes: (1 to: 5).
 	ds edges: {1 -> 2. 2 -> 3 . 4 -> 5} from: #key to: #value.
@@ -43,7 +43,7 @@ MADisjointSetsTest >> test2Components [
 ]
 
 { #category : #'as yet unclassified' }
-MADisjointSetsTest >> test3Components [
+MalDisjointSetsTest >> test3Components [
 	| components twoNodes threeNodes singleNodeC |
 	ds nodes: (1 to: 6).
 	ds edges: {1 -> 2. 2 -> 3 . 4 -> 5} from: #key to: #value.

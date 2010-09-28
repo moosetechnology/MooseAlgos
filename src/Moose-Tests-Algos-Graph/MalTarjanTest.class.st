@@ -1,5 +1,5 @@
 Class {
-	#name : #MATarjanTest,
+	#name : #MalTarjanTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'tarjan'
@@ -8,22 +8,22 @@ Class {
 }
 
 { #category : #history }
-MATarjanTest class >> lastStoredRun [
+MalTarjanTest class >> lastStoredRun [
 	^ ((Dictionary new) add: (#passed->((Set new) add: #testNoCycle; add: #testComplexCycle; add: #testCycle; add: #testNestedCycle; yourself)); add: (#timeStamp->'6 July 2009 5:40:15 pm' asTimeStamp); add: (#failures->((Set new))); add: (#errors->((Set new))); yourself)
 ]
 
 { #category : #tests }
-MATarjanTest >> setUp [
+MalTarjanTest >> setUp [
 
-	tarjan := MATarjan new.
+	tarjan := MalTarjan new.
 
 ]
 
 { #category : #tests }
-MATarjanTest >> testComplexCycle [
+MalTarjanTest >> testComplexCycle [
 	| a b c cycleNodesOfC d f e g h |
 
-	MAGraphFixture complexCycleGraph: tarjan.
+	MalGraphFixture complexCycleGraph: tarjan.
 	tarjan run.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
@@ -51,9 +51,9 @@ MATarjanTest >> testComplexCycle [
 ]
 
 { #category : #tests }
-MATarjanTest >> testCycle [
+MalTarjanTest >> testCycle [
 	| a b c cycleNodesOfA |
-	MAGraphFixture cycleGraph: tarjan.
+	MalGraphFixture cycleGraph: tarjan.
 	tarjan run.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
@@ -70,9 +70,9 @@ MATarjanTest >> testCycle [
 ]
 
 { #category : #tests }
-MATarjanTest >> testNestedCycle [
+MalTarjanTest >> testNestedCycle [
 	| a b c cycleNodesOfC d f e g h cycleNodesOfI i |
-	MAGraphFixture nestedCycleGraph: tarjan.
+	MalGraphFixture nestedCycleGraph: tarjan.
 	tarjan run.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
@@ -100,9 +100,9 @@ MATarjanTest >> testNestedCycle [
 ]
 
 { #category : #tests }
-MATarjanTest >> testNoCycle [
+MalTarjanTest >> testNoCycle [
 
-	MAGraphFixture simpleGraph: tarjan.
+	MalGraphFixture simpleGraph: tarjan.
 	tarjan run.
 	tarjan nodes do: [ :n | self deny: n isInCycle ]
 ]

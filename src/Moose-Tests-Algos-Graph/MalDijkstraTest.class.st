@@ -1,5 +1,5 @@
 Class {
-	#name : #MADijkstraTest,
+	#name : #MalDijkstraTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'dijsktra'
@@ -8,18 +8,18 @@ Class {
 }
 
 { #category : #running }
-MADijkstraTest >> setUp [ 
+MalDijkstraTest >> setUp [ 
 
-	dijsktra := MADijkstra new.
+	dijsktra := MalDijkstra new.
 ]
 
 { #category : #tests }
-MADijkstraTest >> testAseBasicCircuit [
+MalDijkstraTest >> testAseBasicCircuit [
 	"
 	self debug: #testAseBasicCircuit 
 	"
 
-	MAGraphFixture aseCircuitGraph: dijsktra.
+	MalGraphFixture aseCircuitGraph: dijsktra.
 	"self halt."
 	self 	assert: 1
 			equals: (dijsktra runFrom: $a to: $b).
@@ -38,12 +38,12 @@ MADijkstraTest >> testAseBasicCircuit [
 ]
 
 { #category : #tests }
-MADijkstraTest >> testAseBasicCircuitBacktrack [
+MalDijkstraTest >> testAseBasicCircuitBacktrack [
 	"
 	self debug: #testAseBasicCircuitBacktrack 
 	"
 
-	MAGraphFixture aseCircuitGraph: dijsktra.
+	MalGraphFixture aseCircuitGraph: dijsktra.
 	"self halt."
 	self assert: (#($a $b) hasEqualElements: (dijsktra runFrom: $a to: $b; backtrack)).
 	dijsktra reset.

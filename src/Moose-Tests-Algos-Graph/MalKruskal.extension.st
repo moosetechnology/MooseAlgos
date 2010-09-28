@@ -8,7 +8,7 @@ MalKruskal class >> mondrianSample [
  
 	| kruskal tree otherEdges edges view |
 	kruskal := MalKruskal new.
-	MAGraphFixture complexWeightedGraph: kruskal.
+	MalGraphFixture complexWeightedGraph: kruskal.
 	tree := kruskal run.
 	
 	view := (Smalltalk at: #MOViewRenderer) new.

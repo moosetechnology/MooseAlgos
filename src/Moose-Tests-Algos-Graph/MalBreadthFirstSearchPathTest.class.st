@@ -1,5 +1,5 @@
 Class {
-	#name : #MABreadthFirstSearchPathTest,
+	#name : #MalBreadthFirstSearchPathTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'bfsp'
@@ -8,18 +8,18 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MABreadthFirstSearchPathTest >> setUp [ 
+MalBreadthFirstSearchPathTest >> setUp [ 
 
-	bfsp := MABreadthFirstSearchPath new.
+	bfsp := MalBreadthFirstSearchPath new.
 ]
 
 { #category : #'as yet unclassified' }
-MABreadthFirstSearchPathTest >> testAseGraph [
+MalBreadthFirstSearchPathTest >> testAseGraph [
 	"
 	self debug: #testAseGraph
 	"
 
-	MAGraphFixture aseCircuitGraph: bfsp.
+	MalGraphFixture aseCircuitGraph: bfsp.
 	self assert: (#($a $b $c) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#($d $b $c) hasEqualElements: (bfsp runFrom: $d to: $c)).
 	self assert: (#($e $a) hasEqualElements: (bfsp runFrom: $e to: $a)).
@@ -30,12 +30,12 @@ MABreadthFirstSearchPathTest >> testAseGraph [
 ]
 
 { #category : #'as yet unclassified' }
-MABreadthFirstSearchPathTest >> testSimpleGraph [
+MalBreadthFirstSearchPathTest >> testSimpleGraph [
 	"
 	self debug: #testSimpleGraph
 	"
 
-	MAGraphFixture simpleGraph: bfsp.
+	MalGraphFixture simpleGraph: bfsp.
 	self assert: (#($a $b $c) hasEqualElements: (bfsp runFrom: $a to: $c)).
 	self assert: (#($d $c) hasEqualElements: (bfsp runFrom: $d to: $c)).
 ]

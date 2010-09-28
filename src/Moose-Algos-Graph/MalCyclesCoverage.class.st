@@ -21,7 +21,7 @@ MalCyclesCoverage >> directCircuit: aCollection [
 	^ self normalize: (OrderedCollection with: aCollection first model with: aCollection second model)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 MalCyclesCoverage >> initialize [
 
 	super initialize.

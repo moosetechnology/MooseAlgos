@@ -98,7 +98,7 @@ MalTGraphBuilder >> graph [
 { #category : #configuration }
 MalTGraphBuilder >> nodeClass [
 
-	^ MAGraphNode
+	^ MalGraphNode
 ]
 
 { #category : #accessing }

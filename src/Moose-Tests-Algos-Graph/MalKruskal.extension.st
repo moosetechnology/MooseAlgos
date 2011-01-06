@@ -3,7 +3,7 @@ Extension { #name : #MalKruskal }
 { #category : #'*Moose-Tests-Algos-Graph' }
 MalKruskal class >> mondrianSample [
 	"
-	MOKruskal mondrianSample
+	MalKruskal mondrianSample
 	"
  
 	| kruskal tree otherEdges edges view |

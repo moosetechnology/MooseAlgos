@@ -3,7 +3,7 @@ Extension { #name : #MalTarjan }
 { #category : #'*Moose-Tests-Algos-Graph' }
 MalTarjan class >> mondrianSample [
 	"
-	MOTarjan mondrianSample
+	MalTarjan mondrianSample
 	"
 
 	| nodes edges g tarjan colorDic i color view b |

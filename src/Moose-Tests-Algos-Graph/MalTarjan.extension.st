@@ -7,12 +7,15 @@ MalTarjan class >> mondrianSample [
 	"
 
 	| nodes edges g tarjan colorDic i color view b window |
+	(Smalltalk globals includesKey: #MOViewRenderer)
+		ifFalse: [ ^ self ].
+		
 	b := MalGraphStructure new nodeClass: MalGraphNode; edgeClass: MalGraphEdge.
 	MalGraphFixture complexCycleGraph: b.
 	nodes := b nodes.
 	edges := b edges.
 
-	view := MOViewRenderer new.
+	view := (Smalltalk globals at: #MOViewRenderer) new.
 	view interaction item: 'show me the cycle' action: [:modelNode|
 		g := (view nodeForDomainValue: modelNode).
 		tarjan := MalTarjan new.
@@ -36,7 +39,7 @@ MalTarjan class >> mondrianSample [
 	view nodes: (1 to: 5) forEach: [:each |
 		view shape rectangle square: 20.
 		view nodes: nodes.
-		view shape: (MOArrowedLineShape new).
+		view shape arrowedLine.
 		view edges: edges from: #from to: #to fromGlobal: false toGlobal: false.
 		view circleLayout.
 	].

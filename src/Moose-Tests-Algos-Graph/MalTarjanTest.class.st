@@ -2,7 +2,8 @@ Class {
 	#name : #MalTarjanTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'tarjan'
+		'tarjan',
+		'window'
 	],
 	#category : #'Moose-Tests-Algos-Graph'
 }
@@ -17,6 +18,11 @@ MalTarjanTest >> setUp [
 
 	tarjan := MalTarjan new.
 
+]
+
+{ #category : #running }
+MalTarjanTest >> tearDown [
+	window ifNotNil: [ window delete ]
 ]
 
 { #category : #tests }
@@ -67,6 +73,26 @@ MalTarjanTest >> testCycle [
 	self deny: (tarjan findNode: $d) isInCycle.
 	self assert: (a cycleNodes includesAllOf: cycleNodesOfA).
 	self assert: (cycleNodesOfA includesAllOf: a cycleNodes)
+]
+
+{ #category : #example }
+MalTarjanTest >> testMondrianSample [
+	| view firstGraph windowAndView nodes actionBlock |
+	windowAndView := MalTarjan mondrianSample.
+	window := windowAndView first.
+	view := windowAndView second.
+	self assert: (view root nodes size = 5).
+	
+	firstGraph := view root nodes first.
+	nodes := firstGraph nodes.
+
+	self assert: (nodes size = 8).
+	self assert: (nodes allSatisfy: [ :n | (n shape fillColorFor: n) == Color white ]).
+
+	actionBlock := firstGraph announcer menuItems first value.
+	self shouldnt: [ actionBlock value: firstGraph model ] raise: Error.
+	
+	self assert: (nodes noneSatisfy: [ :n | (n shape fillColorFor: n) == Color white ]).
 ]
 
 { #category : #tests }

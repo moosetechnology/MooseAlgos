@@ -6,7 +6,7 @@ MalTarjan class >> mondrianSample [
 	MalTarjan mondrianSample
 	"
 
-	| nodes edges g tarjan colorDic i color view b |
+	| nodes edges g tarjan colorDic i color view b window |
 	b := MalGraphStructure new nodeClass: MalGraphNode; edgeClass: MalGraphEdge.
 	MalGraphFixture complexCycleGraph: b.
 	nodes := b nodes.
@@ -26,7 +26,10 @@ MalTarjan class >> mondrianSample [
 			i := i + 1.
 			colorDic at: n model ifAbsentPut: color.
 			n cycleNodes do: [:cn| colorDic at: cn model ifAbsentPut: color ] ].
-		g children do: [:e | e copyShapeAndDo: [:p | p fillColor: (colorDic at: e)]].
+		g nodes do: [:e | e copyShapeAndDo: [:p | p fillColor: (colorDic at: e)]].
+
+		view root resetMetricCachesResursively.
+		view root resetFormCacheResursively.
 		view updateWindow.
 		].
 
@@ -37,6 +40,7 @@ MalTarjan class >> mondrianSample [
 		view edges: edges from: #from to: #to fromGlobal: false toGlobal: false.
 		view circleLayout.
 	].
-	view open.
-
+	
+	window := view open.
+	^ {window . view}
 ]

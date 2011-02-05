@@ -1,5 +1,5 @@
 Class {
-	#name : #MalHitsFixture,
+	#name : #MalHitsFixtureTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'hits'
@@ -8,54 +8,54 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> initialize [
+MalHitsFixtureTest >> initialize [
 
 	self setUp
 ]
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> setUp [
+MalHitsFixtureTest >> setUp [
 
 	hits := MalHits new.
 
 ]
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> testComplexCycle [
+MalHitsFixtureTest >> testComplexCycle [
 
 	MalGraphFixture complexCycleGraph: hits.
 	hits run.
 ]
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> testComplexWCycle [
+MalHitsFixtureTest >> testComplexWCycle [
 
 	MalGraphFixture complexWeightedGraph: hits.
 	hits run.
 ]
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> testCycle [
+MalHitsFixtureTest >> testCycle [
 
 	MalGraphFixture cycleGraph: hits.
 	hits run.
 ]
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> testNestedCycle [
+MalHitsFixtureTest >> testNestedCycle [
 
 	MalGraphFixture nestedCycleGraph: hits.
 	hits run.
 ]
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> testSimple [
+MalHitsFixtureTest >> testSimple [
 
 	(MalGraphFixture simpleGraph: hits) run.
 ]
 
 { #category : #'as yet unclassified' }
-MalHitsFixture >> testSimpleW [
+MalHitsFixtureTest >> testSimpleW [
 
 	(MalGraphFixture simpleWeightedGraph: hits) run.
 ]

@@ -16,6 +16,12 @@ MalGraphAlgorithm >> edges [
 	^ edges
 ]
 
+{ #category : #accessing }
+MalGraphAlgorithm >> findNode: aModel [
+
+	^ self nodes detect: [:aNode | aNode model = aModel ]
+]
+
 { #category : #'initialize-release' }
 MalGraphAlgorithm >> initialize [
 

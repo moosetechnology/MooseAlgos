@@ -8,11 +8,6 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
-{ #category : #history }
-MalTarjanTest class >> lastStoredRun [
-	^ ((Dictionary new) add: (#passed->((Set new) add: #testNoCycle; add: #testComplexCycle; add: #testCycle; add: #testNestedCycle; yourself)); add: (#timeStamp->'6 July 2009 5:40:15 pm' asTimeStamp); add: (#failures->((Set new))); add: (#errors->((Set new))); yourself)
-]
-
 { #category : #running }
 MalTarjanTest >> expectedFailures [
 	^ (Smalltalk environment hasClassNamed: 'MOViewRenderer')

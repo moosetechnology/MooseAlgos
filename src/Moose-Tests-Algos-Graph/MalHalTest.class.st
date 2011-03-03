@@ -7,11 +7,6 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
-{ #category : #history }
-MalHalTest class >> lastStoredRun [
-	^ ((Dictionary new) add: (#passed->((Set new) add: #testComplexCycle; add: #testCycle; add: #testNestedCycle; add: #testSimpleGraph; yourself)); add: (#timeStamp->'4 September 2009 11:02:20 pm' asTimeStamp); add: (#failures->((Set new) add: #testModuleGraph; add: #testModuleGraph2; yourself)); add: (#errors->((Set new))); yourself)
-]
-
 { #category : #tests }
 MalHalTest >> setUp [
 

@@ -8,11 +8,6 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
-{ #category : #history }
-MalKruskalTest class >> lastStoredRun [
-	^ ((Dictionary new) add: (#passed->((Set new) add: #testMaxSpanningTree2; add: #testMinSpanningTree; add: #testMaxSpanningTree; add: #testMinSpanningTree1; add: #testUnionFind; yourself)); add: (#timeStamp->'6 July 2009 5:40:15 pm' asTimeStamp); add: (#failures->((Set new))); add: (#errors->((Set new))); yourself)
-]
-
 { #category : #running }
 MalKruskalTest >> setUp [
 

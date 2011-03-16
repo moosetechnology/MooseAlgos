@@ -83,3 +83,9 @@ MalHalNode >> removeCycleFromEdges [
 	self nextNodes removeAllFoundIn: self cycleNodes.
 	self previousNodes removeAllFoundIn: self cycleNodes 
 ]
+
+{ #category : #accessing }
+MalHalNode >> to: aNode [
+	super to: aNode.
+	aNode previousNodes add: self
+]

@@ -37,7 +37,7 @@ MalTarjan class >> mondrianSample [
 		].
 
 	view nodes: (1 to: 5) forEach: [:each |
-		view shape rectangle square: 20.
+		view shape rectangle size: 20.
 		view nodes: nodes.
 		view shape arrowedLine.
 		view edges: edges from: #from to: #to fromGlobal: false toGlobal: false.

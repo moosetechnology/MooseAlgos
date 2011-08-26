@@ -33,34 +33,25 @@ MalTermScanner class >> new [
 
 { #category : #running }
 MalTermScanner class >> scan: input [
-	
-	
+
 	| scanner |
-	scanner := (self new)
-onStream: input readStream.
-		
-	^ scanner	allTerms.
+	scanner := self new onStream: input readStream.
+	^ scanner allTerms.
 ]
 
 { #category : #running }
 MalTermScanner >> allTerms [
-	
-	
-	| bag |
-	
+
+	| bag |	
 	bag := MalTerms new.
-	
 	[self atEnd] whileFalse: [bag add: self next].
-	
 	^bag
 ]
 
 { #category : #scanning }
 MalTermScanner >> atEnd [
-	
-	
-	term == Void ifTrue: [term := self privateNext].
-	
+
+	term == Void ifTrue: [term := self privateNext].	
 	^term isNil
 ]
 
@@ -76,7 +67,7 @@ MalTermScanner >> next [
 	^term == Void
 		ifTrue: [self privateNext]
 		ifFalse:
-			[| result |
+			[ |result|
 			result := term.
 			term := Void.
 			result]
@@ -103,33 +94,20 @@ MalTermScanner >> onString: text [
 
 { #category : #private }
 MalTermScanner >> privateNext [
-	
-	
-	| next |
-	
+
+	| next |	
 	buffer reset.
 
-	
-	[
-	[((next := stream informationRetrievalNext) isLetter) ] whileFalse.
-	
-	[buffer nextPut: next asLowercase.
-	(next := stream informationRetrievalNext) isLetter] whileTrue.
-	
-	
-	[((next := stream informationRetrievalNext) isLetter)  ] whileFalse.
-	
-	stream skip: -1.
-	]
-on: Stream endOfStreamSignal
-	do:
-[:ex | 
-"-- do nothing"  
-].
+	[	[(next := stream informationRetrievalNext) isLetter ] whileFalse.
+		[buffer nextPut: next asLowercase.
+		 (next := stream informationRetrievalNext) isLetter] whileTrue.
+		[(next := stream informationRetrievalNext) isLetter ] whileFalse.
+		stream skip: -1.
+	] on: Stream endOfStreamSignal do: [:ex | "-- do nothing" ].
 	
 	^buffer contents isEmpty
-	ifTrue: [nil]
-ifFalse: [buffer contents]
+		ifTrue: [nil]
+		ifFalse: [buffer contents]
 ]
 
 { #category : #accessing }

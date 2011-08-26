@@ -46,14 +46,10 @@ MalTerms class >> fromFile: aFile [
 { #category : #'instance creation' }
 MalTerms class >> fromString: aString [
 
-	
-	
-		| scanner |
+	| scanner |
 	scanner := (MalTermScanner new)	..
-				
-			scanner	onString: aString.	
-			
-		^	scanner	allTerms.
+	scanner onString: aString.	
+	^ scanner allTerms.
 			
 		
 ]
@@ -117,12 +113,8 @@ MalTerms >> normalized [
 	sum := 0.
 	contents do: [:count | sum := sum + (count * count)].
 	length := sum sqrt.
-	self
-		withCountDo:
-			[:each :count | 
-			newTerms
-				add: each
-				withOccurrences: count asFloat / length].
+	self withCountDo: [:each :count | 
+		newTerms add: each withOccurrences: count asFloat / length].
 	^newTerms
 ]
 
@@ -130,8 +122,8 @@ MalTerms >> normalized [
 MalTerms >> prune [
 	
 	self removeStopwords.
+	self stemAll.
 	self removeHapaxes.
-	self stemAll
 ]
 
 { #category : #removing }
@@ -145,32 +137,23 @@ MalTerms >> removeRareTerms: occurrence [
 	
 	| newTerms |
 	newTerms := MalTerms new: contents capacity.
-	self
-		withCountDo:
-			[:term :count | 
-			count > occurrence
-				ifTrue:
-					[newTerms
-						add: (MalStemmer stem: term 
-	)					withOccurrences: count]].
+	self withCountDo: [:term :count | 
+		count > occurrence
+			ifTrue: [newTerms add: (MalStemmer stem: term) withOccurrences: count]].
 	self become: newTerms
 ]
 
 { #category : #removing }
 MalTerms >> removeStopwords [
-	
-	
-		
-		^self removeStopwords:  MalStopwords English
+
+	^self removeStopwords:  MalStopwords English
 ]
 
 { #category : #removing }
 MalTerms >> removeStopwords: stopwords [
-	
-	
-		
-		stopwords do: [:each | 
-			contents removeKey: each ifAbsent: nil]
+
+	stopwords do: [:each | 
+		contents removeKey: each ifAbsent: nil]
 ]
 
 { #category : #removing }

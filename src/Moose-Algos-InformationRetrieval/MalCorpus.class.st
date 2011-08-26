@@ -15,24 +15,14 @@ Class {
 
 { #category : #example }
 MalCorpus class >> deer90 [
-	"(((	self deer90	)))"
-	
+	"self deer90"
 	
 	| data corpus |
-	
 	data := #(#(#c1 'Human machine interface for Lab ABC computer applications') #(#c2 'A survey of user opinion of computer system response time') #(#c3 'The EPS user interface management system') #(#c4 'System and human system engineering testing of EPS') #(#c5 'Relation of user-perceived response time to error measurement') #(#m1 'The generation of random, binary, unordered trees') #(#m2 'The intersection graph of paths in trees') #(#m3 'Graph minors IV: Widths of trees and well-quasi-ordering') #(#m4 'Graph minors: A survey')).
 
-	
 	corpus := MalCorpus new.
-	
-	
-	data
-do:
-[:each | 	corpus
-addDocument: each first
-with: (MalTerms fromString: each last)].
-	
-	
+	data do: [:each |
+		corpus addDocument: each first with: (MalTerms fromString: each last)].
 	^corpus
 ]
 
@@ -44,21 +34,15 @@ MalCorpus class >> new [
 
 { #category : #adding }
 MalCorpus >> addDocument: anObject [
-	
-	
-		documents
-	at: anObject
-	ifAbsentPut: [
-			
-					MalTerms new]
+
+	documents at: anObject ifAbsentPut: [MalTerms new]
 ]
 
 { #category : #adding }
 MalCorpus >> addDocument: anObject with: terms [
 		
-		self addDocument: anObject.
-	
-		self atDocument: anObject add: terms
+	self addDocument: anObject.
+	self atDocument: anObject add: terms
 ]
 
 { #category : #adding }
@@ -66,8 +50,7 @@ MalCorpus >> addDocument: aString withContent: contentString [
 	
 	self
 		addDocument: aString
-		with:
-			((MalTerms new)
+		with: (MalTerms new
 				addString: contentString using: MalCamelcaseScanner;
 				yourself)
 ]
@@ -134,9 +117,8 @@ MalCorpus >> initialize [
 
 { #category : #removing }
 MalCorpus >> removeStopwords [
-	
-	
-		documents do: [:each | each removeStopwords]
+
+	documents do: [:each | each removeStopwords]
 ]
 
 { #category : #removing }

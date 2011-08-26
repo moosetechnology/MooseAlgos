@@ -49,9 +49,8 @@ MalStopwords class >> englishStopwordString [
 { #category : #'instance creation' }
 MalStopwords class >> fromString: stopwords [
 	
-	
-		^ super new addAll: (stopwords runsFailing: #isSeparator).
-		"^self withAll: (stopwords runsFailing: #isSeparator)"
+	^ super new addAll: (stopwords runsFailing: #isSeparator).
+	"^self withAll: (stopwords runsFailing: #isSeparator)"
 ]
 
 { #category : #constants }
@@ -76,35 +75,17 @@ MalStopwords class >> moreBasicEnglish [
 
 { #category : #adding }
 MalStopwords >> add: aString [
-	
-	
-	| size |
-	
-	size := aString size.
-	
-	array ifNil: [array := Array new].
-	
-	size > array size
-ifTrue:
-	[
-	"array changeSizeTo: size.
-	"
-	self changeSizeTo: size.		
-	array
-	doWithIndex:
-[:each :index | 
-		
-		each
-ifNil:
-[array
-	at: index
-put: Array new]
-		]
-	].
 
-	array
-	at: size
-	put: ((array at: size) copyWith: aString).
+	| size |	
+	size := aString size.
+	array ifNil: [array := Array new].
+	size > array size
+		ifTrue: [ "array changeSizeTo: size."
+			self changeSizeTo: size.		
+			array doWithIndex: [:each :index |
+				each ifNil: [array at: index put: Array new]]
+		].
+	array at: size put: ((array at: size) copyWith: aString).
 	^aString
 ]
 

@@ -123,11 +123,11 @@ MalTermsTest >> testOccurrencesOf [
 MalTermsTest >> testPrune [
 	
 	terms := MalTerms sample.
-	self assert: terms distinctSize = 56.
-	self assert: terms size = 76.
+	self assert: 56 equals: terms distinctSize.
+	self assert: 76 equals: terms size.
 	terms prune.
-	self assert: terms distinctSize = 3.
-	self assert: terms size = 9.
+	self assert: 4 equals: terms distinctSize.
+	self assert: 11 equals: terms size.
 	^terms
 ]
 

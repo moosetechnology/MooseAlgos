@@ -1,6 +1,6 @@
 Class {
 	#name : #MalLatticeNode,
-	#superclass : #Object,
+	#superclass : #MONode,
 	#instVars : [
 		'concept',
 		'descendants'
@@ -44,7 +44,7 @@ MalLatticeNode >> concept: anObject [
 
 { #category : #accessing }
 MalLatticeNode >> descendants [
-	^descendants
+	^descendants ifNil: OrderedCollection new.
 ]
 
 { #category : #enumerating }
@@ -57,7 +57,6 @@ MalLatticeNode >> descendantsDo: aBlock [
 
 { #category : #enumerating }
 MalLatticeNode >> hasDescendant: aNode [
-	
 	self descendantsDo: [:each | each = aNode ifTrue: [^true]].
 	^false
 ]
@@ -77,4 +76,10 @@ MalLatticeNode >> maybeAppendChild: aNode [
 		ifFalse:
 			[(aNode concept intent allMask: self concept intent)
 				ifTrue: [self addDescendant: aNode]]
+]
+
+{ #category : #accessing }
+MalLatticeNode >> removeDescendant: aCollection [
+	descendants isEmpty not ifTrue: [aCollection do:[:aNode | descendants remove: aNode]].
+	
 ]

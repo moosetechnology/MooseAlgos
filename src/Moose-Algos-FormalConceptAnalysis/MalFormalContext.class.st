@@ -31,6 +31,12 @@ MalFormalContext class >> classHierarchy: classes [
 ]
 
 { #category : #examples }
+MalFormalContext class >> classHierarchyCollection [
+	
+	^self classHierarchy: FAMIXEntity withAllSubclasses.
+]
+
+{ #category : #examples }
 MalFormalContext class >> mammals [
 	"(((		self mammals			)))"
 	
@@ -49,6 +55,29 @@ MalFormalContext class >> mammals2 [
 	
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
+	fca := MalFormalContext new.
+	fca with: data using: #first using: #last.
+	^fca
+]
+
+{ #category : #examples }
+MalFormalContext class >> mammals3 [
+	"(((		self mammals2			)))"
+	
+	| data fca |
+	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine)) #(#SuperMan #(#hair #smart #thumbed #marine #fourlegs))).
+	fca := MalFormalContext new.
+	fca with: data using: #first using: #last.
+	^fca
+]
+
+{ #category : #examples }
+MalFormalContext class >> mammals4 [
+	"all objects possessing a particular attribute"
+	"(((		self mammals2			)))"
+	
+	| data fca |
+	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair #hair)) #(#Dolphin #(#smart #marine #hair)) #(#Gibbon #(#hair #smart #thumbed #hair)) #(#Man #(#smart #thumbed #hair)) #(#Whale #(#smart #marine #hair))).
 	fca := MalFormalContext new.
 	fca with: data using: #first using: #last.
 	^fca

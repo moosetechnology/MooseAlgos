@@ -7,7 +7,7 @@ MalLattice new displayLattice: (MalLattice onFormalContext: MalFormalContext mam
 "
 Class {
 	#name : #MalLattice,
-	#superclass : #Object,
+	#superclass : #MONode,
 	#instVars : [
 		'layers'
 	],
@@ -23,7 +23,8 @@ MalLattice class >> onFormalContext: formalContext [
 
 { #category : #accessing }
 MalLattice >> bottom [
-	self nodes do: [: node | node concept extent = 0 ifTrue: [^node]]
+	"Any node without ancestors and which is not a top is a bottom"
+	self nodes do: [:node | (node descendants isEmpty and: [node ~= self top]) ifTrue: [^node]].
 ]
 
 { #category : #displaying }
@@ -31,13 +32,28 @@ MalLattice >> displayLattice: aLattice [
 	| view |
 	view := MOViewRenderer new.
 	view shape:
-			(MORectangleShape new size: 40).
+			(MORectangleShape new size: 5).
 	view nodes: aLattice nodes.
-	view shape: MOArrowedLineShape new.
+	view shape: MOStraightLineShape new.
 	view edgesToAll:  #descendants.
 	view narrowTreeLayout.
 	
 	^ view open
+]
+
+{ #category : #accessing }
+MalLattice >> ensureSingleBottom [
+	|bottom childLess|
+	bottom := self orphans select: [:node | (node ~= self top)].
+	self nodes do: [:node | (node descendants isEmpty and: [node ~= bottom]) ifTrue: [node addDescendant: (bottom asArray first)]].
+	childLess := self nodes select: [:node | node descendants isEmpty.].
+]
+
+{ #category : #displaying }
+MalLattice >> ensureTop [
+	
+	
+	self nodes do: [:node | (node ~= self bottom and: [node ~= self top]) and: [node descendants isEmpty ifTrue: [node addDescendant: self top ]  ]].
 ]
 
 { #category : #displaying }
@@ -46,21 +62,17 @@ MalLattice >> ensureTopBottom [
 	to top and bottom and therefore this part has been reworked in Moose to create lattices"
 	"All those that do not have ancestors should connect to bottom"
 	"All those that figure in other nodes's ancestors should connect to top"
-	self nodes do: [:node | (node ~= self top and: [node ~= self bottom]) and: [node descendants isNil ifTrue: [node addDescendant: self bottom ]  ]].
+	self nodes do: [:node | (node ~= self bottom and: [node ~= self top]) and: [node descendants isEmpty ifTrue: [node addDescendant: self top ]  ]].
 	
-	self nodesWithoutDescendants do: [:node | (node ~= self top and: [node ~= self bottom]) ifTrue: [self top addDescendant: node ]  ].
-	
+	self orphans do: [:node | (node ~= self top and: [node ~= self bottom]) ifTrue: [self bottom addDescendant: node ]  ]. 
 ]
 
-{ #category : #accessing }
-MalLattice >> nodesWithoutDescendants [
-	|firstLevelNodes allNodes diff inAncestors withAncestors|
-	withAncestors := OrderedCollection new.
-	allNodes := (self nodes) asSet.
-	inAncestors := self nodes select: [:node | (node descendants isNil not)].
-	withAncestors := (inAncestors flatCollect: [: each | each descendants]) asSet.
-	diff := allNodes difference:  withAncestors.
-	^diff. 
+{ #category : #'as yet unclassified' }
+MalLattice >> filterDescendants [
+	"if I have a descendant that also appears as a descendant in my descendants, remove it from the set of my descendants"
+	|dict myDesc mygrandDesc|
+	
+	self nodes do: [:node | node descendants do:[:desc | (desc descendants intersection: (node descendants)) ifNotEmptyDo: [:intersect | node removeDescendant: (intersect asArray)]]] 
 ]
 
 { #category : #displaying }
@@ -69,12 +81,25 @@ MalLattice >> onConstruct: formalContext [
 	formalContext concepts
 		collect: [:each | self addNode: (MalLatticeNode withNew: each)].
 		layers := ((self nodes asArray groupedBy: #layer) associations sort: [ :a :b | a key < b key]) collect: #value.
-		layers size - 2 to: 2 by: -1 do: [ :n |
+		layers size - 1 to: 1 by: -1 do: [ :n |
 		n + 1 to: layers size -1 do: [ :m |
 			(layers at: n) do: [ :each |
 				(layers at: m) do: [ :child |
 					each maybeAppendChild: child ]]]].
-	self ensureTopBottom
+	self filterDescendants.
+	self ensureSingleBottom.
+	
+]
+
+{ #category : #accessing }
+MalLattice >> orphans [
+	|allNodes diff nonEmptyDescendants nonOrphans|
+	nonOrphans := OrderedCollection new.
+	allNodes := (self nodes) asSet.
+	nonEmptyDescendants := self nodes select: [:node | (node descendants isEmpty not)].
+	nonOrphans := (nonEmptyDescendants flatCollect: [: each | each descendants]) asSet.
+	diff := allNodes difference:  nonOrphans.
+	^diff.
 ]
 
 { #category : #accessing }

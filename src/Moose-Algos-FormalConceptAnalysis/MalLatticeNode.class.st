@@ -1,6 +1,6 @@
 Class {
 	#name : #MalLatticeNode,
-	#superclass : #MONode,
+	#superclass : #Object,
 	#instVars : [
 		'concept',
 		'descendants'

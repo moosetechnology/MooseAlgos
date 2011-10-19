@@ -1,25 +1,58 @@
 Class {
 	#name : #MalLatticeNode,
-	#superclass : #ProtoObject,
+	#superclass : #MONode,
+	#instVars : [
+		'concept',
+		'descendants'
+	],
 	#category : #'Moose-Algos-FormalConceptAnalysis'
 }
+
+{ #category : #'as yet unclassified' }
+MalLatticeNode class >> with: anObject [
+
+	self new
+		self concept: anObject
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+MalLatticeNode class >> withNew: concept [
+	| latticeNode |
+	latticeNode := MalLatticeNode on: concept .
+	latticeNode concept: concept.
+	^latticeNode
+]
+
+{ #category : #accessing }
+MalLatticeNode >> addDescendant: aNode [
+	descendants ifNil: [ descendants := OrderedCollection new ].
+	descendants add: aNode
+]
 
 { #category : #accessing }
 MalLatticeNode >> concept [
 	
-	^self pimonValue
+	^concept
 ]
 
-{ #category : #displaying }
-MalLatticeNode >> displayFigureOn: gc [
+{ #category : #accessing }
+MalLatticeNode >> concept: anObject [
 	
-	self basicDisplayFigureOn: gc
+	concept := anObject
 ]
 
-{ #category : #displaying }
-MalLatticeNode >> displayOn: gc [
-	
-	self basicDisplayFigureOn: gc
+{ #category : #accessing }
+MalLatticeNode >> descendants [
+	^descendants
+]
+
+{ #category : #enumerating }
+MalLatticeNode >> descendantsDo: aBlock [
+
+	self nodes do: aBlock.
+	self nodes do: [ :each |
+		each descendantsDo: aBlock ]
 ]
 
 { #category : #enumerating }
@@ -37,10 +70,11 @@ MalLatticeNode >> layer [
 
 { #category : #accessing }
 MalLatticeNode >> maybeAppendChild: aNode [
-	
+
+	"Creates layers of concepts for all concepts except top and bottom"
 	[self layer < aNode layer] assert.
 	(self hasDescendant: aNode)
 		ifFalse:
 			[(aNode concept intent allMask: self concept intent)
-				ifTrue: [self add: aNode]]
+				ifTrue: [self addDescendant: aNode]]
 ]

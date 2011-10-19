@@ -1,3 +1,6 @@
+"
+MalFormalContext mammals2 computeConcepts
+"
 Class {
 	#name : #MalFormalContext,
 	#superclass : #Object,
@@ -85,7 +88,7 @@ MalFormalContext >> printOn: stream [
 		space;
 		nextPut: $(;
 		print: self objects size;
-		nextPut: $√ó;
+		nextPut: $x;
 		print: self attributes size;
 		nextPut: $)
 ]

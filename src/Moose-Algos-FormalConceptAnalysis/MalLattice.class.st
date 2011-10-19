@@ -7,7 +7,7 @@ MalLattice new displayLattice: (MalLattice onFormalContext: MalFormalContext mam
 "
 Class {
 	#name : #MalLattice,
-	#superclass : #MONode,
+	#superclass : #Object,
 	#instVars : [
 		'layers'
 	],

@@ -33,7 +33,7 @@ MalFormalContext class >> classHierarchy: classes [
 { #category : #examples }
 MalFormalContext class >> classHierarchyCollection [
 	
-	^self classHierarchy: FAMIXEntity withAllSubclasses.
+	^self classHierarchy: Collection withAllSubclasses.
 ]
 
 { #category : #examples }

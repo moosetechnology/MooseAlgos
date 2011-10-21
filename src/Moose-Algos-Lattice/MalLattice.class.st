@@ -8,8 +8,6 @@ MalLattice new viewLattice: (MalLattice on: MalFormalContext mammals2)
 Class {
 	#name : #MalLattice,
 	#superclass : #MalGraphAlgorithm,
-	#traits : 'MalTGraphBuilder',
-	#classTraits : 'MalTGraphBuilder classTrait',
 	#instVars : [
 		'layers'
 	],

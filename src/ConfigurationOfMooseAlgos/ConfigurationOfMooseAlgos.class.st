@@ -140,6 +140,7 @@ ConfigurationOfMooseAlgos >> default: spec [
 			package: 'Moose-Algos-Clustering' ;
 			package: 'Moose-Algos-LinearAlgebra';
 			package: 'Moose-Algos-FormalConceptAnalysis';
+			package: 'Moose-Algos-Lattice';
 			package: 'Moose-Algos-InformationRetrieval'.
 			spec group: 'Tests' with: #(
 						'Moose-Tests-Algos-Graph'

@@ -33,7 +33,7 @@ MalFormalContext class >> classHierarchy: classes [
 { #category : #examples }
 MalFormalContext class >> classHierarchyCollection [
 	
-	^self classHierarchy: Collection withAllSubclasses.
+	^self classHierarchy: MOShape withAllSubclasses.
 ]
 
 { #category : #examples }

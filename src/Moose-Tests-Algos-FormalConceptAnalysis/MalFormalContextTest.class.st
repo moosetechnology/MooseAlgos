@@ -5,6 +5,15 @@ Class {
 }
 
 { #category : #tests }
+MalFormalContextTest >> testClassHierarchy [
+	| fca |
+		fca := MalFormalContext classHierarchy: Integer withAllSubclasses..
+	self assert: fca concepts size = 5.
+	self assert: (fca concepts select: [:each | each attributes isEmpty]) size = 0.
+	self assert: (fca concepts select: [:each | each objects isEmpty]) size = 1.
+]
+
+{ #category : #tests }
 MalFormalContextTest >> testMammals [
 	| data fca |
 	data := #((Cat (fourlegs hair))

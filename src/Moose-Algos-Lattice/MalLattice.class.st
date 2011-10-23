@@ -29,15 +29,15 @@ MalLattice >> addNode: aNode [
 { #category : #enumerating }
 MalLattice >> bottom [
 	"Any node without descendants, and which is not a top is a bottom"
-	self nodes do: [:node | (node descendants isEmpty and: [node ~= self top]) ifTrue: [^node]].
+	"self nodes do: [:node | (node descendants isEmpty and: [node ~= self top]) ifTrue: [^node]]."
+	^(layers last) first
 ]
 
 { #category : #construction }
 MalLattice >> connectBottom [
-	|bottom childLess|
-	bottom := self orphans select: [:node | (node ~= self top)].
-	self nodes do: [:node | (node descendants isEmpty and: [node ~= bottom]) ifTrue: [node addDescendant: (bottom asArray first)]].
-	childLess := self nodes select: [:node | node descendants isEmpty.].
+	|bottom|
+	self nodes do: [:node | (node descendants isEmpty and: [node ~= self bottom]) 
+		ifTrue: [node addDescendant: (self bottom)]].
 ]
 
 { #category : #accessing }
@@ -76,5 +76,6 @@ MalLattice >> orphans [
 
 { #category : #enumerating }
 MalLattice >> top [
-	self nodes do: [: node | node concept intent = 0 ifTrue: [^node]]
+	^(layers at:1) first
+	
 ]

@@ -2,7 +2,6 @@ Class {
 	#name : #MalLatticeNode,
 	#superclass : #MalGraphNode,
 	#instVars : [
-		'concept',
 		'descendants'
 	],
 	#category : #'Moose-Algos-Lattice'
@@ -19,19 +18,19 @@ MalLatticeNode class >> withNew: concept [
 { #category : #accessing }
 MalLatticeNode >> addDescendant: aNode [
 	descendants ifNil: [ descendants := OrderedCollection new ].
-	descendants add: aNode
+	descendants add: aNode.
 ]
 
 { #category : #accessing }
 MalLatticeNode >> concept [
 	
-	^concept
+	^model
 ]
 
 { #category : #accessing }
 MalLatticeNode >> concept: anObject [
 	
-	concept := anObject
+	model := anObject
 ]
 
 { #category : #accessing }

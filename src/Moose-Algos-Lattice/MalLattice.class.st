@@ -34,6 +34,13 @@ MalLattice >> bottom [
 ]
 
 { #category : #construction }
+MalLattice >> computeLabels [ 
+	"Starting from top node compute lables for all nodes according to the intent and extents of their dependendants, for each node having common attributes with descendant, keep that attribute ... push the common objects to the labels of the dependendants"
+	1 to: layers size do: [:n | (layers at:n) do: [:aNode | aNode computeLabel]].
+	"self bottom labels: {self bottom concept attributes}, {#()}"
+]
+
+{ #category : #construction }
 MalLattice >> connectBottom [
 	|bottom|
 	self nodes do: [:node | (node descendants isEmpty and: [node ~= self bottom]) 
@@ -60,7 +67,7 @@ MalLattice >> onConstruct: formalContext [
 					each maybeAppendChild: child ]]]].
 	self filterDescendants.
 	self connectBottom.
-	
+	self computeLabels.
 ]
 
 { #category : #enumerating }
@@ -72,6 +79,13 @@ MalLattice >> orphans [
 	nonOrphans := (nonEmptyDescendants flatCollect: [: each | each descendants]) asSet.
 	diff := allNodes difference:  nonOrphans.
 	^diff.
+]
+
+{ #category : #'as yet unclassified' }
+MalLattice >> secondLayer [
+	|secondLevelNodes|
+	secondLevelNodes := self top descendants.
+	self top descendants select: [:aNode | secondLevelNodes do: [:each | aNode concept intent ] ]
 ]
 
 { #category : #enumerating }

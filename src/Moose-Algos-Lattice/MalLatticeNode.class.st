@@ -133,7 +133,7 @@ MalLatticeNode >> myAttribLabel [
 
 { #category : #accessing }
 MalLatticeNode >> printString [
-	^self labels first, self labels last
+	^self labels first printString, self labels last printString
 ]
 
 { #category : #construction }

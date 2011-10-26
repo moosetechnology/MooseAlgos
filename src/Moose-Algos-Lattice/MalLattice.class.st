@@ -86,13 +86,6 @@ MalLattice >> orphans [
 	^diff.
 ]
 
-{ #category : #'as yet unclassified' }
-MalLattice >> secondLayer [
-	|secondLevelNodes|
-	secondLevelNodes := self top descendants.
-	self top descendants select: [:aNode | secondLevelNodes do: [:each | aNode concept intent ] ]
-]
-
 { #category : #enumerating }
 MalLattice >> top [
 	^(layers at:1) first

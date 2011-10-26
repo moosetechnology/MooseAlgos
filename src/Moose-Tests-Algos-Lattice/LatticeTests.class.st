@@ -42,18 +42,6 @@ LatticeTests >> testComplexMammals2 [
 ]
 
 { #category : #tests }
-LatticeTests >> testComplexPatterns [
-	| lattice patterns |
-	lattice := MalLattice on: self initializeDataMammals.
-	patterns := MalLatticePatterns on: lattice.
-	self assert: (patterns IsSuperConceptSpecialization: lattice top) not.
-	self assert: (patterns IsSuperConceptSpecialization: (patterns lattice nodes at:2)).
-	self assert: (patterns IsSubConceptSpecialization: lattice bottom) not.
-	self assert: (patterns IsSubConceptSpecialization: (patterns lattice nodes at:3)).
-	self assert: patterns irreducibleSpecialization values size = 0.
-]
-
-{ #category : #tests }
 LatticeTests >> testLatticeMammals [
 	
 	| lattice |
@@ -79,6 +67,7 @@ LatticeTests >> testLatticePatterns [
 	self assert: (patterns isEmpty: patterns lattice top).
 	self assert: patterns isTopGrey = false.
 	self assert: patterns isTopFull = false.
+	self assert: patterns totalConnections = 10.
 ]
 
 { #category : #tests }
@@ -89,6 +78,7 @@ LatticeTests >> testPatternsHD [
 	patterns := MalLatticePatterns on: lattice.
 	self assert: patterns horizontalDecomposition = 2.
 	self assert: (patterns IsHorizontalDecomposition).
+	self assert: patterns totalConnections = 7.
 	
 	
 ]
@@ -106,6 +96,7 @@ LatticeTests >> testPatternsHD2 [
 
 { #category : #tests }
 LatticeTests >> testPatternsSpecialization [
+	"Irreducible specialization"
 	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals.
 	patterns := MalLatticePatterns on: lattice.

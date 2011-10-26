@@ -87,17 +87,20 @@ LatticeTests >> testPatternsHD [
 	| lattice patterns |
 	lattice := MalLattice on: self initializeHD.
 	patterns := MalLatticePatterns on: lattice.
-	self assert: patterns horizontalDecomposition.
+	self assert: patterns horizontalDecomposition = 2.
+	self assert: (patterns IsHorizontalDecomposition).
+	
 	
 ]
 
 { #category : #tests }
 LatticeTests >> testPatternsHD2 [
-	"Horizontal Decomposition lattice"
+	"A lattice without Horizontal Decomposition"
 	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals.
 	patterns := MalLatticePatterns on: lattice.
-	self assert: (patterns horizontalDecomposition) not.
+	self assert: (patterns IsHorizontalDecomposition) not.
+	self assert: patterns horizontalDecomposition = 0.
 	
 ]
 
@@ -107,8 +110,8 @@ LatticeTests >> testPatternsSpecialization [
 	lattice := MalLattice on: self initializeDataMammals.
 	patterns := MalLatticePatterns on: lattice.
 	self assert: (patterns IsSuperConceptSpecialization: lattice top) not.
-	self assert: (patterns IsSuperConceptSpecialization: (patterns lattice nodes at:2)).
+	self assert: (patterns IsSuperConceptSpecialization: (patterns lattice nodes at: 2)).
 	self assert: (patterns IsSubConceptSpecialization: lattice bottom) not.
-	self assert: (patterns IsSubConceptSpecialization: (patterns lattice nodes at:3)).
-	self assert: patterns irreducibleSpecialization values size = 0.
+	self assert: (patterns IsSubConceptSpecialization: (patterns lattice nodes at: 3)).
+	self assert: patterns irreducibleSpecialization values size = 0
 ]

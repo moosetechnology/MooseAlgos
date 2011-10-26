@@ -1,3 +1,10 @@
+"
+| data fca context lattice |
+	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#smart #fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
+	fca := MalFormalContext new.
+	context := fca with: data using: #first using: #last.
+	(MalLatticePatterns on: (MalLattice on: context)) reportPatterns
+"
 Class {
 	#name : #MalLatticePatterns,
 	#superclass : #Object,
@@ -13,6 +20,19 @@ MalLatticePatterns class >> on: aLattice [
 	patterns := MalLatticePatterns new.
 	patterns lattice: aLattice.
 	^patterns
+
+]
+
+{ #category : #complex }
+MalLatticePatterns >> IsHorizontalDecomposition [
+	
+	| dict nodes |
+	nodes := self lattice top descendants.
+	1 to: (nodes size -1 ) 
+		do: [:n | 	(n+1 to: (nodes size))
+			do:[:m | ((nodes at:n) hasDescendant: (nodes at: m))
+			ifFalse: 	[(((nodes at: n) allDescendants: self lattice bottom) anySatisfy: [:each | (((nodes at:m) allDescendants: self lattice bottom) includes: each)]) ifFalse: [^true]]]].
+	^false.
 
 ]
 
@@ -51,13 +71,21 @@ MalLatticePatterns >> grey [
 { #category : #complex }
 MalLatticePatterns >> horizontalDecomposition [
 	
-	| dict nodes |
+	| allDescendants nodes sum hdNodes|
+	sum := 0.
+	hdNodes := OrderedCollection new.
 	nodes := self lattice top descendants.
-	1 to: (nodes size -1 ) 
-		do: [:n | 	(n+1 to: (nodes size))
-			do:[:m | ((nodes at:n) hasDescendant: (nodes at: m))
-			ifFalse: 	[(((nodes at: n) allDescendants: self lattice bottom) anySatisfy: [:each | (((nodes at:m) allDescendants: self lattice bottom) includes: each)]) ifFalse: [^true]]]].
-	^false.
+	1 to: (nodes size) 
+		do: [:n | 
+			|currentNode nodeTemp |
+			
+			currentNode := nodes at: n.
+			
+			nodeTemp := nodes flatCollect: [:aNode | (aNode ~=currentNode) ifTrue: [aNode allDescendants: self lattice bottom ] ifFalse: [#()]].
+			(nodeTemp anySatisfy: [ :each | 
+				(currentNode allDescendants: self lattice bottom) includes: each])
+				ifFalse: [(hdNodes includes: currentNode) ifFalse: [sum:= sum + 1. hdNodes add: currentNode]]].
+	^sum.
 
 ]
 
@@ -93,7 +121,10 @@ MalLatticePatterns >> isBottomGrey [
 
 { #category : #bottom }
 MalLatticePatterns >> isBottomPattern [
-	^ (self isBottomBlack or:[self isBottomFull]) or: [self isBottomGrey]
+	 (self isBottomBlack) ifTrue: [^ 'Bottom Black']. 
+	(self isBottomFull)  ifTrue: [^ 'Bottom Full'].
+	self isBottomGrey  ifTrue: [^ 'Bottom Grey'].
+	^'None'
 ]
 
 { #category : #nodes }
@@ -128,7 +159,11 @@ MalLatticePatterns >> isTopGrey [
 
 { #category : #top }
 MalLatticePatterns >> isTopPattern [
-	^ (self isTopBlack or:[self isTopFull]) or: [self isTopGrey]
+	self isTopBlack ifTrue: [^ 'Top Black']. 
+	(self isTopFull)  ifTrue: [^ 'Top Full'].
+	self isTopGrey  ifTrue: [^ 'Top Grey'].
+	^'None'
+	
 ]
 
 { #category : #accessors }
@@ -141,12 +176,18 @@ MalLatticePatterns >> lattice: aLattice [
 	lattice := aLattice.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #report }
 MalLatticePatterns >> reportPatterns [
 	Transcript show: '# of nodes: ', self lattice nodes size printString; cr.
+	Transcript show: 'Connections ' , self totalConnections printString; cr.
 	Transcript show: 'Top ', self isTopPattern printString; cr.
 	Transcript show: 'Bottom ', self isBottomPattern printString; cr.
-	Transcript show: 'Specialization ', self irreducibleSpecialization values printString; cr.
+	Transcript show: 'Specialization ', (self irreducibleSpecialization values size) printString; cr.
 	Transcript show: 'Horizontal Decomposition ' , self horizontalDecomposition printString; cr.
 	
+]
+
+{ #category : #complex }
+MalLatticePatterns >> totalConnections [
+	^(self lattice nodes flatCollect: [:aNode | aNode descendants]) size
 ]

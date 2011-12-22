@@ -38,8 +38,10 @@ MalLatticePatterns >> IsHorizontalDecomposition [
 
 { #category : #complex }
 MalLatticePatterns >> IsSubConceptSpecialization: aNode [
-	(self lattice bottom = aNode) ifTrue: [(self isFull: aNode) ifTrue: [^true] ifFalse: [^false]].  
-	((self isGrey: aNode) or: [self isFull: aNode]) ifTrue: [^true] ifFalse: [^false] 
+	(self lattice bottom = aNode) ifTrue: [(self isFull: aNode) ifTrue: [^true]].  
+	((self isGrey: aNode) or: [self isFull: aNode]) ifTrue: [^true].
+	
+	^ false
 ]
 
 { #category : #complex }
@@ -69,10 +71,10 @@ MalLatticePatterns >> grey [
 ]
 
 { #category : #complex }
-MalLatticePatterns >> horizontalDecomposition [
+MalLatticePatterns >> hDNodeSize [
 	
-	| allDescendants nodes sum hdNodes|
-	sum := 0.
+	| allDescendants nodes sum hdNodes totalNodes|
+	totalNodes := 0.
 	hdNodes := OrderedCollection new.
 	nodes := self lattice top descendants.
 	1 to: (nodes size) 
@@ -84,7 +86,30 @@ MalLatticePatterns >> horizontalDecomposition [
 			nodeTemp := nodes flatCollect: [:aNode | (aNode ~=currentNode) ifTrue: [aNode allDescendants: self lattice bottom ] ifFalse: [#()]].
 			(nodeTemp anySatisfy: [ :each | 
 				(currentNode allDescendants: self lattice bottom) includes: each])
-				ifFalse: [(hdNodes includes: currentNode) ifFalse: [sum:= sum + 1. hdNodes add: currentNode]]].
+				ifFalse: [(hdNodes includes: currentNode) ifFalse: [hdNodes add: currentNode. totalNodes := totalNodes + (currentNode allDescendants: self lattice bottom) size]]].
+	^totalNodes.
+
+]
+
+{ #category : #complex }
+MalLatticePatterns >> horizontalDecomposition [
+	"computes the horizontal decompositon of a lattice by looking at the descendants of the top node. From those descendants (first level nodes in the lattice), it sees that two nodes do not have overlapping descendants)"
+	
+	| allDescendants nodes sum hdNodes totalNodes|
+	sum := 0.
+	totalNodes := 0.
+	hdNodes := OrderedCollection new.
+	nodes := self lattice top descendants.
+	1 to: (nodes size) 
+		do: [:n | 
+			|currentNode nodeTemp |
+			
+			currentNode := nodes at: n.
+			
+			nodeTemp := nodes flatCollect: [:aNode | (aNode ~=currentNode) ifTrue: [aNode allDescendants: self lattice bottom ] ifFalse: [#()]].
+			(nodeTemp anySatisfy: [ :each | 
+				(currentNode allDescendants: self lattice bottom) includes: each])
+				ifFalse: [(hdNodes includes: currentNode) ifFalse: [sum:= sum + 1. hdNodes add: currentNode.]]].
 	^sum.
 
 ]
@@ -177,14 +202,32 @@ MalLatticePatterns >> lattice: aLattice [
 ]
 
 { #category : #report }
+MalLatticePatterns >> printModulesReport [
+	
+	| modules |
+	modules := ModuleIdentification on: self lattice.
+	(modules isNil not )
+		ifTrue:  [ 
+			Transcript show: 'Number of modules ', modules size printString; cr.
+			Transcript show: 'Number of Nodes in modules ', (modules inject: 0 into: [:sum :each | sum + each size ]) printString; cr. 
+		]
+	ifFalse: [
+			Transcript show: 'Number of modules 0'; cr.
+			Transcript show: 'Number of Nodes in modules 0'; cr. 
+		]
+]
+
+{ #category : #report }
 MalLatticePatterns >> reportPatterns [
 	Transcript show: '# of nodes: ', self lattice nodes size printString; cr.
 	Transcript show: 'Connections ' , self totalConnections printString; cr.
 	Transcript show: 'Top ', self isTopPattern printString; cr.
 	Transcript show: 'Bottom ', self isBottomPattern printString; cr.
+	Transcript show: 'Specialization ', (self irreducibleSpecialization keys size) printString; cr.
 	Transcript show: 'Specialization ', (self irreducibleSpecialization values size) printString; cr.
 	Transcript show: 'Horizontal Decomposition ' , self horizontalDecomposition printString; cr.
-	
+	Transcript show: 'Horizontal Decomposition Size ' , self hDNodeSize printString; cr.
+	self printModulesReport.
 ]
 
 { #category : #complex }

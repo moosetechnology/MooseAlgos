@@ -30,6 +30,19 @@ LatticeTests >> initializeHD [
 ]
 
 { #category : #tests }
+LatticeTests >> testAllAncestors [
+	"ancestors of a node"
+	
+	| lattice node patterns |
+	lattice := MalLattice on: self initializeDataMammals2.
+	patterns := ModuleIdentification new lattice: lattice.
+	self assert: (patterns allAncestors: (lattice nodes at: 2)) size = 2.
+	self assert: (patterns allAncestors: (lattice nodes at: 3)) size = 1.
+	self assert: (((patterns allAncestors: (lattice nodes at: 3)) at: 1) concept attributes at:1) value = #smart .	
+	
+]
+
+{ #category : #tests }
 LatticeTests >> testComplexMammals2 [
 	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals2.
@@ -68,6 +81,35 @@ LatticeTests >> testLatticePatterns [
 	self assert: patterns isTopGrey = false.
 	self assert: patterns isTopFull = false.
 	self assert: patterns totalConnections = 10.
+]
+
+{ #category : #tests }
+LatticeTests >> testModule [
+	
+	| data fca context lattice modules |
+	data := #(#(#a #()) #(#b #(#1)) #(#c #(#1 #2)) #(#(#d) #(#1 #3)) #(#x #(#1 #5))  #(#(#e) #(#1 #2 #3 #5)) #(#(#f) #(#1 #2 #3 #4 #5))).
+	fca := MalFormalContext new.
+	context := fca with: data using: #first using: #last.
+	lattice := (MalLattice on: context).
+	modules := (ModuleIdentification on: lattice).
+	self assert:  modules size = 1.
+	self assert:  modules first size = 5.
+
+
+]
+
+{ #category : #tests }
+LatticeTests >> testModule2 [
+	
+| data fca context lattice modules |
+	data := #(#(#a #()) #(#b #(#1)) #(#c #(#1 #2)) #(#(#d) #(#1 #3)) #(#(#e) #(#1 #2 #3)) #(#(#f) #(#1 #2 #3 #4))).
+	fca := MalFormalContext new.
+	context := fca with: data using: #first using: #last.
+	lattice := (MalLattice on: context).
+	"(MalLattice new viewLattice: lattice)."
+	modules := (ModuleIdentification on: lattice).
+	self assert:  modules size = 1.
+	self assert:  modules first size = 4.
 ]
 
 { #category : #tests }

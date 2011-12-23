@@ -128,7 +128,6 @@ LatticeTests >> testPatternsHD [
 	lattice := MalLattice on: self initializeHD.
 	patterns := MalLatticePatterns on: lattice.
 	self assert: patterns horizontalDecomposition = 2.
-	self assert: patterns hDNodeSize = 4.
 	self assert: (patterns IsHorizontalDecomposition).
 	self assert: patterns totalConnections = 7.
 	
@@ -153,7 +152,6 @@ LatticeTests >> testPatternsHD3 [
 	lattice := MalLattice on: self initializeHD2.
 	patterns := MalLatticePatterns on: lattice.
 	self assert: patterns horizontalDecomposition = 3.
-	self assert: patterns hDNodeSize = 5.
 	self assert: (patterns IsHorizontalDecomposition).
 	self assert: patterns totalConnections = 9.
 	

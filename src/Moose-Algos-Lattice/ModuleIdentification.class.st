@@ -24,6 +24,7 @@ To test module pattern run the following code in the workspace.
 	lattice := (MalLattice on: context).
 	""(MalLattice new viewLattice: lattice).""
 	(MalLatticePatterns on: lattice) reportPatterns.
+	
 "
 Class {
 	#name : #ModuleIdentification,
@@ -60,14 +61,14 @@ ModuleIdentification >> analyzeDescendantsOf: aTop [
 	"aTop is a potential module top node. The method analyzes if the descendants of the aTop only have a single connection to the top and to the bottom. If it is not so, "
 
 	| descNodes toRemove |
-	
 	descNodes := aTop descendants.
 	self candidate: aTop.
+	"(aTop labels first) isEmpty ifFalse:[ 
+	self haltIf: [(aTop labels first) asArray first value = #last]]."
 	descNodes do: [: each | 
 		(self hasOneAncestor: each WhichIs: aTop) 
 				ifFalse: [
 					self flushCandidate.
-					nodesToConsider remove: each.
 					^ false ]
 				ifTrue: 
 					[self candidate: each].
@@ -133,9 +134,10 @@ ModuleIdentification >> hasSingleBottom: aNode [
 { #category : #initialization }
 ModuleIdentification >> initializeNodes [
 
-	nodesToConsider := self lattice nodes.
-	nodesToConsider remove: self lattice top.
+	nodesToConsider := (self lattice nodes ) reject: [:each | each = self lattice top].
+	moduleNodes := OrderedCollection new.
 	
+
 ]
 
 { #category : #'end-phase' }
@@ -148,9 +150,8 @@ ModuleIdentification >> isEndConditionWith: descNodes [
 		do: [:n | 	(n+1 to: (descNodes size))
 			do:[:m | ((self hasSingleBottom: (descNodes at:n)) and: [self hasSingleBottom: (descNodes at: m)])
 				ifTrue: [
-						(((descNodes at:n) descendants first = (descNodes at: m) descendants first) and:[(descNodes at: m) descendants first ~= lattice bottom])
+						(((descNodes at:n) descendants first = (descNodes at: m) descendants first) and: [((descNodes at:n) descendants first ~= self lattice bottom)])
 							ifTrue: [
-								
 								self candidate: (descNodes at: m). 
 								self candidate: (descNodes at: n).  
 								self candidate: (descNodes at:n) descendants first. 
@@ -159,8 +160,8 @@ ModuleIdentification >> isEndConditionWith: descNodes [
 					]
 				]
 		].
-	flag ifTrue: [self removeFalseCandidates: descNodes. ^ true].			
-	^ false
+	flag ifTrue: [self removeFalseCandidates: descNodes. ^ true].		
+	^ flag
 ]
 
 { #category : #accessing }
@@ -183,7 +184,6 @@ ModuleIdentification >> moduleNodes [
 { #category : #accessing }
 ModuleIdentification >> moduleNodes: aColectionOfNodes [
 	
-	moduleNodes ifNil: [moduleNodes := OrderedCollection new].
 	(moduleNodes includesAllOf: aColectionOfNodes) ifFalse: [ moduleNodes add: aColectionOfNodes copy].
 ]
 
@@ -226,11 +226,11 @@ ModuleIdentification >> treatNextLevel: aCollection [
 	(aCollection size = 0) ifTrue: [^false]. 
 	aCollection do: [:each |
 		(self candidate includesAllOf: (self allAncestors: each))
-		 	ifFalse: [nodesToConsider addAll: self candidate. self flushCandidate. ^ false].
-			(self isEndConditionWith: aCollection)
-							ifTrue: [^ true].
-			
+		 	ifFalse: [nodesToConsider addAll: self candidate. self flushCandidate. ^ false].		
 		].	
+		(self isEndConditionWith: aCollection)
+							ifTrue: [^ true]
+							ifFalse: [ ^false].
 	
 	self treatNextLevel: (self computeNextLevelNodes: aCollection)
 ]

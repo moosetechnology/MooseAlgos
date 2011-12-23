@@ -92,6 +92,8 @@ MalLatticePatterns >> grey [
 
 { #category : #complex }
 MalLatticePatterns >> hDNodeSize [
+	"we still do not know how to compute the number of nodes in the horizontal decomposition. This method was a first effort but does not return the correct results."
+	
 	
 	| allDescendants nodes sum hdNodes totalNodes|
 	totalNodes := 0.
@@ -224,12 +226,13 @@ MalLatticePatterns >> lattice: aLattice [
 { #category : #report }
 MalLatticePatterns >> printModulesReport [
 	
-	| modules |
+	| modules nodes|
 	modules := ModuleIdentification on: self lattice.
+	nodes := (modules flatCollect: [:each | each]) asSet.
 	(modules isNil not )
 		ifTrue:  [ 
 			Transcript show: 'Number of modules ', modules size printString; cr.
-			Transcript show: 'Number of Nodes in modules ', (modules inject: 0 into: [:sum :each | sum + each size ]) printString; cr. 
+			Transcript show: 'Number of Nodes in modules ', nodes size printString; cr. 
 		]
 	ifFalse: [
 			Transcript show: 'Number of modules 0'; cr.

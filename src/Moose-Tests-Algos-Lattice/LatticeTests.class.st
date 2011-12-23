@@ -29,6 +29,15 @@ LatticeTests >> initializeHD [
 	^fca with: data using: #first using: #last.
 ]
 
+{ #category : #initialize }
+LatticeTests >> initializeHD2 [
+	"lattice with horizontal decomposition"
+	| data fca lattice |
+	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #thumbed)) #(#Man #(#hair #thumbed)) #(#Whale #(#smart #marine)) #(#a #(#b #c))).
+	fca := MalFormalContext new.
+	^fca with: data using: #first using: #last.
+]
+
 { #category : #tests }
 LatticeTests >> testAllAncestors [
 	"ancestors of a node"
@@ -119,6 +128,7 @@ LatticeTests >> testPatternsHD [
 	lattice := MalLattice on: self initializeHD.
 	patterns := MalLatticePatterns on: lattice.
 	self assert: patterns horizontalDecomposition = 2.
+	self assert: patterns hDNodeSize = 4.
 	self assert: (patterns IsHorizontalDecomposition).
 	self assert: patterns totalConnections = 7.
 	
@@ -133,6 +143,20 @@ LatticeTests >> testPatternsHD2 [
 	patterns := MalLatticePatterns on: lattice.
 	self assert: (patterns IsHorizontalDecomposition) not.
 	self assert: patterns horizontalDecomposition = 0.
+	
+]
+
+{ #category : #tests }
+LatticeTests >> testPatternsHD3 [
+	"Horizontal Decomposition lattice"
+	| lattice patterns |
+	lattice := MalLattice on: self initializeHD2.
+	patterns := MalLatticePatterns on: lattice.
+	self assert: patterns horizontalDecomposition = 3.
+	self assert: patterns hDNodeSize = 5.
+	self assert: (patterns IsHorizontalDecomposition).
+	self assert: patterns totalConnections = 9.
+	
 	
 ]
 

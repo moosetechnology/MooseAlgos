@@ -141,7 +141,8 @@ ConfigurationOfMooseAlgos >> default: spec [
 			package: 'Moose-Algos-LinearAlgebra';
 			package: 'Moose-Algos-FormalConceptAnalysis';
 			package: 'Moose-Algos-Lattice';
-			package: 'Moose-Algos-InformationRetrieval'.
+			package: 'Moose-Algos-InformationRetrieval';
+			package: 'Moose-Algos-Kontractor'.
 			spec group: 'Tests' with: #(
 						'Moose-Tests-Algos-Graph'
 						'Moose-Tests-Algos-LinearAlgebra'

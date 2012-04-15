@@ -31,8 +31,8 @@ MalTarjan class >> mondrianSample [
 			n cycleNodes do: [:cn| colorDic at: cn model ifAbsentPut: color ] ].
 		g nodes do: [:e | e copyShapeAndDo: [:p | p fillColor: (colorDic at: e)]].
 
-		view root resetMetricCachesResursively.
-		view root resetFormCacheResursively.
+		view root resetMetricCachesRecursively.
+		view root resetFormCacheRecursively.
 		view updateWindow.
 		].
 

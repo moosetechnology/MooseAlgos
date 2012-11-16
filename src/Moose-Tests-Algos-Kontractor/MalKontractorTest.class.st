@@ -58,7 +58,7 @@ MalKontractorTest >> testReduceUnknownCharacter [
 	"J is not in the map."
 	self assert: ( (MalKontractor toSize:  4) reduce: 'Jieiei') =  'Jiii' .
 	self assert: ( (MalKontractor toSize:  4) reduce: 'Jieieriz') =  'iiiz'.
-	self assert: ( (MalKontractor toSize:  4) reduce: 'Jieierjg') = 'iirg'  
+	self assert: ( (MalKontractor toSize:  4) reduce: 'Jieierjg') = 'iijg'  
 	
 ]
 

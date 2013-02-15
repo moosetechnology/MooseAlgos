@@ -25,8 +25,18 @@ ConfigurationOfMooseAlgos class >> isMetacelloConfig [
 ]
 
 { #category : #loading }
-ConfigurationOfMooseAlgos class >> loadDefault [
-	(self project version: 'default') load
+ConfigurationOfMooseAlgos class >> load [
+	self loadBleedingEdge
+]
+
+{ #category : #loading }
+ConfigurationOfMooseAlgos class >> loadBleedingEdge [
+	(self project version: #'bleedingEdge') load
+]
+
+{ #category : #loading }
+ConfigurationOfMooseAlgos class >> loadStable [
+	(self project version: #'stable') load
 ]
 
 { #category : #accessing }
@@ -124,8 +134,49 @@ ConfigurationOfMooseAlgos >> baseline20beta4: spec [
 ]
 
 { #category : #baselines }
-ConfigurationOfMooseAlgos >> default: spec [ 
-	<version: 'default'>
+ConfigurationOfMooseAlgos >> baseline23: spec [ 
+	<version: '2.3-baseline'>
+	
+	spec for: #common do: [
+		spec blessing: #baseline.
+		spec description: 'First baseline on SmalltalkHub'.
+		spec repository: 'http://www.smalltalkhub.com/mc/Moose/MooseAlgos/main'.
+		spec 
+			package: 'Moose-Algos-Graph' ;
+			package: 'Moose-Tests-Algos-Graph' ;
+			package: 'Moose-Tests-Algos-LinearAlgebra' ;
+			package: 'Moose-Tests-Algos-Clustering' ;
+			package: 'Moose-Tests-Algos-InformationRetrieval' ;
+			package: 'Moose-Tests-Algos-FormalConceptAnalysis';
+			package: 'Moose-Algos-Clustering' ;
+			package: 'Moose-Algos-LinearAlgebra';
+			package: 'Moose-Algos-FormalConceptAnalysis';
+			package: 'Moose-Algos-Lattice';
+			package: 'Moose-Algos-InformationRetrieval';
+			package: 'Moose-Algos-Kontractor';
+			package: 'Moose-Tests-Algos-Kontractor' ;
+			package: 'CollectionExtensions' with: [spec repository: 'http://www.smalltalkhub.com/mc/Moose/CollectionExtensions/main'].
+	
+			spec group: 'Tests' with: #(
+						'Moose-Tests-Algos-Graph'
+						'Moose-Tests-Algos-LinearAlgebra'
+						'Moose-Tests-Algos-Clustering'
+						'Moose-Tests-Algos-InformationRetrieval'
+						'Moose-Tests-Algos-FormalConceptAnalysis'
+						'Moose-Tests-Algos-Kontractor'). 
+	]
+]
+
+{ #category : #'symbolic versions' }
+ConfigurationOfMooseAlgos >> bleedingEdge: spec [ 
+	<symbolicVersion: 'bleedingEdge'>
+	
+	spec for: #common version: '2.3-baseline'
+]
+
+{ #category : #baselines }
+ConfigurationOfMooseAlgos >> legacyDefault: spec [ 
+	<version: 'legacyDefault'>
 	
 	spec for: #common do: [
 		spec blessing: #baseline.
@@ -164,6 +215,14 @@ ConfigurationOfMooseAlgos >> project [
 		constructor := (Smalltalk at: #MetacelloVersionConstructor) on: self.
 		project := constructor project.
 		project]
+]
+
+{ #category : #'symbolic versions' }
+ConfigurationOfMooseAlgos >> stable: spec [
+	<symbolicVersion: #'stable'>
+
+	spec for: #'pharo1.4.x' version: '2.3'.
+
 ]
 
 { #category : #versions }
@@ -227,21 +286,6 @@ ConfigurationOfMooseAlgos >> version20beta3: spec [
 		spec 
 			package: 'Moose-Algos-Graph' with: 'Moose-Algos-Graph-simondenier.2';
 			package: 'Moose-Tests-Algos-Graph' with: 'Moose-Tests-Algos-Graph-simondenier.2';
-			package: 'Moose-Algos-Clustering' with: 'Moose-Algos-Clustering-simon_denier.1';
-			package: 'Moose-Algos-LinearAlgebra' with: 'Moose-Algos-LinearAlgebra-simon_denier.1'.].
-]
-
-{ #category : #versions }
-ConfigurationOfMooseAlgos >> version20beta4: spec [
-	<version: '2.0-beta.4' imports: #('default')>
-
-	spec for: #common do: [
-		spec blessing: #beta.
-		spec author: 'tg'.
-		spec timestamp: '2/16/2010 13:01'.
-		spec 
-			package: 'Moose-Algos-Graph' with: 'Moose-Algos-Graph-simondenier.3';
-			package: 'Moose-Tests-Algos-Graph' with: 'Moose-Tests-Algos-Graph-simondenier.3';
 			package: 'Moose-Algos-Clustering' with: 'Moose-Algos-Clustering-simon_denier.1';
 			package: 'Moose-Algos-LinearAlgebra' with: 'Moose-Algos-LinearAlgebra-simon_denier.1'.].
 ]
@@ -360,4 +404,31 @@ ConfigurationOfMooseAlgos >> version22: spec [
 			spec package: 'Moose-Algos-FormalConceptAnalysis' with: 'Moose-Algos-FormalConceptAnalysis-simon_denier.6'.
 			spec package: 'Moose-Algos-InformationRetrieval' with: 'Moose-Algos-InformationRetrieval-simon_denier.11'.
                 ].
+]
+
+{ #category : #versions }
+ConfigurationOfMooseAlgos >> version23: spec [
+	<version: '2.3' imports: #('2.3-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #'development'.
+		spec description: 'First version on SmalltalkHub. Same as 2.2 on SqueakSource'.
+		spec author: 'NicolasAnquetil'.
+		spec timestamp: '2/15/2013 13:48'.
+		spec 
+			package: 'Moose-Algos-Graph' with: 'Moose-Algos-Graph-janniklaval.16';
+			package: 'Moose-Tests-Algos-Graph' with: 'Moose-Tests-Algos-Graph-AlexandreBergel.18';
+			package: 'Moose-Tests-Algos-LinearAlgebra' with: 'Moose-Tests-Algos-LinearAlgebra-simon_denier.3';
+			package: 'Moose-Tests-Algos-Clustering' with: 'Moose-Tests-Algos-Clustering-simon_denier.2';
+			package: 'Moose-Tests-Algos-InformationRetrieval' with: 'Moose-Tests-Algos-InformationRetrieval-simondenier.4';
+			package: 'Moose-Tests-Algos-FormalConceptAnalysis' with: 'Moose-Tests-Algos-FormalConceptAnalysis-usmanbhatti.3';
+			package: 'Moose-Algos-Clustering' with: 'Moose-Algos-Clustering-simon_denier.9';
+			package: 'Moose-Algos-LinearAlgebra' with: 'Moose-Algos-LinearAlgebra-simon_denier.17';
+			package: 'Moose-Algos-FormalConceptAnalysis' with: 'Moose-Algos-FormalConceptAnalysis-usmanbhatti.11';
+			package: 'Moose-Algos-Lattice' with: 'Moose-Algos-Lattice-usmanbhatti.10';
+			package: 'Moose-Algos-InformationRetrieval' with: 'Moose-Algos-InformationRetrieval-simondenier.12';
+			package: 'Moose-Algos-Kontractor' with: 'Moose-Algos-Kontractor-TudorGirba.2';
+			package: 'Moose-Tests-Algos-Kontractor' with: 'Moose-Tests-Algos-Kontractor-TudorGirba.2';
+			package: 'CollectionExtensions' with: 'CollectionExtensions-TudorGirba.32'. ].
+
 ]

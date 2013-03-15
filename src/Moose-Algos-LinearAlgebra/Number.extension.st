@@ -1,15 +1,5 @@
 Extension { #name : #Number }
 
-{ #category : #'*moose-algos-linearAlgebra' }
-Number >> ** t1 [
-	"	***This is decompiled code.*** 
-	The source was unavailable because the source pointer appears to point 
-	to an incorrect position in the file. The file may have been modified after 
-	this method was updated."
-	
-	^self raisedTo: t1
-]
-
 { #category : #'*Moose-Algos-LinearAlgebra' }
 Number class >> checkForOldSyntax: t1 with: t2 on: t3 [
 	"	***This is decompiled code.*** 

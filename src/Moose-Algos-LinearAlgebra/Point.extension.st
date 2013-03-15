@@ -52,8 +52,3 @@ Point >> sumFromVector: aVector [
 Point >> transpose [
 	^ y@x
 ]
-
-{ #category : #'*Moose-Algos-LinearAlgebra' }
-Point >> transposed [ 
-	^ y@x
-]

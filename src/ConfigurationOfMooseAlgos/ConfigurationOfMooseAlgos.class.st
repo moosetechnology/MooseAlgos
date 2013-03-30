@@ -168,10 +168,10 @@ ConfigurationOfMooseAlgos >> baseline23: spec [
 ]
 
 { #category : #'symbolic versions' }
-ConfigurationOfMooseAlgos >> bleedingEdge: spec [ 
-	<symbolicVersion: 'bleedingEdge'>
+ConfigurationOfMooseAlgos >> development: spec [ 
+	<symbolicVersion: 'development'>
 	
-	spec for: #common version: '2.3-baseline'
+	spec for: #common version: '2.4-baseline'
 ]
 
 { #category : #baselines }

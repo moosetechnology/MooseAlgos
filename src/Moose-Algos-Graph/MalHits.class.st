@@ -23,17 +23,17 @@ MalHits >> computeHubsFor: aNode [
 MalHits >> display [
 
 	| view |
-	view := MOViewRenderer new.
+	view := ROMondrianViewBuilder new.
 	self displayOn: view.
-	view open
+	^ view open
 ]
 
 { #category : #displaying }
 MalHits >> displayOn: view [
 
-	view shape: (MORectangleShape new text: [:n| n printString]).
+	view shape rectangle withText: [:n| n printString].
 	view nodes: nodes.
-	view edgeShape: MOArrowedLineShape new.
+	view shape arrowedLine.
 	view edges: nodes from: #yourself toAll: #nextNodes.
 	view circleLayout
 ]

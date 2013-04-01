@@ -183,13 +183,13 @@ MalGraphFixture class >> view: fixtureSelector [
 	"
 
 	| view graph builder |
-	view := MOViewRenderer new.
+	view := ROMondrianViewBuilder new.
 	builder := MalGraphStructure new nodeClass: MalGraphNode; edgeClass: MalGraphEdge; yourself.
 	graph := self perform: fixtureSelector with: builder.
-	view shape rectangle text: [:n| n model printString].
+	view shape rectangle withText: [:n| n model printString].
 	view nodes: graph nodes.
 	view edges: graph edges from: #from to: #to.
 	view interaction.
 	view treeLayout.
-	view open
+	^ view open
 ]

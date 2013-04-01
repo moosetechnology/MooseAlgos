@@ -7,54 +7,61 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 MalHitsFixtureTest >> initialize [
 
 	self setUp
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalHitsFixtureTest >> setUp [
 
 	hits := MalHits new.
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalHitsFixtureTest >> testComplexCycle [
 
 	MalGraphFixture complexCycleGraph: hits.
 	hits run.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalHitsFixtureTest >> testComplexWCycle [
 
 	MalGraphFixture complexWeightedGraph: hits.
 	hits run.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalHitsFixtureTest >> testCycle [
 
 	MalGraphFixture cycleGraph: hits.
 	hits run.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
+MalHitsFixtureTest >> testDisplay [
+
+	MalGraphFixture complexCycleGraph: hits.
+	self shouldnt: [(hits run; display) delete] raise: Error.
+]
+
+{ #category : #tests }
 MalHitsFixtureTest >> testNestedCycle [
 
 	MalGraphFixture nestedCycleGraph: hits.
 	hits run.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalHitsFixtureTest >> testSimple [
 
 	(MalGraphFixture simpleGraph: hits) run.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalHitsFixtureTest >> testSimpleW [
 
 	(MalGraphFixture simpleWeightedGraph: hits) run.

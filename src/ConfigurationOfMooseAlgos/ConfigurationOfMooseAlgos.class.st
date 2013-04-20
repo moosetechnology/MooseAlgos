@@ -171,7 +171,7 @@ ConfigurationOfMooseAlgos >> baseline23: spec [
 ConfigurationOfMooseAlgos >> development: spec [ 
 	<symbolicVersion: 'development'>
 	
-	spec for: #common version: '2.4-baseline'
+	spec for: #common version: '2.3-baseline'
 ]
 
 { #category : #baselines }

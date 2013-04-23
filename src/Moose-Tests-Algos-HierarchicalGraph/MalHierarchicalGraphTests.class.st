@@ -7,81 +7,6 @@ Class {
 	#category : #'Moose-Tests-Algos-HierarchicalGraph'
 }
 
-{ #category : #examples }
-MalHierarchicalGraphTests >> exploreSimpleSampleHiGraph [ 
-	| hg  |
-	hg := self setupSimpleSampleHiGraph.
-	hg explore.
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openFamixTreeMap [
-	self openFamixTreeMap: 0.
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openFamixTreeMap: aLevel [
-	| hg vis |
-	hg := self setupFamixHiGraph.
-	vis := QsVisualizer with: hg.
-	vis averageNodeSize: 400.
-	vis showSplitOn: aLevel.
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openQuicksilverTreeMap: aLevel [
-	| hg vis |
-	hg := self setupQuicksilverHiGraph.
-	vis := QsVisualizer with: hg.
-	vis averageNodeSize: 400.
-	vis showSplitOn: aLevel.
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openSimpleSampleTree [
-	| hg vis |
-	hg := self setupSimpleSampleHiGraph.
-	vis := QsVisualizer with: hg.
-	"hg := self setupFamixHiGraph."
-	vis showAsTree.
-	"hg rootNodes anyOne viewRelationships."
-	"hg rootNodes anyOne viewChildrenTreeMap."
-	"hg rootNodes anyOne outgoing anyOne view."
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openSimpleSampleTreeMap [
-	self openSimpleSampleTreeMap: 0.
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openSimpleSampleTreeMap: aLevel [
-	| hg vis |
-	hg := self setupSimpleSampleHiGraph.
-	vis := QsVisualizer with: hg.
-	vis showSplitOn: aLevel.
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openSimpleTreeMap: aLevel [
-	| hg vis |
-	hg := self setupSimpleNumbersHiGraph.
-	vis := QsVisualizer with: hg weightBlock: [ :entity | entity ].
-	vis showSplitOn: aLevel.
-]
-
-{ #category : #examples }
-MalHierarchicalGraphTests >> openSimpleView [
-	| hg vis|
-	hg := self setupSimpleSampleHiGraph.
-	vis := QsVisualizer with: hg.
-	"hg := self setupFamixHiGraph."
-	vis showAsTree.
-	"hg rootNodes anyOne viewRelationships."
-	"hg rootNodes anyOne viewChildrenTreeMap."
-	"hg rootNodes anyOne outgoing anyOne view."
-]
-
 { #category : #util }
 MalHierarchicalGraphTests >> recursiveStringFactory: aString in: aSet to: aLevel. [
 	aString size < aLevel
@@ -102,113 +27,12 @@ MalHierarchicalGraphTests >> recursiveStringFactory: aString in: aSet to: aLevel
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupFamixHiGraph [
-	| hg mooseModel |
-	mooseModel := MalHgTestResources get: 'famix'.
-	
-	hg := MalHierarchicalGraph with: mooseModel allMethods asOrderedCollection name: 'FAMIX'.
-	
-	hg bottomUp: {FAMIXNamedEntity->#belongsTo}.
-							
-	hg addEdges: mooseModel allSureInvocations
-			sourceBlock: [ :e | e from ] 
-			destinationBlock: [ :e | e to first ].
-			
-	"hg addRelationships: mooseModel allInheritanceDefinitions 
-			sourceBlock: [ :e | e from ] 
-			destinationBlock: [ :e | e to ].
-			
-	hg addRelationships: mooseModel allAccesses 
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ].
-		
-	hg addRelationships: mooseModel allReferences 
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ]."
-		
-	hg propagateEdges.
-		
-	^ hg.
-	
-	
-]
-
-{ #category : #setup }
-MalHierarchicalGraphTests >> setupHiGraph: name [
-	"Setup a hiGraph from an exisiting MooseModel (has to be laoded in the moose panel with given name)."
-	
-	| mooseModel hg aMooseGroup leafs |
-
-	mooseModel := MooseModel root entityNamed: name.
-	
-	"Removing all stubs."
-	leafs := mooseModel allClasses reject: [ :e |
-		e isStub
-	].
-
-	hg := MalHierarchicalGraph with: leafs name: name. 
-
-	hg blockToGetParent: [ :e | 
-		e belongsTo
-	].
-
-	"Remove invocations that end in stubs"
-	aMooseGroup := mooseModel allSureInvocations reject: [ :invoc |
-		invoc candidates first parentType isStub.
-	].
-	hg addEdges: aMooseGroup
-			sourceBlock: [ :e | e from belongsTo ] 
-			destinationBlock: [ :e | e to first belongsTo ].
-			
-	hg propagateEdges.
-	
-	^ hg.
-]
-
-{ #category : #setup }
-MalHierarchicalGraphTests >> setupQuicksilverHiGraph [
-	| hg mooseModel |
-	mooseModel := MalHgTestResources get: 'Quicksilver'.
-	hg := MalHierarchicalGraph with: mooseModel name: 'Quicksilver'.
-	
-	hg nodes: mooseModel allMethods asOrderedCollection.
-	
-	hg bottomUp: { 
-		FAMIXMethod->#belongsTo .
-		FAMIXClass->#parentPackage .
-		FAMIXPackage->[ :e | e classes anyOne belongsTo]
-	}.
-							
-	hg edges: mooseModel allSureInvocations
-			from: #from 
-			to: [ :e | e to first ].
-			
-	"hg addRelationships: mooseModel allInheritanceDefinitions 
-			sourceBlock: [ :e | e from ] 
-			destinationBlock: [ :e | e to ].
-			
-	hg addRelationships: mooseModel allAccesses 
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ].
-		
-	hg addRelationships: mooseModel allReferences 
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ]."
-		
-	hg propagateEdges.
-		
-	^ hg.
-	
-	
-]
-
-{ #category : #setup }
 MalHierarchicalGraphTests >> setupSimpleBottomUpModel [
 	| hg result |
 	result := OrderedCollection new.
 	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'test'. 
 	hg topDown: #children.
-	(hg nodesOnLevel: 4) do: [ :e | result add: e entity ].
+	(hg nodesOnLevel: 4) do: [ :e | result add: e model ].
 	^ result.
 ]
 
@@ -223,48 +47,6 @@ MalHierarchicalGraphTests >> setupSimpleBottomUpModelHiGraph [
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupSimpleHiGraph [
-	| hg leafs edges |
-
-	"Creates a very simple hiGraph with intergers as nodes. 
-	It has 3 root nodes (1,2 and 3), some children and various relationships between them."
-	
-	leafs := OrderedCollection new.
-	leafs add: 12; add: 19; add:24; add: 25; add:27; add: 28; add: 31; add: 34; add: 36.
-
-	hg := MalHierarchicalGraph with: leafs name: 'aSimpleHiGraph'.
-
-	hg aggregation: [ :n |  
-		(n / 10 < 1) ifTrue: [ nil ] ifFalse: [(n / (10 raisedTo: (n floorLog: 10))) floor asInteger. ]
-	].
-	
-	edges := OrderedCollection new.
-	
-	edges add: (12->19).
-	edges add: (19->24).
-	edges add: (19->31).
-	edges add: (19->27).
-	
-	edges add: (25->12).
-	edges add: (25->19).
-	edges add: (25->19).
-	edges add: (25->34).
-	
-	edges add: (34->12).
-	edges add: (34->31).
-	edges add: (36->25).
-	edges add: (36->24).
-	
-	hg addEdges: edges
-			sourceBlock: [ :e | e key ] 
-			destinationBlock: [ :e | e value ].
-			
-	hg propagateEdges.
-	
-	^ hg
-]
-
-{ #category : #setup }
 MalHierarchicalGraphTests >> setupSimpleNumbersHiGraph [
 	| hg leafs relationships |
 
@@ -276,7 +58,7 @@ MalHierarchicalGraphTests >> setupSimpleNumbersHiGraph [
 
 	hg := MalHierarchicalGraph with: leafs name: 'aSimpleHiGraph'.
 
-	hg blockToGetParent: [ :n |  
+	hg bottomUp: [ :n |  
 		(n / 10 < 1) ifTrue: [ nil ] ifFalse: [(n / (10 raisedTo: (n floorLog: 10))) floor asInteger. ]
 	].
 	
@@ -307,64 +89,6 @@ MalHierarchicalGraphTests >> setupSimpleNumbersHiGraph [
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupSimpleSampleHiGraph [
-	| simpleSample hg aMooseGroup leafs |
-
-	simpleSample := MalHgTestResources get: 'simpleSample'.
-	
-
-	"Removing all stubs."
-"	leafs := simpleSample allClasses reject: [ :e |
-		e isStub
-	]. "
-
-	leafs := simpleSample allMethods reject: [ :e |
-		e parentType isStub
-	]. 
-
-	hg := MalHierarchicalGraph with: leafs asOrderedCollection name: 'aSimpleSample'.
-
-	hg blockToGetParent: [ :e | 
-			(e isKindOf: FAMIXNamedEntity)
-				ifTrue: [ e belongsTo ]
-				ifFalse: [ nil ] 
-			].
-		
-	"Remove invocations that end in stubs"
-	aMooseGroup := simpleSample allSureInvocations reject: [ :invoc |
-		invoc candidates first parentType isStub.
-	].
-	hg addEdges: aMooseGroup
-			sourceBlock: [ :e | e from ] 
-			destinationBlock: [ :e | e to first ].
-			
-	"We don't want stubs in the higraph."
-	aMooseGroup := simpleSample allInheritanceDefinitions reject: [ :inheritance |
-		inheritance superclass isStub.
-	].
-
-	hg addEdges: aMooseGroup
-			sourceBlock: [ :e | e from ] 
-			destinationBlock: [ :e | e to ].
-
-	"We don't want stubs in the higraph."
-	aMooseGroup := simpleSample allAccesses reject: [ :access |
-		access variable declaredType isStub.
-	].	
-	hg addEdges: aMooseGroup
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ].
-		
-	hg addEdges: simpleSample allReferences 
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ].
-
-	hg propagateEdges.
-	
-	^ hg.
-]
-
-{ #category : #setup }
 MalHierarchicalGraphTests >> setupSimpleTopDownModel [
 	| parent randomizer nodesToProcess numberOfChildrenAdded child root levelsToCreate childrenToCreate |
 	
@@ -375,7 +99,7 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModel [
 	numberOfChildrenAdded := 0.
 	randomizer := Random new.
 	root := MalHgTestModelSimple new.
-	root entity: 0.
+	root model: 0.
 	root level: 0.
 	nodesToProcess := FILOStack new.
 	nodesToProcess add: root.
@@ -387,7 +111,7 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModel [
 				child := MalHgTestModelSimple new.
 				child parent: parent.
 				child level: (parent level + 1).
-				child entity: ((randomizer next * 10)  + (10 raisedTo: (child level))) asInteger.
+				child model: ((randomizer next * 10)  + (10 raisedTo: (child level))) asInteger.
 				parent children add: child.
 				numberOfChildrenAdded := numberOfChildrenAdded + 1.
 				nodesToProcess add: child.
@@ -404,7 +128,7 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
 	| hg  |
 
 	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'topDownWithModel'.
-	hg top topDown: #children.
+	hg topDown: #children.
 
 	^ hg.
 ]
@@ -412,18 +136,18 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
 { #category : #setup }
 MalHierarchicalGraphTests >> setupVerySimpleHierarchicalGraph [
 	| hg |
-	hg := MalHierarchicalGraph with: 'baseEntity' name: 'test'.
-	self assert: ( hg nodes size = 0).
+	hg := MalHierarchicalGraph with: 'aBaseEntity' name: 'test'.
+	self assert: ( hg nodes size = 1).
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testBaseEntity [
 	| hg |
-	hg := MalHierarchicalGraph with: (OrderedCollection with: 2) name: 'Quicksilver'.
+	hg := MalHierarchicalGraph with: (OrderedCollection with: 2) name: 'JustOneEntity'.
 
 	self assert: hg nodes notEmpty.
 	self assert: hg nodes size = 1.
-	self assert: hg nodes first entity = 2.
+	self assert: hg nodes first model = 2.
 ]
 
 { #category : #tests }
@@ -446,8 +170,6 @@ MalHierarchicalGraphTests >> testBlockBasedApiBottomUp [
 	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
 	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
 	
-	"QsVisualizer show: hg withWeightBlock: [ :e | e entity ]."
-	
 	
 	
 
@@ -461,25 +183,25 @@ MalHierarchicalGraphTests >> testBottomUpDeepGraphBuilding [
 	leafNodes := OrderedCollection new.
 	
 	rootNodes add: 'a'; add: 'b'; add: 'c'.
-	rootNodes do: [ :entity | self recursiveStringFactory: entity in: leafNodes to: 7 ].
+	rootNodes do: [ :model | self recursiveStringFactory: model in: leafNodes to: 7 ].
 
 	hg := MalHierarchicalGraph with: leafNodes name: 'aBottomUpConstructedGraph'.
 	
-	hg aggregation:  [ :entity |  
-		(entity size > 1) 
-		ifTrue: [ entity truncateTo: (entity size - 1). ]
+	hg aggregation:  [ :model |  
+		(model size > 1) 
+		ifTrue: [ model truncateTo: (model size - 1). ]
 		ifFalse: [ nil ].
 	].
 	
 	self assert: (hg rootNodes size = 3) description: 'Should be exactly 3 root nodes in this graph'.
 	self assert: (hg nodes size = 3279) description: 'Should be exactly 3279 nodes in total in this graph'.
 	self assert: (hg rootNodes anyOne children size = 3) description: 'Any rootNode should have exactly 3 children'.
-	self assert: ((hg nodesFor: (Set with: 'aa')) anyOne parent entity = 'a') description: 'Parent of aa should be a'.
-	self assert: ((hg nodesFor: (Set with: 'ca')) anyOne parent entity = 'c') description: 'Parent of ca should be c'.
-	self assert: ((hg nodesFor: (Set with: 'aca')) anyOne parent entity = 'ac') description: 'Parent of ac should be aca'.
-	self assert: ((hg nodesFor: (Set with: 'aaaaaa')) anyOne parent entity = 'aaaaa') description: 'Parent of aaaaaa should be aaaaa'.
-	self assert: ((hg nodesFor: (Set with: 'abacac')) anyOne parent entity = 'abaca') description: 'Parent of abacac should be abaca'.
-	self assert: ((hg nodesFor: (Set with: 'caabc')) anyOne parent entity = 'caab') description: 'Parent of caabc should be caab'.
+	self assert: ((hg nodesFor: (Set with: 'aa')) anyOne parent model = 'a') description: 'Parent of aa should be a'.
+	self assert: ((hg nodesFor: (Set with: 'ca')) anyOne parent model = 'c') description: 'Parent of ca should be c'.
+	self assert: ((hg nodesFor: (Set with: 'aca')) anyOne parent model = 'ac') description: 'Parent of ac should be aca'.
+	self assert: ((hg nodesFor: (Set with: 'aaaaaa')) anyOne parent model = 'aaaaa') description: 'Parent of aaaaaa should be aaaaa'.
+	self assert: ((hg nodesFor: (Set with: 'abacac')) anyOne parent model = 'abaca') description: 'Parent of abacac should be abaca'.
+	self assert: ((hg nodesFor: (Set with: 'caabc')) anyOne parent model = 'caab') description: 'Parent of caabc should be caab'.
 	self assert: ((hg nodesFor: (Set with: 'aaaaaaa')) anyOne isLeafNode) description: 'Node aaaaaaa should be a leaf node'.
 	self assert: ((hg nodesFor: (Set with: 'aaaaaaa')) anyOne level = 6) description: 'Node aaaaaaa should be on level 6'.
 	self assert: ((hg nodesFor: (Set with: 'c')) anyOne level = 0) description: 'Node c should be on level 0'.
@@ -494,7 +216,7 @@ MalHierarchicalGraphTests >> testBottomUpDeepGraphBuilding [
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testBottomUpGraphBuilding [
-	| hg rootNodes otherNodes model |
+	| hg rootNodes otherNodes |
 	
 	rootNodes := OrderedCollection new.
 	otherNodes := OrderedCollection new.
@@ -511,15 +233,15 @@ MalHierarchicalGraphTests >> testBottomUpGraphBuilding [
 	self assert: (hg rootNodes size = 3) description: 'Should be exactly 3 root nodes in this graph'.
 	self assert: (hg nodes size = 12) description: 'Should be exactly 12 nodes in total in this graph'.
 	self assert: (hg rootNodes anyOne children size = 3) description: 'Any rootNode should have exactly 3 children'.
-	self assert: ((hg nodesFor: (Set with: 11)) anyOne parent entity = 1) description: 'Parent of 11 should be 1'.
-	self assert: ((hg nodesFor: (Set with: 12)) anyOne parent entity = 1) description: 'Parent of 12 should be 1'.
-	self assert: ((hg nodesFor: (Set with: 13)) anyOne parent entity = 1) description: 'Parent of 13 should be 1'.
-	self assert: ((hg nodesFor: (Set with: 21)) anyOne parent entity = 2) description: 'Parent of 13 should be 2'.
-	self assert: ((hg nodesFor: (Set with: 22)) anyOne parent entity = 2) description: 'Parent of 13 should be 2'.
-	self assert: ((hg nodesFor: (Set with: 23)) anyOne parent entity = 2) description: 'Parent of 13 should be 2'.
-	self assert: ((hg nodesFor: (Set with: 31)) anyOne parent entity = 3) description: 'Parent of 13 should be 3'.
-	self assert: ((hg nodesFor: (Set with: 32)) anyOne parent entity = 3) description: 'Parent of 13 should be 3'.
-	self assert: ((hg nodesFor: (Set with: 33)) anyOne parent entity = 3) description: 'Parent of 13 should be 3'.
+	self assert: ((hg nodesFor: (Set with: 11)) anyOne parent model = 1) description: 'Parent of 11 should be 1'.
+	self assert: ((hg nodesFor: (Set with: 12)) anyOne parent model = 1) description: 'Parent of 12 should be 1'.
+	self assert: ((hg nodesFor: (Set with: 13)) anyOne parent model = 1) description: 'Parent of 13 should be 1'.
+	self assert: ((hg nodesFor: (Set with: 21)) anyOne parent model = 2) description: 'Parent of 13 should be 2'.
+	self assert: ((hg nodesFor: (Set with: 22)) anyOne parent model = 2) description: 'Parent of 13 should be 2'.
+	self assert: ((hg nodesFor: (Set with: 23)) anyOne parent model = 2) description: 'Parent of 13 should be 2'.
+	self assert: ((hg nodesFor: (Set with: 31)) anyOne parent model = 3) description: 'Parent of 13 should be 3'.
+	self assert: ((hg nodesFor: (Set with: 32)) anyOne parent model = 3) description: 'Parent of 13 should be 3'.
+	self assert: ((hg nodesFor: (Set with: 33)) anyOne parent model = 3) description: 'Parent of 13 should be 3'.
 
 ]
 
@@ -633,7 +355,7 @@ MalHierarchicalGraphTests >> testDeepestLevel [
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testEdgePropagationAsymetrical [
-| hg rootNodes visualizer relationships |
+| hg rootNodes relationships |
 	
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
@@ -655,8 +377,8 @@ MalHierarchicalGraphTests >> testEdgePropagationAsymetrical [
 	relationships add: ('abb'->'aa').
 
 	hg addEdges: relationships
-			sourceBlock: [ :r | r key ] 
-			destinationBlock: [ :r | r value ].
+			from: [ :r | r key ] 
+			to: [ :r | r value ].
 
 	hg propagateEdges.
 
@@ -666,13 +388,6 @@ MalHierarchicalGraphTests >> testEdgePropagationAsymetrical [
 	self assert: ((hg nodeWrapping: 'aa') incoming size = 2).
 	self assert: (hg edgesPropagated size = 1).
 	self assert: (hg edgesNotPropagated size = 1).
-
-	"hg explore."
-	"visualizer := SnVisualizer show: hg withWeightBlock: [ :e | e size ]."
-	"visualizer := SnVisualizer with: hg weightBlock: [ :e | e size ]."
-	"visualizer showAsTree."
-	"visualizer showSplitOn: 2."
-	"visualizer show: (hg nodesFor: ((Set with: 'a') add: 'b'; add: 'ca'; add: 'cb'; add: 'cc'; yourself))."
 	
 ]
 
@@ -806,91 +521,11 @@ MalHierarchicalGraphTests >> testEdgePropagationSimple [
 { #category : #tests }
 MalHierarchicalGraphTests >> testEmptyHiGraph [
 	| hg |
-	hg := MalHierarchicalGraph with: (OrderedCollection new) name: 'Softwarenaut'.
+	hg := MalHierarchicalGraph with: (OrderedCollection new) name: 'emptyGraph'.
 	self assert: hg nodes isEmpty.
 	self assert: hg rootNodes isEmpty.
 	self assert: hg edges isEmpty.
-	self assert: hg name = 'Softwarenaut'.
-]
-
-{ #category : #tests }
-MalHierarchicalGraphTests >> testFamixHiGraph [
-	| hg famixRootNode  |
-	hg := self setupFamixHiGraph.
-			
-	self assert: hg class = MalHierarchicalGraph.
-	self assert: hg rootNodes notEmpty.
-	
-	"Should only be one in the case of FAMIX"
-	self assert: hg rootNodes size = 1.
-	
-	famixRootNode := hg rootNodes anyOne.	
-		
-	self assert: famixRootNode entity name = 'Smalltalk'.
-	
-	"Test whether parent of children is parent"
-	self assert: hg rootNodes asArray first children asArray first parent = hg rootNodes asArray first.
-	
-	"anInheritance := (hg relationshipsDict select: [ :each | each source entity name = #Object ]) keys anyOne."
-	
-	"self
-		assert: (anInheritance subclass name = #Object and: anInheritance superclass name = #ProtoObject)."
-	
-	"protoObjectEntity := (hg nodeEntities select: [ :e | e name = #ProtoObject ]) anyOne."
-	
-	"(hg nodesDict at: protoObjectEntity) explore."
-	
-	"hg explore."
-	
-	
-	
-]
-
-{ #category : #tests }
-MalHierarchicalGraphTests >> testFamixHierarchy [
-	| hg aRootNode |
-	
-	hg := self setupFamixHiGraph.
-					
-	"assert roots have no parents"
-	hg rootNodes asArray do: [ :e | 
-		self assert: e parent isNil.
-	].
-	
-	"assert children are nodes and have parent as parent"
-	hg rootNodes asArray do: [ :rn | 
-		self assert: rn class = MalHgNode.
-		rn children do: [ :c | 
-			self assert: c class = MalHgNode.
-			self assert: c parent = rn.
-		].
-	].
-
-	"Test basic FAMIX Hierarchy"
-	aRootNode := hg rootNodes anyOne.
-	self assert: aRootNode entity class = FAMIXNamespace.
-	self assert: aRootNode children anyOne entity class = FAMIXClass.
-	self assert: aRootNode children anyOne children anyOne entity class = FAMIXMethod.
-
-
-]
-
-{ #category : #tests }
-MalHierarchicalGraphTests >> testGetLevel [
-	| hg |
-	
-	hg := self setupSimpleSampleHiGraph.
-		
-	self assert: ((hg nodesOnLevel: -1) size) = 0.
-	self assert: ((hg nodesOnLevel: 0) size) = 1.
-	self assert: ((hg nodesOnLevel: 1) size) = 1.
-	self assert: ((hg nodesOnLevel: 2) size) = 1.
-	self assert: ((hg nodesOnLevel: 3) size) = 3.
-	self assert: ((hg nodesOnLevel: 4) size) = 6.
-	self assert: ((hg nodesOnLevel: 5) size) = 12.
-	self assert: ((hg nodesOnLevel: 6) size) = 18.
-	self assert: ((hg nodesOnLevel: 7) size) = 0.
-
+	self assert: hg name = 'emptyGraph'.
 ]
 
 { #category : #tests }
@@ -929,7 +564,7 @@ MalHierarchicalGraphTests >> testNodesForEntities [
 	
 	self assert: ((hg nodesFor: (Set new)) isEmpty).
 	self assert: (((hg nodesFor: (Set with: 1)) size) = 1).
-	self assert: (((hg nodesFor: (Set with: 1)) anyOne) entity = 1).
+	self assert: (((hg nodesFor: (Set with: 1)) anyOne) model = 1).
 	self assert: (((hg nodesFor: (Set new add: 1; add: 2; yourself)) size) = 2).
 	self assert: (((hg nodesFor: (Set new add: 1; add: 2; add: 999; yourself)) size) = 2).
 	self assert: (((hg nodesFor: (Set new add: 1; add: 2; add: 34; yourself)) size) = 3).
@@ -939,7 +574,7 @@ MalHierarchicalGraphTests >> testNodesForEntities [
 { #category : #tests }
 MalHierarchicalGraphTests >> testRecursiveChildren [
 	| hg |
-	hg := self setupSimpleSampleHiGraph.
+	hg := self setupSimpleTopDownModelHiGraph.
 
 	"Assert that there are more nodes in the highraph in total than some rootNodes sub graph."
 	self assert: hg nodes size > hg rootNodes anyOne recursiveChildren size.
@@ -969,8 +604,6 @@ MalHierarchicalGraphTests >> testSimpleApiBottomUp [
 	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
 	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
 	
-	"QsVisualizer show: hg withWeightBlock: [ :e | e entity ]."
-	
 	
 	
 
@@ -996,8 +629,6 @@ MalHierarchicalGraphTests >> testSimpleApiTopDown [
 	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
 	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
 	
-	"QsVisualizer show: hg withWeightBlock: [ :e | e entity ]."
-	
 	
 	
 
@@ -1005,7 +636,7 @@ MalHierarchicalGraphTests >> testSimpleApiTopDown [
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleEdgeApi [
-| hg rootNodes relationships |
+| hg rootNodes edges |
 	
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'; add: 'b'; add: 'c'.
@@ -1024,14 +655,14 @@ MalHierarchicalGraphTests >> testSimpleEdgeApi [
 		]
 	].
 
-	relationships := OrderedCollection new.
-	relationships add: ('ab'->'ba').
-	relationships add: ('ab'->'bb').
-	relationships add: ('a'->'b').
-	relationships add: ('a'->'c').
-	relationships add: ('a'->'ab').
+	edges := OrderedCollection new.
+	edges add: ('ab'->'ba').
+	edges add: ('ab'->'bb').
+	edges add: ('a'->'b').
+	edges add: ('a'->'c').
+	edges add: ('a'->'ab').
 
-	hg addEdges: relationships from: #key to: #value.
+	hg addEdges: edges from: #key to: #value.
 
 	self assert: (hg nodeWrapping: 'a') outgoing size = 3.
 	self assert: (hg nodeWrapping: 'ab') outgoing size = 2.
@@ -1098,7 +729,7 @@ MalHierarchicalGraphTests >> testSimpleEdgeApiWithModel [
 	
 	hg resetEdges.
 	
-	"This makes no sense, but it has to work anyway."
+	"This is not elegant, but it has to work anyway."
 	hg addEdges: edges 
 		from: {MalHgTestEdge->#from . MalHgTestEdge->#from } 
 		to: {MalHgTestEdge->#to . MalHgTestEdge->#to}.
@@ -1139,7 +770,7 @@ MalHierarchicalGraphTests >> testSimpleModel [
 { #category : #tests }
 MalHierarchicalGraphTests >> testSingleNodeHiGraph [
 	| hg  |
-	hg := MalHierarchicalGraph with: (OrderedCollection with: 'someBaseEntity') name: 'Softwarenaut'.
+	hg := MalHierarchicalGraph with: (OrderedCollection with: 'someBaseEntity') name: 'singleNodeHg'.
 	self assert: (hg nodes size = 1).
 ]
 
@@ -1152,14 +783,14 @@ MalHierarchicalGraphTests >> testTopDownDeepGraphBuilding [
 	
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
 
-	hg topDown: [ :entity |  
-		(entity size < 7) 
+	hg topDown: [ :model |  
+		(model size < 7) 
 		ifTrue: [
 			| result |
 			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result add: (entity, 'c').
+			result add: (model, 'a').
+			result add: (model, 'b').
+			result add: (model, 'c').
 			result.
 		]
 	].
@@ -1168,12 +799,12 @@ MalHierarchicalGraphTests >> testTopDownDeepGraphBuilding [
 	self assert: (hg rootNodes size = 3) description: 'Should be exactly 3 root nodes in this graph'.
 	self assert: (hg nodes size = 3279) description: 'Should be exactly 3279 nodes in total in this graph'.
 	self assert: (hg rootNodes anyOne children size = 3) description: 'Any rootNode should have exactly 3 children'.
-	self assert: ((hg nodesFor: (Set with: 'aa')) anyOne parent entity = 'a') description: 'Parent of aa should be a'.
-	self assert: ((hg nodesFor: (Set with: 'ca')) anyOne parent entity = 'c') description: 'Parent of ca should be c'.
-	self assert: ((hg nodesFor: (Set with: 'aca')) anyOne parent entity = 'ac') description: 'Parent of ac should be aca'.
-	self assert: ((hg nodesFor: (Set with: 'aaaaaa')) anyOne parent entity = 'aaaaa') description: 'Parent of aaaaaa should be aaaaa'.
-	self assert: ((hg nodesFor: (Set with: 'abacac')) anyOne parent entity = 'abaca') description: 'Parent of abacac should be abaca'.
-	self assert: ((hg nodesFor: (Set with: 'caabc')) anyOne parent entity = 'caab') description: 'Parent of caabc should be caab'.
+	self assert: ((hg nodesFor: (Set with: 'aa')) anyOne parent model = 'a') description: 'Parent of aa should be a'.
+	self assert: ((hg nodesFor: (Set with: 'ca')) anyOne parent model = 'c') description: 'Parent of ca should be c'.
+	self assert: ((hg nodesFor: (Set with: 'aca')) anyOne parent model = 'ac') description: 'Parent of ac should be aca'.
+	self assert: ((hg nodesFor: (Set with: 'aaaaaa')) anyOne parent model = 'aaaaa') description: 'Parent of aaaaaa should be aaaaa'.
+	self assert: ((hg nodesFor: (Set with: 'abacac')) anyOne parent model = 'abaca') description: 'Parent of abacac should be abaca'.
+	self assert: ((hg nodesFor: (Set with: 'caabc')) anyOne parent model = 'caab') description: 'Parent of caabc should be caab'.
 	self assert: ((hg nodesFor: (Set with: 'aaaaaaa')) anyOne isLeafNode) description: 'Node aaaaaaa should be a leaf node'.
 	self assert: ((hg nodesFor: (Set with: 'aaaaaaa')) anyOne level = 6) description: 'Node aaaaaaa should be on level 6'.
 	self assert: ((hg nodesFor: (Set with: 'c')) anyOne level = 0) description: 'Node c should be on level 0'.
@@ -1185,18 +816,11 @@ MalHierarchicalGraphTests >> testTopDownDeepGraphBuilding [
 	self assert: ((hg nodesFor: (Set with: 'bcabca')) anyOne level = 5) description: 'Node bcabca should be on level 5'.
 	self assert: ((hg nodesFor: (Set with: 'caabccc')) anyOne level = 6) description: 'Node caabccc should be on level 6'.
 	
-	"hg explore."
-	"visualizer := QsVisualizer show: hg withWeightBlock: [ :e | e size ]."
-	"visualizer := QsVisualizer with: hg weightBlock: [ :e | e size ]."
-	"visualizer showAsTree."
-	"visualizer showSplitOn: 2."
-	"visualizer show: (hg nodesFor: ((Set with: 'a') add: 'b'; add: 'ca'; add: 'cb'; add: 'cc'; yourself))."
-	
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testTopDownGraphBuilding [
-	| hg rootNodes otherNodes model |
+	| hg rootNodes |
 	
 	rootNodes := OrderedCollection new.
 	
@@ -1204,7 +828,7 @@ MalHierarchicalGraphTests >> testTopDownGraphBuilding [
 	
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
 
-	hg blockToGetChildren: [ :n |  
+	hg topDown: [ :n |  
 		(n = 1 or: (n = 2 or: n = 3)) 
 		ifTrue: [
 			| result |
@@ -1219,54 +843,53 @@ MalHierarchicalGraphTests >> testTopDownGraphBuilding [
 	self assert: (hg rootNodes size = 3) description: 'Should be exactly 3 root nodes in this graph'.
 	self assert: (hg nodes size = 12) description: 'Should be exactly 12 nodes in total in this graph'.
 	self assert: (hg rootNodes anyOne children size = 3) description: 'Any rootNode should have exactly 3 children'.
-	self assert: ((hg nodesFor: (Set with: 11)) anyOne parent entity = 1) description: 'Parent of 11 should be 1'.
-	self assert: ((hg nodesFor: (Set with: 12)) anyOne parent entity = 1) description: 'Parent of 12 should be 1'.
-	self assert: ((hg nodesFor: (Set with: 13)) anyOne parent entity = 1) description: 'Parent of 13 should be 1'.
-	self assert: ((hg nodesFor: (Set with: 21)) anyOne parent entity = 2) description: 'Parent of 13 should be 2'.
-	self assert: ((hg nodesFor: (Set with: 22)) anyOne parent entity = 2) description: 'Parent of 13 should be 2'.
-	self assert: ((hg nodesFor: (Set with: 23)) anyOne parent entity = 2) description: 'Parent of 13 should be 2'.
-	self assert: ((hg nodesFor: (Set with: 31)) anyOne parent entity = 3) description: 'Parent of 13 should be 3'.
-	self assert: ((hg nodesFor: (Set with: 32)) anyOne parent entity = 3) description: 'Parent of 13 should be 3'.
-	self assert: ((hg nodesFor: (Set with: 33)) anyOne parent entity = 3) description: 'Parent of 13 should be 3'.
+	self assert: ((hg nodesFor: (Set with: 11)) anyOne parent model = 1) description: 'Parent of 11 should be 1'.
+	self assert: ((hg nodesFor: (Set with: 12)) anyOne parent model = 1) description: 'Parent of 12 should be 1'.
+	self assert: ((hg nodesFor: (Set with: 13)) anyOne parent model = 1) description: 'Parent of 13 should be 1'.
+	self assert: ((hg nodesFor: (Set with: 21)) anyOne parent model = 2) description: 'Parent of 13 should be 2'.
+	self assert: ((hg nodesFor: (Set with: 22)) anyOne parent model = 2) description: 'Parent of 13 should be 2'.
+	self assert: ((hg nodesFor: (Set with: 23)) anyOne parent model = 2) description: 'Parent of 13 should be 2'.
+	self assert: ((hg nodesFor: (Set with: 31)) anyOne parent model = 3) description: 'Parent of 13 should be 3'.
+	self assert: ((hg nodesFor: (Set with: 32)) anyOne parent model = 3) description: 'Parent of 13 should be 3'.
+	self assert: ((hg nodesFor: (Set with: 33)) anyOne parent model = 3) description: 'Parent of 13 should be 3'.
 
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testVerySimpleHierarchicalGraph [
-	| hg leafs rootNodes baseRelationships padreHijoRelationships |
+	| hg rootNodes edges hierarchy |
 	
-	leafs := #(1 2 3 4 5).
+	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
 	
-	hg := MalHierarchicalGraph with: rootNodes name: 'Quicksilver'.
+	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
 	
-	baseRelationships := OrderedCollection new.
-	baseRelationships 
+	edges := OrderedCollection new.
+	edges 
 		add: (1 -> 2);
 		add: (1 -> 3);
 		add: (3 -> 4);
 		add: (2 -> 5).
 		
-	padreHijoRelationships := Dictionary new.
-	padreHijoRelationships 
+	hierarchy := Dictionary new.
+	hierarchy 
 		at: 6 put: #(1 2 3);
 		at: 7 put: #(4 5).
 	
-	hg blockToGetChildren: [ :padre |
-		padreHijoRelationships at: padre ifAbsent: [ nil ].
+	hg topDown: [ :m |
+		hierarchy at: m ifAbsent: [ nil ].
 	].
 	
-	hg addEdges: 
-		baseRelationships 
-		sourceBlock:  [:e | e key]
-		destinationBlock: [:e | e value].
+	hg addEdges: edges 
+		from:  [:e | e key]
+		to: [:e | e value].
+		
+	self assert: (hg edges size = 4).
 
 	hg propagateEdges.
 	
 	self assert: (hg edges size > 0).
-	self assert: (hg edges contains: [:rel | rel source entity = 6 and: [rel destination entity = 7]]).
-
-	"visualizer := SnVisualizer show: hg withWeightBlock: [ :e | e ]."
-	
+	self assert: (hg edges size = 10).
+	self assert: (hg edges contains: [:rel | rel from model = 6 and: [rel to model = 7]]).
 
 ]

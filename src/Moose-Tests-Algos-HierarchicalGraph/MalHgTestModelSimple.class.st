@@ -1,7 +1,8 @@
 Class {
 	#name : #MalHgTestModelSimple,
-	#superclass : #MalHgEntityWrapper,
+	#superclass : #Object,
 	#instVars : [
+		'model',
 		'parent',
 		'children',
 		'level'
@@ -32,6 +33,16 @@ MalHgTestModelSimple >> level [
 { #category : #accessing }
 MalHgTestModelSimple >> level: aNumber [
 	level := aNumber.
+]
+
+{ #category : #accessing }
+MalHgTestModelSimple >> model [
+	^ model
+]
+
+{ #category : #accessing }
+MalHgTestModelSimple >> model: anObject [
+	model := anObject
 ]
 
 { #category : #accessing }

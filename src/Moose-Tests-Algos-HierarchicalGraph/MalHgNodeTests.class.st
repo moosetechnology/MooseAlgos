@@ -5,64 +5,6 @@ Class {
 }
 
 { #category : #setup }
-MalHgNodeTests >> setupSimpleSampleHiGraph [
-	| simpleSample hg aMooseGroup leafs |
-
-	simpleSample := MalHgTestResources get: 'simpleSample'.
-	hg := MalHierarchicalGraph with: simpleSample name: 'aSimpleSample'.
-
-	"Removing all stubs."
-"	leafs := simpleSample allClasses reject: [ :e |
-		e isStub
-	]. "
-
-	leafs := simpleSample allMethods reject: [ :e |
-		e parentType isStub
-	]. 
-
-	hg nodes: leafs.
-
-	hg blockToGetParent: [ :e | 
-			(e isKindOf: FAMIXNamedEntity)
-				ifTrue: [ e belongsTo ]
-				ifFalse: [ nil ] 
-			].
-		
-	"Remove invocations that end in stubs"
-	aMooseGroup := simpleSample allSureInvocations reject: [ :invoc |
-		invoc candidates first parentType isStub.
-	].
-	hg addEdges: aMooseGroup
-			sourceBlock: [ :e | e from ] 
-			destinationBlock: [ :e | e to first ].
-			
-	"We don't want stubs in the higraph."
-	aMooseGroup := simpleSample allInheritanceDefinitions reject: [ :inheritance |
-		inheritance superclass isStub.
-	].
-
-	hg addEdges: aMooseGroup
-			sourceBlock: [ :e | e from ] 
-			destinationBlock: [ :e | e to ].
-
-	"We don't want stubs in the higraph."
-	aMooseGroup := simpleSample allAccesses reject: [ :access |
-		access variable declaredType isStub.
-	].	
-	hg addEdges: aMooseGroup
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ].
-		
-	hg addEdges: simpleSample allReferences 
-		sourceBlock: [ :e | e from ] 
-		destinationBlock: [ :e | e to ].
-
-	hg propagateEdges.
-	
-	^ hg.
-]
-
-{ #category : #setup }
 MalHgNodeTests >> testParentOnLevel [
 	| hg rootNodes  |
 	
@@ -71,7 +13,7 @@ MalHgNodeTests >> testParentOnLevel [
 	
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
 
-	hg blockToGetChildren: [ :entity |  
+	hg topDown: [ :entity |  
 		(entity size < 4) 
 		ifTrue: [
 			| result |
@@ -94,15 +36,4 @@ MalHgNodeTests >> testParentOnLevel [
 	self assert: (((hg nodeWrapping: 'bbbc') parentOnLevel: 0) = (hg nodeWrapping: 'b')).
 
 	
-]
-
-{ #category : #examples }
-MalHgNodeTests >> viewTreeMap [
-	| hg beingsNode view vis |
-	hg := self setupSimpleSampleHiGraph.
-	
-	beingsNode := hg nodes detect: [ :e | 'beings' match: e entity name ].
-	
-  	vis := QsVisualizer with: hg.
-	vis show: (Array with: beingsNode).
 ]

@@ -21,19 +21,24 @@ MalHierarchicalGraph class >> basicCreate: baseEntities [
 ]
 
 { #category : #creation }
-MalHierarchicalGraph class >> with: baseEntities [
-	"Building a HiGraph from base entities (collection of root or leaf nodes)."
+MalHierarchicalGraph class >> with: baseModels [
+	"Building a HiGraph from base models (collection of root or leaf nodes)."
 	
-	 ^ self with: baseEntities name: nil.
+	 ^ self with: baseModels name: nil.
 	
 ]
 
 { #category : #creation }
-MalHierarchicalGraph class >> with: baseEntities name: aName [
-	"Building a HiGraph from base entities (collection of root or leaf nodes)."
+MalHierarchicalGraph class >> with: baseModels name: aName [
+	"Building a hierarchical graph from base models (collection of root or leaf nodes)."
 	
-	^ (self basicCreate: baseEntities) name: aName.
+	^ (self basicCreate: baseModels) name: aName.
 	
+]
+
+{ #category : #api }
+MalHierarchicalGraph >> addEdge: aModel from: source to: target [
+	self addEdges: (OrderedCollection with: aModel) from: source to: target.
 ]
 
 { #category : #api }
@@ -255,6 +260,11 @@ MalHierarchicalGraph >> edges: aCollection from: source to: destination [
 	self propagateEdges.
 ]
 
+{ #category : #api }
+MalHierarchicalGraph >> edges: aCollection from: source to: target weight: weightFunction [
+	ShouldNotImplement signal.
+]
+
 { #category : #accessing }
 MalHierarchicalGraph >> edgesNotPropagated [
 	"Returns a Set of all edges that were not propagated in this hiGraph."
@@ -270,6 +280,11 @@ MalHierarchicalGraph >> edgesPropagated [
 { #category : #enumerating }
 MalHierarchicalGraph >> findNode: aModel [
 	^ self nodeWrapping: aModel.
+]
+
+{ #category : #enumerating }
+MalHierarchicalGraph >> findNode: aModel ifAbsent: aBlock [
+	^ self nodeWrapping: aModel ifAbsent: aBlock.
 ]
 
 { #category : #'initialize-release' }
@@ -328,8 +343,13 @@ MalHierarchicalGraph >> nodeModels [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodeWrapping: aModel [
+	^ self nodeWrapping: aModel ifAbsent: [ nil ].
+]
+
+{ #category : #enumerating }
+MalHierarchicalGraph >> nodeWrapping: aModel ifAbsent: aBlock [
 	"Returns the node wrapping the given model or nil if such a node does not exists in the graph."
-	^ nodes at: aModel ifAbsent: [ nil ].
+	^ nodes at: aModel ifAbsent: aBlock .
 ]
 
 { #category : #accessing }
@@ -431,6 +451,16 @@ MalHierarchicalGraph >> printOn: aStream [
 		nextPutAll: ', e: ';
 		nextPutAll: self edges size printString;
 		nextPutAll: ')'.
+]
+
+{ #category : #private }
+MalHierarchicalGraph >> privateEdges: aCollection [
+	self edges: aCollection.
+]
+
+{ #category : #private }
+MalHierarchicalGraph >> privateNodes: aCollection [
+	ShouldNotImplement signal.
 ]
 
 { #category : #building }

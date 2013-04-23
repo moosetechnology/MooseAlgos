@@ -59,5 +59,5 @@ MalHgTestModelSimple >> parent: anObject [
 MalHgTestModelSimple >> printOn: aStream [
 	aStream
 		nextPutAll: 'Test: ';
-		nextPutAll: entity asString.
+		nextPutAll: model asString.
 ]

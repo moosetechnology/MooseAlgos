@@ -4,7 +4,7 @@ Class {
 	#category : #'Moose-Tests-Algos-HierarchicalGraph'
 }
 
-{ #category : #setup }
+{ #category : #tests }
 MalHgNodeTests >> testParentOnLevel [
 	| hg rootNodes  |
 	

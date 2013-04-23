@@ -529,6 +529,41 @@ MalHierarchicalGraphTests >> testEmptyHiGraph [
 ]
 
 { #category : #tests }
+MalHierarchicalGraphTests >> testGraphAsTuple [
+	| hg rootNodes edges hierarchy |
+	
+	"leafs := #(1 2 3 4 5)."
+	rootNodes := #(6 7).
+	
+	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
+	
+	edges := OrderedCollection new.
+	edges 
+		add: (1 -> 2);
+		add: (1 -> 3);
+		add: (3 -> 4);
+		add: (2 -> 5).
+		
+	hierarchy := Dictionary new.
+	hierarchy 
+		at: 6 put: #(1 2 3);
+		at: 7 put: #(4 5).
+	
+	hg topDown: [ :m |
+		hierarchy at: m ifAbsent: [ nil ].
+	].
+	
+	hg addEdges: edges 
+		from:  [:e | e key]
+		to: [:e | e value].
+
+	self assert: ((hg graph at: 1) size = 7).
+	self assert: ((hg graph at: 2) size = 4).
+
+
+]
+
+{ #category : #tests }
 MalHierarchicalGraphTests >> testLevels [
 	| hg |
 	
@@ -892,4 +927,50 @@ MalHierarchicalGraphTests >> testVerySimpleHierarchicalGraph [
 	self assert: (hg edges size = 10).
 	self assert: (hg edges contains: [:rel | rel from model = 6 and: [rel to model = 7]]).
 
+]
+
+{ #category : #tests }
+MalHierarchicalGraphTests >> testfindEdge [
+	| hg rootNodes edges hierarchy |
+	
+	"leafs := #(1 2 3 4 5)."
+	rootNodes := #(6 7).
+	
+	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
+	
+	edges := OrderedCollection new.
+	edges 
+		add: (1 -> 2);
+		add: (1 -> 3);
+		add: (3 -> 4);
+		add: (2 -> 5).
+		
+	hierarchy := Dictionary new.
+	hierarchy 
+		at: 6 put: #(1 2 3);
+		at: 7 put: #(4 5).
+	
+	hg topDown: [ :m |
+		hierarchy at: m ifAbsent: [ nil ].
+	].
+	
+	hg addEdges: edges 
+		from:  [:e | e key]
+		to: [:e | e value].
+
+	hg propagateEdges.
+	
+	self assert: (hg edges contains: [ :e | e = (hg findEdge: (1 -> 2)) ]).
+
+
+]
+
+{ #category : #tests }
+MalHierarchicalGraphTests >> testfindNode [
+	| hg |
+	
+	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'test'.
+	hg topDown: {MalHgTestModelSimple->#children}.
+	self assert: hg rootNodes size = 1.
+	self assert: ((hg findNode: (hg rootNodes anyOne model)) = hg rootNodes anyOne).
 ]

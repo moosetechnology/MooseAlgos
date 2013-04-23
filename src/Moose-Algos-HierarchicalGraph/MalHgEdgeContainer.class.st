@@ -2,22 +2,22 @@ Class {
 	#name : #MalHgEdgeContainer,
 	#superclass : #Object,
 	#instVars : [
-		'relationships',
-		'size'
+		'size',
+		'edges'
 	],
 	#category : #'Moose-Algos-HierarchicalGraph'
 }
 
 { #category : #adding }
-MalHgEdgeContainer >> add: aSnRelationship [
-	relationships add: aSnRelationship.
+MalHgEdgeContainer >> add: anEdge [
+	edges add: anEdge.
 	size := size + 1.
 ]
 
 { #category : #adding }
-MalHgEdgeContainer >> addAll: relationshipCollection [
-	relationships addAll: relationshipCollection.
-	size := size + (relationshipCollection size).
+MalHgEdgeContainer >> addAll: edgeCollection [
+	edges addAll: edgeCollection.
+	size := size + (edgeCollection size).
 ]
 
 { #category : #printing }
@@ -27,7 +27,7 @@ MalHgEdgeContainer >> description [
 
 { #category : #'initialize-release' }
 MalHgEdgeContainer >> initialize [ 
-	relationships := Set new.
+	edges := Set new.
 	size := 0.
 ]
 
@@ -41,14 +41,14 @@ MalHgEdgeContainer >> printOn: aStream [
 ]
 
 { #category : #removing }
-MalHgEdgeContainer >> remove: aSnRelationship [
-	relationships remove: aSnRelationship.
+MalHgEdgeContainer >> remove: anEdge [
+	edges remove: anEdge.
 	size := size - 1.
 ]
 
 { #category : #removing }
 MalHgEdgeContainer >> removeAll [
-	relationships removeAll.
+	edges removeAll.
 	size := 0.
 ]
 

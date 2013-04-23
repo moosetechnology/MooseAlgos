@@ -1,10 +1,8 @@
 Class {
 	#name : #MalHierarchicalGraph,
-	#superclass : #Object,
+	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'name',
-		'nodesDict',
-		'edges',
 		'levels',
 		'buildingBlock',
 		'buildingStyle'
@@ -74,13 +72,12 @@ MalHierarchicalGraph >> addEdges: aCollection source: source destination: destin
 
 { #category : #building }
 MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationBlock: dstBlock [
-	"Add given relations to the higraph.
-	If through given relationships new nodes are found, they are NOT added to the hiGhraph."
-	
+	"Add given edges to the higraph.
+	If through given edges new nodes are found, they are NOT added to the graph."
+	| srcEntity dstEntity srcNode dstNode edge |
 	aCollection do: [ :e | 
-		| srcEntity dstEntity srcNode dstNode relationship |
-			
-		"Get source and destination entities."
+		
+		"Get source and destination models."
 		srcEntity := srcBlock value: e.
 		dstEntity := dstBlock value: e.
 
@@ -88,9 +85,9 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 	      self assert: (srcEntity notNil and: dstEntity notNil) description: 'Entites should never be nil. Check correctness of srcBlock and dstBlock.'.
 			
 		"Get nodes from entities"
-		(nodesDict includesKey: srcEntity)
+		(nodes includesKey: srcEntity)
 			ifTrue: [
-				srcNode := nodesDict at: srcEntity.
+				srcNode := nodes at: srcEntity.
 			]
 			."ifFalse: [
 				srcNode := SnNode with: srcEntity.
@@ -98,9 +95,9 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 				nodesDict at: srcEntity put: srcNode.
 			]."
 			
-		(nodesDict includesKey: dstEntity)
+		(nodes includesKey: dstEntity)
 			ifTrue: [
-				dstNode := nodesDict at: dstEntity.
+				dstNode := nodes at: dstEntity.
 			]
 			."ifFalse: [
 				dstNode := SnNode with: dstEntity.
@@ -108,18 +105,18 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 				nodesDict at: dstEntity put: dstNode.
 			]."
 		
-		"Only create relationship if nodes were found."
+		"Only create edge if nodes were found."
 		(srcNode isNil or: dstNode isNil) ifFalse: [
 			
-			"Create a relationship between the nodes and add it to the graph."
-			relationship := MalHgEdge with: e source: srcNode destination: dstNode.
+			"Create an edge between the nodes and add it to the graph."
+			edge := MalHgEdge with: e from: srcNode to: dstNode.
 			
-			"Adding relationship to hiGraph relationship set"
-			self edges add: relationship.
+			"Adding edge to the graphs edge set"
+			self edges add: edge.
 			
-			"Add relations to the node themselves"
-			srcNode addOutgoing: relationship.
-			dstNode addIncoming: relationship.
+			"Add edges to the node themselves"
+			srcNode addOutgoing: edge.
+			dstNode addIncoming: edge.
 		].
 	].
 ]
@@ -147,7 +144,7 @@ MalHierarchicalGraph >> blockToGetChildren: aBlock [
 	| nodesToProcess |
 
 	"Make sure base entities are set before calling this method."
-	self assert: (nodesDict notEmpty) description: 'Base nodes have to be set before calling this method.'.
+	self assert: (nodes notEmpty) description: 'Base nodes have to be set before calling this method.'.
 	
 	"If this method is called, we know that we are in top down building mode, 
 	this means all given base nodes are root nodes."
@@ -156,7 +153,7 @@ MalHierarchicalGraph >> blockToGetChildren: aBlock [
 	"Set given block as the higraphs buildingBlock for later use,"
 	buildingBlock := aBlock.
 	nodesToProcess := Stack new.
-	nodesToProcess addAll: nodesDict values.
+	nodesToProcess addAll: nodes values.
 
 	[nodesToProcess notEmpty] whileTrue:  [
 		| node childrenNodes |
@@ -188,12 +185,12 @@ MalHierarchicalGraph >> blockToGetParent: aBlock [
 	| nodesToProcess |
 	
 	"Make sure leafs are set before calling this method."
-	self assert: (nodesDict notEmpty) description: 'Base nodes have to be set before calling this method.'.
+	self assert: (nodes notEmpty) description: 'Base nodes have to be set before calling this method.'.
 	
 	"Set given block as the higraphs buildingBlock for later use,"
 	buildingBlock := aBlock.
 	nodesToProcess := Stack new.
-	nodesToProcess addAll: nodesDict values.
+	nodesToProcess addAll: nodes values.
 
 	[nodesToProcess notEmpty] whileTrue:  [
 		| node parentNode |
@@ -222,11 +219,6 @@ MalHierarchicalGraph >> bottomUp: howToGetParent [
 	self aggregation: howToGetParent.
 ]
 
-{ #category : #caching }
-MalHierarchicalGraph >> cache [
-	MalHgRepository repo at: self name put: self.
-]
-
 { #category : #api }
 MalHierarchicalGraph >> containment: howToGetChildren [
 	| foundClasses |
@@ -252,7 +244,7 @@ MalHierarchicalGraph >> deepestLevel [
 
 { #category : #accessing }
 MalHierarchicalGraph >> edges [ 
-	"Returns a Set of all relationships in this hiGraph."
+	"Returns a Set of all edges in this hiGraph."
 	^ edges.
 ]
 
@@ -265,19 +257,23 @@ MalHierarchicalGraph >> edges: aCollection from: source to: destination [
 
 { #category : #accessing }
 MalHierarchicalGraph >> edgesNotPropagated [
-	"Returns a Set of all relationships that were not propagated in this hiGraph."
+	"Returns a Set of all edges that were not propagated in this hiGraph."
 	^ edges reject: [ :rel | rel class = MalHgPropagatedEdge ].
 ]
 
 { #category : #accessing }
 MalHierarchicalGraph >> edgesPropagated [
-	"Returns a Set of all relationships that were propagated in this hiGraph."
+	"Returns a Set of all edges that were propagated in this hiGraph."
 	^ edges select: [ :rel | rel class = MalHgPropagatedEdge ].
+]
+
+{ #category : #enumerating }
+MalHierarchicalGraph >> findNode: aModel [
+	^ self nodeWrapping: aModel.
 ]
 
 { #category : #'initialize-release' }
 MalHierarchicalGraph >> initialize [
-	super initialize.
 	self reset.
 
 ]
@@ -300,7 +296,7 @@ MalHierarchicalGraph >> levels [
 
 { #category : #accessing }
 MalHierarchicalGraph >> name [
-	"Returns either custom name (if one has been set) or name of wrapped entity of thid HiGraph."
+	"Returns the name if this hierarchical graph."
 	(name isNil) ifTrue: [
 		^ 'a HiGraph'.
 	].
@@ -309,7 +305,7 @@ MalHierarchicalGraph >> name [
 
 { #category : #accessing }
 MalHierarchicalGraph >> name: aName [
-	"Sets name for this HiGraph"
+	"Sets name for this HG"
 	name := aName.
 ]
 
@@ -319,22 +315,27 @@ MalHierarchicalGraph >> node: anEntity [
 	self nodes: (OrderedCollection with: anEntity ).
 ]
 
+{ #category : #configuration }
+MalHierarchicalGraph >> nodeClass [
+	^ MalHgNode.
+]
+
 { #category : #accessing }
-MalHierarchicalGraph >> nodeEntities [
-	"Returns a Collection of all wrapped entites (in QsNodes) in this HiGraph."
-	^ nodesDict keys
+MalHierarchicalGraph >> nodeModels [
+	"Returns a Collection of all wrapped models in the nodes of this HiGraph."
+	^ nodes keys
 ]
 
 { #category : #enumerating }
-MalHierarchicalGraph >> nodeWrapping: anEntity [
-	"Returns the QsNode wrapping the given entity or nil if such a node does not exists in the HiGraph."
-	^ nodesDict at: anEntity ifAbsent: [ nil ].
+MalHierarchicalGraph >> nodeWrapping: aModel [
+	"Returns the node wrapping the given model or nil if such a node does not exists in the graph."
+	^ nodes at: aModel ifAbsent: [ nil ].
 ]
 
 { #category : #accessing }
 MalHierarchicalGraph >> nodes [
-	"Returns an Array of all QsNodes in this hiGraph."
-	^ nodesDict values
+	"Returns an Array of all nodes in this hiGraph."
+	^ nodes values
 ]
 
 { #category : #api }
@@ -342,16 +343,16 @@ MalHierarchicalGraph >> nodes: aCollection [
 	"Adds base entites (can be root or leaf nodes) to the graph from which we will start building the complete graph.
 	This has to be done before calling blockToGetChildren or blockToGetParent."
 	
-	"Adding given entites as QsNodes to the nodesDict."
+	"Adding given entites as MalHgNode to the nodesDict."
 	aCollection do: [ :anEntity | 
-		nodesDict at: anEntity put: (MalHgNode in: self with: anEntity).
+		nodes at: anEntity put: (MalHgNode in: self with: anEntity).
 	]
 ]
 
 { #category : #accessing }
 MalHierarchicalGraph >> nodesDict [
-	"Returns a Dictionary with keys: entities and values: nodes"
-	^ nodesDict
+	"Returns a Dictionary with keys: models and values: nodes"
+	^ nodes
 ]
 
 { #category : #enumerating }
@@ -371,13 +372,13 @@ MalHierarchicalGraph >> nodesDownFromLevel: aLevel [
 ]
 
 { #category : #enumerating }
-MalHierarchicalGraph >> nodesFor: aCollectionOfEntites [
-	"Returns a Set of all QsNodes wrapping given entities, empty Set if no corresponding node was found."
+MalHierarchicalGraph >> nodesFor: aCollectionOfModels [
+	"Returns a Set of all nodes wrapping given models, empty Set if no corresponding node was found."
 	| result node |
 	result := Set new.
 	
-	aCollectionOfEntites do: [ :anEntity |
-		node := nodesDict at: anEntity ifAbsent: [ nil ].
+	aCollectionOfModels do: [ :aModel |
+		node := nodes at: aModel ifAbsent: [ nil ].
 		node notNil ifTrue: [
 			result add: node.
 		].
@@ -407,14 +408,14 @@ MalHierarchicalGraph >> nodesUpFromLevel: aLevel [
 ]
 
 { #category : #enumerating }
-MalHierarchicalGraph >> nodesWrapping: anEntityCollection [
-	"Returns the QsNodes wrapping the given entities or an empty collection if no such nodes could be found in the HiGraph."
+MalHierarchicalGraph >> nodesWrapping: aModelCollection [
+	"Returns the nodes wrapping the given entities or an empty collection if no such nodes could be found in the HiGraph."
 	"TODO: This is a performance nightmare, no better way to do this?"
 	| result |
 	result := OrderedCollection new.
 	
-	nodesDict do: [ :n | 
-		anEntityCollection do: [ :e | (n entity = e) ifTrue: [ result add: n ]].
+	nodes do: [ :n | 
+		aModelCollection do: [ :e | (n entity = e) ifTrue: [ result add: n ]].
 	].
 
 	^ result.
@@ -442,7 +443,7 @@ MalHierarchicalGraph >> propagateEdges [
 MalHierarchicalGraph >> propagateEdges: classCollection [
 	"Propagates relationships up in the hiGraph from the leaf nodes.
 	If a Collection with classes is provied, only relationships between given classes are propagated."
-	| nodesToProcess propagatedRelationship srcNode dstNode srcAncestry dstAncestry srcLevel dstLevel  srcParent dstParent srcAncestorNodeIsAllowedClass dstAncestorNodeIsAllowedClass |
+	| nodesToProcess propagatedRelationship srcNode dstNode srcAncestry dstAncestry  srcAncestorNodeIsAllowedClass dstAncestorNodeIsAllowedClass |
 	
 	nodesToProcess := Stack new.
 	nodesToProcess addAll: self nodes.
@@ -461,7 +462,7 @@ MalHierarchicalGraph >> propagateEdges: classCollection [
 					srcNode outgoingNotPropagated do: [ :outgoingRelationship |
 
 						"Get destination node of relationship"
-						dstNode := outgoingRelationship destination.
+						dstNode := outgoingRelationship to.
 						
 						srcAncestry := LinkedList new.
 						dstAncestry := LinkedList new.
@@ -515,8 +516,8 @@ MalHierarchicalGraph >> propagateEdges: classCollection [
 										"Are the classes of both nodes in the collection of allowed classes?"
 										classCollection do: [ :class |
 	
-											srcAncestorNode entity class == class ifTrue: [srcAncestorNodeIsAllowedClass := true ].
-											dstAncestorNode entity class == class ifTrue: [dstAncestorNodeIsAllowedClass := true ].
+											srcAncestorNode model class == class ifTrue: [srcAncestorNodeIsAllowedClass := true ].
+											dstAncestorNode model class == class ifTrue: [dstAncestorNodeIsAllowedClass := true ].
 										].
 									].
 								
@@ -525,9 +526,9 @@ MalHierarchicalGraph >> propagateEdges: classCollection [
 										
 										"And finally, create and add a new propagated relationship."
 										propagatedRelationship := MalHgPropagatedEdge 
-											with: outgoingRelationship entity 
-											source: srcAncestorNode 
-											destination: dstAncestorNode.
+											with: outgoingRelationship model 
+											from: srcAncestorNode 
+											to: dstAncestorNode.
 										edges add: propagatedRelationship.
 										srcAncestorNode addOutgoing: propagatedRelationship.
 										dstAncestorNode addIncoming: propagatedRelationship.
@@ -565,8 +566,8 @@ MalHierarchicalGraph >> resetEdges [
 
 { #category : #resetting }
 MalHierarchicalGraph >> resetNodes [
-	"dict keys: entities, values: nodes"
-	nodesDict := Dictionary new.
+	"dict keys: models, values: nodes"
+	nodes := Dictionary new.
 	
 	"dict keys: level, values: all nodes on that level as a Set."
 	levels := Dictionary new.
@@ -601,7 +602,7 @@ MalHierarchicalGraph >> setChildrenOfNode: aNode [
 	children := Set new.
 
 	"Get children entities via blockToGetChildren"
-	childrenEntities := buildingBlock value: aNode entity.
+	childrenEntities := buildingBlock value: aNode model.
 
 	"If the entity has no children it is a leaf and we return an empty Set."
 	(childrenEntities isNil)
@@ -614,13 +615,13 @@ MalHierarchicalGraph >> setChildrenOfNode: aNode [
 			childrenEntities do: [ :childEntity | 
 		
 				"Check if we already have the child stored in the graph, if yes retrieve it, else store it."
-				(nodesDict includesKey: childEntity) 
+				(nodes includesKey: childEntity) 
 				ifTrue: [
-					childNode := nodesDict at: childEntity.
+					childNode := nodes at: childEntity.
 				]
 				ifFalse: [
 					childNode := MalHgNode in: self with: childEntity.
-					nodesDict at: childEntity put: childNode.
+					nodes at: childEntity put: childNode.
 				].
 			
 				"Add given node as parent to child."
@@ -655,7 +656,7 @@ MalHierarchicalGraph >> setParentOfNode: aNode [
 	self assert: (buildingBlock notNil) description: 'blockToGetParent must be set before calling this method.'.
 
 	"Get parent entity through blockToGetParent"
-	parentEntity := buildingBlock value: aNode entity.
+	parentEntity := buildingBlock value: aNode model.
 		
 	"If the entity has no parent, it is a rootNode"
 	(parentEntity isNil) 
@@ -665,13 +666,13 @@ MalHierarchicalGraph >> setParentOfNode: aNode [
 	]
 	ifFalse: [
 		"Check if we already have the parent stored in the graph, if yes retrieve it, else store it."
-		(nodesDict includesKey: parentEntity) 
+		(nodes includesKey: parentEntity) 
 			ifTrue: [
-				parentNode := nodesDict at: parentEntity.
+				parentNode := nodes at: parentEntity.
 			]
 			ifFalse: [
 				parentNode := MalHgNode in: self with: parentEntity.
-				nodesDict at: parentEntity put: parentNode.
+				nodes at: parentEntity put: parentNode.
 			].
 			
 		"Add current node as child to parent"

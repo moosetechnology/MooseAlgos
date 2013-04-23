@@ -1,6 +1,6 @@
 Class {
 	#name : #MalHgNode,
-	#superclass : #MalHgEntityWrapper,
+	#superclass : #MalGraphNode,
 	#instVars : [
 		'hiGraph',
 		'parent',
@@ -14,11 +14,11 @@ Class {
 }
 
 { #category : #creation }
-MalHgNode class >> in: hiGraph with: anEntity [
+MalHgNode class >> in: hiGraph with: aModel [
 	| node |
 	node := MalHgNode new.
 	node hiGraph: hiGraph.
-	node entity: anEntity.
+	node model: aModel.
 	^ node.
 ]
 
@@ -48,14 +48,14 @@ MalHgNode >> addChildren: aCollection [
 ]
 
 { #category : #adding }
-MalHgNode >> addIncoming: aRelationship [
-	incoming add: aRelationship.
+MalHgNode >> addIncoming: anEdge [
+	incoming add: anEdge.
 
 ]
 
 { #category : #adding }
-MalHgNode >> addOutgoing: aRelationship [
-	outgoing add: aRelationship.
+MalHgNode >> addOutgoing: anEdge [
+	outgoing add: anEdge.
 
 ]
 
@@ -92,19 +92,19 @@ MalHgNode >> children [
 
 { #category : #printing }
 MalHgNode >> description [
-	^  entity name , ' (' , entity class name , ')'.
+	^  model name , ' (' , model class name , ')'.
 ]
 
 { #category : #accessing }
 MalHgNode >> edges [
-	"Return all relationships, incoming and outgoing, as a set."
+	"Return all edges, incoming and outgoing, as a set."
 	^ (Set newFrom: incoming) addAll: outgoing.
 
 ]
 
 { #category : #accessing }
 MalHgNode >> edges: aLevel [
-	"Return all relationships, incoming and outgoing, on given level as a Set."
+	"Return all edges, incoming and outgoing, on given level as a Set."
 	^ (Set newFrom: (self incomingEdges: aLevel)) addAll: (self outgoingEdges: aLevel).
 
 ]
@@ -121,39 +121,39 @@ MalHgNode >> hiGraph: anObject [
 
 { #category : #accessing }
 MalHgNode >> incoming [
-	"Returns all incoming relationships."
+	"Returns all incoming edges."
 	^ incoming.
 
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingEdges: aLevel [
-	"Returns a set of of all incoming relationship that are on given level.
-	Returns an empty set if there are no incoming relationships
-	Returns all incoming sources if given level is nil"
-	| incomingRelationships |
-	 incomingRelationships := Set new.
+	"Returns a set of of all incoming edges that are on given level.
+	Returns an empty set if there are no incoming edgesaLevel 
+	Returns all incoming edges if given level is nil"
+	| incomingEdges |
+	 incomingEdges := Set new.
 	self incoming do: [ :rel | 	
 		aLevel isNil ifTrue: [
-			incomingRelationships add: rel.
+			incomingEdges add: rel.
 		]
 		ifFalse: [
-			rel source level = level ifTrue: [
-				incomingRelationships add: rel.
+			rel from level = level ifTrue: [
+				incomingEdges add: rel.
 			].
 		].
 		
 	].
-	^ incomingRelationships.
+	^ incomingEdges.
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingFrom: aNode [
-	"Returns all relationships that are incoming from given node, nil if no such relationship was found."
+	"Returns all edges that are incoming from given node, nil if no such edge was found."
 	| resultSet |
 	resultSet := nil.
 	self incoming do: [:rel | 
-		(rel source == aNode) ifTrue: [
+		(rel from == aNode) ifTrue: [
 			(resultSet isNil) ifTrue: [
 				resultSet := Set new.
 			].
@@ -165,7 +165,7 @@ MalHgNode >> incomingFrom: aNode [
 
 { #category : #enumerating }
 MalHgNode >> incomingFromThese: aNodeCollection [
-	"Returns all relationships that are incoming from given node collection, empty set if no such relationship was found."
+	"Returns all edges that are incoming from given node collection, empty set if no such edge was found."
 	 | resultSet |
 	resultSet := Set new.
 	aNodeCollection do: [ :node |
@@ -176,39 +176,39 @@ MalHgNode >> incomingFromThese: aNodeCollection [
 
 { #category : #enumerating }
 MalHgNode >> incomingNotPropagated [
-	"Returns all incoming relationships that were not propagated."
+	"Returns all incoming edges that were not propagated."
 	^ incoming reject: [ :rel | rel class = MalHgPropagatedEdge ].
 
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingPropagated [
-	"Returns all incoming relationships that were propagated."
+	"Returns all incoming edges that were propagated."
 	^ incoming select: [ :rel | rel class = MalHgPropagatedEdge ].
 
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingSources [
-	"Returns a set of all source nodes of all incoming relationship to this node.
-	Returns an empty set if there are no incoming relationships"
+	"Returns a set of all source nodes of all incoming edges to this node.
+	Returns an empty set if there are no incoming edges"
 	^ self incomingSources: nil.
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingSources: aLevel [
-	"Returns a set of all source nodes of all incoming relationship that are on given level.
-	Returns an empty set if there are no incoming relationships
+	"Returns a set of all source nodes of all incoming edges that are on given level.
+	Returns an empty set if there are no incoming edges
 	Returns all incoming sources if given level is nil"
 	| incomingSources |
 	 incomingSources := Set new.
 	self incoming do: [ :rel | 	
 		aLevel isNil ifTrue: [
-			incomingSources add: rel source.
+			incomingSources add: rel from.
 		]
 		ifFalse: [
-			rel source level = level ifTrue: [
-				incomingSources add: rel source.
+			rel from level = level ifTrue: [
+				incomingSources add: rel from.
 			].
 		].
 		
@@ -266,7 +266,7 @@ MalHgNode >> outgoing [
 
 { #category : #enumerating }
 MalHgNode >> outgoingDestinations [
-	"Returns a set of all destination nodes of all outgoing relationship target nodes.
+	"Returns a set of all destination nodes of all outgoing edge target nodes.
 	Returns an empty set if there are no such nodes"
 	^ self outgoingDestinations: nil.
 ]
@@ -303,7 +303,7 @@ MalHgNode >> outgoingEdges: aLevel [
 			outgoingRelationships add: rel.
 		]
 		ifFalse: [
-			rel destination level = level ifTrue: [
+			rel to level = level ifTrue: [
 				outgoingRelationships add: rel.
 			].
 		].
@@ -331,7 +331,7 @@ MalHgNode >> outgoingTo: aNode [
 	| resultSet |
 	resultSet := Set new.
 	self outgoing do: [:rel | 
-		(rel destination == aNode) ifTrue: [
+		(rel to == aNode) ifTrue: [
 			resultSet add: rel.
 		].
 	].
@@ -385,16 +385,6 @@ MalHgNode >> parentOnLevel: aLevel [
 	^ currentNode.
 	
 
-]
-
-{ #category : #printing }
-MalHgNode >> printOn: aStream [
-	aStream
-		nextPutAll: 'Node: ';
-		nextPutAll: self entity name;
-		nextPutAll: ' (';
-		nextPutAll: self entity class name;
-		nextPutAll: ')'.
 ]
 
 { #category : #enumerating }
@@ -463,5 +453,5 @@ MalHgNode >> setLevels [
 
 { #category : #printing }
 MalHgNode >> shortName [
- 	^ entity name.
+ 	^ model name.
 ]

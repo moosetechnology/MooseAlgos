@@ -5,11 +5,11 @@ Class {
 }
 
 { #category : #'instance creation' }
-MalHgPropagatedEdge class >> with: anEntity source: srcNode destination: dstNode [
-	| relationship |
-	relationship:= MalHgPropagatedEdge new.
-	relationship entity: anEntity.
-	relationship source: srcNode.
-	relationship destination: dstNode.
-	^ relationship.
+MalHgPropagatedEdge class >> with: aModel from: srcNode to: dstNode [
+	| edge |
+	edge := MalHgPropagatedEdge new.
+	edge model: aModel.
+	edge from: srcNode.
+	edge to: dstNode.
+	^ edge.
 ]

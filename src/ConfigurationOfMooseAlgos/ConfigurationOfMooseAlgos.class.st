@@ -201,7 +201,8 @@ ConfigurationOfMooseAlgos >> baseline24: spec [
 						'Moose-Tests-Algos-InformationRetrieval'
 						'Moose-Tests-Algos-FormalConceptAnalysis'
 						'Moose-Tests-Algos-Kontractor'
-						'Moose-Tests-Algos-Lattice'). 
+						'Moose-Tests-Algos-Lattice'
+						'Moose-Tests-Algos-HierarchicalGraph'). 
 	]
 ]
 

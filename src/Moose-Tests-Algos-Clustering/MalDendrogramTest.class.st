@@ -32,31 +32,28 @@ MalDendrogramTest >> setUp [
 
 { #category : #test }
 MalDendrogramTest >> testAllLeaves [
-	
-	self assert: dendrogram elements size = 7.
+	self assert: dendrogram elements size equals: 7.
 	self assert: (dendrogram elements equalsTo: #(#a #b #c #d #e #f #g))
 ]
 
 { #category : #test }
 MalDendrogramTest >> testIndex [
-	
-	self assert: dendrogram index = 1.
-	self assert: dendrogram left index = 1.
-	self assert: dendrogram right index = 5.
-	self assert: dendrogram left left index = 1.
-	self assert: dendrogram left right index = 3.
-	self assert: dendrogram right left index = 5.
-	self assert: dendrogram right right index = 7
+	self assert: dendrogram index equals: 1.
+	self assert: dendrogram left index equals: 1.
+	self assert: dendrogram right index equals: 5.
+	self assert: dendrogram left left index equals: 1.
+	self assert: dendrogram left right index equals: 3.
+	self assert: dendrogram right left index equals: 5.
+	self assert: dendrogram right right index equals: 7
 ]
 
 { #category : #test }
 MalDendrogramTest >> testSize [
-	
-	self assert: dendrogram size = 7.
-	self assert: dendrogram left size = 4.
-	self assert: dendrogram right size = 3.
-	self assert: dendrogram left left size = 2.
-	self assert: dendrogram left right size = 2.
-	self assert: dendrogram right left size = 2.
-	self assert: dendrogram right right size = 1
+	self assert: dendrogram size equals: 7.
+	self assert: dendrogram left size equals: 4.
+	self assert: dendrogram right size equals: 3.
+	self assert: dendrogram left left size equals: 2.
+	self assert: dendrogram left right size equals: 2.
+	self assert: dendrogram right left size equals: 2.
+	self assert: dendrogram right right size equals: 1
 ]

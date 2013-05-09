@@ -137,42 +137,35 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
 MalHierarchicalGraphTests >> setupVerySimpleHierarchicalGraph [
 	| hg |
 	hg := MalHierarchicalGraph with: 'aBaseEntity' name: 'test'.
-	self assert: ( hg nodes size = 1).
+	self assert: hg nodes size equals: 1
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testBaseEntity [
 	| hg |
 	hg := MalHierarchicalGraph with: (OrderedCollection with: 2) name: 'JustOneEntity'.
-
 	self assert: hg nodes notEmpty.
-	self assert: hg nodes size = 1.
-	self assert: hg nodes first model = 2.
+	self assert: hg nodes size equals: 1.
+	self assert: hg nodes first model equals: 2
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testBlockBasedApiBottomUp [
 	| hg |
-	
-	hg := MalHierarchicalGraph with: (self setupSimpleBottomUpModel) name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
 	hg bottomUp: [ :e | e parent ].
-	
-	self assert: hg nodes size = 121.
-	self assert: hg rootNodes size = 1.
-	self assert: hg rootNodes anyOne level = 0.
-	self assert: hg rootNodes anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne level = 1.
-	self assert: hg rootNodes anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne level = 2.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
-	
-	
-	
-
+	self assert: hg nodes size equals: 121.
+	self assert: hg rootNodes size equals: 1.
+	self assert: hg rootNodes anyOne level equals: 0.
+	self assert: hg rootNodes anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne level equals: 1.
+	self assert: hg rootNodes anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne level equals: 2.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level equals: 4.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode
 ]
 
 { #category : #tests }
@@ -248,565 +241,467 @@ MalHierarchicalGraphTests >> testBottomUpGraphBuilding [
 { #category : #tests }
 MalHierarchicalGraphTests >> testClassBasedApiBottomUp [
 	| hg |
-	
-	hg := MalHierarchicalGraph with: (self setupSimpleBottomUpModel) name: 'test'.
-	hg bottomUp: {MalHgTestModelSimple->#parent}.
-	
-	self assert: hg nodes size = 121.
-	self assert: hg rootNodes size = 1.
-	self assert: hg rootNodes anyOne level = 0.
-	self assert: hg rootNodes anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne level = 1.
-	self assert: hg rootNodes anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne level = 2.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
-	
-	"QsVisualizer show: hg withWeightBlock: [ :e | e entity ]."
-	
-	
-	
-
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
+	hg bottomUp: {(MalHgTestModelSimple -> #parent)}.
+	self assert: hg nodes size equals: 121.
+	self assert: hg rootNodes size equals: 1.
+	self assert: hg rootNodes anyOne level equals: 0.
+	self assert: hg rootNodes anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne level equals: 1.
+	self assert: hg rootNodes anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne level equals: 2.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level equals: 4.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode	"QsVisualizer show: hg withWeightBlock: [ :e | e entity ]."
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testClassBasedApiTopDown [
 	| hg |
-	
-	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'test'.
-	hg topDown: {MalHgTestModelSimple->#children}.
-	
-	self assert: hg nodes size = 121.
-	self assert: hg rootNodes size = 1.
-	self assert: hg rootNodes anyOne level = 0.
-	self assert: hg rootNodes anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne level = 1.
-	self assert: hg rootNodes anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne level = 2.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
-	
-	"QsVisualizer show: hg withWeightBlock: [ :e | e entity ]."
-	
-	
-	
-
+	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel name: 'test'.
+	hg topDown: {(MalHgTestModelSimple -> #children)}.
+	self assert: hg nodes size equals: 121.
+	self assert: hg rootNodes size equals: 1.
+	self assert: hg rootNodes anyOne level equals: 0.
+	self assert: hg rootNodes anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne level equals: 1.
+	self assert: hg rootNodes anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne level equals: 2.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level equals: 4.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode	"QsVisualizer show: hg withWeightBlock: [ :e | e entity ]."
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testClassBasedBlockApiBottomUp [
 	| hg |
-	
-	hg := MalHierarchicalGraph with: (self setupSimpleBottomUpModel) name: 'test'.
-	hg bottomUp: {MalHgTestModelSimple->[:e | e parent]}.
-	
-	self assert: hg nodes size = 121.
-	self assert: hg rootNodes size = 1.
-	self assert: hg rootNodes anyOne level = 0.
-	self assert: hg rootNodes anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne level = 1.
-	self assert: hg rootNodes anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne level = 2.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
-	
-	"vis := QsVisualizer with: hg weightBlock: [ :e | e entity ].
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
+	hg bottomUp: {(MalHgTestModelSimple -> [ :e | e parent ])}.
+	self assert: hg nodes size equals: 121.
+	self assert: hg rootNodes size equals: 1.
+	self assert: hg rootNodes anyOne level equals: 0.
+	self assert: hg rootNodes anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne level equals: 1.
+	self assert: hg rootNodes anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne level equals: 2.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level equals: 4.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode	"vis := QsVisualizer with: hg weightBlock: [ :e | e entity ].
 	vis averageNodeSize: 100.
 	vis relativeNodeSizeExtrema: 0.05@1.5.
 	vis edgeThicknessRange: 0@10.
 	vis layout: QsLayout.	
 	vis showSplitOn: 2."
-	
-	
-
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testDeepestLevel [
-| hg rootNodes |
-	
+	| hg rootNodes |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
-	
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
-
-	hg topDown: [ :entity |  
-		(entity size < 3) 
-		ifTrue: [
-			| result |
-			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result.
-		]
-	].
-
-	self assert: hg deepestLevel = 2.
+	hg
+		topDown: [ :entity | 
+			entity size < 3
+				ifTrue: [ 
+					| result |
+					result := Set new.
+					result add: entity , 'a'.
+					result add: entity , 'b'.
+					result ] ].
+	self assert: hg deepestLevel equals: 2
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testEdgePropagationAsymetrical [
-| hg rootNodes relationships |
-	
+	| hg rootNodes relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
-	
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
-
-	hg blockToGetChildren: [ :entity |  
-		(entity size < 3) 
-		ifTrue: [
-			| result |
-			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result.
-		]
-	].
-
-	relationships := OrderedCollection new.	
-	relationships add: ('abb'->'aa').
-
-	hg addEdges: relationships
-			from: [ :r | r key ] 
-			to: [ :r | r value ].
-
-	hg propagateEdges.
-
-	"Testing relationships and their propagandation."
-	self assert: ((hg nodeWrapping: 'ab') outgoing size = 1).
-	self assert: ((hg nodeWrapping: 'abb') outgoing size = 1).
-	self assert: ((hg nodeWrapping: 'aa') incoming size = 2).
-	self assert: (hg edgesPropagated size = 1).
-	self assert: (hg edgesNotPropagated size = 1).
-	
+	hg
+		blockToGetChildren: [ :entity | 
+			entity size < 3
+				ifTrue: [ 
+					| result |
+					result := Set new.
+					result add: entity , 'a'.
+					result add: entity , 'b'.
+					result ] ].
+	relationships := OrderedCollection new.
+	relationships add: 'abb' -> 'aa'.
+	hg addEdges: relationships from: [ :r | r key ] to: [ :r | r value ].
+	hg propagateEdges.	"Testing relationships and their propagandation."
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 1.
+	self assert: (hg nodeWrapping: 'abb') outgoing size equals: 1.
+	self assert: (hg nodeWrapping: 'aa') incoming size equals: 2.
+	self assert: hg edgesPropagated size equals: 1.
+	self assert: hg edgesNotPropagated size equals: 1
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodes [
-| hg rootNodes visualizer relationships |
-	
+	| hg rootNodes visualizer relationships |
 	rootNodes := OrderedCollection new.
-	rootNodes add: 'a'; add: 'b'; add: 'c'.
-	
+	rootNodes
+		add: 'a';
+		add: 'b';
+		add: 'c'.
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
-
-	hg blockToGetChildren: [ :entity |  
-		(entity size < 6) 
-		ifTrue: [
-			| result |
-			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result add: (entity, 'c').
-			result.
-		]
-	].
-
+	hg
+		blockToGetChildren: [ :entity | 
+			entity size < 6
+				ifTrue: [ 
+					| result |
+					result := Set new.
+					result add: entity , 'a'.
+					result add: entity , 'b'.
+					result add: entity , 'c'.
+					result ] ].
 	relationships := OrderedCollection new.
-	relationships add: ('ab'->'ba').
-	"relationships add: ('ab'->'bb').
+	relationships add: 'ab' -> 'ba'.	"relationships add: ('ab'->'bb').
 	relationships add: ('ab'->'bca')."
-
-	hg addEdges: relationships
-			sourceBlock: [ :r | r key ] 
-			destinationBlock: [ :r | r value ].
-
-	hg propagateEdges.
-
-	"Testing relationships and their propagandation."
-	self assert: ((hg nodeWrapping: 'a') outgoing size = 2).
-	self assert: ((hg nodeWrapping: 'ab') outgoing size = 2).
-	self assert: (hg edgesPropagated size = 3).
-	self assert: (hg edgesNotPropagated size = 1).
-	self assert: ((hg nodeWrapping: 'b') incoming size = 2).
-	
+	hg addEdges: relationships sourceBlock: [ :r | r key ] destinationBlock: [ :r | r value ].
+	hg propagateEdges.	"Testing relationships and their propagandation."
+	self assert: (hg nodeWrapping: 'a') outgoing size equals: 2.
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 2.
+	self assert: hg edgesPropagated size equals: 3.
+	self assert: hg edgesNotPropagated size equals: 1.
+	self assert: (hg nodeWrapping: 'b') incoming size equals: 2
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodesAsymetric [
-| hg rootNodes relationships |
-	
+	| hg rootNodes relationships |
 	rootNodes := OrderedCollection new.
-	rootNodes add: 'a'; add: 'b'; add: 'c'.
-	
+	rootNodes
+		add: 'a';
+		add: 'b';
+		add: 'c'.
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
-
-	hg blockToGetChildren: [ :entity |  
-		(entity size < 6) 
-		ifTrue: [
-			| result |
-			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result add: (entity, 'c').
-			result.
-		]
-	].
-
+	hg
+		blockToGetChildren: [ :entity | 
+			entity size < 6
+				ifTrue: [ 
+					| result |
+					result := Set new.
+					result add: entity , 'a'.
+					result add: entity , 'b'.
+					result add: entity , 'c'.
+					result ] ].
 	relationships := OrderedCollection new.
-	relationships add: ('ab'->'baa').
-
-	hg addEdges: relationships
-			sourceBlock: [ :r | r key ] 
-			destinationBlock: [ :r | r value ].
-
-	hg propagateEdges.
-
-	"Testing relationships and their propagandation."
-	self assert: ((hg nodeWrapping: 'a') outgoing size = 3).
-	self assert: ((hg nodeWrapping: 'ab') outgoing size = 3).
-	self assert: (hg edgesPropagated size = 5).
-	self assert: (hg edgesNotPropagated size = 1).
-	self assert: ((hg nodeWrapping: 'b') incoming size = 2).
-	self assert: ((hg nodeWrapping: 'baa') incoming size = 2).
-	self assert: ((hg nodeWrapping: 'ba') incoming size = 2).
-	
+	relationships add: 'ab' -> 'baa'.
+	hg addEdges: relationships sourceBlock: [ :r | r key ] destinationBlock: [ :r | r value ].
+	hg propagateEdges.	"Testing relationships and their propagandation."
+	self assert: (hg nodeWrapping: 'a') outgoing size equals: 3.
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 3.
+	self assert: hg edgesPropagated size equals: 5.
+	self assert: hg edgesNotPropagated size equals: 1.
+	self assert: (hg nodeWrapping: 'b') incoming size equals: 2.
+	self assert: (hg nodeWrapping: 'baa') incoming size equals: 2.
+	self assert: (hg nodeWrapping: 'ba') incoming size equals: 2
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testEdgePropagationSimple [
-| hg rootNodes visualizer relationships |
-	
+	| hg rootNodes visualizer relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
-	
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
-
-	hg blockToGetChildren: [ :entity |  
-		(entity size < 3) 
-		ifTrue: [
-			| result |
-			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result.
-		]
-	].
-
-	relationships := OrderedCollection new.	
-	relationships add: ('abb'->'aab').
-
-	hg addEdges: relationships
-			sourceBlock: [ :r | r key ] 
-			destinationBlock: [ :r | r value ].
-
-	hg propagateEdges.
-
-	"Testing relationships and their propagandation."
-	self assert: ((hg nodeWrapping: 'ab') outgoing size = 2).
-	self assert: ((hg nodeWrapping: 'abb') outgoing size = 2).
-	self assert: ((hg nodeWrapping: 'aa') incoming size = 2).
-	self assert: (hg edgesPropagated size = 3).
-	self assert: (hg edgesNotPropagated size = 1).
-
-	"hg explore."
-	"visualizer := SnVisualizer show: hg withWeightBlock: [ :e | e size ]."
-	"visualizer := SnVisualizer with: hg weightBlock: [ :e | e size ]."
-	"visualizer showAsTree."
-	"visualizer showSplitOn: 2."
-	"visualizer show: (hg nodesFor: ((Set with: 'a') add: 'b'; add: 'ca'; add: 'cb'; add: 'cc'; yourself))."
-	
+	hg
+		blockToGetChildren: [ :entity | 
+			entity size < 3
+				ifTrue: [ 
+					| result |
+					result := Set new.
+					result add: entity , 'a'.
+					result add: entity , 'b'.
+					result ] ].
+	relationships := OrderedCollection new.
+	relationships add: 'abb' -> 'aab'.
+	hg addEdges: relationships sourceBlock: [ :r | r key ] destinationBlock: [ :r | r value ].
+	hg propagateEdges.	"Testing relationships and their propagandation."
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 2.
+	self assert: (hg nodeWrapping: 'abb') outgoing size equals: 2.
+	self assert: (hg nodeWrapping: 'aa') incoming size equals: 2.
+	self assert: hg edgesPropagated size equals: 3.
+	self assert: hg edgesNotPropagated size equals: 1	"hg explore."	"visualizer := SnVisualizer show: hg withWeightBlock: [ :e | e size ]."	"visualizer := SnVisualizer with: hg weightBlock: [ :e | e size ]."	"visualizer showAsTree."	"visualizer showSplitOn: 2."	"visualizer show: (hg nodesFor: ((Set with: 'a') add: 'b'; add: 'ca'; add: 'cb'; add: 'cc'; yourself))."
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testEmptyHiGraph [
 	| hg |
-	hg := MalHierarchicalGraph with: (OrderedCollection new) name: 'emptyGraph'.
+	hg := MalHierarchicalGraph with: OrderedCollection new name: 'emptyGraph'.
 	self assert: hg nodes isEmpty.
 	self assert: hg rootNodes isEmpty.
 	self assert: hg edges isEmpty.
-	self assert: hg name = 'emptyGraph'.
+	self assert: hg name equals: 'emptyGraph'
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testGraphAsTuple [
 	| hg rootNodes edges hierarchy |
-	
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
-	
 	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
-	
 	edges := OrderedCollection new.
-	edges 
-		add: (1 -> 2);
-		add: (1 -> 3);
-		add: (3 -> 4);
-		add: (2 -> 5).
-		
+	edges
+		add: 1 -> 2;
+		add: 1 -> 3;
+		add: 3 -> 4;
+		add: 2 -> 5.
 	hierarchy := Dictionary new.
-	hierarchy 
+	hierarchy
 		at: 6 put: #(1 2 3);
 		at: 7 put: #(4 5).
-	
-	hg topDown: [ :m |
-		hierarchy at: m ifAbsent: [ nil ].
-	].
-	
-	hg addEdges: edges 
-		from:  [:e | e key]
-		to: [:e | e value].
-
-	self assert: ((hg graph at: 1) size = 7).
-	self assert: ((hg graph at: 2) size = 4).
-
-
+	hg topDown: [ :m | hierarchy at: m ifAbsent: [ nil ] ].
+	hg addEdges: edges from: [ :e | e key ] to: [ :e | e value ].
+	self assert: (hg graph at: 1) size equals: 7.
+	self assert: (hg graph at: 2) size equals: 4
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testLevels [
 	| hg |
-	
 	hg := self setupSimpleNumbersHiGraph.
-
-	self assert: ((hg nodeWrapping: 1) level = 0).
-	self assert: ((hg nodeWrapping: 1) isRootNode).
-	self assert: ((hg nodeWrapping: 2) level = 0).
-	self assert: ((hg nodeWrapping: 3) level = 0).
-	self assert: ((hg nodeWrapping: 34) level = 1).
-	self assert: ((hg nodeWrapping: 25) level = 1).
-	self assert: ((hg nodeWrapping: 36) level = 1).
-	self assert: ((hg nodeWrapping: 12) level = 1).
+	self assert: (hg nodeWrapping: 1) level equals: 0.
+	self assert: (hg nodeWrapping: 1) isRootNode.
+	self assert: (hg nodeWrapping: 2) level equals: 0.
+	self assert: (hg nodeWrapping: 3) level equals: 0.
+	self assert: (hg nodeWrapping: 34) level equals: 1.
+	self assert: (hg nodeWrapping: 25) level equals: 1.
+	self assert: (hg nodeWrapping: 36) level equals: 1.
+	self assert: (hg nodeWrapping: 12) level equals: 1
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testNodeWrapping [
 	| hg |
-	
 	hg := self setupSimpleNumbersHiGraph.
-
-	self assert: ((hg nodeWrapping: 999) = nil).
-	self assert: ((hg nodesDict at: 1) = (hg nodeWrapping: 1)).
-	self assert: ((hg nodesDict at: 24) = (hg nodeWrapping: 24)).
-	
+	self assert: (hg nodeWrapping: 999) equals: nil.
+	self assert: (hg nodesDict at: 1) equals: (hg nodeWrapping: 1).
+	self assert: (hg nodesDict at: 24) equals: (hg nodeWrapping: 24)
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testNodesForEntities [
 	| hg |
-	
 	hg := self setupSimpleNumbersHiGraph.
-	
-	self assert: ((hg nodesFor: (Set new)) isEmpty).
-	self assert: (((hg nodesFor: (Set with: 1)) size) = 1).
-	self assert: (((hg nodesFor: (Set with: 1)) anyOne) model = 1).
-	self assert: (((hg nodesFor: (Set new add: 1; add: 2; yourself)) size) = 2).
-	self assert: (((hg nodesFor: (Set new add: 1; add: 2; add: 999; yourself)) size) = 2).
-	self assert: (((hg nodesFor: (Set new add: 1; add: 2; add: 34; yourself)) size) = 3).
-	self assert: (((hg nodesFor: (Set new add: 1; add: 12; add: 34; add: 19; yourself)) size) = 4).
+	self assert: (hg nodesFor: Set new) isEmpty.
+	self assert: (hg nodesFor: (Set with: 1)) size equals: 1.
+	self assert: (hg nodesFor: (Set with: 1)) anyOne model equals: 1.
+	self
+		assert:
+			(hg
+				nodesFor:
+					(Set new
+						add: 1;
+						add: 2;
+						yourself)) size
+		equals: 2.
+	self
+		assert:
+			(hg
+				nodesFor:
+					(Set new
+						add: 1;
+						add: 2;
+						add: 999;
+						yourself)) size
+		equals: 2.
+	self
+		assert:
+			(hg
+				nodesFor:
+					(Set new
+						add: 1;
+						add: 2;
+						add: 34;
+						yourself)) size
+		equals: 3.
+	self
+		assert:
+			(hg
+				nodesFor:
+					(Set new
+						add: 1;
+						add: 12;
+						add: 34;
+						add: 19;
+						yourself)) size
+		equals: 4
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testRecursiveChildren [
 	| hg |
-	hg := self setupSimpleTopDownModelHiGraph.
-
-	"Assert that there are more nodes in the highraph in total than some rootNodes sub graph."
-	self assert: hg nodes size > hg rootNodes anyOne recursiveChildren size.
-
-	"Assert that the total size of nodes in the higraph is equal to all rootNodes and their recursive children."
-	self assert: (hg nodes size = (hg rootNodes size + (hg rootNodes inject: 0 into: [:sum :each | sum + each recursiveChildren size]))).
-	
+	hg := self setupSimpleTopDownModelHiGraph.	"Assert that there are more nodes in the highraph in total than some rootNodes sub graph."
+	self assert: hg nodes size > hg rootNodes anyOne recursiveChildren size.	"Assert that the total size of nodes in the higraph is equal to all rootNodes and their recursive children."
+	self
+		assert: hg nodes size
+		equals: hg rootNodes size + (hg rootNodes inject: 0 into: [ :sum :each | sum + each recursiveChildren size ])
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleApiBottomUp [
 	| hg |
-	
-	hg := MalHierarchicalGraph with: (self setupSimpleBottomUpModel) name: 'test'. 
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
 	hg bottomUp: #parent.
-	
-	self assert: hg nodes size = 121.
-	self assert: hg rootNodes size = 1.
-	self assert: hg rootNodes anyOne level = 0.
-	self assert: hg rootNodes anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne level = 1.
-	self assert: hg rootNodes anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne level = 2.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
-	
-	
-	
-
+	self assert: hg nodes size equals: 121.
+	self assert: hg rootNodes size equals: 1.
+	self assert: hg rootNodes anyOne level equals: 0.
+	self assert: hg rootNodes anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne level equals: 1.
+	self assert: hg rootNodes anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne level equals: 2.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level equals: 4.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleApiTopDown [
 	| hg |
-	
-	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'test'. 
+	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel name: 'test'.
 	hg topDown: #children.
-	
-	self assert: hg nodes size = 121.
-	self assert: hg rootNodes size = 1.
-	self assert: hg rootNodes anyOne level = 0.
-	self assert: hg rootNodes anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne level = 1.
-	self assert: hg rootNodes anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne level = 2.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size = 3.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level = 4.
-	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode.
-	
-	
-	
-
+	self assert: hg nodes size equals: 121.
+	self assert: hg rootNodes size equals: 1.
+	self assert: hg rootNodes anyOne level equals: 0.
+	self assert: hg rootNodes anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne level equals: 1.
+	self assert: hg rootNodes anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne level equals: 2.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne level equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children size equals: 3.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne level equals: 4.
+	self assert: hg rootNodes anyOne children anyOne children anyOne children anyOne children anyOne isLeafNode
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleEdgeApi [
-| hg rootNodes edges |
-	
+	| hg rootNodes edges |
 	rootNodes := OrderedCollection new.
-	rootNodes add: 'a'; add: 'b'; add: 'c'.
-	
+	rootNodes
+		add: 'a';
+		add: 'b';
+		add: 'c'.
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
-
-	hg topDown: [ :entity |  
-		(entity size < 6) 
-		ifTrue: [
-			| result |
-			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result add: (entity, 'c').
-			result.
-		]
-	].
-
+	hg
+		topDown: [ :entity | 
+			entity size < 6
+				ifTrue: [ 
+					| result |
+					result := Set new.
+					result add: entity , 'a'.
+					result add: entity , 'b'.
+					result add: entity , 'c'.
+					result ] ].
 	edges := OrderedCollection new.
-	edges add: ('ab'->'ba').
-	edges add: ('ab'->'bb').
-	edges add: ('a'->'b').
-	edges add: ('a'->'c').
-	edges add: ('a'->'ab').
-
+	edges add: 'ab' -> 'ba'.
+	edges add: 'ab' -> 'bb'.
+	edges add: 'a' -> 'b'.
+	edges add: 'a' -> 'c'.
+	edges add: 'a' -> 'ab'.
 	hg addEdges: edges from: #key to: #value.
-
-	self assert: (hg nodeWrapping: 'a') outgoing size = 3.
-	self assert: (hg nodeWrapping: 'ab') outgoing size = 2.
+	self assert: (hg nodeWrapping: 'a') outgoing size equals: 3.
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 2.
 	self assert: (hg nodeWrapping: 'ba') outgoing isEmpty.
-	self assert: (hg nodeWrapping: 'ba') incoming size = 1.
-	self assert: (hg nodeWrapping: 'b') incoming size = 1.
-	self assert: (hg nodeWrapping: 'c') incoming size = 1.
-	self assert: (hg nodeWrapping: 'ab') incoming size = 1.
-	self assert: (hg nodeWrapping: 'cb') incoming isEmpty.
-	
+	self assert: (hg nodeWrapping: 'ba') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'b') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'c') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'ab') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'cb') incoming isEmpty
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleEdgeApiWithModel [
-| hg rootNodes edges |
-	
+	| hg rootNodes edges |
 	rootNodes := OrderedCollection new.
-	rootNodes add: 'a'; add: 'b'; add: 'c'.
-	
+	rootNodes
+		add: 'a';
+		add: 'b';
+		add: 'c'.
 	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
-
-	hg topDown: [ :entity |  
-		(entity size < 6) 
-		ifTrue: [
-			| result |
-			result := Set new.
-			result add: (entity, 'a').
-			result add: (entity, 'b').
-			result add: (entity, 'c').
-			result.
-		]
-	].
-
+	hg
+		topDown: [ :entity | 
+			entity size < 6
+				ifTrue: [ 
+					| result |
+					result := Set new.
+					result add: entity , 'a'.
+					result add: entity , 'b'.
+					result add: entity , 'c'.
+					result ] ].
 	edges := OrderedCollection new.
 	edges add: (MalHgTestEdge from: 'ab' to: 'ba').
 	edges add: (MalHgTestEdge from: 'ab' to: 'bb').
 	edges add: (MalHgTestEdge from: 'a' to: 'b').
 	edges add: (MalHgTestEdge from: 'a' to: 'c').
 	edges add: (MalHgTestEdge from: 'a' to: 'ab').
-
-	hg addEdges: edges from: {MalHgTestEdge->#from} to: {MalHgTestEdge->#to}.
-
-	self assert: (hg nodeWrapping: 'a') outgoing size = 3.
-	self assert: (hg nodeWrapping: 'ab') outgoing size = 2.
+	hg addEdges: edges from: {(MalHgTestEdge -> #from)} to: {(MalHgTestEdge -> #to)}.
+	self assert: (hg nodeWrapping: 'a') outgoing size equals: 3.
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 2.
 	self assert: (hg nodeWrapping: 'ba') outgoing isEmpty.
-	self assert: (hg nodeWrapping: 'ba') incoming size = 1.
-	self assert: (hg nodeWrapping: 'b') incoming size = 1.
-	self assert: (hg nodeWrapping: 'c') incoming size = 1.
-	self assert: (hg nodeWrapping: 'ab') incoming size = 1.
+	self assert: (hg nodeWrapping: 'ba') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'b') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'c') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'ab') incoming size equals: 1.
 	self assert: (hg nodeWrapping: 'cb') incoming isEmpty.
-	
 	hg resetEdges.
-	
-	hg addEdges: edges from: {MalHgTestEdge->[ :e | e from]} to: {MalHgTestEdge->[ :e | e to]}.
-	
-	self assert: (hg nodeWrapping: 'a') outgoing size = 3.
-	self assert: (hg nodeWrapping: 'ab') outgoing size = 2.
+	hg addEdges: edges from: {(MalHgTestEdge -> [ :e | e from ])} to: {(MalHgTestEdge -> [ :e | e to ])}.
+	self assert: (hg nodeWrapping: 'a') outgoing size equals: 3.
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 2.
 	self assert: (hg nodeWrapping: 'ba') outgoing isEmpty.
-	self assert: (hg nodeWrapping: 'ba') incoming size = 1.
-	self assert: (hg nodeWrapping: 'b') incoming size = 1.
-	self assert: (hg nodeWrapping: 'c') incoming size = 1.
-	self assert: (hg nodeWrapping: 'ab') incoming size = 1.
+	self assert: (hg nodeWrapping: 'ba') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'b') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'c') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'ab') incoming size equals: 1.
 	self assert: (hg nodeWrapping: 'cb') incoming isEmpty.
-	
-	hg resetEdges.
-	
-	"This is not elegant, but it has to work anyway."
-	hg addEdges: edges 
-		from: {MalHgTestEdge->#from . MalHgTestEdge->#from } 
-		to: {MalHgTestEdge->#to . MalHgTestEdge->#to}.
-	
-	self assert: (hg nodeWrapping: 'a') outgoing size = 3.
-	self assert: (hg nodeWrapping: 'ab') outgoing size = 2.
+	hg resetEdges.	"This is not elegant, but it has to work anyway."
+	hg
+		addEdges: edges
+		from:
+			{(MalHgTestEdge -> #from).
+			(MalHgTestEdge -> #from)}
+		to:
+			{(MalHgTestEdge -> #to).
+			(MalHgTestEdge -> #to)}.
+	self assert: (hg nodeWrapping: 'a') outgoing size equals: 3.
+	self assert: (hg nodeWrapping: 'ab') outgoing size equals: 2.
 	self assert: (hg nodeWrapping: 'ba') outgoing isEmpty.
-	self assert: (hg nodeWrapping: 'ba') incoming size = 1.
-	self assert: (hg nodeWrapping: 'b') incoming size = 1.
-	self assert: (hg nodeWrapping: 'c') incoming size = 1.
-	self assert: (hg nodeWrapping: 'ab') incoming size = 1.
-	self assert: (hg nodeWrapping: 'cb') incoming isEmpty.
-	
+	self assert: (hg nodeWrapping: 'ba') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'b') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'c') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'ab') incoming size equals: 1.
+	self assert: (hg nodeWrapping: 'cb') incoming isEmpty
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleModel [
 	| root |
-	root := self setupSimpleTopDownModel.
-	
-	"We have four levels"
-	self assert: root children size = 3.
-	self assert: root children anyOne children size = 3.
-	self assert: root children anyOne children anyOne children size = 3.
-	self assert: root children anyOne children anyOne children anyOne children size = 3.
-	self assert: root children anyOne children anyOne children anyOne children anyOne children size = 0.
-	
-	"We have a hierarchy chain"
-	self assert: root children anyOne children anyOne children anyOne parent parent parent = root.
-	
-	"root is root"
-	self assert: root parent = nil.
-	
-	
-
+	root := self setupSimpleTopDownModel.	"We have four levels"
+	self assert: root children size equals: 3.
+	self assert: root children anyOne children size equals: 3.
+	self assert: root children anyOne children anyOne children size equals: 3.
+	self assert: root children anyOne children anyOne children anyOne children size equals: 3.
+	self assert: root children anyOne children anyOne children anyOne children anyOne children size equals: 0.	"We have a hierarchy chain"
+	self assert: root children anyOne children anyOne children anyOne parent parent parent equals: root.	"root is root"
+	self assert: root parent equals: nil
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testSingleNodeHiGraph [
-	| hg  |
+	| hg |
 	hg := MalHierarchicalGraph with: (OrderedCollection with: 'someBaseEntity') name: 'singleNodeHg'.
-	self assert: (hg nodes size = 1).
+	self assert: hg nodes size equals: 1
 ]
 
 { #category : #tests }
@@ -893,40 +788,26 @@ MalHierarchicalGraphTests >> testTopDownGraphBuilding [
 { #category : #tests }
 MalHierarchicalGraphTests >> testVerySimpleHierarchicalGraph [
 	| hg rootNodes edges hierarchy |
-	
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
-	
 	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
-	
 	edges := OrderedCollection new.
-	edges 
-		add: (1 -> 2);
-		add: (1 -> 3);
-		add: (3 -> 4);
-		add: (2 -> 5).
-		
+	edges
+		add: 1 -> 2;
+		add: 1 -> 3;
+		add: 3 -> 4;
+		add: 2 -> 5.
 	hierarchy := Dictionary new.
-	hierarchy 
+	hierarchy
 		at: 6 put: #(1 2 3);
 		at: 7 put: #(4 5).
-	
-	hg topDown: [ :m |
-		hierarchy at: m ifAbsent: [ nil ].
-	].
-	
-	hg addEdges: edges 
-		from:  [:e | e key]
-		to: [:e | e value].
-		
-	self assert: (hg edges size = 4).
-
+	hg topDown: [ :m | hierarchy at: m ifAbsent: [ nil ] ].
+	hg addEdges: edges from: [ :e | e key ] to: [ :e | e value ].
+	self assert: hg edges size equals: 4.
 	hg propagateEdges.
-	
-	self assert: (hg edges size > 0).
-	self assert: (hg edges size = 10).
-	self assert: (hg edges contains: [:rel | rel from model = 6 and: [rel to model = 7]]).
-
+	self assert: hg edges size > 0.
+	self assert: hg edges size equals: 10.
+	self assert: (hg edges contains: [ :rel | rel from model = 6 and: [ rel to model = 7 ] ])
 ]
 
 { #category : #tests }
@@ -968,9 +849,8 @@ MalHierarchicalGraphTests >> testfindEdge [
 { #category : #tests }
 MalHierarchicalGraphTests >> testfindNode [
 	| hg |
-	
-	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'test'.
-	hg topDown: {MalHgTestModelSimple->#children}.
-	self assert: hg rootNodes size = 1.
-	self assert: ((hg findNode: (hg rootNodes anyOne model)) = hg rootNodes anyOne).
+	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel name: 'test'.
+	hg topDown: {(MalHgTestModelSimple -> #children)}.
+	self assert: hg rootNodes size equals: 1.
+	self assert: (hg findNode: hg rootNodes anyOne model) equals: hg rootNodes anyOne
 ]

@@ -12,10 +12,9 @@ Class {
 
 { #category : #running }
 MalStopwordsTest >> testFewWords [
-	
 	sw := MalStopwords fromString: 'and the super of a'.
-	self assert: sw size = 5.
-	^sw
+	self assert: sw size equals: 5.
+	^ sw
 ]
 
 { #category : #running }

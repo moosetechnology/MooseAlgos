@@ -9,8 +9,7 @@ Class {
 
 { #category : #running }
 MalTermScannerTest >> testDanglingLetter [
-	
-	self assert: (MalTermScanner scan: '   a') asArray = #('a')
+	self assert: (MalTermScanner scan: '   a') asArray equals: #('a')
 ]
 
 { #category : #running }
@@ -21,9 +20,8 @@ MalTermScannerTest >> testEmptyString [
 
 { #category : #running }
 MalTermScannerTest >> testNonLetter [
-	
 	self assert: (MalTermScanner scan: '123456') isEmpty.
-	self assert: (MalTermScanner scan: 'abc123abc') asArray = #('abc' 'abc')
+	self assert: (MalTermScanner scan: 'abc123abc') asArray equals: #('abc' 'abc')
 ]
 
 { #category : #running }
@@ -49,15 +47,13 @@ equals: #('foo' 'bar')"
 
 { #category : #running }
 MalTermScannerTest >> testTrailingWhitespace [
-	
-	self assert: (MalTermScanner scan: 'foo') asArray = #('foo').
-	self assert: (MalTermScanner scan: '  foo  ') asArray = #('foo')
+	self assert: (MalTermScanner scan: 'foo') asArray equals: #('foo').
+	self assert: (MalTermScanner scan: '  foo  ') asArray equals: #('foo')
 ]
 
 { #category : #running }
 MalTermScannerTest >> testWhitespaceString [
-	
 	self assert: (MalTermScanner scan: '               ') isEmpty.
-	self assert: (MalTermScanner scan: 'foo') asArray = #('foo').
-	self assert: (MalTermScanner scan: '  foo  ') asArray = #('foo')
+	self assert: (MalTermScanner scan: 'foo') asArray equals: #('foo').
+	self assert: (MalTermScanner scan: '  foo  ') asArray equals: #('foo')
 ]

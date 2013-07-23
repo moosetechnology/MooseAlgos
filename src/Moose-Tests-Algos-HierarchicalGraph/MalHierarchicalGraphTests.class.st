@@ -125,7 +125,7 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModel [
 
 { #category : #setup }
 MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
-	| hg  |
+	| hg |
 
 	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'topDownWithModel'.
 	hg topDown: #children.

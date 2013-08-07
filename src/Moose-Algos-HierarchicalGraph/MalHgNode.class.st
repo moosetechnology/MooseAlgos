@@ -425,23 +425,23 @@ MalHgNode >> resetAttributes [
 
 { #category : #resetting }
 MalHgNode >> resetEdges [
-	outgoing := Set new. "Outgoing Edges"
-	incoming := Set new. "Incoming Edges"
+	outgoing := OrderedCollection new. "Outgoing Edges"
+	incoming := OrderedCollection new. "Incoming Edges"
 ]
 
 { #category : #resetting }
 MalHgNode >> resetHierarchy [
-	children := Set new. "My direct children"
+	children := OrderedCollection new. "My direct children"
 ]
 
 { #category : #ordering }
 MalHgNode >> setLevels [
 	"Set levels of all my children if I have any. I have to have a level set for this to work."
-	| currLevelSet |
+	| currLevelCollection |
 	self assert: (level notNil) description: 'This node must have a level set to set its childrens level'.
 	
-	currLevelSet := hiGraph levels at: level ifAbsent: [ hiGraph levels at: level put: Set new ].
-	currLevelSet add: self.
+	currLevelCollection := hiGraph levels at: level ifAbsent: [ hiGraph levels at: level put: OrderedCollection new ].
+	currLevelCollection add: self.
 	
 	self notLeafNode ifTrue: [
 		children do: [ :childNode |

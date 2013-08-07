@@ -27,7 +27,7 @@ MalHgEdgeContainer >> description [
 
 { #category : #'initialize-release' }
 MalHgEdgeContainer >> initialize [ 
-	edges := Set new.
+	edges := OrderedCollection new.
 	size := 0.
 ]
 

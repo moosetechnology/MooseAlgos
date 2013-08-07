@@ -153,7 +153,7 @@ MalHierarchicalGraph >> blockToGetChildren: aBlock [
 	
 	"If this method is called, we know that we are in top down building mode, 
 	this means all given base nodes are root nodes."
-	levels at: 0 put: self nodes asSet.
+	levels at: 0 put: self nodes asOrderedCollection.
 
 	"Set given block as the higraphs buildingBlock for later use,"
 	buildingBlock := aBlock.
@@ -249,7 +249,7 @@ MalHierarchicalGraph >> deepestLevel [
 
 { #category : #accessing }
 MalHierarchicalGraph >> edges [ 
-	"Returns a Set of all edges in this hiGraph."
+	"Returns a Collection of all edges in this hiGraph."
 	^ edges.
 ]
 
@@ -267,13 +267,13 @@ MalHierarchicalGraph >> edges: aCollection from: source to: target weight: weigh
 
 { #category : #accessing }
 MalHierarchicalGraph >> edgesNotPropagated [
-	"Returns a Set of all edges that were not propagated in this hiGraph."
+	"Returns a Collection of all edges that were not propagated in this hiGraph."
 	^ edges reject: [ :rel | rel class = MalHgPropagatedEdge ].
 ]
 
 { #category : #accessing }
 MalHierarchicalGraph >> edgesPropagated [
-	"Returns a Set of all edges that were propagated in this hiGraph."
+	"Returns a Collection of all edges that were propagated in this hiGraph."
 	^ edges select: [ :rel | rel class = MalHgPropagatedEdge ].
 ]
 
@@ -295,7 +295,7 @@ MalHierarchicalGraph >> initialize [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> leafNodes [
-	"Returns a Set of all leaf nodes of this hiGraph."
+	"Returns a Collection of all leaf nodes of this hiGraph."
 	^ levels at: self deepestLevel.
 ]
 
@@ -311,7 +311,7 @@ MalHierarchicalGraph >> levels [
 
 { #category : #accessing }
 MalHierarchicalGraph >> name [
-	"Returns the name if this hierarchical graph."
+	"Returns the name of this hierarchical graph."
 	(name isNil) ifTrue: [
 		^ 'a HiGraph'.
 	].
@@ -377,10 +377,10 @@ MalHierarchicalGraph >> nodesDict [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesDownFromLevel: aLevel [
-	"Returns only part of the hiGraph: a set of all nodes of given and of deeper levels (deeper meaning farer away from the root nodes)."
+	"Returns only part of the hiGraph: a Collection of all nodes of given and of deeper levels (deeper meaning farer away from the root nodes)."
 	| result currLevel |
 	
-	result := Set new.
+	result := OrderedCollection new.
 	currLevel := aLevel.
 	
 	[ levels includesKey: currLevel ] whileTrue: [ 
@@ -393,9 +393,9 @@ MalHierarchicalGraph >> nodesDownFromLevel: aLevel [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesFor: aCollectionOfModels [
-	"Returns a Set of all nodes wrapping given models, empty Set if no corresponding node was found."
+	"Returns a Collection of all nodes wrapping given models, empty Set if no corresponding node was found."
 	| result node |
-	result := Set new.
+	result := OrderedCollection new.
 	
 	aCollectionOfModels do: [ :aModel |
 		node := nodes at: aModel ifAbsent: [ nil ].
@@ -409,15 +409,15 @@ MalHierarchicalGraph >> nodesFor: aCollectionOfModels [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesOnLevel: aLevel [
-	"Returns only part of the higraph: a set of all nodes of a certain level (a cross cut of the higraph)"
-	^ levels at: aLevel ifAbsent: [ Set new ].
+	"Returns only part of the higraph: a collection of all nodes of a certain level (a cross cut of the higraph)"
+	^ levels at: aLevel ifAbsent: [ OrderedCollection new ].
 ]
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesUpFromLevel: aLevel [
-	"Returns only part of the hiGraph: a set of all nodes of given and of higher levels (higher means nearer to the root node."
+	"Returns only part of the hiGraph: a collection of all nodes of given and of higher levels (higher means nearer to the root node."
 	| result currLevel |
-	result := Set new.
+	result := OrderedCollection new.
 	currLevel := aLevel.
 	[ aLevel >= 0 ] whileTrue: [ 
 		result addAll: (levels at: currLevel).
@@ -585,8 +585,8 @@ MalHierarchicalGraph >> resetConfiguration [
 
 { #category : #resetting }
 MalHierarchicalGraph >> resetEdges [
-	"Set of all relationships in the graph."
-	edges := Set new. 
+	"Collection of all relationships in the graph."
+	edges := OrderedCollection new. 
 	
 	"Remove edge reference form nodes."
 	self nodes ifNotEmpty: [ 
@@ -611,13 +611,25 @@ MalHierarchicalGraph >> resetNodes [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> rootNodes [
-	"Returns a Set of all root nodes of this hiGraph."
-	^ levels at: 0 ifAbsent: [ levels at: 0 put: Set new ].
+	"Returns a Collection of all root nodes of this hiGraph."
+	^ levels at: 0 ifAbsent: [ levels at: 0 put: OrderedCollection new ].
 ]
 
 { #category : #enumerating }
-MalHierarchicalGraph >> searchForEntitesNamed: aSearchString [ 
-	^ self nodes detect: [ :node | aSearchString match: node entity name ].
+MalHierarchicalGraph >> searchForModelsNamed: aSearchString [
+	| matcher |
+	"Returns node(s) whos model names match the given RegEx String"
+	"^ self nodes detect: [ :node | aSearchString match: node entity name ]."
+	matcher := RxMatcher forString: aSearchString.
+	^ self nodes select: [ :node | matcher match: node model name ].
+]
+
+{ #category : #enumerating }
+MalHierarchicalGraph >> searchForModelsNamed: aSearchString onLevel: level [
+	| matcher |
+	"Returns nodes on given level whos model names match the given RegEx String"
+	matcher := RxMatcher forString: aSearchString.
+	^ (self level: level) select: [ :node | matcher match: node model name ].
 ]
 
 { #category : #building }
@@ -629,7 +641,7 @@ MalHierarchicalGraph >> setChildrenOfNode: aNode [
 	self assert: (buildingBlock notNil) description: 'blockToGetChildren must be set before calling this method.'.
 	self assert: (self rootNodes notEmpty) description: 'There must be at least one root node set before calling this method.'.
 		
-	children := Set new.
+	children := OrderedCollection new.
 
 	"Get children entities via blockToGetChildren"
 	childrenEntities := buildingBlock value: aNode model.
@@ -691,7 +703,7 @@ MalHierarchicalGraph >> setParentOfNode: aNode [
 	"If the entity has no parent, it is a rootNode"
 	(parentEntity isNil) 
 	ifTrue: [
-		(levels at: 0 ifAbsent: [ levels at: 0 put: Set new ]) add: aNode.
+		(levels at: 0 ifAbsent: [ levels at: 0 put: OrderedCollection new ]) add: aNode.
 		^ nil.
 	]
 	ifFalse: [

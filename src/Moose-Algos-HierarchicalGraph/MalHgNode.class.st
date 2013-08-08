@@ -439,9 +439,11 @@ MalHgNode >> setLevels [
 	"Set levels of all my children if I have any. I have to have a level set for this to work."
 	| currLevelCollection |
 	self assert: (level notNil) description: 'This node must have a level set to set its childrens level'.
-	
 	currLevelCollection := hiGraph levels at: level ifAbsent: [ hiGraph levels at: level put: OrderedCollection new ].
-	currLevelCollection add: self.
+	
+	self notRootNode ifTrue: [ 
+		currLevelCollection add: self.
+	].
 	
 	self notLeafNode ifTrue: [
 		children do: [ :childNode |

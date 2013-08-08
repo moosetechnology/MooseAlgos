@@ -618,18 +618,18 @@ MalHierarchicalGraph >> rootNodes [
 { #category : #enumerating }
 MalHierarchicalGraph >> searchForModelsNamed: aSearchString [
 	| matcher |
-	"Returns node(s) whos model names match the given RegEx String"
+	"Returns nodes whose model names match the given RegEx String"
 	"^ self nodes detect: [ :node | aSearchString match: node entity name ]."
 	matcher := RxMatcher forString: aSearchString.
-	^ self nodes select: [ :node | matcher match: node model name ].
+	^ self nodes select: [ :node | matcher search: node model name ].
 ]
 
 { #category : #enumerating }
 MalHierarchicalGraph >> searchForModelsNamed: aSearchString onLevel: level [
 	| matcher |
-	"Returns nodes on given level whos model names match the given RegEx String"
+	"Returns nodes on given level whose model names match the given RegEx String"
 	matcher := RxMatcher forString: aSearchString.
-	^ (self level: level) select: [ :node | matcher match: node model name ].
+	^ (self level: level) select: [ :node | matcher search: node model name ].
 ]
 
 { #category : #building }
@@ -693,7 +693,7 @@ MalHierarchicalGraph >> setLevels [
 MalHierarchicalGraph >> setParentOfNode: aNode [
 	"Gets parent of given node via blockToGetParent, and sets it - or adds node to root nodes, if there is no parent.
 	Returns parent if one was found, nil else"
-	| parentNode parentEntity |
+	| parentNode parentEntity rootLevel |
 
 	self assert: (buildingBlock notNil) description: 'blockToGetParent must be set before calling this method.'.
 
@@ -703,7 +703,8 @@ MalHierarchicalGraph >> setParentOfNode: aNode [
 	"If the entity has no parent, it is a rootNode"
 	(parentEntity isNil) 
 	ifTrue: [
-		(levels at: 0 ifAbsent: [ levels at: 0 put: OrderedCollection new ]) add: aNode.
+		rootLevel := (levels at: 0 ifAbsent: [ levels at: 0 put: OrderedCollection new ]).
+		(rootLevel includes: aNode) ifFalse: [ rootLevel add: aNode ].
 		^ nil.
 	]
 	ifFalse: [
@@ -723,7 +724,7 @@ MalHierarchicalGraph >> setParentOfNode: aNode [
 		"Add parent to current node as parent"
 		aNode parent: parentNode.
 		
-		"Re Nothing more expected ->turn parent."
+		"Return parent."
 		^ parentNode.
 	].
 ]

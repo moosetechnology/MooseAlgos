@@ -181,7 +181,7 @@ ConfigurationOfMooseAlgos >> baseline24: spec [
 			package: 'Moose-Algos-HierarchicalGraph' with: [spec requires: 'Moose-Algos-Graph'];
 			package: 'Moose-Tests-Algos-HierarchicalGraph' ;
 			package: 'Moose-Tests-Algos-LinearAlgebra' ;
-			package: 'Moose-Tests-Algos-Clustering' ;
+			package: 'Moose-Tests-Algos-Clustering' with: [spec requires: 'Moose-Algos-LinearAlgebra'] ;
 			package: 'Moose-Tests-Algos-InformationRetrieval' ;
 			package: 'Moose-Tests-Algos-FormalConceptAnalysis';
 			package: 'Moose-Tests-Algos-Lattice';

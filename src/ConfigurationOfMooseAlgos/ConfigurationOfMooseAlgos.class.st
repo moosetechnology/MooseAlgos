@@ -185,8 +185,8 @@ ConfigurationOfMooseAlgos >> baseline24: spec [
 			package: 'Moose-Tests-Algos-InformationRetrieval' ;
 			package: 'Moose-Tests-Algos-FormalConceptAnalysis';
 			package: 'Moose-Tests-Algos-Lattice';
-			package: 'Moose-Algos-Clustering' ;
 			package: 'Moose-Algos-LinearAlgebra';
+			package: 'Moose-Algos-Clustering' with: [spec requires: 'Moose-Algos-LinearAlgebra'] ;
 			package: 'Moose-Algos-FormalConceptAnalysis';
 			package: 'Moose-Algos-Lattice';
 			package: 'Moose-Algos-InformationRetrieval';

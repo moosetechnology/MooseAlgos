@@ -178,18 +178,26 @@ ConfigurationOfMooseAlgos >> baseline24: spec [
 		spec 
 			package: 'Moose-Algos-Graph' ;
 			package: 'Moose-Tests-Algos-Graph' ;
+			
 			package: 'Moose-Algos-HierarchicalGraph' with: [spec requires: 'Moose-Algos-Graph'];
 			package: 'Moose-Tests-Algos-HierarchicalGraph' ;
-			package: 'Moose-Tests-Algos-LinearAlgebra' ;
-			package: 'Moose-Tests-Algos-Clustering' with: [spec requires: 'Moose-Algos-LinearAlgebra'] ;
+			
 			package: 'Moose-Tests-Algos-InformationRetrieval' ;
-			package: 'Moose-Tests-Algos-FormalConceptAnalysis';
-			package: 'Moose-Tests-Algos-Lattice';
-			package: 'Moose-Algos-LinearAlgebra';
-			package: 'Moose-Algos-Clustering' with: [spec requires: 'Moose-Algos-LinearAlgebra'] ;
+			
 			package: 'Moose-Algos-FormalConceptAnalysis';
+			package: 'Moose-Tests-Algos-FormalConceptAnalysis';
+			
 			package: 'Moose-Algos-Lattice';
+			package: 'Moose-Tests-Algos-Lattice';
+			
+			package: 'Moose-Algos-LinearAlgebra';
+			package: 'Moose-Tests-Algos-LinearAlgebra' ;
+			
+			package: 'Moose-Algos-Clustering' with: [spec requires: 'Moose-Algos-LinearAlgebra'] ;
 			package: 'Moose-Algos-InformationRetrieval';
+			
+			package: 'Moose-Tests-Algos-Clustering' with: [spec requires: 'Moose-Algos-LinearAlgebra'] ;
+			
 			package: 'Moose-Algos-Kontractor';
 			package: 'Moose-Tests-Algos-Kontractor' ;
 			package: 'CollectionExtensions' with: [spec repository: 'http://www.smalltalkhub.com/mc/Moose/CollectionExtensions/main'].

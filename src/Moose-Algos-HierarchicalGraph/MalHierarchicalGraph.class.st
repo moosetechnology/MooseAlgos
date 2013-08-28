@@ -612,7 +612,7 @@ MalHierarchicalGraph >> resetNodes [
 { #category : #enumerating }
 MalHierarchicalGraph >> rootNodes [
 	"Returns a Collection of all root nodes of this hiGraph."
-	^ levels at: 0 ifAbsent: [ levels at: 0 put: OrderedCollection new ].
+	^ levels at: 0 ifAbsentPut: [OrderedCollection new ].
 ]
 
 { #category : #enumerating }
@@ -703,7 +703,7 @@ MalHierarchicalGraph >> setParentOfNode: aNode [
 	"If the entity has no parent, it is a rootNode"
 	(parentEntity isNil) 
 	ifTrue: [
-		rootLevel := (levels at: 0 ifAbsent: [ levels at: 0 put: OrderedCollection new ]).
+		rootLevel := self rootNodes .
 		(rootLevel includes: aNode) ifFalse: [ rootLevel add: aNode ].
 		^ nil.
 	]

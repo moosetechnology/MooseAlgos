@@ -262,7 +262,7 @@ MalHierarchicalGraph >> edges: aCollection from: source to: destination [
 
 { #category : #api }
 MalHierarchicalGraph >> edges: aCollection from: source to: target weight: weightFunction [
-	ShouldNotImplement signal.
+	ShouldNotImplement signal. "There are no weights in a hierarchical graph."
 ]
 
 { #category : #accessing }
@@ -297,6 +297,11 @@ MalHierarchicalGraph >> initialize [
 MalHierarchicalGraph >> leafNodes [
 	"Returns a Collection of all leaf nodes of this hiGraph."
 	^ levels at: self deepestLevel.
+]
+
+{ #category : #api }
+MalHierarchicalGraph >> leaves: entities [
+	self nodes: entities.
 ]
 
 { #category : #enumerating }
@@ -607,6 +612,11 @@ MalHierarchicalGraph >> resetNodes [
 	
 	"If nodes are reset, we have to reset edges as well, since there can't be edges without nodes."
 	self resetEdges.
+]
+
+{ #category : #api }
+MalHierarchicalGraph >> root: entity [
+	self node: entity.
 ]
 
 { #category : #enumerating }

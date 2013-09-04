@@ -128,8 +128,8 @@ MalHgNode >> incoming [
 
 { #category : #enumerating }
 MalHgNode >> incomingEdges: aLevel [
-	"Returns a set of of all incoming edges that are on given level.
-	Returns an empty set if there are no incoming edgesaLevel 
+	"Returns a collection of of all incoming edges that are on given level.
+	Returns an empty collection if there are no incoming edgesaLevel 
 	Returns all incoming edges if given level is nil"
 	| incomingEdges |
 	 incomingEdges := Set new.
@@ -150,28 +150,28 @@ MalHgNode >> incomingEdges: aLevel [
 { #category : #enumerating }
 MalHgNode >> incomingFrom: aNode [
 	"Returns all edges that are incoming from given node, nil if no such edge was found."
-	| resultSet |
-	resultSet := nil.
+	| result |
+	result := nil.
 	self incoming do: [:rel | 
 		(rel from == aNode) ifTrue: [
-			(resultSet isNil) ifTrue: [
-				resultSet := Set new.
+			(result isNil) ifTrue: [
+				result := Set new.
 			].
-			resultSet add: rel.
+			result add: rel.
 		].
 	].
-	^ resultSet.
+	^ result.
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingFromThese: aNodeCollection [
-	"Returns all edges that are incoming from given node collection, empty set if no such edge was found."
-	 | resultSet |
-	resultSet := Set new.
+	"Returns all edges that are incoming from given node collection, empty collection if no such edge was found."
+	 | result |
+	result := Set new.
 	aNodeCollection do: [ :node |
-		resultSet addAll: (self incomingFrom: node).
+		result addAll: (self incomingFrom: node).
 	].
-	^ resultSet.
+	^ result.
 ]
 
 { #category : #enumerating }
@@ -197,11 +197,11 @@ MalHgNode >> incomingSources [
 
 { #category : #enumerating }
 MalHgNode >> incomingSources: aLevel [
-	"Returns a set of all source nodes of all incoming edges that are on given level.
-	Returns an empty set if there are no incoming edges
+	"Returns a collection of all source nodes of all incoming edges that are on given level.
+	Returns an empty collection if there are no incoming edges
 	Returns all incoming sources if given level is nil"
 	| incomingSources |
-	 incomingSources := Set new.
+	 incomingSources := OrderedCollection new.
 	self incoming do: [ :rel | 	
 		aLevel isNil ifTrue: [
 			incomingSources add: rel from.
@@ -273,8 +273,8 @@ MalHgNode >> outgoingDestinations [
 
 { #category : #enumerating }
 MalHgNode >> outgoingDestinations: aLevel [
-	"Returns a set of all destination nodes of all outgoing relationship that are on given level.
-	Returns an empty set if there are no such nodes
+	"Returns a collection of all destination nodes of all outgoing relationship that are on given level.
+	Returns an empty collection if there are no such nodes
 	Returns all outgoing destinations if given level is nil"
 	| outgoingDestinations |
 	 outgoingDestinations := Set new.
@@ -293,8 +293,8 @@ MalHgNode >> outgoingDestinations: aLevel [
 
 { #category : #enumerating }
 MalHgNode >> outgoingEdges: aLevel [
-	"Returns a set of all of all outgoing relationship that are on given level.
-	Returns an empty set if there are no such relationships
+	"Returns a collection of all of all outgoing relationship that are on given level.
+	Returns an empty collection if there are no such relationships
 	Returns all outgoing relationships if given level is nil"
 	| outgoingRelationships |
 	 outgoingRelationships := Set new.
@@ -327,7 +327,7 @@ MalHgNode >> outgoingPropagated [
 
 { #category : #enumerating }
 MalHgNode >> outgoingTo: aNode [
-	"Returns all relationships that are outgoing to given node, empty set if no such relationship was found."
+	"Returns all relationships that are outgoing to given node, empty collection if no such relationship was found."
 	| resultSet |
 	resultSet := Set new.
 	self outgoing do: [:rel | 
@@ -340,7 +340,7 @@ MalHgNode >> outgoingTo: aNode [
 
 { #category : #enumerating }
 MalHgNode >> outgoingToThese: aNodeCollection [
-	"Returns all relationships that are outgoing to given one or more of given node collection, empty set if no such relationship was found."
+	"Returns all relationships that are outgoing to given one or more of given node collection, empty collection if no such relationship was found."
 	 | resultSet |
 	resultSet := Set new.
 	aNodeCollection do: [ :node |
@@ -397,7 +397,7 @@ MalHgNode >> recursiveChildren [
 { #category : #enumerating }
 MalHgNode >> recursiveChildren: withMyself [
 	"Returns the whole family tree below myself. 
-	If withMyself is true, also add myself to the returning set."
+	If withMyself is true, also add myself to the returning collection."
 	| result |
 	result := Set new.
 	
@@ -439,7 +439,7 @@ MalHgNode >> setLevels [
 	"Set levels of all my children if I have any. I have to have a level set for this to work."
 	| currLevelCollection |
 	self assert: (level notNil) description: 'This node must have a level set to set its childrens level'.
-	currLevelCollection := hiGraph levels at: level ifAbsentPut: [OrderedCollection new ].
+	currLevelCollection := hiGraph levels at: level ifAbsentPut: [ OrderedCollection new ].
 	
 	self notRootNode ifTrue: [ 
 		currLevelCollection add: self.
@@ -455,5 +455,5 @@ MalHgNode >> setLevels [
 
 { #category : #printing }
 MalHgNode >> shortName [
- 	^ model name.
+	^ model name.
 ]

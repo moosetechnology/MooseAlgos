@@ -19,25 +19,6 @@ MalHits >> computeHubsFor: aNode [
 	aNode hub: (aNode nextNodes inject: 0 into: [:s :n| s + n auth])
 ]
 
-{ #category : #displaying }
-MalHits >> display [
-
-	| view |
-	view := ROMondrianViewBuilder new.
-	self displayOn: view.
-	^ view open
-]
-
-{ #category : #displaying }
-MalHits >> displayOn: view [
-
-	view shape rectangle withText: [:n| n printString].
-	view nodes: nodes.
-	view shape arrowedLine.
-	view edges: nodes from: #yourself toAll: #nextNodes.
-	view circleLayout
-]
-
 { #category : #'initialize-release' }
 MalHits >> initialize [
 

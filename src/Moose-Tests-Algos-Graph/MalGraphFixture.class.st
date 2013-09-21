@@ -171,25 +171,3 @@ MalGraphFixture class >> simpleWeightedGraph: builder [
 	^ builder
 
 ]
-
-{ #category : #visualization }
-MalGraphFixture class >> view: fixtureSelector [
-	"
-	self view: #simpleGraph:.
-	self view: #cycleGraph:.
-	self view: #aseCircuitGraph:.
-	self view: #moduleGraph:
-	self view: #nestedCycleGraph:
-	"
-
-	| view graph builder |
-	view := ROMondrianViewBuilder new.
-	builder := MalGraphStructure new nodeClass: MalGraphNode; edgeClass: MalGraphEdge; yourself.
-	graph := self perform: fixtureSelector with: builder.
-	view shape rectangle withText: [:n| n model printString].
-	view nodes: graph nodes.
-	view edges: graph edges from: #from to: #to.
-	view interaction.
-	view treeLayout.
-	^ view open
-]

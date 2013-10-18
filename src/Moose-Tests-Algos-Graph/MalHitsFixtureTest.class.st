@@ -42,13 +42,6 @@ MalHitsFixtureTest >> testCycle [
 ]
 
 { #category : #tests }
-MalHitsFixtureTest >> testDisplay [
-
-	MalGraphFixture complexCycleGraph: hits.
-	self shouldnt: [(hits run; display) delete] raise: Error.
-]
-
-{ #category : #tests }
 MalHitsFixtureTest >> testNestedCycle [
 
 	MalGraphFixture nestedCycleGraph: hits.

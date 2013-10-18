@@ -32,9 +32,3 @@ MalFormalContextTest >> testMammals [
 	self assert: (fca concepts select: [ :each | each attributes isEmpty ]) size equals: 1.
 	self assert: (fca concepts select: [ :each | each objects isEmpty ]) size equals: 1
 ]
-
-{ #category : #initialization }
-MalFormalContextTest >> testViewLattice [
-
-	self shouldnt: [self initializeContext delete] raise: Error.
-]

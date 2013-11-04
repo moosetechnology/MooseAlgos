@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'name',
 		'levels',
-		'buildingBlock',
-		'buildingStyle'
+		'buildingBlock'
 	],
 	#category : #'Moose-Algos-HierarchicalGraph'
 }
@@ -176,9 +175,6 @@ MalHierarchicalGraph >> blockToGetChildren: aBlock [
 		]
 	].
 
-	"True means the graph was built top down."
-	buildingStyle := true.
-
 	"After we have set up the hierarchy, we have to set the levels of the node, 
 	so we can use this information when propagating relationships"
 	self setLevels.
@@ -209,9 +205,6 @@ MalHierarchicalGraph >> blockToGetParent: aBlock [
 			nodesToProcess push: parentNode.
 		]
 	].
-
-	"False means the graph was built bottom up."
-	buildingStyle := false.
 
 	"After we have set up the hierarchy, we have to set the levels of the node, 
 	so we can use this information when propagating relationships"
@@ -486,7 +479,7 @@ MalHierarchicalGraph >> propagateEdges: classCollection [
 	[nodesToProcess notEmpty] whileTrue: [
 		srcNode := nodesToProcess pop.
 
-		"Only check non root nodes."
+		"Only check non-root nodes."
 		(srcNode isRootNode) ifFalse: [
 		
 			"If there are outgoing relationships from this node..."
@@ -606,9 +599,6 @@ MalHierarchicalGraph >> resetNodes [
 	
 	"dict keys: level, values: all nodes on that level as a Set."
 	levels := Dictionary new.
-	
-	"nil means the graph has not been built yet. True means: top down, false: bottom up."
-	buildingStyle := nil. 
 	
 	"If nodes are reset, we have to reset edges as well, since there can't be edges without nodes."
 	self resetEdges.
@@ -743,16 +733,4 @@ MalHierarchicalGraph >> setParentOfNode: aNode [
 MalHierarchicalGraph >> topDown: howToGetChildren [
 	"Build the hiGraph top down from given root nodes."
 	self containment: howToGetChildren.
-]
-
-{ #category : #testing }
-MalHierarchicalGraph >> wasBuiltBottomUp [
-	self assert: buildingStyle notNil description: 'Graph has not been built yet'.
-	^ buildingStyle not.
-]
-
-{ #category : #testing }
-MalHierarchicalGraph >> wasBuiltTopDown [
-	self assert: buildingStyle notNil description: 'Graph has not been built yet'.
-	^ buildingStyle.
 ]

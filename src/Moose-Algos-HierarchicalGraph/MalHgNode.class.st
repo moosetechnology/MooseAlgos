@@ -26,7 +26,7 @@ MalHgNode class >> in: hiGraph with: aModel [
 MalHgNode class >> in: hiGraph with: anEntity level: level [
 	| node |
 	node := MalHgNode new.
-	node entity: anEntity.
+	node model: anEntity.
 	node hiGraph: hiGraph.
 	node level: level.
 	^ node.
@@ -441,10 +441,12 @@ MalHgNode >> setLevels [
 	self assert: (level notNil) description: 'This node must have a level set to set its childrens level'.
 	currLevelCollection := hiGraph levels at: level ifAbsentPut: [ OrderedCollection new ].
 	
+	"We have already added the root nodes in the process"
 	self notRootNode ifTrue: [ 
 		currLevelCollection add: self.
 	].
 	
+	"Recurse if this node has children."
 	self notLeafNode ifTrue: [
 		children do: [ :childNode |
 			childNode level: level + 1.

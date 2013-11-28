@@ -114,7 +114,7 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 		(srcNode isNil or: dstNode isNil) ifFalse: [
 			
 			"Create an edge between the nodes and add it to the graph."
-			edge := MalHgEdge with: e from: srcNode to: dstNode.
+			edge := MalGraphEdge with: e from: srcNode to: dstNode.
 			
 			"Adding edge to the graphs edge set"
 			self edges add: edge.

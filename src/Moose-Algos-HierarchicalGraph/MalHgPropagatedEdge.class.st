@@ -1,5 +1,5 @@
 Class {
 	#name : #MalHgPropagatedEdge,
-	#superclass : #MalHgEdge,
+	#superclass : #MalGraphEdge,
 	#category : #'Moose-Algos-HierarchicalGraph'
 }

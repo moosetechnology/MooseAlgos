@@ -201,7 +201,7 @@ MalHgNode >> incomingSources: aLevel [
 	Returns an empty collection if there are no incoming edges
 	Returns all incoming sources if given level is nil"
 	| incomingSources |
-	 incomingSources := OrderedCollection new.
+	 incomingSources := Set new.
 	self incoming do: [ :rel | 	
 		aLevel isNil ifTrue: [
 			incomingSources add: rel from.

@@ -3,8 +3,8 @@ Extension { #name : #Object }
 { #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> deep: aTraversalBlock do: anObjectActionBlock [
 	| traverser |
-	traverser := MalObjectTraverser withCustomTraversal: aTraversalBlock.
-	traverser action: (MalCustomObjectAction new objectAction: anObjectActionBlock).
+	traverser := MalTraverser withCustomTraversal: aTraversalBlock.
+	traverser action: (MalCustomActionStrategy new objectAction: anObjectActionBlock).
 	traverser traverse: self
 ]
 
@@ -16,6 +16,6 @@ Object >> deepCollect: aBlock [
 { #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> withDeepCollect: aBlock [
 	| traverser |
-	traverser := MalObjectTraverser withCustomTraversal: aBlock.
+	traverser := MalTraverser withCustomTraversal: aBlock.
 	^ traverser traverse: self
 ]

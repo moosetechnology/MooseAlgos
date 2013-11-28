@@ -1,5 +1,5 @@
 Class {
-	#name : #MalObjectTraverserTest,
+	#name : #MalTraverserTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'graph'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #running }
-MalObjectTraverserTest >> setUp [
+MalTraverserTest >> setUp [
 	graph := Dictionary new.
 	graph at: 0 put: {1}.
 	graph at: 1 put: {2 . 3}.

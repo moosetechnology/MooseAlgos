@@ -2,8 +2,8 @@
 This class simply defines the traversal through a block that gets executed for each object
 "
 Class {
-	#name : #MalCustomObjectTraversal,
-	#superclass : #MalObjectTraversal,
+	#name : #MalCustomTraversal,
+	#superclass : #MalTraversal,
 	#instVars : [
 		'traversalBlock'
 	],
@@ -11,17 +11,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-MalCustomObjectTraversal class >> with: aBlock [
+MalCustomTraversal class >> with: aBlock [
 	^ self new 
 		traversalBlock: aBlock
 ]
 
 { #category : #private }
-MalCustomObjectTraversal >> objectsToTraverseFrom: anObject do: aBlock [
+MalCustomTraversal >> objectsToTraverseFrom: anObject do: aBlock [
 	^ (traversalBlock value: anObject) do: aBlock
 ]
 
 { #category : #accessing }
-MalCustomObjectTraversal >> traversalBlock: aBlock [
+MalCustomTraversal >> traversalBlock: aBlock [
 	traversalBlock := aBlock
 ]

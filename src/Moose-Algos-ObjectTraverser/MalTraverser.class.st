@@ -9,7 +9,7 @@ The traverser has three responsibilities:
 3. is handled by the MalObjectAction hierarchy
 "
 Class {
-	#name : #MalObjectTraverser,
+	#name : #MalTraverser,
 	#superclass : #Object,
 	#instVars : [
 		'traversed',
@@ -20,40 +20,36 @@ Class {
 }
 
 { #category : #'instance creation' }
-MalObjectTraverser class >> withCustomTraversal: aBlock [
+MalTraverser class >> withCustomTraversal: aBlock [
 	"we provide a utility method for handling block traversals
 	given that this is likely to be the most common use case"
 	^ self new 
-		traversal: (MalCustomObjectTraversal with: aBlock)
+		traversal: (MalCustomTraversal with: aBlock)
 ]
 
 { #category : #private }
-MalObjectTraverser >> actOnObject: anObject [
-	"override this method in subclasses to trigger
-	behavior associated with each traversed object"
+MalTraverser >> actOnObject: anObject [
 	^ action executeOnObject: anObject
 ]
 
 { #category : #private }
-MalObjectTraverser >> actOnRelationFrom: originObject to: targetObject [
-	"override this method in subclasses to trigger
-	behavior associated with the relation between 
-	the origin and the target of a traversed relation"
+MalTraverser >> actOnRelationFrom: originObject to: targetObject [
+	
 	^ self action executeOnRelationFrom: originObject to: targetObject
 ]
 
 { #category : #accessing }
-MalObjectTraverser >> action [
+MalTraverser >> action [
 	^ action
 ]
 
 { #category : #accessing }
-MalObjectTraverser >> action: anAction [
+MalTraverser >> action: anAction [
 	action := anAction
 ]
 
 { #category : #private }
-MalObjectTraverser >> doTraverse: anObject [
+MalTraverser >> doTraverse: anObject [
 	"This method performs the actual traversal and markes the traversed objects.
 	It uses two hooks for triggering custom behavior for each object,
 	and each relation between two objects."
@@ -72,23 +68,23 @@ MalObjectTraverser >> doTraverse: anObject [
 ]
 
 { #category : #initialization }
-MalObjectTraverser >> initialize [ 
+MalTraverser >> initialize [ 
 	traversed := IdentitySet new.
-	action := MalNullObjectAction new
+	action := MalNullActionStrategy new
 ]
 
 { #category : #private }
-MalObjectTraverser >> isObjectAlreadyTraversed: anEntity [
+MalTraverser >> isObjectAlreadyTraversed: anEntity [
 	^ self traversedObjects includes: anEntity
 ]
 
 { #category : #private }
-MalObjectTraverser >> objectsToTraverseFrom: anObject do: aBlock [	
+MalTraverser >> objectsToTraverseFrom: anObject do: aBlock [	
 	^ self traversal objectsToTraverseFrom: anObject do: aBlock
 ]
 
 { #category : #private }
-MalObjectTraverser >> objectsToTraverseWithoutCollectionsFrom: anObject do: aBlock [
+MalTraverser >> objectsToTraverseWithoutCollectionsFrom: anObject do: aBlock [
 	self objectsToTraverseFrom: anObject do: [ :eachObject |
 		eachObject isCollection 
 			ifTrue: [ 
@@ -102,22 +98,22 @@ MalObjectTraverser >> objectsToTraverseWithoutCollectionsFrom: anObject do: aBlo
 ]
 
 { #category : #accessing }
-MalObjectTraverser >> traversal [
+MalTraverser >> traversal [
 	^ traversal
 ]
 
 { #category : #accessing }
-MalObjectTraverser >> traversal: aBlock [
+MalTraverser >> traversal: aBlock [
 	traversal := aBlock
 ]
 
 { #category : #'public interface' }
-MalObjectTraverser >> traverse: anObject [
+MalTraverser >> traverse: anObject [
 	self doTraverse: anObject.
 	^ self traversedObjects
 ]
 
 { #category : #accessing }
-MalObjectTraverser >> traversedObjects [
+MalTraverser >> traversedObjects [
 	^ traversed
 ]

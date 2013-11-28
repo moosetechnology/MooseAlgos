@@ -4,8 +4,8 @@ This class models a custom action that can be parameterized through blocks:
 - the relationAction is a block that takes two arguments and it is triggered for each object relation
 "
 Class {
-	#name : #MalCustomObjectAction,
-	#superclass : #MalObjectAction,
+	#name : #MalCustomActionStrategy,
+	#superclass : #MalActionStrategy,
 	#instVars : [
 		'objectAction',
 		'relationAction'
@@ -14,37 +14,37 @@ Class {
 }
 
 { #category : #hooks }
-MalCustomObjectAction >> executeOnObject: anObject [
+MalCustomActionStrategy >> executeOnObject: anObject [
 	^ self objectAction value: anObject
 ]
 
 { #category : #hooks }
-MalCustomObjectAction >> executeOnRelationFrom: originObject to: targetObject [
+MalCustomActionStrategy >> executeOnRelationFrom: originObject to: targetObject [
 	^ self relationAction value: originObject value: targetObject
 ]
 
 { #category : #initialization }
-MalCustomObjectAction >> initialize [
+MalCustomActionStrategy >> initialize [
 	objectAction := [ :object | ].
 	relationAction := [ :origin :target | ]
 ]
 
 { #category : #hooks }
-MalCustomObjectAction >> objectAction [
+MalCustomActionStrategy >> objectAction [
 	^ objectAction
 ]
 
 { #category : #hooks }
-MalCustomObjectAction >> objectAction: aBlockWithOneArgument [
+MalCustomActionStrategy >> objectAction: aBlockWithOneArgument [
 	objectAction := aBlockWithOneArgument
 ]
 
 { #category : #hooks }
-MalCustomObjectAction >> relationAction [
+MalCustomActionStrategy >> relationAction [
 	^ relationAction
 ]
 
 { #category : #hooks }
-MalCustomObjectAction >> relationAction: aBlockWithTwoArguments [
+MalCustomActionStrategy >> relationAction: aBlockWithTwoArguments [
 	relationAction := aBlockWithTwoArguments
 ]

@@ -1,10 +1,10 @@
 Class {
 	#name : #MalObjectExtensionsTraverserTest,
-	#superclass : #MalObjectTraverserTest,
+	#superclass : #MalTraverserTest,
 	#category : #'Moose-Algos-ObjectTraverser'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalObjectExtensionsTraverserTest >> testDeepCollect [
 	| result |
 	result := 1 deepCollect: [ :each | 
@@ -12,7 +12,7 @@ MalObjectExtensionsTraverserTest >> testDeepCollect [
 	self assert: result asSet equals: #(2 3) asSet
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalObjectExtensionsTraverserTest >> testDeepDo [
 	| trace |
 	trace := Set new.
@@ -22,7 +22,7 @@ MalObjectExtensionsTraverserTest >> testDeepDo [
 	self assert: trace equals: #(2 3) asSet
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalObjectExtensionsTraverserTest >> testWithDeepCollect [
 	| result |
 	result := 1 withDeepCollect: [ :each | 

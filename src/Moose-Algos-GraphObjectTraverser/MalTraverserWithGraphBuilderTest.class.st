@@ -1,11 +1,11 @@
 Class {
-	#name : #MalGraphTraverserTest,
-	#superclass : #MalObjectTraverserTest,
+	#name : #MalTraverserWithGraphBuilderTest,
+	#superclass : #MalTraverserTest,
 	#category : #'Moose-Algos-GraphObjectTraverser'
 }
 
 { #category : #tests }
-MalGraphTraverserTest >> testGraph [
+MalTraverserWithGraphBuilderTest >> testGraph [
 	traverser traverse: 0.
 	self assert: traverser action graph nodeModels equals: { 0 . 1 . 2 . 3 } asOrderedCollection.
 	self assert: traverser action graph nodes first model equals: 0.
@@ -15,16 +15,16 @@ MalGraphTraverserTest >> testGraph [
 ]
 
 { #category : #tests }
-MalGraphTraverserTest >> testGraphNode [
+MalTraverserWithGraphBuilderTest >> testGraphNode [
 	traverser traverse: 0.
 	self assert: (traverser action graph nodes first isKindOf: MalTraverserGraphNode)
 ]
 
 { #category : #running }
-MalGraphTraverserTest >> traverser [
-	^ MalObjectTraverser new
-		action: MalGraphBuilderAction new;
-		traversal: (MalCustomObjectTraversal 
+MalTraverserWithGraphBuilderTest >> traverser [
+	^ MalTraverser new
+		action: MalGraphBuilderStrategy new;
+		traversal: (MalCustomTraversal 
 						with: [ :each | graph at: each ifAbsent: [{ }] ])
 		
 ]

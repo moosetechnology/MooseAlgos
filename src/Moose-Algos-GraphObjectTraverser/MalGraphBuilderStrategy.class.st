@@ -1,6 +1,6 @@
 Class {
-	#name : #MalGraphBuilderAction,
-	#superclass : #MalObjectAction,
+	#name : #MalGraphBuilderStrategy,
+	#superclass : #MalActionStrategy,
 	#instVars : [
 		'graph'
 	],
@@ -8,27 +8,27 @@ Class {
 }
 
 { #category : #hooks }
-MalGraphBuilderAction >> executeOnObject: anObject [
+MalGraphBuilderStrategy >> executeOnObject: anObject [
 	^ graph nodes: {anObject}
 ]
 
 { #category : #hooks }
-MalGraphBuilderAction >> executeOnRelationFrom: originObject to: targetObject [
+MalGraphBuilderStrategy >> executeOnRelationFrom: originObject to: targetObject [
 	^ graph edges: {originObject} from: [ :x | targetObject ] to: [ :x | x ]
 ]
 
 { #category : #accessing }
-MalGraphBuilderAction >> graph [
+MalGraphBuilderStrategy >> graph [
 	^ graph
 ]
 
 { #category : #accessing }
-MalGraphBuilderAction >> graph: anObject [
+MalGraphBuilderStrategy >> graph: anObject [
 	graph := anObject
 ]
 
 { #category : #private }
-MalGraphBuilderAction >> initialize [ 
+MalGraphBuilderStrategy >> initialize [ 
 	super initialize.
 	graph := MalGraphStructure new nodeClass: MalTraverserGraphNode; yourself.
 ]

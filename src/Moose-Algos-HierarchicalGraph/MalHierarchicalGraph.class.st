@@ -2,7 +2,6 @@ Class {
 	#name : #MalHierarchicalGraph,
 	#superclass : #MalGraphAlgorithm,
 	#instVars : [
-		'name',
 		'levels',
 		'buildingBlock'
 	],
@@ -13,8 +12,8 @@ Class {
 MalHierarchicalGraph class >> basicCreate: baseEntities [
 	| hiGraph |
 	hiGraph := self new.
-	"TODO: String is a Collection too :O"
-	(baseEntities isKindOf: Collection)
+	"TODO: refactor this"
+	((baseEntities isKindOf: Collection) and: ((baseEntities isKindOf: String) not))
 		ifTrue: [ hiGraph nodes: baseEntities. ]
 		ifFalse: [ hiGraph node: baseEntities ].
 	^ hiGraph.
@@ -24,15 +23,7 @@ MalHierarchicalGraph class >> basicCreate: baseEntities [
 MalHierarchicalGraph class >> with: baseModels [
 	"Building a HiGraph from base models (collection of root or leaf nodes)."
 	
-	 ^ self with: baseModels name: nil.
-	
-]
-
-{ #category : #creation }
-MalHierarchicalGraph class >> with: baseModels name: aName [
-	"Building a hierarchical graph from base models (collection of root or leaf nodes)."
-	
-	^ (self basicCreate: baseModels) name: aName.
+	 ^ self basicCreate: baseModels
 	
 ]
 
@@ -314,21 +305,6 @@ MalHierarchicalGraph >> levels [
 	^ levels.
 ]
 
-{ #category : #accessing }
-MalHierarchicalGraph >> name [
-	"Returns the name of this hierarchical graph."
-	(name isNil) ifTrue: [
-		^ 'a HiGraph'.
-	].
-	^ name.
-]
-
-{ #category : #accessing }
-MalHierarchicalGraph >> name: aName [
-	"Sets name for this HG"
-	name := aName.
-]
-
 { #category : #api }
 MalHierarchicalGraph >> node: anEntity [
 	"Convenience method to add a single base entity e.g. a single root node."
@@ -449,9 +425,7 @@ MalHierarchicalGraph >> nodesWrapping: aModelCollection [
 { #category : #printing }
 MalHierarchicalGraph >> printOn: aStream [
 	aStream
-		nextPutAll: 'HiGraph: ';
-		nextPutAll: self name printString;
-		nextPutAll: ' (n: ';
+		nextPutAll: 'HiGraph: (n: ';
 		nextPutAll: self nodesDict size printString;
 		nextPutAll: ', e: ';
 		nextPutAll: self edges size printString;

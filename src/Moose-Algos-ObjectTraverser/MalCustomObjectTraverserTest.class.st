@@ -4,8 +4,17 @@ A MalCustomGraphTraverserTest is a test class for testing the behavior of MalCus
 Class {
 	#name : #MalCustomObjectTraverserTest,
 	#superclass : #MalObjectTraverserTest,
+	#instVars : [
+		'traverser'
+	],
 	#category : #'Moose-Algos-ObjectTraverser'
 }
+
+{ #category : #running }
+MalCustomObjectTraverserTest >> setUp [
+	super setUp.
+	traverser := self traverser
+]
 
 { #category : #tests }
 MalCustomObjectTraverserTest >> testCollectionsAreExpanded [

@@ -1,3 +1,6 @@
+"
+This is an abstract class that defines the interface for a traversal strategy
+"
 Class {
 	#name : #MalObjectTraversal,
 	#superclass : #Object,

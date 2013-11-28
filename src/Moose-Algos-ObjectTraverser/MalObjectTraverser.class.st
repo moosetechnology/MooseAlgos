@@ -1,17 +1,20 @@
 "
 The traverser has three responsibilities:
 1. traverse objects,
-2. mark traversed objects
+2. mark traversed objects,
 3. trigger actions for each traversed object and each relation between two traversed objects
 
 1. is handled via  the MalObjectTraversal hierarchy
+2. is the responsibility of the traverse itself
+3. is handled by the MalObjectAction hierarchy
 "
 Class {
 	#name : #MalObjectTraverser,
 	#superclass : #Object,
 	#instVars : [
 		'traversed',
-		'traversal'
+		'traversal',
+		'action'
 	],
 	#category : #'Moose-Algos-ObjectTraverser'
 }
@@ -28,6 +31,7 @@ MalObjectTraverser class >> withCustomTraversal: aBlock [
 MalObjectTraverser >> actOnObject: anObject [
 	"override this method in subclasses to trigger
 	behavior associated with each traversed object"
+	^ action executeOnObject: anObject
 ]
 
 { #category : #private }
@@ -35,6 +39,17 @@ MalObjectTraverser >> actOnRelationFrom: originObject to: targetObject [
 	"override this method in subclasses to trigger
 	behavior associated with the relation between 
 	the origin and the target of a traversed relation"
+	^ self action executeOnRelationFrom: originObject to: targetObject
+]
+
+{ #category : #accessing }
+MalObjectTraverser >> action [
+	^ action
+]
+
+{ #category : #accessing }
+MalObjectTraverser >> action: anAction [
+	action := anAction
 ]
 
 { #category : #private }
@@ -58,7 +73,8 @@ MalObjectTraverser >> doTraverse: anObject [
 
 { #category : #initialization }
 MalObjectTraverser >> initialize [ 
-	traversed := IdentitySet new
+	traversed := IdentitySet new.
+	action := MalNullObjectAction new
 ]
 
 { #category : #private }

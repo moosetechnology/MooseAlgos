@@ -20,7 +20,7 @@ MalHgPerformanceTests >> testConstructingLargeHiGraphBottomUp [
 	profiler := TimeProfiler new.
 	result := profiler runBlock: [	
 
-		hg := MalHierarchicalGraph with: leafNodes name: 'aBottomUpConstructedGraph'.
+		hg := MalHierarchicalGraph with: leafNodes.
 	
 		hg aggregation:  [ :model |  
 			(model size > 1) 
@@ -54,7 +54,7 @@ MalHgPerformanceTests >> testConstructingLargeHiGraphTopDown [
 	profiler := TimeProfiler new.
 	result := profiler runBlock: [	
 	
-		hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+		hg := MalHierarchicalGraph with: rootNodes.
 		hg topDown: [ :model |  
 			(model size < levels) 
 			ifTrue: [

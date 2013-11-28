@@ -30,7 +30,7 @@ MalHierarchicalGraphTests >> recursiveStringFactory: aString in: aSet to: aLevel
 MalHierarchicalGraphTests >> setupSimpleBottomUpModel [
 	| hg result |
 	result := OrderedCollection new.
-	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'test'. 
+	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel). 
 	hg topDown: #children.
 	(hg nodesOnLevel: 4) do: [ :e | result add: e model ].
 	^ result.
@@ -40,7 +40,7 @@ MalHierarchicalGraphTests >> setupSimpleBottomUpModel [
 MalHierarchicalGraphTests >> setupSimpleBottomUpModelHiGraph [
 	| hg  |
 
-	hg := MalHierarchicalGraph with: (self setupSimpleBottomUpModel) name: 'topDownWithModel'.
+	hg := MalHierarchicalGraph with: (self setupSimpleBottomUpModel).
 	hg bottomUp: #parent.
 
 	^ hg.
@@ -56,7 +56,7 @@ MalHierarchicalGraphTests >> setupSimpleNumbersHiGraph [
 	leafs := OrderedCollection new.
 	leafs add: 12; add: 19; add:24; add: 25; add:27; add: 28; add: 31; add: 34; add: 36.
 
-	hg := MalHierarchicalGraph with: leafs name: 'aSimpleHiGraph'.
+	hg := MalHierarchicalGraph with: leafs.
 
 	hg bottomUp: [ :n |  
 		(n / 10 < 1) ifTrue: [ nil ] ifFalse: [(n / (10 raisedTo: (n floorLog: 10))) floor asInteger. ]
@@ -127,7 +127,7 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModel [
 MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
 	| hg |
 
-	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel) name: 'topDownWithModel'.
+	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel).
 	hg topDown: #children.
 
 	^ hg.
@@ -136,14 +136,14 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
 { #category : #setup }
 MalHierarchicalGraphTests >> setupVerySimpleHierarchicalGraph [
 	| hg |
-	hg := MalHierarchicalGraph with: 'aBaseEntity' name: 'test'.
+	hg := MalHierarchicalGraph with: 'aBaseEntity'.
 	self assert: hg nodes size equals: 1
 ]
 
 { #category : #tests }
 MalHierarchicalGraphTests >> testBaseEntity [
 	| hg |
-	hg := MalHierarchicalGraph with: (OrderedCollection with: 2) name: 'JustOneEntity'.
+	hg := MalHierarchicalGraph with: (OrderedCollection with: 2).
 	self assert: hg nodes notEmpty.
 	self assert: hg nodes size equals: 1.
 	self assert: hg nodes first model equals: 2
@@ -152,7 +152,7 @@ MalHierarchicalGraphTests >> testBaseEntity [
 { #category : #tests }
 MalHierarchicalGraphTests >> testBlockBasedApiBottomUp [
 	| hg |
-	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: [ :e | e parent ].
 	self assert: hg nodes size equals: 121.
 	self assert: hg rootNodes size equals: 1.
@@ -178,7 +178,7 @@ MalHierarchicalGraphTests >> testBottomUpDeepGraphBuilding [
 	rootNodes add: 'a'; add: 'b'; add: 'c'.
 	rootNodes do: [ :model | self recursiveStringFactory: model in: leafNodes to: 7 ].
 
-	hg := MalHierarchicalGraph with: leafNodes name: 'aBottomUpConstructedGraph'.
+	hg := MalHierarchicalGraph with: leafNodes.
 	
 	hg aggregation:  [ :model |  
 		(model size > 1) 
@@ -217,7 +217,7 @@ MalHierarchicalGraphTests >> testBottomUpGraphBuilding [
 	rootNodes add: 1; add: 2; add:3.
 	otherNodes add: 11; add: 12; add: 13; add: 21; add:22; add: 23; add: 31; add: 32; add: 33.
 	
-	hg := MalHierarchicalGraph with: otherNodes name: 'aBottomUpConstructedGraph'.
+	hg := MalHierarchicalGraph with: otherNodes.
 
 	hg blockToGetParent: [ :n |  
 		(n / 10 < 1) ifTrue: [ nil ] ifFalse: [(n / (10 raisedTo: (n floorLog: 10))) floor asInteger. ]
@@ -241,7 +241,7 @@ MalHierarchicalGraphTests >> testBottomUpGraphBuilding [
 { #category : #tests }
 MalHierarchicalGraphTests >> testClassBasedApiBottomUp [
 	| hg |
-	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: {(MalHgTestModelSimple -> #parent)}.
 	self assert: hg nodes size equals: 121.
 	self assert: hg rootNodes size equals: 1.
@@ -260,7 +260,7 @@ MalHierarchicalGraphTests >> testClassBasedApiBottomUp [
 { #category : #tests }
 MalHierarchicalGraphTests >> testClassBasedApiTopDown [
 	| hg |
-	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel.
 	hg topDown: {(MalHgTestModelSimple -> #children)}.
 	self assert: hg nodes size equals: 121.
 	self assert: hg rootNodes size equals: 1.
@@ -279,7 +279,7 @@ MalHierarchicalGraphTests >> testClassBasedApiTopDown [
 { #category : #tests }
 MalHierarchicalGraphTests >> testClassBasedBlockApiBottomUp [
 	| hg |
-	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: {(MalHgTestModelSimple -> [ :e | e parent ])}.
 	self assert: hg nodes size equals: 121.
 	self assert: hg rootNodes size equals: 1.
@@ -305,7 +305,7 @@ MalHierarchicalGraphTests >> testDeepestLevel [
 	| hg rootNodes |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		topDown: [ :entity | 
 			entity size < 3
@@ -323,7 +323,7 @@ MalHierarchicalGraphTests >> testEdgePropagationAsymetrical [
 	| hg rootNodes relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		blockToGetChildren: [ :entity | 
 			entity size < 3
@@ -352,7 +352,7 @@ MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodes [
 		add: 'a';
 		add: 'b';
 		add: 'c'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		blockToGetChildren: [ :entity | 
 			entity size < 6
@@ -383,7 +383,7 @@ MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodesAsymetric [
 		add: 'a';
 		add: 'b';
 		add: 'c'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		blockToGetChildren: [ :entity | 
 			entity size < 6
@@ -412,7 +412,7 @@ MalHierarchicalGraphTests >> testEdgePropagationSimple [
 	| hg rootNodes visualizer relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		blockToGetChildren: [ :entity | 
 			entity size < 3
@@ -436,11 +436,10 @@ MalHierarchicalGraphTests >> testEdgePropagationSimple [
 { #category : #tests }
 MalHierarchicalGraphTests >> testEmptyHiGraph [
 	| hg |
-	hg := MalHierarchicalGraph with: OrderedCollection new name: 'emptyGraph'.
+	hg := MalHierarchicalGraph with: OrderedCollection new.
 	self assert: hg nodes isEmpty.
 	self assert: hg rootNodes isEmpty.
 	self assert: hg edges isEmpty.
-	self assert: hg name equals: 'emptyGraph'
 ]
 
 { #category : #tests }
@@ -448,7 +447,7 @@ MalHierarchicalGraphTests >> testGraphAsTuple [
 	| hg rootNodes edges hierarchy |
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
-	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	edges := OrderedCollection new.
 	edges
 		add: 1 -> 2;
@@ -554,7 +553,7 @@ MalHierarchicalGraphTests >> testRecursiveChildren [
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleApiBottomUp [
 	| hg |
-	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: #parent.
 	self assert: hg nodes size equals: 121.
 	self assert: hg rootNodes size equals: 1.
@@ -573,7 +572,7 @@ MalHierarchicalGraphTests >> testSimpleApiBottomUp [
 { #category : #tests }
 MalHierarchicalGraphTests >> testSimpleApiTopDown [
 	| hg |
-	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel.
 	hg topDown: #children.
 	self assert: hg nodes size equals: 121.
 	self assert: hg rootNodes size equals: 1.
@@ -597,7 +596,7 @@ MalHierarchicalGraphTests >> testSimpleEdgeApi [
 		add: 'a';
 		add: 'b';
 		add: 'c'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		topDown: [ :entity | 
 			entity size < 6
@@ -633,7 +632,7 @@ MalHierarchicalGraphTests >> testSimpleEdgeApiWithModel [
 		add: 'a';
 		add: 'b';
 		add: 'c'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		topDown: [ :entity | 
 			entity size < 6
@@ -704,7 +703,7 @@ MalHierarchicalGraphTests >> testSimpleModel [
 { #category : #tests }
 MalHierarchicalGraphTests >> testSingleNodeHiGraph [
 	| hg |
-	hg := MalHierarchicalGraph with: (OrderedCollection with: 'someBaseEntity') name: 'singleNodeHg'.
+	hg := MalHierarchicalGraph with: (OrderedCollection with: 'someBaseEntity').
 	self assert: hg nodes size equals: 1
 ]
 
@@ -715,7 +714,7 @@ MalHierarchicalGraphTests >> testTopDownDeepGraphBuilding [
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'; add: 'b'; add: 'c'.
 	
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 
 	hg topDown: [ :model |  
 		(model size < 7) 
@@ -760,7 +759,7 @@ MalHierarchicalGraphTests >> testTopDownGraphBuilding [
 	
 	rootNodes add: 1; add: 2; add:3.
 	
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 
 	hg topDown: [ :n |  
 		(n = 1 or: (n = 2 or: n = 3)) 
@@ -794,7 +793,7 @@ MalHierarchicalGraphTests >> testVerySimpleHierarchicalGraph [
 	| hg rootNodes edges hierarchy |
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
-	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	edges := OrderedCollection new.
 	edges
 		add: 1 -> 2;
@@ -821,7 +820,7 @@ MalHierarchicalGraphTests >> testfindEdge [
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
 	
-	hg := MalHierarchicalGraph with: rootNodes name: 'verySimpleHg'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	
 	edges := OrderedCollection new.
 	edges 
@@ -853,7 +852,7 @@ MalHierarchicalGraphTests >> testfindEdge [
 { #category : #tests }
 MalHierarchicalGraphTests >> testfindNode [
 	| hg |
-	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel name: 'test'.
+	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel.
 	hg topDown: {(MalHgTestModelSimple -> #children)}.
 	self assert: hg rootNodes size equals: 1.
 	self assert: (hg findNode: hg rootNodes anyOne model) equals: hg rootNodes anyOne

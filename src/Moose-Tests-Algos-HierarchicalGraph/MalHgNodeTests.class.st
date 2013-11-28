@@ -12,7 +12,7 @@ MalHgNodeTests >> testParentOnLevel [
 		add: 'a';
 		add: 'b';
 		add: 'c'.
-	hg := MalHierarchicalGraph with: rootNodes name: 'aTopDownConstructedGraph'.
+	hg := MalHierarchicalGraph with: rootNodes.
 	hg
 		topDown: [ :entity | 
 			entity size < 4

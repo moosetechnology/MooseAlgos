@@ -26,14 +26,18 @@ MalCustomTraverserTest >> testCollectionsAreExpanded [
 MalCustomTraverserTest >> testCycles [
 	traverser traverse: 1.
 	
-	self assert: traverser traversedObjects asSet = { 1 . 2 . 3} asSet
+	self 
+		assert: traverser traversedObjects asSet 
+		equals: { 1 . 2 . 3} asSet
 ]
 
 { #category : #tests }
 MalCustomTraverserTest >> testNoCycle [
 	traverser traverse: 4.
 	
-	self assert: traverser traversedObjects asSet = {4 . 3} asSet
+	self 
+		assert: traverser traversedObjects asSet 
+		equals: {4 . 3} asSet
 ]
 
 { #category : #tests }

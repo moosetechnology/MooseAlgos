@@ -14,8 +14,17 @@ Object >> deepCollect: aBlock [
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
+Object >> withDeep: aTraversalBlock do: anObjectActionBlock [
+	| traverser action |
+	traverser := MalTraverser withCustomTraversal: aTraversalBlock.
+	action := MalCustomActionStrategy new objectAction: anObjectActionBlock.
+	traverser action: action.
+	traverser firstObjectAction: action.
+	traverser traverse: self
+]
+
+{ #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> withDeepCollect: aBlock [
-	| traverser |
-	traverser := MalTraverser withCustomTraversal: aBlock.
-	^ traverser traverse: self
+	^ (MalTraverser withCustomTraversal: aBlock)
+		traverse: self
 ]

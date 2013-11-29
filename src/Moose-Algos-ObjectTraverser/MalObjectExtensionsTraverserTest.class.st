@@ -29,3 +29,13 @@ MalObjectExtensionsTraverserTest >> testWithDeepCollect [
 			graph at: each ifAbsent: [ #() ] ].
 	self assert: result asSet equals: #(1 2 3) asSet
 ]
+
+{ #category : #tests }
+MalObjectExtensionsTraverserTest >> testWithDeepDo [
+	| trace |
+	trace := Set new.
+	1 
+		withDeep: [ :each | graph at: each ifAbsent: [ #() ] ]
+		do: [ :each | trace add: each ].
+	self assert: trace equals: #(1 2 3) asSet
+]

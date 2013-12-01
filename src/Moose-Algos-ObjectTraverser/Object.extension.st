@@ -32,8 +32,13 @@ Object >> deep: aTraversalBlock flatCollect: aCollectBlock [
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> deepCollect: aBlock [
+	^ self deepCollect: aBlock as: OrderedCollection
+]
+
+{ #category : #'*Moose-Algos-ObjectTraverser' }
+Object >> deepCollect: aBlock as: aCollectionClass [
 	| result |
-	result := OrderedCollection new.
+	result := aCollectionClass new.
 	self
 		deep: aBlock 
 		do: [ :each | result add: each ].
@@ -45,8 +50,10 @@ Object >> deepCollectAsSet: aBlock [
 	"When the desired result is a set, we take advantage of the 
 	fact that the traversed objects are kept in a set inside the traverser
 	and we simply return that set"
-	^ (MalTraverser withCustomTraversal: aBlock)
-		traverse: self
+	^ ((MalTraverser withCustomTraversal: aBlock)
+		traverse: self)
+		remove: self;
+		yourself
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }

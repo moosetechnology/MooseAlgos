@@ -1,30 +1,69 @@
 Extension { #name : #Object }
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
+Object >> deep: aTraversalBlock collect: aCollectBlock [
+	| result |
+	result := OrderedCollection new.
+	self 
+		deep: aTraversalBlock 
+		do: [ :each | result add: (aCollectBlock value: each) ].
+	^ result
+]
+
+{ #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> deep: aTraversalBlock do: anObjectActionBlock [
-	| traverser |
+	| traverser action |
+	action := MalCustomActionStrategy new objectAction: anObjectActionBlock.
 	traverser := MalTraverser withCustomTraversal: aTraversalBlock.
-	traverser action: (MalCustomActionStrategy new objectAction: anObjectActionBlock).
-	traverser traverse: self
+	traverser 
+		action: action;
+		traverse: self
+]
+
+{ #category : #'*Moose-Algos-ObjectTraverser' }
+Object >> deep: aTraversalBlock flatCollect: aCollectBlock [
+	| result |
+	result := OrderedCollection new.
+	self 
+		deep: aTraversalBlock 
+		do: [ :each | result addAll: (aCollectBlock value: each) ].
+	^ result
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> deepCollect: aBlock [
-	^ (self withDeepCollect: aBlock) remove: self; yourself
+	| result |
+	result := OrderedCollection new.
+	self
+		deep: aBlock 
+		do: [ :each | result add: each ].
+	^ result
+]
+
+{ #category : #'*Moose-Algos-ObjectTraverser' }
+Object >> deepCollectAsSet: aBlock [
+	"When the desired result is a set, we take advantage of the 
+	fact that the traversed objects are kept in a set inside the traverser
+	and we simply return that set"
+	^ (MalTraverser withCustomTraversal: aBlock)
+		traverse: self
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> withDeep: aTraversalBlock do: anObjectActionBlock [
 	| traverser action |
-	traverser := MalTraverser withCustomTraversal: aTraversalBlock.
 	action := MalCustomActionStrategy new objectAction: anObjectActionBlock.
-	traverser action: action.
-	traverser firstObjectAction: action.
-	traverser traverse: self
+	traverser := MalTraverser withCustomTraversal: aTraversalBlock.
+	traverser 
+		action: action;
+		firstObjectAction: action;
+		traverse: self
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> withDeepCollect: aBlock [
-	^ (MalTraverser withCustomTraversal: aBlock)
-		traverse: self
+	| result |
+	result := OrderedCollection new.
+	self withDeep: aBlock do: [ :each | result add: each ].
+	^ result
 ]

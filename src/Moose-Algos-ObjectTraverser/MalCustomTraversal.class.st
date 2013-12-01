@@ -18,7 +18,7 @@ MalCustomTraversal class >> with: aBlock [
 
 { #category : #private }
 MalCustomTraversal >> objectsToTraverseFrom: anObject do: aBlock [
-	^ (traversalBlock value: anObject) do: aBlock
+	^ (traversalBlock value: anObject) asOrderedCollection do: aBlock
 ]
 
 { #category : #accessing }

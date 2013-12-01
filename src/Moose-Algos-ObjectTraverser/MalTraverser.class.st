@@ -28,7 +28,7 @@ MalTraverser class >> withCustomTraversal: aBlock [
 		traversal: (MalCustomTraversal with: aBlock)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #private }
 MalTraverser >> actOnFirstObject: anObject [
 	^ firstObjectAction executeOnObject: anObject
 ]
@@ -40,7 +40,6 @@ MalTraverser >> actOnObject: anObject [
 
 { #category : #private }
 MalTraverser >> actOnRelationFrom: originObject to: targetObject [
-	
 	^ self action executeOnRelationFrom: originObject to: targetObject
 ]
 
@@ -71,12 +70,12 @@ MalTraverser >> doTraverse: anObject [
 						self actOnRelationFrom: anObject to: each ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MalTraverser >> firstObjectAction [
 	^ firstObjectAction
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MalTraverser >> firstObjectAction: anAction [
 	firstObjectAction := anAction
 ]

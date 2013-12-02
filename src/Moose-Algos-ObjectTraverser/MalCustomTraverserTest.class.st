@@ -13,7 +13,7 @@ Class {
 { #category : #running }
 MalCustomTraverserTest >> setUp [
 	super setUp.
-	traverser := self traverser
+	traverser := MalTraverser withCustomTraversal: [ :each | graph at: each ifAbsent: [{ }] ]
 ]
 
 { #category : #tests }
@@ -44,11 +44,4 @@ MalCustomTraverserTest >> testNoCycle [
 MalCustomTraverserTest >> testOriginIsPresentInResult [
 	traverser traverse: 0.
 	self assert: traverser traversedObjects asSet = {0 . 1 . 2 . 3} asSet.
-]
-
-{ #category : #running }
-MalCustomTraverserTest >> traverser [
-	^ MalTraverser 
-		withCustomTraversal: [ :each | 
-			graph at: each ifAbsent: [{ }] ]
 ]

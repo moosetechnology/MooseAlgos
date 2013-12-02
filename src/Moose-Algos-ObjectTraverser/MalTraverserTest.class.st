@@ -7,6 +7,11 @@ Class {
 	#category : #'Moose-Algos-ObjectTraverser'
 }
 
+{ #category : #private }
+MalTraverserTest >> nextGraphElementsFrom: each [
+	^ graph at: each ifAbsent: [ #() ]
+]
+
 { #category : #running }
 MalTraverserTest >> setUp [
 	graph := Dictionary new.

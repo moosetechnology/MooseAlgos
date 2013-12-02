@@ -4,11 +4,6 @@ Class {
 	#category : #'Moose-Algos-ObjectTraverser'
 }
 
-{ #category : #private }
-MalObjectExtensionsTraverserTest >> nextGraphElementsFrom: each [
-	^ graph at: each ifAbsent: [ #() ]
-]
-
 { #category : #tests }
 MalObjectExtensionsTraverserTest >> testDeepCollectAs [
 	| result |

@@ -11,6 +11,16 @@ Object >> deep: aTraversalBlock collect: aCollectBlock [
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
+Object >> deep: aTraversalBlock collect: aCollectBlock as: aCollectionClass [
+	| result |
+	result := aCollectionClass new.
+	self 
+		deep: aTraversalBlock 
+		do: [ :each | result add: (aCollectBlock value: each) ].
+	^ result
+]
+
+{ #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> deep: aTraversalBlock do: anObjectActionBlock [
 	| traverser action |
 	action := MalCustomActionStrategy new objectAction: anObjectActionBlock.
@@ -21,28 +31,8 @@ Object >> deep: aTraversalBlock do: anObjectActionBlock [
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
-Object >> deep: aTraversalBlock flatCollect: aCollectBlock [
-	| result |
-	result := OrderedCollection new.
-	self 
-		deep: aTraversalBlock 
-		do: [ :each | result addAll: (aCollectBlock value: each) ].
-	^ result
-]
-
-{ #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> deepCollect: aBlock [
-	^ self deepCollect: aBlock as: OrderedCollection
-]
-
-{ #category : #'*Moose-Algos-ObjectTraverser' }
-Object >> deepCollect: aBlock as: aCollectionClass [
-	| result |
-	result := aCollectionClass new.
-	self
-		deep: aBlock 
-		do: [ :each | result add: each ].
-	^ result
+	^ self deep: aBlock collect: [ :each | each ]
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }

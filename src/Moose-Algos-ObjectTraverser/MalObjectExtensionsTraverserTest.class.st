@@ -10,6 +10,16 @@ MalObjectExtensionsTraverserTest >> nextGraphElementsFrom: each [
 ]
 
 { #category : #tests }
+MalObjectExtensionsTraverserTest >> testDeepCollectAs [
+	| result |
+	result := 1 
+		deep: [ :each | self nextGraphElementsFrom: each ]
+		collect: [ :each | each * 10 ]
+		as: Set.
+	self assert: result equals: #(20 30) asSet
+]
+
+{ #category : #tests }
 MalObjectExtensionsTraverserTest >> testDeepCollectAsSet [
 	| result |
 	result := 1 deepCollectAsSet: [ :each | self nextGraphElementsFrom: each ].

@@ -15,7 +15,8 @@ Class {
 		'traversed',
 		'traversal',
 		'action',
-		'firstObjectAction'
+		'firstObjectAction',
+		'toTraverse'
 	],
 	#category : #'Moose-Algos-ObjectTraverser'
 }
@@ -56,18 +57,25 @@ MalTraverser >> action: anAction [
 { #category : #private }
 MalTraverser >> doTraverse: anObject [
 	"This method performs the actual traversal and markes the traversed objects.
+	It does not make use of recursion to limit problems related to the stack
+	when traversing large graphs.
 	The logic ignores collections and nil.
 	It uses two hooks for triggering custom behavior for each object,
 	and each relation between two objects."
-	traversed add: anObject.
-	self
-		objectsToTraverseWithoutCollectionsFrom: anObject
-		do: [ :each | 
-			(each isNil or: [ self isObjectAlreadyTraversed: each ])
-					ifFalse: [ 
-						self actOnObject: each.
-						self doTraverse: each.
-						self actOnRelationFrom: anObject to: each ] ]
+	| currentObject |
+
+	toTraverse := OrderedCollection with: anObject.
+
+	 [ toTraverse isEmpty ] whileFalse: [
+			currentObject := toTraverse removeFirst.
+			traversed add: currentObject.
+			self
+				objectsToTraverseWithoutCollectionsFrom: currentObject
+				do: [ :each | 
+					( self shouldTraverse: each ) ifTrue: [ 
+								toTraverse add: each.
+								self actOnObject: each.
+								self actOnRelationFrom: currentObject to: each ] ] ] 
 ]
 
 { #category : #accessing }
@@ -83,13 +91,9 @@ MalTraverser >> firstObjectAction: anAction [
 { #category : #initialization }
 MalTraverser >> initialize [ 
 	traversed := IdentitySet new.
+	toTraverse := OrderedCollection new. "the order of the objects to traverse matters"
 	action := MalNullActionStrategy new.
 	firstObjectAction := MalNullActionStrategy new
-]
-
-{ #category : #private }
-MalTraverser >> isObjectAlreadyTraversed: anEntity [
-	^ self traversedObjects includes: anEntity
 ]
 
 { #category : #private }
@@ -109,6 +113,13 @@ MalTraverser >> objectsToTraverseWithoutCollectionsFrom: anObject do: aBlock [
 							objectsToTraverseWithoutCollectionsFrom: each 
 							do: aBlock ] ]
 			ifFalse: [ aBlock value: eachObject ] ]
+]
+
+{ #category : #private }
+MalTraverser >> shouldTraverse: anObject [
+	^ anObject notNil and: [
+		(traversed includes: anObject) not and: [ 
+			(toTraverse includes: anObject) not ] ]
 ]
 
 { #category : #accessing }

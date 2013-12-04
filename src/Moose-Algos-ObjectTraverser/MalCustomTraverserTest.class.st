@@ -19,29 +19,31 @@ MalCustomTraverserTest >> setUp [
 { #category : #tests }
 MalCustomTraverserTest >> testCollectionsAreExpanded [
 	traverser traverse: 10.
-	self assert: traverser traversedObjects asSet = {10 . 11} asSet.
+	self 
+		assert: traverser traversedObjects 
+		equals: {10 . 11} asSet
 ]
 
 { #category : #tests }
 MalCustomTraverserTest >> testCycles [
 	traverser traverse: 1.
-	
 	self 
-		assert: traverser traversedObjects asSet 
+		assert: traverser traversedObjects 
 		equals: { 1 . 2 . 3} asSet
 ]
 
 { #category : #tests }
 MalCustomTraverserTest >> testNoCycle [
 	traverser traverse: 4.
-	
 	self 
-		assert: traverser traversedObjects asSet 
+		assert: traverser traversedObjects 
 		equals: {4 . 3} asSet
 ]
 
 { #category : #tests }
 MalCustomTraverserTest >> testOriginIsPresentInResult [
 	traverser traverse: 0.
-	self assert: traverser traversedObjects asSet = {0 . 1 . 2 . 3} asSet.
+	self 
+		assert: traverser traversedObjects 
+		equals: {0 . 1 . 2 . 3} asSet
 ]

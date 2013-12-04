@@ -1,3 +1,6 @@
+"
+Abstract test class providing only a small graph fixture
+"
 Class {
 	#name : #MalTraverserTest,
 	#superclass : #TestCase,

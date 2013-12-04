@@ -1,3 +1,6 @@
+"
+Tests the Object extensions related to the traverser
+"
 Class {
 	#name : #MalObjectExtensionsTraverserTest,
 	#superclass : #MalTraverserTest,

@@ -2,12 +2,7 @@ Extension { #name : #Object }
 
 { #category : #'*Moose-Algos-ObjectTraverser' }
 Object >> deep: aTraversalBlock collect: aCollectBlock [
-	| result |
-	result := OrderedCollection new.
-	self 
-		deep: aTraversalBlock 
-		do: [ :each | result add: (aCollectBlock value: each) ].
-	^ result
+	^ self deep: aTraversalBlock collect: aCollectBlock as: OrderedCollection
 ]
 
 { #category : #'*Moose-Algos-ObjectTraverser' }

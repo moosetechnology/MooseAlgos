@@ -1,3 +1,6 @@
+"
+self loadDevelopment
+"
 Class {
 	#name : #ConfigurationOfMooseAlgos,
 	#superclass : #Object,
@@ -32,6 +35,16 @@ ConfigurationOfMooseAlgos class >> load [
 { #category : #loading }
 ConfigurationOfMooseAlgos class >> loadBleedingEdge [
 	(self project version: #'bleedingEdge') load
+]
+
+{ #category : #loading }
+ConfigurationOfMooseAlgos class >> loadDevelopment [
+	"Load the #development version defined for this platform. The #development version will change over time and is not expected to be stable."
+
+	"self loadDevelopment"
+
+	<apiDocumentation>
+	^(self project version: #development) load
 ]
 
 { #category : #loading }

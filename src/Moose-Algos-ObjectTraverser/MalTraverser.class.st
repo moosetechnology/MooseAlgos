@@ -118,7 +118,9 @@ MalTraverser >> objectsToTraverseWithoutCollectionsFrom: anObject do: aBlock [
 { #category : #private }
 MalTraverser >> shouldTraverse: anObject [
 	^ anObject notNil and: [
-		(traversed includes: anObject) not and: [ 
+		(traversed includes: anObject) not and: [
+			"we want to avoid marking objects toTraverse multiple
+			times before actually traversing them" 
 			(toTraverse includes: anObject) not ] ]
 ]
 

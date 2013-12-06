@@ -261,8 +261,14 @@ ConfigurationOfMooseAlgos >> baseline25: spec [
 			package: 'Moose-Algos-Kontractor';
 			package: 'Moose-Tests-Algos-Kontractor' ;
 			
-			package: 'Moose-Algos-ObjectTraverser';
-			package: 'Moose-Algos-GraphObjectTraverser' with: [spec requires: 'Moose-Algos-ObjectTraverser'];
+			package: 'Moose-Algos-GraphObjectTraverser' with: [spec requires: 'DeepTraverser'];
+
+			project: 'DeepTraverser' with: [
+				spec
+					className: 'ConfigurationOfDeepTraverser';
+					version: #development;
+					file:  'ConfigurationOfDeepTraverser';
+					repository: 'http://www.smalltalkhub.com/mc/Moose/DeepTraverser/main' ];
 			
 			package: 'CollectionExtensions' with: [spec repository: 'http://www.smalltalkhub.com/mc/Moose/CollectionExtensions/main'].
 	

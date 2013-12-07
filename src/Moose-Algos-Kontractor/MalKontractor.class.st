@@ -1,8 +1,15 @@
 "
 I'm a word compacting class. I remove the most used letters from a word to compact it to a given size. 
 
-	(Kontract upToCharacterNumber: 3)
-		 reduce: 'hello' -> 'hlo'
+	(MalKontractor reduce: 'Hello' upTo: 3) 
+		'Hlo'
+		
+	You can also remove some  elements using cut:
+	
+	(MalKontractor new 
+			cut: #( 'Sea' 'WA' ) contractUpTo: 3)
+			reduce: 'WASeaSideba'
+			 'idb'
 "
 Class {
 	#name : #MalKontractor,

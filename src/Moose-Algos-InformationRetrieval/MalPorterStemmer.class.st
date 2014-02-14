@@ -183,27 +183,26 @@ MalPorterStemmer >> step3 [
 
 { #category : #'private-algorithm' }
 MalPorterStemmer >> step4 [
-	
 	#(#ement #ance #ence #able #ible #ment)
-		do:
-			[:rule | 
+		do: [ :rule | 
 			(self endsWith: rule)
-				ifTrue:
-					[cursor >= r2 ifTrue: [self removeSuffix].
-					^nil]].
-	((self endsWith: 'ion') and: [cursor >= r2])
-		ifTrue:
-			[(string at: cursor) == $s | ((string at: cursor) == $t)
-				ifTrue:
-					[self removeSuffix.
-					^nil]].
+				ifTrue: [ 
+					cursor >= r2
+						ifTrue: [ self removeSuffix ].
+					^ nil ] ].
+	((self endsWith: 'ion') and: [ cursor >= r2 ])
+		ifTrue: [ 
+			((string at: cursor) == $s or: [ (string at: cursor) == $t ])
+				ifTrue: [ 
+					self removeSuffix.
+					^ nil ] ].
 	#(#ant #ent #ism #ate #iti #ous #ive #ize #al #er #ic #ou)
-		do:
-			[:rule | 
+		do: [ :rule | 
 			(self endsWith: rule)
-				ifTrue:
-					[cursor >= r2 ifTrue: [self removeSuffix].
-					^nil]]
+				ifTrue: [ 
+					cursor >= r2
+						ifTrue: [ self removeSuffix ].
+					^ nil ] ]
 ]
 
 { #category : #'private-algorithm' }

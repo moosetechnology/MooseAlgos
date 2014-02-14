@@ -55,9 +55,9 @@ Number class >> coerce: t1 precision: t2 exponent: t3 exponentChar: t4 [
 	The source was unavailable because the source pointer appears to point 
 	to an incorrect position in the file. The file may have been modified after 
 	this method was updated."
-	
-	t3 == nil ifTrue: [^self zero coerce: t1].
-	^(self zero coerce: t1) * (10 raisedTo: t3)
+
+	t3 ifNil: [ ^ self zero coerce: t1 ].
+	^ (self zero coerce: t1) * (10 raisedTo: t3)
 ]
 
 { #category : #'*Moose-Algos-LinearAlgebra' }
@@ -136,50 +136,58 @@ Number class >> readIntegerFrom: t1 radix: t2 [
 { #category : #'*Moose-Algos-LinearAlgebra' }
 Number class >> readSmalltalkAndCFloat: integerPart from: aStream [
 	"Answer an instance of me as described on the stream, aStream."
-	
+
 	| value coercionClass possibleCoercionClass precision digit num den exp neg endOfNumber eChar |
 	precision := 0.
 	num := 0.
 	den := 1.
 	coercionClass := Integer.
 	(aStream peekFor: $.)
-		ifTrue:
-			["<integer>.<fraction>"
-			(aStream atEnd not and: [aStream peek isDigit])
-				ifTrue:
-					[| atEnd |
+		ifTrue: [ 
+			"<integer>.<fraction>"
+			(aStream atEnd not and: [ aStream peek isDigit ])
+				ifTrue: [ 
+					| atEnd |
 					coercionClass := Float.
-					[(atEnd := aStream atEnd) or: [(digit := aStream next) isDigit not]]
-						whileFalse:
-							[num := num * 10 + digit digitValue.
-							precision := precision + 1].
+					[ (atEnd := aStream atEnd) or: [ (digit := aStream next) isDigit not ] ]
+						whileFalse: [ 
+							num := num * 10 + digit digitValue.
+							precision := precision + 1 ].
 					den := 10 ** precision.
-					atEnd ifFalse: [aStream skip: -1]]
-				ifFalse:
-					["oops - just <integer>."
+					atEnd
+						ifFalse: [ aStream skip: -1 ] ]
+				ifFalse: [ 
+					"oops - just <integer>."
 					"un-gobble the period"
-					aStream skip: -1]].
+					aStream skip: -1 ] ].
 	eChar := aStream peek.
-	eChar == nil
-		ifTrue: [possibleCoercionClass := nil]
-		ifFalse:
-			["SystemUtils isVW20LanguageCompatible ifTrue: [eChar := eChar asLowercase]."
+	eChar
+		ifNil: [ possibleCoercionClass := nil ]
+		ifNotNil: [ 
+			"SystemUtils isVW20LanguageCompatible ifTrue: [eChar := eChar asLowercase]."
 			possibleCoercionClass := self chooseFloatRepresentationFor: eChar.
-			possibleCoercionClass == nil ifFalse: [aStream next]].
+			possibleCoercionClass == nil
+				ifFalse: [ aStream next ] ].
 	exp := nil.
 	possibleCoercionClass == nil
-		ifFalse:
-			[coercionClass := possibleCoercionClass.
+		ifFalse: [ 
+			coercionClass := possibleCoercionClass.
 			endOfNumber := aStream position.
-			(aStream peekFor: $+) ifTrue: [aStream next].
+			(aStream peekFor: $+)
+				ifTrue: [ aStream next ].
 			neg := aStream peekFor: $-.
-			((digit := aStream peek) notNil and: [digit isDigit])
-				ifTrue:
-					[exp := self readIntegerFrom: aStream radix: 10.
-					neg ifTrue: [exp := exp negated]]
-				ifFalse: [aStream position: endOfNumber]].
+			((digit := aStream peek) notNil and: [ digit isDigit ])
+				ifTrue: [ 
+					exp := self readIntegerFrom: aStream radix: 10.
+					neg
+						ifTrue: [ exp := exp negated ] ]
+				ifFalse: [ aStream position: endOfNumber ] ].
 	value := integerPart + (num / den).	"The exponent will be added in the next step."
-	^self coerce: value to: coercionClass precision: precision exponent: exp
+	^ self
+		coerce: value
+		to: coercionClass
+		precision: precision
+		exponent: exp
 		exponentChar: eChar
 ]
 

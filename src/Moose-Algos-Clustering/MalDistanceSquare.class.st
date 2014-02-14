@@ -72,9 +72,8 @@ MalDistanceSquare >> copyClusteringData [
 
 { #category : #accessing }
 MalDistanceSquare >> dendrogram [
-	
-	dendrogram == nil ifTrue: [self performSeriation].
-	^dendrogram
+	dendrogram ifNil: [ self performSeriation ].
+	^ dendrogram
 ]
 
 { #category : #accessing }

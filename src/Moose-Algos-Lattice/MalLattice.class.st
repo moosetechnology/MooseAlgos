@@ -77,13 +77,13 @@ MalLattice >> onConstruct: formalContext [
 
 { #category : #enumerating }
 MalLattice >> orphans [
-	|allNodes diff nonEmptyDescendants nonOrphans|
+	| allNodes diff nonEmptyDescendants nonOrphans |
 	nonOrphans := OrderedCollection new.
-	allNodes := (self nodes) asSet.
-	nonEmptyDescendants := self nodes select: [:node | (node descendants isEmpty not)].
-	nonOrphans := (nonEmptyDescendants flatCollect: [: each | each descendants]) asSet.
-	diff := allNodes difference:  nonOrphans.
-	^diff.
+	allNodes := self nodes asSet.
+	nonEmptyDescendants := self nodes reject: [ :node | node descendants isEmpty ].
+	nonOrphans := (nonEmptyDescendants flatCollect: [ :each | each descendants ]) asSet.
+	diff := allNodes difference: nonOrphans.
+	^ diff
 ]
 
 { #category : #enumerating }

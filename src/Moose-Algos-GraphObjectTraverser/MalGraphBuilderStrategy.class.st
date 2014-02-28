@@ -14,7 +14,7 @@ MalGraphBuilderStrategy >> executeOnObject: anObject [
 
 { #category : #hooks }
 MalGraphBuilderStrategy >> executeOnRelationFrom: originObject to: targetObject [
-	^ graph edges: {originObject} from: [ :x | targetObject ] to: [ :x | x ]
+	^ graph edges: {originObject} from: [ :x | x ] to: [ :x | targetObject ]
 ]
 
 { #category : #accessing }

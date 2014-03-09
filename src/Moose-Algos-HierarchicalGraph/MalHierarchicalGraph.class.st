@@ -234,13 +234,13 @@ MalHierarchicalGraph >> edges: aCollection from: source to: target weight: weigh
 	ShouldNotImplement signal. "There are no weights in a hierarchical graph."
 ]
 
-{ #category : #accessing }
+{ #category : #enumerating }
 MalHierarchicalGraph >> edgesNotPropagated [
 	"Returns a Collection of all edges that were not propagated in this hiGraph."
 	^ edges reject: [ :rel | rel class = MalHgPropagatedEdge ].
 ]
 
-{ #category : #accessing }
+{ #category : #enumerating }
 MalHierarchicalGraph >> edgesPropagated [
 	"Returns a Collection of all edges that were propagated in this hiGraph."
 	^ edges select: [ :rel | rel class = MalHgPropagatedEdge ].
@@ -248,11 +248,13 @@ MalHierarchicalGraph >> edgesPropagated [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> findNode: aModel [
+	"Returns the node wrapping the given model or nil if such a node does not exists in the graph."
 	^ self nodeWrapping: aModel.
 ]
 
 { #category : #enumerating }
 MalHierarchicalGraph >> findNode: aModel ifAbsent: aBlock [
+	"Returns the node wrapping the given model, runs given block if such a node does not exists in the graph."
 	^ self nodeWrapping: aModel ifAbsent: aBlock.
 ]
 
@@ -275,6 +277,7 @@ MalHierarchicalGraph >> leaves: entities [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> level: aLevel [
+	"Returns a collection of all nodes on given level."
 	^ self nodesOnLevel: aLevel.
 ]
 
@@ -337,7 +340,7 @@ MalHierarchicalGraph >> nodesDict [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesDownFromLevel: aLevel [
-	"Returns only part of the hiGraph: a Collection of all nodes of given and of deeper levels (deeper meaning farer away from the root nodes)."
+	"Returns a Collection of all nodes on given and on deeper levels (deeper meaning farer away from the root nodes)."
 	| result currLevel |
 	
 	result := OrderedCollection new.
@@ -353,18 +356,19 @@ MalHierarchicalGraph >> nodesDownFromLevel: aLevel [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesFor: aCollectionOfModels [
+	"Returns the nodes wrapping the given models or an empty collection if no such nodes could be found in the graph."
 	^ self nodesWrapping: aCollectionOfModels
 ]
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesOnLevel: aLevel [
-	"Returns only part of the higraph: a collection of all nodes of a certain level (a cross cut of the higraph)"
+	"Returns a collection of all nodes on a certain level (a cross cut of the higraph)"
 	^ levels at: aLevel ifAbsent: [ OrderedCollection new ].
 ]
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesUpFromLevel: aLevel [
-	"Returns only part of the hiGraph: a collection of all nodes of given and of higher levels (higher means nearer to the root node."
+	"Returns a collection of all nodes on given and on higher levels (higher means nearer to the root node"
 	| result currLevel |
 	result := OrderedCollection new.
 	currLevel := aLevel.
@@ -378,7 +382,7 @@ MalHierarchicalGraph >> nodesUpFromLevel: aLevel [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesWrapping: aModelCollection [
-	"Returns the nodes wrapping the given entities or an empty collection if no such nodes could be found in the HiGraph."
+	"Returns the nodes wrapping the given models or an empty collection if no such nodes could be found in the graph."
 	| result |
 	result := OrderedCollection new.
 	
@@ -566,7 +570,7 @@ MalHierarchicalGraph >> rootNodes [
 { #category : #enumerating }
 MalHierarchicalGraph >> searchForModelsNamed: aSearchString [
 	| matcher |
-	"Returns nodes whose model names match the given RegEx String"
+	"Returns a collection of nodes whose model names match the given RegEx string"
 	matcher := RxMatcher forString: aSearchString.
 	^ self nodes select: [ :node | matcher search: node model name ].
 ]
@@ -574,7 +578,7 @@ MalHierarchicalGraph >> searchForModelsNamed: aSearchString [
 { #category : #enumerating }
 MalHierarchicalGraph >> searchForModelsNamed: aSearchString onLevel: level [
 	| matcher |
-	"Returns nodes on given level whose model names match the given RegEx String"
+	"Returns a collection of nodes on given level whose model names match the given RegEx string"
 	matcher := RxMatcher forString: aSearchString.
 	^ (self level: level) select: [ :node | matcher search: node model name ].
 ]

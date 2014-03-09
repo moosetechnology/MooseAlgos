@@ -22,7 +22,7 @@ MalHgPerformanceTests >> testConstructingLargeHiGraphBottomUp [
 
 		hg := MalHierarchicalGraph with: leafNodes.
 	
-		hg aggregation:  [ :model |  
+		hg aggregation: [ :model |  
 			(model size > 1) 
 			ifTrue: [ model truncateTo: (model size - 1). ]
 			ifFalse: [ nil ].

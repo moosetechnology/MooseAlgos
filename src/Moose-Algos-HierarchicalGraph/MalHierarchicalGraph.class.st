@@ -83,22 +83,12 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 		(nodes includesKey: srcEntity)
 			ifTrue: [
 				srcNode := nodes at: srcEntity.
-			]
-			."ifFalse: [
-				srcNode := SnNode with: srcEntity.
-				self setParentOfNode: srcNode.
-				nodesDict at: srcEntity put: srcNode.
-			]."
+			].
 			
 		(nodes includesKey: dstEntity)
 			ifTrue: [
 				dstNode := nodes at: dstEntity.
-			]
-			."ifFalse: [
-				dstNode := SnNode with: dstEntity.
-				self setParentOfNode: dstNode.
-				nodesDict at: dstEntity put: dstNode.
-			]."
+			].
 		
 		"Only create edge if nodes were found."
 		(srcNode isNil or: dstNode isNil) ifFalse: [
@@ -213,7 +203,8 @@ MalHierarchicalGraph >> containment: howToGetChildren [
 				foundClasses ifEmpty: [ nil ] ifNotEmpty: [ foundClasses last value value: e ].
 			]
 		]
-	      "Symbol (method) or block based way"
+	
+		"Symbol (method) or block based way"
 		ifFalse: [ 
 			self blockToGetChildren: [ :e | howToGetChildren value: e ].
 		].
@@ -362,18 +353,7 @@ MalHierarchicalGraph >> nodesDownFromLevel: aLevel [
 
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesFor: aCollectionOfModels [
-	"Returns a Collection of all nodes wrapping given models, empty Set if no corresponding node was found."
-	| result node |
-	result := OrderedCollection new.
-	
-	aCollectionOfModels do: [ :aModel |
-		node := nodes at: aModel ifAbsent: [ nil ].
-		node notNil ifTrue: [
-			result add: node.
-		].
-	].
-	
-	^ result.
+	^ self nodesWrapping: aCollectionOfModels
 ]
 
 { #category : #enumerating }
@@ -399,12 +379,11 @@ MalHierarchicalGraph >> nodesUpFromLevel: aLevel [
 { #category : #enumerating }
 MalHierarchicalGraph >> nodesWrapping: aModelCollection [
 	"Returns the nodes wrapping the given entities or an empty collection if no such nodes could be found in the HiGraph."
-	"TODO: No better way to do this?"
 	| result |
 	result := OrderedCollection new.
 	
-	nodes do: [ :n | 
-		aModelCollection do: [ :e | (n entity = e) ifTrue: [ result add: n ]].
+	nodes do: [ :node | 
+		aModelCollection do: [ :model | (node entity = model) ifTrue: [ result add: node ]].
 	].
 
 	^ result.

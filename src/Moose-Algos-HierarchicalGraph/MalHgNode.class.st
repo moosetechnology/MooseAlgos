@@ -32,6 +32,14 @@ MalHgNode class >> in: hiGraph with: anEntity level: level [
 	^ node.
 ]
 
+{ #category : #creation }
+MalHgNode class >> with: aModel [
+	| node |
+	node := MalHgNode new.
+	node model: aModel.
+	^ node.
+]
+
 { #category : #adding }
 MalHgNode >> addChild: aNode [
 	"Adds a child node."

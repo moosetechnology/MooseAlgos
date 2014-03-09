@@ -383,7 +383,7 @@ MalHierarchicalGraph >> nodesWrapping: aModelCollection [
 	result := OrderedCollection new.
 	
 	nodes do: [ :node | 
-		aModelCollection do: [ :model | (node entity = model) ifTrue: [ result add: node ]].
+		aModelCollection do: [ :model | (node model = model) ifTrue: [ result add: node ]].
 	].
 
 	^ result.

@@ -1,5 +1,5 @@
 "
-A MalHgNode is a node inside a hierarchical graph.
+A MalHgNode is a node inside a hierarchical graph. It knows the graph it belongs to, its children and its parent, on which level in the graph it resides and its outgoing ind incoming edges. One can also store arbitrary informaition as attributes to a node.
 
 Instance Variables
 	attributes:		<Dictionary>
@@ -185,7 +185,7 @@ MalHgNode >> incoming [
 { #category : #enumerating }
 MalHgNode >> incomingEdges: aLevel [
 	"Returns a collection of of all incoming edges that are on given level.
-	Returns an empty collection if there are no incoming edgesaLevel 
+	Returns an empty collection if there are no incoming edges. 
 	Returns all incoming edges if given level is nil"
 	| incomingEdges |
 	 incomingEdges := Set new.
@@ -247,15 +247,15 @@ MalHgNode >> incomingPropagated [
 { #category : #enumerating }
 MalHgNode >> incomingSources [
 	"Returns a set of all source nodes of all incoming edges to this node.
-	Returns an empty set if there are no incoming edges"
+	Returns an empty set if there are no incoming edges."
 	^ self incomingSources: nil.
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingSources: aLevel [
 	"Returns a collection of all source nodes of all incoming edges that are on given level.
-	Returns an empty collection if there are no incoming edges
-	Returns all incoming sources if given level is nil"
+	Returns an empty collection if there are no incoming edges.
+	Returns all incoming sources if given level is nil."
 	| incomingSources |
 	 incomingSources := Set new.
 	self incoming do: [ :rel | 	
@@ -329,15 +329,15 @@ MalHgNode >> outgoing [
 { #category : #enumerating }
 MalHgNode >> outgoingDestinations [
 	"Returns a set of all destination nodes of all outgoing edge target nodes.
-	Returns an empty set if there are no such nodes"
+	Returns an empty set if there are no such nodes."
 	^ self outgoingDestinations: nil.
 ]
 
 { #category : #enumerating }
 MalHgNode >> outgoingDestinations: aLevel [
 	"Returns a collection of all destination nodes of all outgoing relationship that are on given level.
-	Returns an empty collection if there are no such nodes
-	Returns all outgoing destinations if given level is nil"
+	Returns an empty collection if there are no such nodes.
+	Returns all outgoing destinations if given level is nil."
 	| outgoingDestinations |
 	 outgoingDestinations := Set new.
 	self outgoing do: [ :rel | 
@@ -356,8 +356,8 @@ MalHgNode >> outgoingDestinations: aLevel [
 { #category : #enumerating }
 MalHgNode >> outgoingEdges: aLevel [
 	"Returns a collection of all of all outgoing relationship that are on given level.
-	Returns an empty collection if there are no such relationships
-	Returns all outgoing relationships if given level is nil"
+	Returns an empty collection if there are no such relationships.
+	Returns all outgoing relationships if given level is nil."
 	| outgoingRelationships |
 	 outgoingRelationships := Set new.
 	self outgoing do: [ :rel | 
@@ -452,7 +452,7 @@ MalHgNode >> parentOnLevel: aLevel [
 
 { #category : #enumerating }
 MalHgNode >> recursiveChildren [
-	"Returns the whole family tree below myself (excluding myself). "
+	"Returns the whole family tree below myself (excluding myself)."
 	^ self recursiveChildren: false.
 	
 ]

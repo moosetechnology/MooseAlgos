@@ -1,5 +1,5 @@
 "
-A hierarchical graph is composed of a set of nodes and two types of relationships: (1) containment relationships, which build a partial order on the nodes, and (2) direct, node-to-node relationships which are aggregated across the hierarchy resulting from the containment relationships. By propagating relationship information up in the hierarchy we arrive at a hierarchical graph.
+A MalHierarchicalGraph is composed of a collection of nodes situated in a hierarchy and two types of edges: edges between the base nodes and edges that are propagated up in the hierarchy.
 
 Instance Variables
 	levels:		<Dictionary>

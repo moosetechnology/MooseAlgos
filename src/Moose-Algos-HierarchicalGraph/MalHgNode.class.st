@@ -1,3 +1,37 @@
+"
+A MalHgNode is a node inside a hierarchical graph.
+
+Instance Variables
+	attributes:		<Dictionary>
+	children:		<OrderedCollection>
+	hiGraph:		<MalHierarchicalGraph>
+	incoming:		<OrderedCollection>
+	level:		      <Number>
+	outgoing:		<OrderedCollection>
+	parent:		      <MalHgNode>
+
+attributes
+	- Dictionary to attach arbitrary information to a node
+
+children
+	- This nodes children. Empty collection if the node is a leaf in the hierarchy.
+
+hiGraph
+	- The MalHierarchicalGraph this node belongs to.
+
+incoming
+	- All incoming edges to this node.
+
+level
+	- The level this node is on in the hierachy where 0 is the top level (root nodes). The larger the number, the deeper down in the hierarchy the node is located.
+
+outgoing
+	- All outgoing edges from this node.
+
+parent
+	- This nodes parent
+
+"
 Class {
 	#name : #MalHgNode,
 	#superclass : #MalGraphNode,
@@ -15,6 +49,7 @@ Class {
 
 { #category : #creation }
 MalHgNode class >> in: hiGraph with: aModel [
+	"Creates a new instance of a MalHgNode for given hiGraph, with given object as model."
 	| node |
 	node := MalHgNode new.
 	node hiGraph: hiGraph.
@@ -23,10 +58,11 @@ MalHgNode class >> in: hiGraph with: aModel [
 ]
 
 { #category : #creation }
-MalHgNode class >> in: hiGraph with: anEntity level: level [
+MalHgNode class >> in: hiGraph with: aModel level: level [
+	"Creates a new instance of a MalHgNode for given hiGraph, with given object as model, on given level."
 	| node |
 	node := MalHgNode new.
-	node model: anEntity.
+	node model: aModel.
 	node hiGraph: hiGraph.
 	node level: level.
 	^ node.
@@ -34,6 +70,7 @@ MalHgNode class >> in: hiGraph with: anEntity level: level [
 
 { #category : #creation }
 MalHgNode class >> with: aModel [
+	"Creates a new instance of a MalHgNode with given object as model"
 	| node |
 	node := MalHgNode new.
 	node model: aModel.
@@ -50,6 +87,7 @@ MalHgNode >> addChild: aNode [
 
 { #category : #adding }
 MalHgNode >> addChildren: aCollection [
+	"Add multiple children to this node."
 	aCollection do: [ :each | 
 		self addChild: each.
 	].
@@ -57,38 +95,45 @@ MalHgNode >> addChildren: aCollection [
 
 { #category : #adding }
 MalHgNode >> addIncoming: anEdge [
+	"Add an incoming edge to this node."
 	incoming add: anEdge.
 
 ]
 
 { #category : #adding }
 MalHgNode >> addOutgoing: anEdge [
+	"Add an outgoing edge to this node."
 	outgoing add: anEdge.
 
 ]
 
 { #category : #accessing }
 MalHgNode >> attributeAt: aKey [
+	"Returns attribute with given key, nil if attribute is absent."
 	^ attributes at: aKey ifAbsent: [ nil ].
 ]
 
 { #category : #accessing }
 MalHgNode >> attributeAt: aKey ifAbsent: aBlock [
+	"Returns attribute with given key, given block is run if there is no element with given key."
 	^ attributes at: aKey ifAbsent: aBlock.
 ]
 
 { #category : #accessing }
 MalHgNode >> attributeAt: aKey ifAbsentPut: aBlock [
+	"Returns attribute with given key, if no attribute exists with given key, use given block to put an attribute. "
 	^ attributes at: aKey ifAbsentPut: aBlock.
 ]
 
 { #category : #accessing }
 MalHgNode >> attributeAt: aKey put: anObject [
+	"Puts given object as attribute at given key."
 	attributes at: aKey put: anObject.
 ]
 
 { #category : #accessing }
 MalHgNode >> attributes [
+	"Returns all attributes of this MalHgNode."
 	^ attributes
 ]
 
@@ -100,6 +145,7 @@ MalHgNode >> children [
 
 { #category : #printing }
 MalHgNode >> description [
+	"Returns a description of this node, based on its name and its models class"
 	^  model name , ' (' , model class name , ')'.
 ]
 
@@ -119,11 +165,13 @@ MalHgNode >> edges: aLevel [
 
 { #category : #accessing }
 MalHgNode >> hiGraph [
+	"Returns the hiGraph this node belongs to."
 	^ hiGraph
 ]
 
 { #category : #accessing }
 MalHgNode >> hiGraph: anObject [
+	"Sets the hiGraph this nodes belongs to."
 	hiGraph := anObject
 ]
 
@@ -226,6 +274,7 @@ MalHgNode >> incomingSources: aLevel [
 
 { #category : #initialization }
 MalHgNode >> initialize [
+	"Initializes this node by resetting it."
 	self resetHierarchy.
 	self resetEdges.
 	self resetAttributes.
@@ -239,28 +288,33 @@ MalHgNode >> isLeafNode [
 
 { #category : #testing }
 MalHgNode >> isRootNode [
+	"Return whether this node is a root node or not."
 	^ parent isNil.
 
 ]
 
 { #category : #accessing }
 MalHgNode >> level [
+	"Returns the level this node is on in the hiGraph."
 	^ level.
 ]
 
 { #category : #accessing }
 MalHgNode >> level: aLevel [
+	"Sets the level this node is on in the hiGraph."
 	level := aLevel.
 ]
 
 { #category : #testing }
 MalHgNode >> notLeafNode [
+	"Return whether this node is not a leaf node, false if it is."
 	^ children notEmpty.
 
 ]
 
 { #category : #testing }
 MalHgNode >> notRootNode [
+	"Return whether this node is not a root node, false if it is."
 	^ parent notNil.
 
 ]
@@ -360,6 +414,7 @@ MalHgNode >> outgoingToThese: aNodeCollection [
 
 { #category : #accessing }
 MalHgNode >> parent [
+	"Returns the parent of this node. If node returns nil, it is a root node."
 	^ parent.
 
 ]
@@ -428,17 +483,20 @@ MalHgNode >> recursiveChildren: withMyself [
 
 { #category : #resetting }
 MalHgNode >> resetAttributes [
+	"Resets this nodes attributes."
 	attributes := Dictionary new.
 ]
 
 { #category : #resetting }
 MalHgNode >> resetEdges [
+	"Resets this nodes edges"
 	outgoing := OrderedCollection new. "Outgoing Edges"
 	incoming := OrderedCollection new. "Incoming Edges"
 ]
 
 { #category : #resetting }
 MalHgNode >> resetHierarchy [
+	"Resets this nodes children"
 	children := OrderedCollection new. "My direct children"
 ]
 
@@ -446,10 +504,11 @@ MalHgNode >> resetHierarchy [
 MalHgNode >> setLevels [
 	"Set levels of all my children if I have any. I have to have a level set for this to work."
 	| currLevelCollection |
+	
 	self assert: (level notNil) description: 'This node must have a level set to set its childrens level'.
 	currLevelCollection := hiGraph levels at: level ifAbsentPut: [ OrderedCollection new ].
 	
-	"We have already added the root nodes in the process"
+	"We have already added the root nodes in the process. No need to add them again."
 	self notRootNode ifTrue: [ 
 		currLevelCollection add: self.
 	].
@@ -465,5 +524,6 @@ MalHgNode >> setLevels [
 
 { #category : #printing }
 MalHgNode >> shortName [
+	"Returns a short name of this node."
 	^ model name.
 ]

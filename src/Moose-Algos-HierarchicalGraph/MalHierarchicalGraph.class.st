@@ -1,3 +1,13 @@
+"
+A hierarchical graph is composed of a set of nodes and two types of relationships: (1) containment relationships, which build a partial order on the nodes, and (2) direct, node-to-node relationships which are aggregated across the hierarchy resulting from the containment relationships. By propagating relationship information up in the hierarchy we arrive at a hierarchical graph.
+
+Instance Variables
+	levels:		<Dictionary>
+
+levels
+	- dict keys: level, values: all nodes on that level as a Collection.
+
+"
 Class {
 	#name : #MalHierarchicalGraph,
 	#superclass : #MalGraphAlgorithm,
@@ -28,6 +38,7 @@ MalHierarchicalGraph class >> with: baseModels [
 
 { #category : #api }
 MalHierarchicalGraph >> addEdge: aModel from: source to: target [
+	"Imperative method to add a single edge to the graph."
 	self addEdges: (OrderedCollection with: aModel) from: source to: target.
 ]
 
@@ -212,6 +223,7 @@ MalHierarchicalGraph >> containment: howToGetChildren [
 
 { #category : #testing }
 MalHierarchicalGraph >> deepestLevel [
+	"Returns the deepest level in the hierarchy, i.e. the level the leaf nodes reside on."
 	^ levels keys asSortedCollection last
 
 ]
@@ -413,13 +425,13 @@ MalHierarchicalGraph >> privateNodes: aCollection [
 	ShouldNotImplement signal.
 ]
 
-{ #category : #building }
+{ #category : #api }
 MalHierarchicalGraph >> propagateEdges [
 	"Propagates relationships up in the hiGraph from the leaf nodes."
 	self propagateEdges: OrderedCollection new.
 ]
 
-{ #category : #building }
+{ #category : #api }
 MalHierarchicalGraph >> propagateEdges: classCollection [
 	"Propagates relationships up in the hiGraph from the leaf nodes.
 	If a collection with classes is provied, only relationships between given classes are propagated."
@@ -524,13 +536,7 @@ MalHierarchicalGraph >> propagateEdges: classCollection [
 
 { #category : #resetting }
 MalHierarchicalGraph >> reset [
-	self resetConfiguration.
 	self resetNodes.
-]
-
-{ #category : #resetting }
-MalHierarchicalGraph >> resetConfiguration [
-	buildingBlock := nil.
 ]
 
 { #category : #resetting }
@@ -549,7 +555,7 @@ MalHierarchicalGraph >> resetNodes [
 	"dict keys: models, values: nodes"
 	nodes := Dictionary new.
 	
-	"dict keys: level, values: all nodes on that level as a Set."
+	"dict keys: level, values: all nodes on that level as a Collection."
 	levels := Dictionary new.
 	
 	"If nodes are reset, we have to reset edges as well, since there can't be edges without nodes."

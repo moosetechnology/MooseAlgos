@@ -7,9 +7,11 @@ I'm a word compacting class. I remove the most used letters from a word to compa
 	You can also remove some  elements using cut:
 	
 	(MalKontractor new 
-			cut: #( 'Sea' 'WA' ) contractUpTo: 3)
+			wordsToBeRemoved: #( 'Sea' 'WA' ) ;
+			upTo: 3)
 			reduce: 'WASeaSideba'
-			 'idb'
+			
+	returns 'idb'
 "
 Class {
 	#name : #MalKontractor,
@@ -158,42 +160,44 @@ MalKontractor class >> initialize [
 { #category : #'instance creation' }
 MalKontractor class >> new: anInteger [
 	
-	^self new sizeTo: anInteger
+	^self new upTo: anInteger
 ]
 
 { #category : #'instance creation' }
 MalKontractor class >> reduce: aString upTo: anInteger [
 	"self reduce: 'hello world' upTo: 6"
 	
-	^ (self new sizeTo: anInteger) reduce: aString 
+	^ (self new upTo: anInteger) reduce: aString 
 ]
 
 { #category : #'instance creation' }
 MalKontractor class >> toSize: anInteger [
 	"self upToCharacterNumber: 3"
 	
-	^self new sizeTo: anInteger
+	^self new upTo: anInteger
 ]
 
-{ #category : #public }
+{ #category : #'instance creation' }
+MalKontractor class >> upTo: anInteger [
+	"self upTo: 3"
+	
+	^self new upTo: anInteger
+]
+
+{ #category : #deprecated }
 MalKontractor >> chopWords: aString [
 
-	| t |
-	t := aString.
-	wordsToBeRemoved do: [:each |
-			t := t copyReplaceAll: each with: ''].
-	^ t
-
-	
-
+	self deprecated: 'Use removeWordsIn: instead.'.
+	self removeWordsIn: aString.
 	
 ]
 
-{ #category : #public }
+{ #category : #deprecated }
 MalKontractor >> cut: aCollectionOfRoots contractUpTo: anInteger [
-
+	
+	self deprecated: 'Use wordsToBeRemoved: and toSize: instead.'.
 	wordsToBeRemoved := aCollectionOfRoots.
-	self sizeTo: anInteger.
+	self upTo: anInteger.
 		
 	
 ]
@@ -204,7 +208,7 @@ MalKontractor >> initialize [
 	super initialize.
 	wordsToBeRemoved := #().
 	pairs := {}.
-	self sizeTo: 5
+	self upTo: 5
 ]
 
 { #category : #computing }
@@ -217,8 +221,8 @@ MalKontractor >> letterFrequency: aString [
 MalKontractor >> reduce: aString [
 
 	|reducedString|
-	reducedString := self chopWords: aString.
-	[reducedString size > self sizeTo] whileTrue: [
+	reducedString := self removeWordsIn: aString.
+	[reducedString size > self upTo] whileTrue: [
 			reducedString := self removeOne: reducedString].
 	^reducedString  
 
@@ -228,7 +232,7 @@ MalKontractor >> reduce: aString [
 { #category : #computing }
 MalKontractor >> removeOne: aString [
 
-	|comp note currentNote value |
+	| comp note currentNote value |
 	comp := 1.
 	note := 0.
 	[ comp <= aString size ] whileTrue: [
@@ -236,16 +240,65 @@ MalKontractor >> removeOne: aString [
 		(currentNote > note ) ifTrue: [
 					note := currentNote.
 					value := comp].  
-	comp := comp + 1.].
+	comp := comp + 1].
 	^ aString copyWithoutIndex: value.
 ]
 
-{ #category : #accessing }
+{ #category : #computing }
+MalKontractor >> removeWords: aString [
+	"Remove all the words from the arguments based on the specification done using wordsToBeRemoved:"
+	
+	| t |
+	t := aString.
+	wordsToBeRemoved do: [:each |
+			t := t copyReplaceAll: each with: ''].
+	^ t
+
+	
+
+	
+]
+
+{ #category : #computing }
+MalKontractor >> removeWordsIn: aString [
+	"Remove all the words from the arguments based on the specification done using wordsToBeRemoved:"
+	
+	| t |
+	t := aString.
+	wordsToBeRemoved do: [:each |
+			t := t copyReplaceAll: each with: ''].
+	^ t
+
+	
+
+	
+]
+
+{ #category : #deprecated }
 MalKontractor >> sizeTo [
+	self deprecated: 'Use upTo instead'.
+	^ sizeTo
+]
+
+{ #category : #deprecated }
+MalKontractor >> sizeTo: anInteger [
+	self deprecated: 'Use upTo: instead'.
+	sizeTo := anInteger
+]
+
+{ #category : #accessing }
+MalKontractor >> upTo [
 	^ sizeTo
 ]
 
 { #category : #accessing }
-MalKontractor >> sizeTo: anInteger [
+MalKontractor >> upTo: anInteger [
 	sizeTo := anInteger
+]
+
+{ #category : #configuration }
+MalKontractor >> wordsToBeRemoved: aCollectionOfRoots [ 
+
+	wordsToBeRemoved := aCollectionOfRoots.
+	
 ]

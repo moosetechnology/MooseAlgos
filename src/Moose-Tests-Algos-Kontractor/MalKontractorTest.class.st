@@ -9,11 +9,17 @@ MalKontractorTest >> testCutAndContract [
 	"self debug: #testCutAndContract"
 
 	self
-		assert: ((MalKontractor new cut: #('Seaside' 'Citezen') contractUpTo: 4) chopWords: 'Citezen-hello')
+		assert: (MalKontractor new 
+					wordsToBeRemoved: #('Seaside' 'Citezen') ; 
+					removeWordsIn: 'Citezen-hello')
 		equals: '-hello'.
+
 	self
-		assert: ((MalKontractor new cut: #('Seaside' 'Citezen') contractUpTo: 4) chopWords: 'Citezen-hello-Seaside')
-		equals: '-hello-'
+		assert: (MalKontractor new 
+					wordsToBeRemoved: #('Seaside' 'Citezen') ; 
+					removeWordsIn: 'Citezen-hello-Seaside')
+		equals: '-hello-' 
+
 ]
 
 { #category : #testing }
@@ -24,7 +30,7 @@ MalKontractorTest >> testFrequency [
 { #category : #testing }
 MalKontractorTest >> testNew [
 	| k |
-	k := MalKontractor toSize: 3.
+	k := MalKontractor upTo: 3.
 	self assert: k sizeTo equals: 3
 ]
 
@@ -32,16 +38,16 @@ MalKontractorTest >> testNew [
 MalKontractorTest >> testReduce [
 	"self debug: #testReduce"
 
-	self assert: ((MalKontractor toSize: 4) reduce: 'hello') equals: 'hllo'.
-	self assert: ((MalKontractor toSize: 3) reduce: 'hello') equals: 'hlo'.
-	self assert: ((MalKontractor toSize: 3) reduce: 'hell!-o') equals: 'hlo'
+	self assert: ((MalKontractor upTo: 4) reduce: 'hello') equals: 'hllo'.
+	self assert: ((MalKontractor upTo: 3) reduce: 'hello') equals: 'hlo'.
+	self assert: ((MalKontractor upTo: 3) reduce: 'hell!-o') equals: 'hlo'
 ]
 
 { #category : #testing }
 MalKontractorTest >> testReduceInPresenceOfChop [
 	"self debug: #testReduceInPresenceOfChop"
 
-	self assert: ((MalKontractor new cut: #('Seaside') contractUpTo: 4) reduce: 'SeasidehelloSeaside') equals: 'hllo'
+	self assert: ((MalKontractor new wordsToBeRemoved: #('Seaside') ; upTo: 4) reduce: 'SeasidehelloSeaside') equals: 'hllo'
 ]
 
 { #category : #testing }
@@ -58,13 +64,13 @@ MalKontractorTest >> testReduceUnknownCharacter [
 
 	"J is not in the map."
 
-	self assert: ((MalKontractor toSize: 4) reduce: 'Jieiei') equals: 'Jiii'.
-	self assert: ((MalKontractor toSize: 4) reduce: 'Jieieriz') equals: 'iiiz'.
-	self assert: ((MalKontractor toSize: 4) reduce: 'Jieierjg') equals: 'iijg'
+	self assert: ((MalKontractor upTo: 4) reduce: 'Jieiei') equals: 'Jiii'.
+	self assert: ((MalKontractor upTo: 4) reduce: 'Jieieriz') equals: 'iiiz'.
+	self assert: ((MalKontractor upTo: 4) reduce: 'Jieierjg') equals: 'iijg'
 ]
 
 { #category : #testing }
 MalKontractorTest >> testRemoveOne [
-	self assert: ((MalKontractor toSize: 3) removeOne: 'hello') equals: 'hllo'.
-	self assert: ((MalKontractor toSize: 3) removeOne: 'hllo') equals: 'hlo'
+	self assert: ((MalKontractor upTo: 3) removeOne: 'hello') equals: 'hllo'.
+	self assert: ((MalKontractor upTo: 3) removeOne: 'hllo') equals: 'hlo'
 ]

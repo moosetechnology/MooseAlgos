@@ -25,7 +25,7 @@ MalTarjan class >> mondrianSample [
 		colorDic := IdentityDictionary new.
 		i := 1.
 		tarjan nodes do: [ :n | 
-			color := ESAbstractDiagram strongColors at: i.
+			color := Color distinctTenStrongColors at: i.
 			i := i + 1.
 			colorDic at: n model ifAbsentPut: color.
 			n cycleNodes do: [:cn| colorDic at: cn model ifAbsentPut: color ] ].

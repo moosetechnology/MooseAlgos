@@ -38,10 +38,12 @@ MalGraphNode >> model: aModel [
 	model := aModel
 ]
 
-{ #category : #accessing }
-MalGraphNode >> printString [
+{ #category : #'as yet unclassified' }
+MalGraphNode >> printOn: stream [
 
-	^ self label, self model printString
+	stream 
+		nextPutAll: self label.
+	model printOn: stream
 ]
 
 { #category : #accessing }

@@ -131,14 +131,6 @@ MalMapping >> includesName: name [
 	^true
 ]
 
-{ #category : #'user interface' }
-MalMapping >> inspectorClasses [
-	
-	^self size > 10000
-		ifTrue: [Array with: BasicInspector]
-		ifFalse: [Array with: DictionaryInspector with: BasicInspector]
-]
-
 { #category : #'accessing - name' }
 MalMapping >> keyForName: name [
 	

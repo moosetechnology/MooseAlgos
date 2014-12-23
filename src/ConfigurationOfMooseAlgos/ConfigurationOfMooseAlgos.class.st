@@ -653,7 +653,7 @@ ConfigurationOfMooseAlgos >> version25: spec [
 			package: 'Moose-Tests-Algos-Kontractor' with: 'Moose-Tests-Algos-Kontractor-TudorGirba.5';
 			package: 'Moose-Tests-Algos-Lattice' with: 'Moose-Tests-Algos-Lattice-AndreHora.9';
 			package: 'Moose-Tests-Algos-LinearAlgebra' with: 'Moose-Tests-Algos-LinearAlgebra-AndreHora.4';
-			package: 'CollectionExtensions' with: 'CollectionExtensions-TudorGirba.32'. ].
+			package: 'CollectionExtensions' with: 'CollectionExtensions-TudorGirba.40'. ].
 
 ]
 

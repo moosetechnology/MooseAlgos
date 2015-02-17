@@ -10,9 +10,32 @@ Class {
 }
 
 { #category : #configuration }
+MalTarjan >> findNode: aModel ifAbsent: aBlock [
+	^ nodes at: aModel ifAbsent: aBlock
+]
+
+{ #category : #configuration }
+MalTarjan >> initialize [
+	super initialize.
+	nodes := Dictionary new.
+]
+
+{ #category : #configuration }
 MalTarjan >> nodeClass [
 
 	^ MalTarjanNode 
+]
+
+{ #category : #configuration }
+MalTarjan >> nodes [
+	^ nodes values
+]
+
+{ #category : #configuration }
+MalTarjan >> nodes: aCollection [
+	aCollection do: [ :model |
+		nodes at: model put: (self nodeClass with: model)
+	]
 ]
 
 { #category : #running }

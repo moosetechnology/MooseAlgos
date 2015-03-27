@@ -27,7 +27,7 @@ MalTarjan >> findNode: aModel ifAbsent: aBlock [
 { #category : #configuration }
 MalTarjan >> initialize [
 	super initialize.
-	nodes := Dictionary new.
+	nodes := Dictionary new
 ]
 
 { #category : #configuration }
@@ -50,7 +50,10 @@ MalTarjan >> nodes: aCollection [
 { #category : #setting }
 MalTarjan >> nodesAndNextFrom: aNodeList [
 	aNodeList 
-		do: [ :node | self nodes add: (self nodeClass with: node model) ].
+		do: [ :node | 
+				nodes 
+					at: node model
+					put: (self nodeClass with: node model) ].
 	aNodeList 
 		do: [ :node |
 			node nextNodes 

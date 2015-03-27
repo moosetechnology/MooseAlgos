@@ -19,7 +19,7 @@ MalTarjanNode >> cycleNodes [
 	^ cycleNodes
 ]
 
-{ #category : #accessing }
+{ #category : #setting }
 MalTarjanNode >> cycleNodes: anObject [
 	cycleNodes := anObject copy
 		remove: self ;
@@ -31,24 +31,25 @@ MalTarjanNode >> inStack [
 	^ inStack
 ]
 
-{ #category : #accessing }
+{ #category : #setting }
 MalTarjanNode >> inStack: anObject [
 	inStack := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 MalTarjanNode >> initialize [
 	super initialize.
+	nextNodes := Set new.
 	index := -1.
 	inStack := false
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 MalTarjanNode >> isInCycle [
 	^ self cycleNodes isEmpty not
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 MalTarjanNode >> isTarjanUndefined [
 	^ index = -1
 ]
@@ -58,7 +59,7 @@ MalTarjanNode >> label [
 	^ 'T '
 ]
 
-{ #category : #accessing }
+{ #category : #setting }
 MalTarjanNode >> popped [
 	self inStack: false
 ]
@@ -68,7 +69,7 @@ MalTarjanNode >> tarjanIndex [
 	^ index
 ]
 
-{ #category : #accessing }
+{ #category : #setting }
 MalTarjanNode >> tarjanIndex: anInteger [
 	index := anInteger
 ]
@@ -78,7 +79,7 @@ MalTarjanNode >> tarjanLowlink [
 	^ lowlink
 ]
 
-{ #category : #accessing }
+{ #category : #setting }
 MalTarjanNode >> tarjanLowlink: anInteger [
 	lowlink := anInteger
 ]

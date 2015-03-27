@@ -23,6 +23,12 @@ MalHalNode >> hNumber: anObject [
 	hNumber := anObject
 ]
 
+{ #category : #initialization }
+MalHalNode >> initialize [
+	super initialize.
+	previousNodes := Set new
+]
+
 { #category : #testing }
 MalHalNode >> isSink [
 

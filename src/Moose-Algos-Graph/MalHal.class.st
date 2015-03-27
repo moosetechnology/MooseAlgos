@@ -20,36 +20,44 @@ MalHal >> hierarchyLevels [
 	^ map
 ]
 
+{ #category : #running }
+MalHal >> initializeHal [
+	| entryNodes |
+	nodesToVisit := OrderedCollection new.
+	self nodes do: #removeCycleFromEdges.
+	entryNodes := self nodes select: #isSource.
+	entryNodes do: [ :n | n hNumber: 0 ].
+	nodesToVisit addAll: entryNodes
+]
+
+{ #category : #running }
+MalHal >> mainLoop [
+	| cnode touchedCycle |
+	[ nodesToVisit isEmpty ]
+		whileFalse: [ 
+			cnode := nodesToVisit removeFirst.
+			cnode nextNodes
+				do: [ :next | 
+					touchedCycle := next markHNumber: cnode hNumber + 1.
+					nodesToVisit addAll: touchedCycle ].
+			nodesToVisit addAll: cnode nextNodes ]
+]
+
 { #category : #configuration }
 MalHal >> nodeClass [
-
 	^ MalHalNode
 ]
 
 { #category : #running }
 MalHal >> run [
+	self runTarjan.
+	self initializeHal.
+	self mainLoop
+]
 
-	| entryNodes cnode touchedCycle |
-	
-	"Run Tarjan"
-	super run.
-	
-	"initialization Hal"
-	nodesToVisit := OrderedCollection new.
-	self nodes do: [ :node | node removeCycleFromEdges ].
-	entryNodes := self nodes select: [ :node | node isSource ].
-	entryNodes do: [ :n | n hNumber: 0 ].
-	nodesToVisit addAll: entryNodes.
-	
-	"main loop"
-	[ nodesToVisit isEmpty ] whileFalse: 
-		[ cnode := nodesToVisit removeFirst.
-		cnode nextNodes do: 
-			[ :next | 
-			touchedCycle := next markHNumber: cnode hNumber + 1.
-			nodesToVisit addAll: touchedCycle ]. 
-		nodesToVisit addAll: cnode nextNodes
-	]
+{ #category : #running }
+MalHal >> runTarjan [
+	super run
 ]
 
 { #category : #logging }

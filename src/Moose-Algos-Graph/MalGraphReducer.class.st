@@ -30,7 +30,7 @@ MalGraphReducer >> findCircuits [
 			circuit collect: [ :each | self findNode: each model ] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'initialize-release' }
 MalGraphReducer >> initialize [
 	super initialize.
 	circuitNodes := OrderedCollection new.
@@ -62,7 +62,7 @@ MalGraphReducer >> nextNodesFor: aNodeList [
 		difference: aNodeList) asArray
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 MalGraphReducer >> nodeClass [
 	^ MalReducedGraphNode
 ]

@@ -11,19 +11,19 @@ Class {
 
 { #category : #running }
 MalSccEdgeDecomposition >> bfsPathFrom: startNode to: endNode [
-
-	^ bfsp start: startNode; end: endNode; run
+	^ bfsp
+		start: startNode;
+		end: endNode;
+		run
 ]
 
 { #category : #accessing }
 MalSccEdgeDecomposition >> edgeClass [
-
 	^ MalGraphEdge 
 ]
 
 { #category : #accessing }
 MalSccEdgeDecomposition >> initialize [ 
-
 	super initialize.
 	bfsp := MalBreadthFirstSearchPath new.
 
@@ -31,15 +31,17 @@ MalSccEdgeDecomposition >> initialize [
 
 { #category : #accessing }
 MalSccEdgeDecomposition >> nodeClass [
-
 	^ MalBfsNode 
 ]
 
 { #category : #running }
 MalSccEdgeDecomposition >> run [
-
-	bfsp privateNodes: self nodes; privateEdges: self edges.
+	bfsp 
+		privateNodes: self nodes;
+		privateEdges: self edges.
 	self edges do: [:e||c|
-		c := self bfsPathFrom: e to to: e from.
+		c := self 
+			bfsPathFrom: e to 
+			to: e from.
 		self addCircuit: (self normalize: c) ]
 ]

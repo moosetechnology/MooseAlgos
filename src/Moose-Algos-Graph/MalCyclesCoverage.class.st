@@ -18,7 +18,9 @@ MalCyclesCoverage >> circuits [
 { #category : #running }
 MalCyclesCoverage >> directCircuit: aCollection [
 
-	^ self normalize: (OrderedCollection with: aCollection first model with: aCollection second model)
+	^ self normalize: (OrderedCollection 
+		with: aCollection first model 
+		with: aCollection second model)
 ]
 
 { #category : #initialization }

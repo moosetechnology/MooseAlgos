@@ -20,26 +20,26 @@ MalBfsNode >> firstDepth: anObject [
 	firstDepth := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 MalBfsNode >> initialize [ 
 
 	nextEdges := OrderedCollection new.
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MalBfsNode >> nextEdges [
 
 	^ nextEdges 
 ]
 
-{ #category : #accessing }
+{ #category : #setting }
 MalBfsNode >> notVisited [
 
 	firstDepth := nil
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 MalBfsNode >> visited [
 
 	^ firstDepth notNil

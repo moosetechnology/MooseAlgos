@@ -102,7 +102,7 @@ MalLongestPath >> run [
 	self computeStep
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #setting }
 MalLongestPath >> setRanks: collectionOfNodes at: aRank [
 	collectionOfNodes do: [ :aNode | aNode pathWeight: aRank ]
 	

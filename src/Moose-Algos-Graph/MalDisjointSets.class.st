@@ -17,7 +17,7 @@ MalDisjointSets >> components [
 { #category : #'as yet unclassified' }
 MalDisjointSets >> nodeClass [
 
-	^ MalNextNode 
+	^ MalDisjointSetsNextNode 
 ]
 
 { #category : #'as yet unclassified' }

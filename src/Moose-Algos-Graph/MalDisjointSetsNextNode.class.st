@@ -1,8 +1,6 @@
 Class {
-	#name : #MalNextNode,
+	#name : #MalDisjointSetsNextNode,
 	#superclass : #MalDisjointSetNode,
-	#traits : 'MalTNodeNode - {#from:. #previousNodes}',
-	#classTraits : 'MalTNodeNode classTrait',
 	#instVars : [
 		'nextNodes'
 	],
@@ -10,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-MalNextNode >> initialize [
+MalDisjointSetsNextNode >> initialize [
 
 	self flag: #refactor.
 	self makeSet. "should be called in super initialize"
@@ -18,7 +16,12 @@ MalNextNode >> initialize [
 ]
 
 { #category : #accessing }
-MalNextNode >> nextNodes [
+MalDisjointSetsNextNode >> nextNodes [
 
 	^ nextNodes 
+]
+
+{ #category : #adding }
+MalDisjointSetsNextNode >> to: targetNode [
+	self nextNodes add: targetNode
 ]

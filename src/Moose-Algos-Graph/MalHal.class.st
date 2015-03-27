@@ -7,25 +7,26 @@ Class {
 	#category : #'Moose-Algos-Graph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MalHal >> hierarchyLevels [
-
 	| map level |
 	map := Dictionary new.
 	self nodes do: [ :node | 
-		level := map at: node hNumber ifAbsentPut: [OrderedCollection new].
+		level := map 
+			at: node hNumber 
+			ifAbsentPut: [OrderedCollection new].
 		level add: node
 	].
 	^ map
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #configuration }
 MalHal >> nodeClass [
 
 	^ MalHalNode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalHal >> run [
 
 	| entryNodes cnode touchedCycle |
@@ -51,7 +52,7 @@ MalHal >> run [
 	]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 MalHal >> showLevels [
 
 	self hierarchyLevels keysAndValuesDo: [ :k :v |

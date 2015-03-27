@@ -10,7 +10,6 @@ Class {
 
 { #category : #accessing }
 MalHalNode >> from: aHalNode [
-
 	previousNodes add: aHalNode
 ]
 
@@ -22,14 +21,6 @@ MalHalNode >> hNumber [
 { #category : #accessing }
 MalHalNode >> hNumber: anObject [
 	hNumber := anObject
-]
-
-{ #category : #initialization }
-MalHalNode >> initialize [
-	
-	super initialize.
-	previousNodes := Set new.
-
 ]
 
 { #category : #testing }

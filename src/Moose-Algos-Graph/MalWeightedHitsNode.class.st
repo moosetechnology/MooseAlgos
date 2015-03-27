@@ -10,13 +10,6 @@ Class {
 	#category : #'Moose-Algos-Graph'
 }
 
-{ #category : #initialization }
-MalWeightedHitsNode >> initialize [
-
-	previousEdges := OrderedCollection new.
-	nextEdges := OrderedCollection new.
-]
-
 { #category : #printing }
 MalWeightedHitsNode >> label [
 

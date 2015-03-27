@@ -1,11 +1,7 @@
 Class {
 	#name : #MalHitsNode,
-	#superclass : #MalGraphNode,
-	#traits : 'MalTNodeNode',
-	#classTraits : 'MalTNodeNode classTrait',
+	#superclass : #MalNodeWithPreviousAndNext,
 	#instVars : [
-		'previousNodes',
-		'nextNodes',
 		'auth',
 		'hub'
 	],
@@ -32,27 +28,10 @@ MalHitsNode >> hub: anObject [
 	hub := anObject
 ]
 
-{ #category : #accessing }
-MalHitsNode >> initialize [
-
-	previousNodes := OrderedCollection new.
-	nextNodes := OrderedCollection new.
-]
-
 { #category : #printing }
 MalHitsNode >> label [
 
 	^ 'H '
-]
-
-{ #category : #accessing }
-MalHitsNode >> nextNodes [
-	^ nextNodes
-]
-
-{ #category : #accessing }
-MalHitsNode >> previousNodes [
-	^ previousNodes
 ]
 
 { #category : #printing }

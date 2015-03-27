@@ -1,11 +1,7 @@
 Class {
 	#name : #MalSndNode,
-	#superclass : #MalGraphNode,
-	#traits : 'MalTNodeNode',
-	#classTraits : 'MalTNodeNode classTrait',
+	#superclass : #MalNodeWithPreviousAndNext,
 	#instVars : [
-		'previousNodes',
-		'nextNodes',
 		'visited',
 		'bfsAncestor'
 	],
@@ -20,33 +16,6 @@ MalSndNode >> bfsAncestor [
 { #category : #accessing }
 MalSndNode >> bfsAncestor: anObject [
 	bfsAncestor := anObject
-]
-
-{ #category : #'initialize-release' }
-MalSndNode >> initialize [
-
-	previousNodes := OrderedCollection new.
-	nextNodes := OrderedCollection new.
-]
-
-{ #category : #accessing }
-MalSndNode >> nextNodes [
-	^ nextNodes
-]
-
-{ #category : #accessing }
-MalSndNode >> nextNodes: anObject [
-	nextNodes := anObject
-]
-
-{ #category : #accessing }
-MalSndNode >> previousNodes [
-	^ previousNodes
-]
-
-{ #category : #accessing }
-MalSndNode >> previousNodes: anObject [
-	previousNodes := anObject
 ]
 
 { #category : #accessing }

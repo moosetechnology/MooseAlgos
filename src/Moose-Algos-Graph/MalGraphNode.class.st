@@ -1,3 +1,6 @@
+"
+Default representation of a graph vertice (node).
+"
 Class {
 	#name : #MalGraphNode,
 	#superclass : #Object,
@@ -38,7 +41,7 @@ MalGraphNode >> model: aModel [
 	model := aModel
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 MalGraphNode >> printOn: stream [
 
 	stream 

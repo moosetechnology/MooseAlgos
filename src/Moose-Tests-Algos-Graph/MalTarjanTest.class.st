@@ -32,7 +32,6 @@ MalTarjanTest >> testComplexCycle [
 
 	MalGraphFixture complexCycleGraph: tarjan.
 	tarjan run.
-	tarjan stronglyConnectedComponents inspect.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
 	c := tarjan findNode: $c.

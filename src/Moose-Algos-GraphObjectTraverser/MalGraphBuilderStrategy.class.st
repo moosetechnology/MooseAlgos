@@ -30,5 +30,7 @@ MalGraphBuilderStrategy >> graph: anObject [
 { #category : #private }
 MalGraphBuilderStrategy >> initialize [ 
 	super initialize.
-	graph := MalGraphStructure new nodeClass: MalTraverserGraphNode; yourself.
+	graph := MalGraphStructure new 
+		nodeClass: MalNodeWithPreviousAndNext;
+		yourself.
 ]

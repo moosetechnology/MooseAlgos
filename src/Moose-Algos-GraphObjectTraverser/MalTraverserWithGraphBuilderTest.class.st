@@ -36,7 +36,7 @@ MalTraverserWithGraphBuilderTest >> testGraphFrom2 [
 { #category : #tests }
 MalTraverserWithGraphBuilderTest >> testGraphNode [
 	traverser traverse: 0.
-	self assert: (traverser action graph nodes first isKindOf: MalTraverserGraphNode)
+	self assert: (traverser action graph nodes first isKindOf: MalNodeWithPreviousAndNext)
 ]
 
 { #category : #running }

@@ -17,7 +17,6 @@ MalTarjanTest >> expectedFailures [
 
 { #category : #tests }
 MalTarjanTest >> setUp [
-
 	tarjan := MalTarjan new.
 
 ]
@@ -33,6 +32,7 @@ MalTarjanTest >> testComplexCycle [
 
 	MalGraphFixture complexCycleGraph: tarjan.
 	tarjan run.
+	tarjan stronglyConnectedComponents inspect.
 	a := tarjan findNode: $a.
 	b := tarjan findNode: $b.
 	c := tarjan findNode: $c.
@@ -56,6 +56,21 @@ MalTarjanTest >> testComplexCycle [
 	self assert: (cycleNodesOfC includesAllOf: c cycleNodes).
 	self assert: (g cycleNodes hasEqualElements: (Array with: h)).
 	self assert: (h cycleNodes hasEqualElements: (Array with: g))
+]
+
+{ #category : #tests }
+MalTarjanTest >> testComplexCycle2 [
+	| circuits |
+	MalGraphFixture complexCycleGraph2: tarjan.
+	circuits := tarjan 
+		run;
+		circuits.
+	#($a $c $g $h $i) 
+		do: [ :each | self deny: (tarjan findNode: each) isInCycle ].
+	self
+		assert: circuits size
+		equals: 1.
+	self assert: ((circuits first collect: #model) includesAll: #($b $d $e $f))
 ]
 
 { #category : #tests }

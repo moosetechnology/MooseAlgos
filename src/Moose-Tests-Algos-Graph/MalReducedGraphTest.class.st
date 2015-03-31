@@ -7,6 +7,23 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
+{ #category : #'private - utility' }
+MalReducedGraphTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
+	aNodeList 
+		collect: #model
+		thenDo: 
+			[ :model | 
+			self 
+				deny: ((anotherNodeList collect: #model) includes: model)
+				description: model asString , ' should not be referenced!' ] 
+]
+
+{ #category : #'private - utility' }
+MalReducedGraphTest >> mergedNodesIn: aNodeList [
+	^ (aNodeList select: [ :node | node mergedNodes notNil ])
+		flatCollect: #mergedNodes
+]
+
 { #category : #running }
 MalReducedGraphTest >> setUp [
 	graphReducer := MalGraphReducer new.
@@ -14,9 +31,7 @@ MalReducedGraphTest >> setUp [
 
 { #category : #tests }
 MalReducedGraphTest >> testComplexCycle2 [
-	| initialNodes |
 	MalGraphFixture complexCycleGraph2: graphReducer.
-	initialNodes := graphReducer nodes copy.
 	graphReducer run.
 	self
 		assert: graphReducer nodes size
@@ -24,6 +39,36 @@ MalReducedGraphTest >> testComplexCycle2 [
 	self
 		assert: (graphReducer nodes at: 6) mergedNodes size
 		equals: 4
+]
+
+{ #category : #tests }
+MalReducedGraphTest >> testGraphReducingWhenNoCycle [
+	| initialGraph |
+	MalGraphFixture simpleGraph: graphReducer.
+	initialGraph := graphReducer graph copy.
+	graphReducer run.
+	self assert: initialGraph equals: graphReducer graph
+]
+
+{ #category : #tests }
+MalReducedGraphTest >> testMergedNodesNotReferencedInNextNodes [
+	MalGraphFixture complexCycleGraph2: graphReducer.
+	graphReducer run.
+
+	self 
+		assertNodes: (graphReducer nodes flatCollect: #nextNodes) 
+		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
+]
+
+{ #category : #tests }
+MalReducedGraphTest >> testMergedNodesNotReferencedInPreviousNodes [
+	MalGraphFixture complexCycleGraph2: graphReducer.
+	graphReducer run.
+
+	self 
+		assertNodes: (graphReducer nodes flatCollect: #previousNodes) 
+		doesNotInclude: (self mergedNodesIn: graphReducer nodes)
+
 ]
 
 { #category : #tests }
@@ -39,11 +84,13 @@ MalReducedGraphTest >> testNextNodesFor [
 
 { #category : #tests }
 MalReducedGraphTest >> testNoCycle [
-	| initialGraph |
-	MalGraphFixture simpleGraph: graphReducer.
-	initialGraph := graphReducer graph copy.
+	MalGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
-	self assert: initialGraph equals: graphReducer graph
+	graphReducer nodes do:
+		[ :node | 
+		self 
+			deny: ((node nextNodes includes: node) or: [ node previousNodes includes: node ])
+			description: node asString, ' node is in cycle!' ]
 ]
 
 { #category : #tests }

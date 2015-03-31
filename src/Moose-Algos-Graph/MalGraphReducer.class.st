@@ -59,7 +59,7 @@ MalGraphReducer >> mergeNodesInCircuits [
 MalGraphReducer >> nextNodesFor: aNodeList [
 	"compute next nodes for the future node replacing aNodeList"
 	^ ((aNodeList flatCollect: #nextNodes as: Set)
-		difference: aNodeList) asOrderedCollection
+		difference: aNodeList) asArray
 ]
 
 { #category : #configuration }
@@ -71,13 +71,7 @@ MalGraphReducer >> nodeClass [
 MalGraphReducer >> previousNodesFor: aNodeList [
 	"compute previous nodes for the future node replacing aNodeList"
 	^ ((aNodeList flatCollect: #previousNodes as: Set)
-		difference: aNodeList) asOrderedCollection
-]
-
-{ #category : #updating }
-MalGraphReducer >> removeCircularDependenciesFrom: circuitNode [
-	circuitNode nextNodes removeAllSuchThat: [ :each | each = circuitNode ].
-	circuitNode previousNodes removeAllSuchThat: [ :each | each = circuitNode ]
+		difference: aNodeList) asArray
 ]
 
 { #category : #updating }
@@ -85,14 +79,11 @@ MalGraphReducer >> removeMergedNodes [
 	nodes removeAll: (circuitNodes flatCollect: #mergedNodes)
 ]
 
-{ #category : #updating }
+{ #category : #merging }
 MalGraphReducer >> removeReferencesToMergedNodes [
-	circuitNodes do: 
-		[ :circuitNode |
-		self 
-			updateReferencesTo: circuitNode mergedNodes
-			by: circuitNode.
-		self removeCircularDependenciesFrom: circuitNode ]
+	circuitNodes do: [ :circuitNode |
+		circuitNode mergedNodes do: [ :mergedNode |
+			self updateReferencesTo: mergedNode by: circuitNode ] ]
 ]
 
 { #category : #running }
@@ -103,33 +94,12 @@ MalGraphReducer >> run [
 ]
 
 { #category : #updating }
-MalGraphReducer >> updateNextNodesOf: mergedNode replacing: aNodeList by: anotherNode [
-	mergedNode nextNodes
-		do: [ :node | 
-			node previousNodes
-				removeAllFoundIn: aNodeList;
-				addIfNotPresent: anotherNode ]
-]
-
-{ #category : #updating }
-MalGraphReducer >> updatePreviousNodesOf: mergedNode replacing: aNodeList by: anotherNode [
-	mergedNode previousNodes
-		do: [ :node | 
-			node nextNodes
-				removeAllFoundIn: aNodeList;
-				addIfNotPresent: anotherNode ]
-]
-
-{ #category : #updating }
-MalGraphReducer >> updateReferencesTo: aNodeList by: anotherNode [
-	aNodeList do: 
-		[ :mergedNode | 
-		self 
-			updatePreviousNodesOf: mergedNode
-			replacing: aNodeList
-			by: anotherNode.
-		self 
-			updateNextNodesOf: mergedNode
-			replacing: aNodeList
-			by: anotherNode ]
+MalGraphReducer >> updateReferencesTo: aNode by: anotherNode [
+	aNode previousNodes 
+		do: [ :node | | index |
+				index := node previousNodes indexOf: aNode.
+				(index > 0) 
+					ifTrue: [ node previousNodes 
+									at: index
+									put: anotherNode ] ]
 ]

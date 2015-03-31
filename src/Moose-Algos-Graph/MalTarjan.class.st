@@ -21,7 +21,9 @@ MalTarjan >> circuits [
 
 { #category : #configuration }
 MalTarjan >> findNode: aModel ifAbsent: aBlock [
-	^ nodes at: aModel ifAbsent: aBlock
+	^ nodes 
+		at: aModel
+		ifAbsent: aBlock
 ]
 
 { #category : #configuration }

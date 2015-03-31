@@ -44,9 +44,9 @@ MalGraphAlgorithm >> addEdge: eModel from: source to: target [
 
 { #category : #'building - graph' }
 MalGraphAlgorithm >> addNodeFor: aModel [
-	^ nodes add: (self 
+	^ self 
 		findNode: aModel
-		ifAbsent: [ self nodeClass with: aModel ])
+		ifAbsent: [ nodes add: (self nodeClass with: aModel) ]
 ]
 
 { #category : #'building - graph' }
@@ -54,7 +54,11 @@ MalGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 	"recursively add nodes from the model"
 	| parent |
 	model ifNil: [ ^ self ].
-	
+
+	self
+		findNode: model
+		ifFound: [ ^ self "Prevent cycles. Do not add a node already added." ].
+
 	parent := self addNodeFor: model.
 	(childrenBlock value: model)
 		do: [ :child | 
@@ -114,6 +118,13 @@ MalGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
 	^ self nodes 
 		detect: [:node | node model = aModel]
 		ifNone: aBlock
+]
+
+{ #category : #accessing }
+MalGraphAlgorithm >> findNode: aModel ifFound: aBlock [
+	^ self nodes 
+		detect: [:node | node model = aModel]
+		ifFound: aBlock
 ]
 
 { #category : #accessing }

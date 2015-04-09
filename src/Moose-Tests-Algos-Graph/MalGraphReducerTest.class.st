@@ -1,5 +1,5 @@
 Class {
-	#name : #MalReducedGraphTest,
+	#name : #MalGraphReducerTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'graphReducer'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'private - utility' }
-MalReducedGraphTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
+MalGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 	aNodeList 
 		collect: #model
 		thenDo: 
@@ -19,18 +19,18 @@ MalReducedGraphTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 ]
 
 { #category : #'private - utility' }
-MalReducedGraphTest >> mergedNodesIn: aNodeList [
+MalGraphReducerTest >> mergedNodesIn: aNodeList [
 	^ (aNodeList select: [ :node | node mergedNodes notNil ])
 		flatCollect: #mergedNodes
 ]
 
 { #category : #running }
-MalReducedGraphTest >> setUp [
+MalGraphReducerTest >> setUp [
 	graphReducer := MalGraphReducer new.
 ]
 
 { #category : #tests }
-MalReducedGraphTest >> testComplexCycle2 [
+MalGraphReducerTest >> testComplexCycle2 [
 	MalGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
 	self
@@ -42,7 +42,7 @@ MalReducedGraphTest >> testComplexCycle2 [
 ]
 
 { #category : #tests }
-MalReducedGraphTest >> testGraphReducingWhenNoCycle [
+MalGraphReducerTest >> testGraphReducingWhenNoCycle [
 	| initialGraph |
 	MalGraphFixture simpleGraph: graphReducer.
 	initialGraph := graphReducer graph copy.
@@ -51,7 +51,7 @@ MalReducedGraphTest >> testGraphReducingWhenNoCycle [
 ]
 
 { #category : #tests }
-MalReducedGraphTest >> testMergedNodesNotReferencedInNextNodes [
+MalGraphReducerTest >> testMergedNodesNotReferencedInNextNodes [
 	MalGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
 
@@ -61,7 +61,7 @@ MalReducedGraphTest >> testMergedNodesNotReferencedInNextNodes [
 ]
 
 { #category : #tests }
-MalReducedGraphTest >> testMergedNodesNotReferencedInPreviousNodes [
+MalGraphReducerTest >> testMergedNodesNotReferencedInPreviousNodes [
 	MalGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
 
@@ -72,7 +72,7 @@ MalReducedGraphTest >> testMergedNodesNotReferencedInPreviousNodes [
 ]
 
 { #category : #tests }
-MalReducedGraphTest >> testNextNodesFor [
+MalGraphReducerTest >> testNextNodesFor [
 	| nodes |
 	MalGraphFixture complexCycleGraph2: graphReducer.
 	nodes := { (graphReducer findNode: $f) . (graphReducer findNode: $g) }.
@@ -83,7 +83,7 @@ MalReducedGraphTest >> testNextNodesFor [
 ]
 
 { #category : #tests }
-MalReducedGraphTest >> testNoCycle [
+MalGraphReducerTest >> testNoCycle [
 	MalGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
 	graphReducer nodes do:
@@ -94,7 +94,7 @@ MalReducedGraphTest >> testNoCycle [
 ]
 
 { #category : #tests }
-MalReducedGraphTest >> testPreviousNodesFor [
+MalGraphReducerTest >> testPreviousNodesFor [
 	| nodes |
 	MalGraphFixture complexCycleGraph2: graphReducer.
 	nodes := { (graphReducer findNode: $f) . (graphReducer findNode: $g) }.

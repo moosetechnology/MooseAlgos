@@ -19,17 +19,22 @@ MalTarjan >> circuits [
 		select: [ :each | each size > 1 ]
 ]
 
-{ #category : #configuration }
+{ #category : #accessing }
 MalTarjan >> findNode: aModel ifAbsent: aBlock [
 	^ nodes 
 		at: aModel
 		ifAbsent: aBlock
 ]
 
-{ #category : #configuration }
+{ #category : #'initialize-release' }
 MalTarjan >> initialize [
 	super initialize.
 	nodes := Dictionary new
+]
+
+{ #category : #testing }
+MalTarjan >> isRootNode: aTarjanNode [
+	^ aTarjanNode tarjanIndex = aTarjanNode tarjanLowlink
 ]
 
 { #category : #configuration }
@@ -37,12 +42,12 @@ MalTarjan >> nodeClass [
 	^ MalTarjanNode 
 ]
 
-{ #category : #configuration }
+{ #category : #accessing }
 MalTarjan >> nodes [
 	^ nodes values
 ]
 
-{ #category : #configuration }
+{ #category : #accessing }
 MalTarjan >> nodes: aCollection [
 	aCollection do: [ :model |
 		nodes at: model put: (self nodeClass with: model)
@@ -62,6 +67,17 @@ MalTarjan >> nodesAndNextFrom: aNodeList [
 				do: [ :each |
 						(self findNode: node model) 
 							to: (self findNode: each model) ] ]
+]
+
+{ #category : #running }
+MalTarjan >> popStackAndUpdateCurrentScc: aComponent until: aTarjanNode [
+	| currentNode |
+	[ currentNode := stack pop.
+	currentNode popped.
+	aComponent add: currentNode ] 
+		doWhileFalse: [ currentNode = aTarjanNode ].
+	sccs add: aComponent.
+	aComponent do: [ :each | each cycleNodes: aComponent ]
 ]
 
 { #category : #running }
@@ -88,27 +104,25 @@ MalTarjan >> stronglyConnectedComponents [
 ]
 
 { #category : #running }
-MalTarjan >> traverse: aTarjanNode [ 
-	| pNode component |
+MalTarjan >> traverse: aTarjanNode [
+	| component |
 	aTarjanNode tarjanIndex: runningIndex.
 	aTarjanNode tarjanLowlink: runningIndex.
 	runningIndex := runningIndex + 1.
 	self putOnStack: aTarjanNode.
-	aTarjanNode nextNodes do: [:next | 
-		next isTarjanUndefined 
-			ifTrue: 
-				[ self traverse: next.
-				aTarjanNode tarjanLowlink: (aTarjanNode tarjanLowlink min: next tarjanLowlink) ]
-			ifFalse: 
-				[ next inStack ifTrue: 
-					[ aTarjanNode tarjanLowlink: (aTarjanNode tarjanLowlink min: next tarjanIndex) ]]].
+	self traverseChildrenOf: aTarjanNode.
+	(self isRootNode: aTarjanNode)
+		ifTrue: [ component := OrderedCollection new.	"start new SCC"
+					self popStackAndUpdateCurrentScc: component until: aTarjanNode ]
+]
 
-	aTarjanNode tarjanIndex = aTarjanNode tarjanLowlink ifTrue: 
-		[ component := OrderedCollection new.
-		 [pNode := stack pop.
-		  pNode popped.
-		  component add: pNode ] doWhileFalse: [ pNode = aTarjanNode ].
-		 sccs add: component.
-		 component do: [:each| 
-			each cycleNodes: component ]]
+{ #category : #running }
+MalTarjan >> traverseChildrenOf: aTarjanNode [
+	aTarjanNode nextNodes
+		do: [ :next | 
+			next isTarjanUndefined
+				ifTrue: [ self traverse: next.
+							aTarjanNode tarjanLowlink: (aTarjanNode tarjanLowlink min: next tarjanLowlink) ]
+				ifFalse: [ next inStack
+								ifTrue: [ aTarjanNode tarjanLowlink: (aTarjanNode tarjanLowlink min: next tarjanIndex) ] ] ]
 ]

@@ -18,7 +18,7 @@ Class {
 { #category : #constants }
 MalStopwords class >> English [
 
-	^ English ifNil: [English := (self englishStopwordString subStrings: {Character space}). ]
+	^ English ifNil: [English := (self englishStopwordString substrings: {Character space}). ]
 ]
 
 { #category : #constants }

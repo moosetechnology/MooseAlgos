@@ -89,9 +89,9 @@ MalDijkstra >> run [
 ]
 
 { #category : #running }
-MalDijkstra >> runFrom: start to: end [
+MalDijkstra >> runFrom: startModel to: endModel [
 
-	self start: (self findNode: start); end: (self findNode: end).
+	self start: (self findNode: startModel); end: (self findNode: endModel).
 	self run.
 	^ self pathWeight
 ]

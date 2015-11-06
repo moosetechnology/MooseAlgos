@@ -68,9 +68,10 @@ MalBreadthFirstSearchPath >> run: depth [
 ]
 
 { #category : #running }
-MalBreadthFirstSearchPath >> runFrom: start to: end [
-
-	self start: (self findNode: start); end: (self findNode: end).
+MalBreadthFirstSearchPath >> runFrom: startModel to: endModel [
+	self
+		start: (self findNode: startModel);
+		end: (self findNode: endModel).
 	^ self run
 ]
 

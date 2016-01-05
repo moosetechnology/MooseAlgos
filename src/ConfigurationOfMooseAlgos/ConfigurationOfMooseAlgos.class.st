@@ -10,6 +10,22 @@ Class {
 	#category : #ConfigurationOfMooseAlgos
 }
 
+{ #category : #catalog }
+ConfigurationOfMooseAlgos class >> catalogContactInfo [
+	^ 'info@moosetechnology.org'
+]
+
+{ #category : #catalog }
+ConfigurationOfMooseAlgos class >> catalogDescription [
+	^ 'MooseAlgos is a collection of algorithms for graph and data mining. The library was developed as part of the Moose project, but it can be used as standalone.'
+]
+
+{ #category : #catalog }
+ConfigurationOfMooseAlgos class >> catalogKeywords [
+	^ #(analysis graph lattice clustering formal-concept-analysis linear-algebra)
+	
+]
+
 { #category : #private }
 ConfigurationOfMooseAlgos class >> ensureMetacello [
 	Smalltalk at: #MetacelloProject ifAbsent: [

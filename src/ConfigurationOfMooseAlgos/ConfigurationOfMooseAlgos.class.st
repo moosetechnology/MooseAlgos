@@ -301,10 +301,13 @@ ConfigurationOfMooseAlgos >> baseline25: spec [
 ]
 
 { #category : #'symbolic versions' }
-ConfigurationOfMooseAlgos >> development: spec [ 
-	<symbolicVersion: 'development'>
-	
-	spec for: #common version: '2.5-baseline'
+ConfigurationOfMooseAlgos >> development: spec [
+	<symbolicVersion: #'development'>
+
+	spec for: #'common' version: '2.5-baseline'.
+
+	spec for: #'pharo5.x' version: #'stable'.
+
 ]
 
 { #category : #baselines }
@@ -417,9 +420,14 @@ ConfigurationOfMooseAlgos >> stable: spec [
 	<symbolicVersion: #'stable'>
 
 	spec for: #'pharo1.4.x' version: '2.3'.
+
 	spec for: #'pharo2.x' version: '2.5-snapshot'.
+
 	spec for: #'pharo3.x' version: '2.5'.
+
 	spec for: #'pharo4.x' version: '2.6'.
+
+	spec for: #'pharo5.x' version: '3.0'.
 
 ]
 
@@ -712,5 +720,37 @@ ConfigurationOfMooseAlgos >> version26: spec [
 			package: 'Moose-Tests-Algos-Lattice' with: 'Moose-Tests-Algos-Lattice-AndreHora.9';
 			package: 'Moose-Tests-Algos-LinearAlgebra' with: 'Moose-Tests-Algos-LinearAlgebra-AndreHora.4';
 			package: 'CollectionExtensions' with: 'CollectionExtensions-TudorGirba.41'. ].
+
+]
+
+{ #category : #versions }
+ConfigurationOfMooseAlgos >> version30: spec [
+	<version: '3.0' imports: #('2.5-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #'stable'.
+		spec description: 'Moose 6.0 release'.
+		spec author: 'TudorGirba'.
+		spec timestamp: '8/14/2016 20:44'.
+		spec project: 'DeepTraverser' with: #'stable'.
+		spec 
+			package: 'Moose-Algos-Graph' with: 'Moose-Algos-Graph-vincentBlondeau.31';
+			package: 'Moose-Tests-Algos-Graph' with: 'Moose-Tests-Algos-Graph-ChristopheDemarey.33';
+			package: 'Moose-Algos-HierarchicalGraph' with: 'Moose-Algos-HierarchicalGraph-DennisSchenk.22';
+			package: 'Moose-Tests-Algos-HierarchicalGraph' with: 'Moose-Tests-Algos-HierarchicalGraph-DennisSchenk.14';
+			package: 'Moose-Tests-Algos-InformationRetrieval' with: 'Moose-Tests-Algos-InformationRetrieval-VB.6';
+			package: 'Moose-Algos-FormalConceptAnalysis' with: 'Moose-Algos-FormalConceptAnalysis-usmanbhatti.11';
+			package: 'Moose-Tests-Algos-FormalConceptAnalysis' with: 'Moose-Tests-Algos-FormalConceptAnalysis-AlexandreBergel.6';
+			package: 'Moose-Algos-Lattice' with: 'Moose-Algos-Lattice-VincentBlondeau.11';
+			package: 'Moose-Tests-Algos-Lattice' with: 'Moose-Tests-Algos-Lattice-AndreHora.9';
+			package: 'Moose-Algos-LinearAlgebra' with: 'Moose-Algos-LinearAlgebra-TudorGirba.22';
+			package: 'Moose-Tests-Algos-LinearAlgebra' with: 'Moose-Tests-Algos-LinearAlgebra-AndreHora.4';
+			package: 'Moose-Algos-Clustering' with: 'Moose-Algos-Clustering-AndreHora.10';
+			package: 'Moose-Algos-InformationRetrieval' with: 'Moose-Algos-InformationRetrieval-TudorGirba.14';
+			package: 'Moose-Tests-Algos-Clustering' with: 'Moose-Tests-Algos-Clustering-AndreHora.4';
+			package: 'Moose-Algos-Kontractor' with: 'Moose-Algos-Kontractor-LeoPerard.4';
+			package: 'Moose-Tests-Algos-Kontractor' with: 'Moose-Tests-Algos-Kontractor-TudorGirba.5';
+			package: 'Moose-Algos-GraphObjectTraverser' with: 'Moose-Algos-GraphObjectTraverser-TudorGirba.6';
+			package: 'CollectionExtensions' with: 'CollectionExtensions-TudorGirba.42'. ].
 
 ]

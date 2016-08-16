@@ -304,9 +304,9 @@ ConfigurationOfMooseAlgos >> baseline25: spec [
 ConfigurationOfMooseAlgos >> development: spec [
 	<symbolicVersion: #'development'>
 
-	spec for: #'common' version: '2.5-baseline'.
-
 	spec for: #'pharo5.x' version: #'stable'.
+
+	spec for: #'pharo6.x' version: '2.5-baseline'.
 
 ]
 

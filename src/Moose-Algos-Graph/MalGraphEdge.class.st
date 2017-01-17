@@ -53,6 +53,13 @@ MalGraphEdge >> model: aModel [
 ]
 
 { #category : #accessing }
+MalGraphEdge >> printOn: aStream [
+	self from printOn: aStream.
+	aStream << ' -> '.
+	self to printOn: aStream
+]
+
+{ #category : #accessing }
 MalGraphEdge >> printString [
 
 	^ self from printString, ' -> ', self to printString

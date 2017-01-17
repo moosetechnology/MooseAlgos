@@ -12,7 +12,8 @@ Class {
 		'previousRanks',
 		'currentRank',
 		'rootNodes',
-		'leafNodes'
+		'leafNodes',
+		'maxIterations'
 	],
 	#category : #'Moose-Algos-Graph'
 }
@@ -41,6 +42,7 @@ MalLongestPath >> computeStep [
 							currentRank add: node.
 							node pathWeight: (node previousNodes max: [ :maxNode | maxNode pathWeight ]) + 1 ] ].
 			previousRanks addAll: currentRank.
+			maxIterations := maxIterations -1.
 			self computeStep ]
 ]
 
@@ -63,6 +65,9 @@ MalLongestPath >> initializeRootNodes [
 
 { #category : #testing }
 MalLongestPath >> isCompleted [
+	maxIterations = 0
+		ifTrue: [ self error: 'Algorithm should be finished by now...'.
+			^ true ].
 	^ (self leafNodes anySatisfy: [ :node | node pathWeight = Float infinity ]) not
 ]
 
@@ -99,6 +104,7 @@ MalLongestPath >> run [
 	self initializeRootNodes.
 	self computeLeafNodes.
 	previousRanks addAll: self rootNodes.
+	maxIterations := self nodes size + 20.
 	self computeStep
 ]
 

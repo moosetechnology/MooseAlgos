@@ -76,7 +76,7 @@ MalTermScanner >> next [
 { #category : #running }
 MalTermScanner >> onFile: filename [
 	
-	self onStream: filename asFilename readStream
+	self onStream: filename asFileReference readStream
 ]
 
 { #category : #running }

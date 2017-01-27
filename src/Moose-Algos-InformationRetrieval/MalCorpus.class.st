@@ -66,7 +66,7 @@ MalCorpus >> addFile: aFilename [
 { #category : #adding }
 MalCorpus >> addFolder: aFoldername [
 	
-	aFoldername asFilename filesDo: [:each | self addFile: each]
+	aFoldername asFileReference files do: [:each | self addFile: each]
 ]
 
 { #category : #adding }

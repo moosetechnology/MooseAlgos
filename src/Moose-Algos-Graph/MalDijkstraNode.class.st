@@ -55,3 +55,9 @@ MalDijkstraNode >> previousNodes [
 
 	^ previousNodes
 ]
+
+{ #category : #printing }
+MalDijkstraNode >> printOn: aStream [
+	super printOn: aStream.
+	aStream << ' - ' << pathWeight asString
+]

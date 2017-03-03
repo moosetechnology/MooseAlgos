@@ -34,7 +34,7 @@ MalLongestPath >> computeStep [
 	self isCompleted
 		ifFalse: [ 
 			currentRank := OrderedCollection new.
-			nodesToManage := self nodes reject: [ :node | previousRanks includes: node ].
+			nodesToManage := self nodes difference: previousRanks.
 			nodesToManage
 				do: [ :node | 
 					(previousRanks includesAll: node previousNodes)

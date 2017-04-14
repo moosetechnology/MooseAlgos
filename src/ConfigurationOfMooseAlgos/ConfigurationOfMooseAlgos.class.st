@@ -333,13 +333,6 @@ ConfigurationOfMooseAlgos >> baseline26: spec [
 			
 			package: 'Moose-Algos-Kontractor';
 			package: 'Moose-Tests-Algos-Kontractor' ;
-
-			project: 'DeepTraverser' with: [
-				spec
-					className: 'ConfigurationOfDeepTraverser';
-					version: #development;
-					file:  'ConfigurationOfDeepTraverser';
-					repository: 'http://www.smalltalkhub.com/mc/Moose/DeepTraverser/main' ];
 			
 			package: 'CollectionExtensions' with: [spec repository: 'http://www.smalltalkhub.com/mc/Moose/CollectionExtensions/main'].
 	

@@ -60,7 +60,7 @@ ModuleIdentification >> allAncestors: aNode [
 ModuleIdentification >> analyzeDescendantsOf: aTop [
 	"aTop is a potential module top node. The method analyzes if the descendants of the aTop only have a single connection to the top and to the bottom. If it is not so, "
 
-	| descNodes toRemove |
+	| descNodes |
 	descNodes := aTop descendants.
 	self candidate: aTop.
 	"(aTop labels first) isEmpty ifFalse:[ 
@@ -142,25 +142,21 @@ ModuleIdentification >> initializeNodes [
 
 { #category : #'end-phase' }
 ModuleIdentification >> isEndConditionWith: descNodes [
-
 	"do the descendants converege to a bottom node. If, so how many of those?"
+
 	| flag |
 	flag := false.
-		1 to: (descNodes size -1 ) 
-		do: [:n | 	(n+1 to: (descNodes size))
-			do:[:m | ((self hasSingleBottom: (descNodes at:n)) and: [self hasSingleBottom: (descNodes at: m)])
-				ifTrue: [
-						(((descNodes at:n) descendants first = (descNodes at: m) descendants first) and: [((descNodes at:n) descendants first ~= self lattice bottom)])
-							ifTrue: [
-								self candidate: (descNodes at: m). 
-								self candidate: (descNodes at: n).  
-								self candidate: (descNodes at:n) descendants first. 
-								flag := true.
-							]
-					]
-				]
-		].
-	flag ifTrue: [self removeFalseCandidates: descNodes. ^ true].		
+	1 to: descNodes size - 1 do: [ :n | 
+		n + 1 to: descNodes size do: [ :m | 
+			((self hasSingleBottom: (descNodes at: n)) and: [ self hasSingleBottom: (descNodes at: m) ])
+				ifTrue: [ ((descNodes at: n) descendants first = (descNodes at: m) descendants first and: [ (descNodes at: n) descendants first ~= self lattice bottom ])
+						ifTrue: [ self candidate: (descNodes at: m).
+							self candidate: (descNodes at: n).
+							self candidate: (descNodes at: n) descendants first.
+							flag := true ] ] ] ].
+	flag
+		ifTrue: [ self removeFalseCandidates: descNodes.
+			^ true ].
 	^ flag
 ]
 
@@ -222,15 +218,16 @@ ModuleIdentification >> startAlgo [
 { #category : #'middle-phase' }
 ModuleIdentification >> treatNextLevel: aCollection [
 	"the purpose of the method is to include the level 2 and beyond nodes in the module. The collection passed is the list of descendants nodes. See if the next level nodes' ancestors are in the list of candidates, if not flush the candidate list and stop the algo on this and the rest of the candidate nodes. Otherwise, check if the nodes converge to a single bottom. If not run the algorithm on the descendants of the collection nodes."
-	
-	(aCollection size = 0) ifTrue: [^false]. 
-	aCollection do: [:each |
-		(self candidate includesAllOf: (self allAncestors: each))
-		 	ifFalse: [nodesToConsider addAll: self candidate. self flushCandidate. ^ false].		
-		].	
-		(self isEndConditionWith: aCollection)
-							ifTrue: [^ true]
-							ifFalse: [ ^false].
-	
+
+	aCollection ifEmpty: [ ^ false ].
+	aCollection
+		do: [ :each | 
+			(self candidate includesAllOf: (self allAncestors: each))
+				ifFalse: [ nodesToConsider addAll: self candidate.
+					self flushCandidate.
+					^ false ] ].
+	(self isEndConditionWith: aCollection)
+		ifTrue: [ ^ true ]
+		ifFalse: [ ^ false ].
 	self treatNextLevel: (self computeNextLevelNodes: aCollection)
 ]

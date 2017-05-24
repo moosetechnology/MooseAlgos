@@ -19,8 +19,8 @@ MalLatticeNode class >> withNew: concept [
 
 { #category : #ancestorsLabel }
 MalLatticeNode >> addAncestorLabel: aCollection [
-	anscentorLabel ifNil: [anscentorLabel := OrderedCollection new].
-	aCollection ifNotEmptyDo: [:aNode | anscentorLabel add: aNode] 
+	anscentorLabel ifNil: [ anscentorLabel := OrderedCollection new ].
+	aCollection ifNotEmpty: [ :aNode | anscentorLabel add: aNode ]
 ]
 
 { #category : #accessing }
@@ -138,6 +138,5 @@ MalLatticeNode >> printString [
 
 { #category : #construction }
 MalLatticeNode >> removeDescendant: aCollection [
-	descendants isEmpty not ifTrue: [aCollection do:[:aNode | descendants remove: aNode]].
-	
+	descendants ifNotEmpty: [ aCollection do: [ :aNode | descendants remove: aNode ] ]
 ]

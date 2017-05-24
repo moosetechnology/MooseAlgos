@@ -34,8 +34,10 @@ MalLattice >> addNode: aNode [
 { #category : #enumerating }
 MalLattice >> bottom [
 	"Any node without descendants, and which is not a top is a bottom"
+
 	"self nodes do: [:node | (node descendants isEmpty and: [node ~= self top]) ifTrue: [^node]]."
-	^(layers last) first
+
+	^ layers last first
 ]
 
 { #category : #construction }
@@ -47,17 +49,18 @@ MalLattice >> computeLabels [
 
 { #category : #construction }
 MalLattice >> connectBottom [
-	|bottom|
-	self nodes do: [:node | (node descendants isEmpty and: [node ~= self bottom]) 
-		ifTrue: [node addDescendant: (self bottom)]].
+	self nodes
+		do: [ :node | 
+			(node descendants isEmpty and: [ node ~= self bottom ])
+				ifTrue: [ node addDescendant: self bottom ] ]
 ]
 
 { #category : #accessing }
 MalLattice >> filterDescendants [
 	"if I have a descendant that also appears as a descendant in my descendants, remove it from the set of my descendants"
-	|dict myDesc mygrandDesc|
-	
-	self nodes do: [:node | node descendants do:[:desc | (desc descendants intersection: (node descendants)) ifNotEmptyDo: [:intersect | node removeDescendant: (intersect asArray)]]] 
+
+	self nodes
+		do: [ :node | node descendants do: [ :desc | (desc descendants intersection: node descendants) ifNotEmpty: [ :intersect | node removeDescendant: intersect asArray ] ] ]
 ]
 
 { #category : #construction }
@@ -88,6 +91,5 @@ MalLattice >> orphans [
 
 { #category : #enumerating }
 MalLattice >> top [
-	^(layers at:1) first
-	
+	^ (layers at: 1) first
 ]

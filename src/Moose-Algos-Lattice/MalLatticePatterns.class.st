@@ -45,29 +45,24 @@ MalLatticePatterns class >> on: aLattice [
 
 { #category : #complex }
 MalLatticePatterns >> IsHorizontalDecomposition [
-	
-	| dict nodes |
+	| nodes |
 	nodes := self lattice top descendants.
-	1 to: (nodes size -1 ) 
-		do: [:n | 	(n+1 to: (nodes size))
-			do:[:m | ((nodes at:n) hasDescendant: (nodes at: m))
-			ifFalse: 	[(((nodes at: n) allDescendants: self lattice bottom) anySatisfy: [:each | (((nodes at:m) allDescendants: self lattice bottom) includes: each)]) ifFalse: [^true]]]].
-	^false.
-
-]
-
-{ #category : #complex }
-MalLatticePatterns >> IsSubConceptSpecialization: aNode [
-	(self lattice bottom = aNode) ifTrue: [(self isFull: aNode) ifTrue: [^true]].  
-	((self isGrey: aNode) or: [self isFull: aNode]) ifTrue: [^true].
-	
+	1 to: nodes size - 1 do: [ :n | 
+		n + 1 to: nodes size do: [ :m | 
+			((nodes at: n) hasDescendant: (nodes at: m))
+				ifFalse: [ (((nodes at: n) allDescendants: self lattice bottom) anySatisfy: [ :each | ((nodes at: m) allDescendants: self lattice bottom) includes: each ])
+						ifFalse: [ ^ true ] ] ] ].
 	^ false
 ]
 
 { #category : #complex }
+MalLatticePatterns >> IsSubConceptSpecialization: aNode [
+	^ (self lattice bottom = aNode and: [ self isFull: aNode ]) or: [ (self isGrey: aNode) or: [ self isFull: aNode ] ]
+]
+
+{ #category : #complex }
 MalLatticePatterns >> IsSuperConceptSpecialization: aNode [
-	(self lattice top = aNode) ifTrue: [(self isFull: aNode) ifTrue: [^true] ifFalse: [^false]].  
-	((self isBlack: aNode) or: [self isFull: aNode]) ifTrue: [^true] ifFalse: [^false] 
+	^ (self lattice top = aNode and: [ self isFull: aNode ]) or: [ (self isBlack: aNode) or: [ self isFull: aNode ] ]
 ]
 
 { #category : #nodes }
@@ -95,7 +90,7 @@ MalLatticePatterns >> hDNodeSize [
 	"we still do not know how to compute the number of nodes in the horizontal decomposition. This method was a first effort but does not return the correct results."
 	
 	
-	| allDescendants nodes sum hdNodes totalNodes|
+	| nodes hdNodes totalNodes|
 	totalNodes := 0.
 	hdNodes := OrderedCollection new.
 	nodes := self lattice top descendants.
@@ -117,9 +112,8 @@ MalLatticePatterns >> hDNodeSize [
 MalLatticePatterns >> horizontalDecomposition [
 	"computes the horizontal decompositon of a lattice by looking at the descendants of the top node. From those descendants (first level nodes in the lattice), it sees that two nodes do not have overlapping descendants)"
 	
-	| allDescendants nodes sum hdNodes totalNodes|
+	| nodes sum hdNodes |
 	sum := 0.
-	totalNodes := 0.
 	hdNodes := OrderedCollection new.
 	nodes := self lattice top descendants.
 	1 to: (nodes size) 
@@ -225,32 +219,61 @@ MalLatticePatterns >> lattice: aLattice [
 
 { #category : #report }
 MalLatticePatterns >> printModulesReport [
-	
-	| modules nodes|
+	| modules nodes |
 	modules := ModuleIdentification on: self lattice.
-	nodes := (modules flatCollect: [:each | each]) asSet.
-	(modules isNil not )
-		ifTrue:  [ 
-			Transcript show: 'Number of modules ', modules size printString; cr.
-			Transcript show: 'Number of Nodes in modules ', nodes size printString; cr. 
-		]
-	ifFalse: [
-			Transcript show: 'Number of modules 0'; cr.
-			Transcript show: 'Number of Nodes in modules 0'; cr. 
-		]
+	nodes := (modules flatCollect: [ :each | each ]) asSet.
+	modules
+		ifNotNil: [ Transcript
+				show: 'Number of modules ';
+				show: modules size printString;
+				cr.
+			Transcript
+				show: 'Number of Nodes in modules ';
+				show: nodes size printString;
+				cr ]
+		ifNil: [ Transcript
+				show: 'Number of modules 0';
+				cr.
+			Transcript
+				show: 'Number of Nodes in modules 0';
+				cr ]
 ]
 
 { #category : #report }
 MalLatticePatterns >> reportPatterns [
-	Transcript show: '# of nodes: ', self lattice nodes size printString; cr.
-	Transcript show: 'Connections ' , self totalConnections printString; cr.
-	Transcript show: 'Top ', self isTopPattern printString; cr.
-	Transcript show: 'Bottom ', self isBottomPattern printString; cr.
-	Transcript show: 'Specialization ', (self irreducibleSpecialization keys size) printString; cr.
-	Transcript show: 'Specialization ', (self irreducibleSpecialization values size) printString; cr.
-	Transcript show: 'Horizontal Decomposition ' , self horizontalDecomposition printString; cr.
-	Transcript show: 'Horizontal Decomposition Size ' , self hDNodeSize printString; cr.
-	self printModulesReport.
+	Transcript
+		show: '# of nodes: ';
+		show: self lattice nodes size printString;
+		cr.
+	Transcript
+		show: 'Connections ';
+		show: self totalConnections printString;
+		cr.
+	Transcript
+		show: 'Top ';
+		show: self isTopPattern printString;
+		cr.
+	Transcript
+		show: 'Bottom ';
+		show: self isBottomPattern printString;
+		cr.
+	Transcript
+		show: 'Specialization ';
+		show: self irreducibleSpecialization keys size printString;
+		cr.
+	Transcript
+		show: 'Specialization ';
+		show: self irreducibleSpecialization values size printString;
+		cr.
+	Transcript
+		show: 'Horizontal Decomposition ';
+		show: self horizontalDecomposition printString;
+		cr.
+	Transcript
+		show: 'Horizontal Decomposition Size ';
+		show: self hDNodeSize printString;
+		cr.
+	self printModulesReport
 ]
 
 { #category : #complex }

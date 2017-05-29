@@ -9,7 +9,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'nodes',
-		'edges'
+		'edges',
+		'nodeSortBlock'
 	],
 	#category : #'Moose-Algos-Graph'
 }
@@ -66,6 +67,13 @@ MalGraphAlgorithm >> addNodesFrom: model childrenBlock: childrenBlock [
 				self addEdge: { parent model . child } from: #first to: #second ]
 ]
 
+{ #category : #testing }
+MalGraphAlgorithm >> canUseSortedNodes [
+	"If nodes are sorted following this block, the find method will be a lot faster. The block should be set on the run method and the nodes sorted at this moment"
+
+	^ nodeSortBlock ~= nil
+]
+
 { #category : #configuration }
 MalGraphAlgorithm >> edgeClass [
 	^ nil
@@ -110,21 +118,35 @@ MalGraphAlgorithm >> findEdge: aModel [
 
 { #category : #accessing }
 MalGraphAlgorithm >> findNode: aModel [
-	^ self nodes detect: [:aNode | aNode model = aModel ]
+	self canUseSortedNodes
+		ifFalse: [ ^ self nodes detect: [ :aNode | aNode model = aModel ] ].
+	^ self nodes
+		findBinary: [ :aNode | 
+			aNode model = aModel
+				ifTrue: [ 0 ]
+				ifFalse: [ aModel hash < aNode model hash
+						ifTrue: [ -1 ]
+						ifFalse: [ 1 ] ] ]
 ]
 
 { #category : #accessing }
 MalGraphAlgorithm >> findNode: aModel ifAbsent: aBlock [
-	^ self nodes 
-		detect: [:node | node model = aModel]
-		ifNone: aBlock
+	self canUseSortedNodes
+		ifFalse: [ ^ self nodes detect: [ :node | node model = aModel ] ifNone: aBlock ].
+^ self nodes
+		findBinary: [ :aNode | 
+			aNode model = aModel
+				ifTrue: [ 0 ]
+				ifFalse: [ aModel hash < aNode model hash
+						ifTrue: [ -1 ]
+						ifFalse: [ 1 ] ] ] ifNone: aBlock
 ]
 
 { #category : #accessing }
 MalGraphAlgorithm >> findNode: aModel ifFound: aBlock [
-	^ self nodes 
-		detect: [:node | node model = aModel]
-		ifFound: aBlock
+	self canUseSortedNodes
+		ifFalse: [ ^ self nodes detect: [ :node | node model = aModel ] ifFound: aBlock ].
+	self halt
 ]
 
 { #category : #accessing }
@@ -144,6 +166,11 @@ MalGraphAlgorithm >> nodeClass [
 ]
 
 { #category : #accessing }
+MalGraphAlgorithm >> nodeSortBlock: aBlockClosure [ 
+	nodeSortBlock := aBlockClosure
+]
+
+{ #category : #accessing }
 MalGraphAlgorithm >> nodes [
 	^ nodes
 ]
@@ -152,6 +179,14 @@ MalGraphAlgorithm >> nodes [
 MalGraphAlgorithm >> nodes: aNodeList [
 	aNodeList 
 		do: [ :model |	self addNodeFor: model ]
+]
+
+{ #category : #adding }
+MalGraphAlgorithm >> nodesFromSet: aSet [
+	"Ensure that the collection do not contains any duplicated item"
+
+	self assert: aSet class == Set.
+	nodes addAll: (aSet collect: [ :aModel | self nodeClass with: aModel ])
 ]
 
 { #category : #private }

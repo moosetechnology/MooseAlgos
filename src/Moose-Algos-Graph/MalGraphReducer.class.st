@@ -102,7 +102,7 @@ MalGraphReducer >> removeReferencesToMergedNodes [
 MalGraphReducer >> run [
 	self findCircuits.
 	self mergeNodesInCircuits.
-	^ nodes
+	^ self nodes
 ]
 
 { #category : #updating }

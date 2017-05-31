@@ -13,32 +13,25 @@ Class {
 
 { #category : #examples }
 MalClusterEngine class >> numbers: aCollection [
-	"ClusterEngine numbers: #(1 2 9 0 7 2 4 3)"
-	
-	^(MalClusterEngine
-		with: aCollection
-		using: [:a :b | (a - b) * (a - b)]) averageLinkage elements
+	"MalClusterEngine numbers: #(1 2 9 0 7 2 4 3)"
+
+	^ (self with: aCollection using: [ :a :b | (a - b) * (a - b) ]) averageLinkage elements
 ]
 
 { #category : #'instance creation' }
 MalClusterEngine class >> with: aCollection [
-	
-	^self withDistanceMatrix: (MalDistanceSquare on: aCollection)
+	^ self withDistanceMatrix: (MalDistanceSquare on: aCollection)
 ]
 
 { #category : #'instance creation' }
 MalClusterEngine class >> with: aCollection using: aDistanceBlock [
-	
-	^self
-		withDistanceMatrix:
-			(MalDistanceSquare on: aCollection using: aDistanceBlock)
+	^ self withDistanceMatrix: (MalDistanceSquare on: aCollection using: aDistanceBlock)
 ]
 
 { #category : #'instance creation' }
 MalClusterEngine class >> withDistanceMatrix: distanceMatrix [
-	
-	^(self new)
-		instVarNamed: 'distanceMatrix' put: distanceMatrix;
+	^ self new
+		distanceMatrix: distanceMatrix;
 		yourself
 ]
 
@@ -58,6 +51,16 @@ MalClusterEngine >> completeLinkage [
 MalClusterEngine >> dendrogram [
 	
 	^dendrogram ifNil: [dendrogram := self averageLinkage]
+]
+
+{ #category : #accessing }
+MalClusterEngine >> distanceMatrix [
+	^ distanceMatrix
+]
+
+{ #category : #accessing }
+MalClusterEngine >> distanceMatrix: anObject [
+	distanceMatrix := anObject
 ]
 
 { #category : #'private - deprecated' }

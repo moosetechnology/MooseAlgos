@@ -64,9 +64,8 @@ MalClusteringData >> completeLinkage [
 
 { #category : #accessing }
 MalClusteringData >> dendrogram [
-	
-	[indices size = 1] assert.
-	^clusters at: indices first
+	self assert: indices size = 1.
+	^ clusters at: indices anyOne
 ]
 
 { #category : #private }
@@ -194,13 +193,10 @@ foundB0 := column0]]
 
 { #category : #private }
 MalClusteringData >> testPerformClustering: linkageSelector [
-	
 	indices size - 1
-		timesRepeat:
-			[MalIncrementNotification signal"With: indices size".
-			self testFindMinimum.
-			self perform: linkageSelector].
-	^self dendrogram
+		timesRepeat: [ self testFindMinimum.
+			self perform: linkageSelector ].
+	^ self dendrogram
 ]
 
 { #category : #private }

@@ -37,20 +37,17 @@ MalClusterEngine class >> withDistanceMatrix: distanceMatrix [
 
 { #category : #clustering }
 MalClusterEngine >> averageLinkage [
-	
-	^self performClustering: #averageLinkage
+	^ self performClustering: #averageLinkage
 ]
 
 { #category : #clustering }
 MalClusterEngine >> completeLinkage [
-	
-	^self performClustering: #completeLinkage
+	^ self performClustering: #completeLinkage
 ]
 
 { #category : #accessing }
 MalClusterEngine >> dendrogram [
-	
-	^dendrogram ifNil: [dendrogram := self averageLinkage]
+	^ dendrogram ifNil: [ dendrogram := self averageLinkage ]
 ]
 
 { #category : #accessing }
@@ -65,43 +62,26 @@ MalClusterEngine >> distanceMatrix: anObject [
 
 { #category : #'private - deprecated' }
 MalClusterEngine >> hierarchicalClusteringShowProgressUsing: selector [
-	
-	^self performClusteringShowProgress: selector
+	self deprecated: 'Uses #hierarchicalClusteringUsing: instead'.
+	^ self hierarchicalClusteringUsing: selector
 ]
 
 { #category : #'private - deprecated' }
 MalClusterEngine >> hierarchicalClusteringUsing: selector [
-	
-	^self performClustering: selector
+	^ self performClustering: selector
 ]
 
 { #category : #accessing }
 MalClusterEngine >> items [
-	
-	^distanceMatrix items
+	^ distanceMatrix items
 ]
 
 { #category : #clustering }
 MalClusterEngine >> performClustering: linkageSelector [
-	
-	| data |
-	data := MalClusteringData onDistanceSquare: distanceMatrix.
-	data performClustering: linkageSelector.
-	^dendrogram := data dendrogram
-]
-
-{ #category : #clustering }
-MalClusterEngine >> performClusteringShowProgress: linkageSelector [
-	
-	MooseCustomTask
-		runWithProgress:[self performClustering: linkageSelector]
-		description:('Clustering <1p> items, please wait.'
-				expandMacrosWith: distanceMatrix columnSize)
-		length: ( distanceMatrix columnSize * (distanceMatrix columnSize - 1) / 2)
+	^ dendrogram := (MalClusteringData onDistanceSquare: distanceMatrix) performClustering: linkageSelector
 ]
 
 { #category : #clustering }
 MalClusterEngine >> singleLinkage [
-	
-	^self performClustering: #singleLinkage
+	^ self performClustering: #singleLinkage
 ]

@@ -128,11 +128,8 @@ MalDistanceSquare >> items [
 
 { #category : #actions }
 MalDistanceSquare >> performSeriation [
-	
-	| clusty newOrder |
-	clusty := MalClusterEngine withDistanceMatrix: self.
-	clusty performClusteringShowProgress: #averageLinkage.
-	dendrogram := clusty dendrogram.
+	| newOrder |
+	dendrogram := (MalClusterEngine withDistanceMatrix: self) averageLinkage.
 	newOrder := self dendrogram orderLeafs asArray.
 	self rearrange: newOrder
 ]

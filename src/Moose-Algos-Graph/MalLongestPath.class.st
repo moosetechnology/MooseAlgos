@@ -51,15 +51,6 @@ MalLongestPath >> edgeClass [
 	^ MalGraphEdge
 ]
 
-{ #category : #running }
-MalLongestPath >> ensureNodesAreSorted [
-	"If one change is made in the node list, one should call again sortNodes"
-
-	nodeSortBlock ifNotNil: [ ^ self ].
-	self nodeSortBlock: [ :a :b | a model hash <= b model hash ].
-	self sortNodes
-]
-
 { #category : #'initialize-release' }
 MalLongestPath >> initialize [
 	super initialize.
@@ -74,7 +65,7 @@ MalLongestPath >> initializeRootNodes [
 
 { #category : #testing }
 MalLongestPath >> isCompleted [
-	maxIterations = 0
+	maxIterations isZero
 		ifTrue: [ self error: 'Algorithm should be finished by now...'.
 			^ true ].
 	^ (self leafNodes anySatisfy: [ :node | node pathWeight = Float infinity ]) not
@@ -122,10 +113,4 @@ MalLongestPath >> run [
 MalLongestPath >> setRanks: collectionOfNodes at: aRank [
 	collectionOfNodes do: [ :aNode | aNode pathWeight: aRank ]
 	
-]
-
-{ #category : #'as yet unclassified' }
-MalLongestPath >> sortNodes [
-	self canUseSortedNodes ifFalse: [ ^self ].
-	self nodes sort: nodeSortBlock.
 ]

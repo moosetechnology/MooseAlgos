@@ -54,6 +54,7 @@ MalLongestPath >> edgeClass [
 { #category : #'initialize-release' }
 MalLongestPath >> initialize [
 	super initialize.
+	maxIterations := -1.
 	previousRanks := OrderedCollection new
 ]
 

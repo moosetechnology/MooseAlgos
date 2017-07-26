@@ -6,7 +6,7 @@ Class {
 
 { #category : #initialize }
 LatticeTests >> initializeDataMammals [
-	| data fca lattice |
+	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
 	fca := MalFormalContext new.
 	^fca with: data using: #first using: #last.
@@ -14,7 +14,7 @@ LatticeTests >> initializeDataMammals [
 
 { #category : #initialize }
 LatticeTests >> initializeDataMammals2 [
-	| data fca lattice |
+	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#smart #fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
 	fca := MalFormalContext new.
 	^fca with: data using: #first using: #last.
@@ -23,7 +23,7 @@ LatticeTests >> initializeDataMammals2 [
 { #category : #initialize }
 LatticeTests >> initializeHD [
 	"lattice with horizontal decomposition"
-	| data fca lattice |
+	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #thumbed)) #(#Man #(#hair #thumbed)) #(#Whale #(#smart #marine))).
 	fca := MalFormalContext new.
 	^fca with: data using: #first using: #last.
@@ -32,7 +32,7 @@ LatticeTests >> initializeHD [
 { #category : #initialize }
 LatticeTests >> initializeHD2 [
 	"lattice with horizontal decomposition"
-	| data fca lattice |
+	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #thumbed)) #(#Man #(#hair #thumbed)) #(#Whale #(#smart #marine)) #(#a #(#b #c))).
 	fca := MalFormalContext new.
 	^fca with: data using: #first using: #last.
@@ -42,7 +42,7 @@ LatticeTests >> initializeHD2 [
 LatticeTests >> testAllAncestors [
 	"ancestors of a node"
 
-	| lattice node patterns |
+	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals2.
 	patterns := ModuleIdentification new lattice: lattice.
 	self assert: (patterns allAncestors: (lattice nodes at: 2)) size equals: 2.

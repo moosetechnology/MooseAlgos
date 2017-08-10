@@ -41,3 +41,9 @@ MalGraphStructure >> nodeModels [
 
 	^ self nodes collect: [:n | n model]
 ]
+
+{ #category : #running }
+MalGraphStructure >> run [
+
+self shouldNotImplement
+]

@@ -2,13 +2,13 @@
 Baseline for the MooseAlgo project
 "
 Class {
-	#name : #BaselineOfMooseAlgo,
+	#name : #BaselineOfMooseAlgos,
 	#superclass : #BaselineOf,
-	#category : #BaselineOfMooseAlgo
+	#category : #BaselineOfMooseAlgos
 }
 
 { #category : #baselines }
-BaselineOfMooseAlgo >> baseline: spec [
+BaselineOfMooseAlgos >> baseline: spec [
 	<baseline>
 	spec
 		for: #common

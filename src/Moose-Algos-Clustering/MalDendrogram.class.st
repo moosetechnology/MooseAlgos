@@ -162,6 +162,11 @@ MalDendrogram >> parent [
 	^parent
 ]
 
+{ #category : #accessing }
+MalDendrogram >> parent: anObject [
+	parent := anObject
+]
+
 { #category : #removing }
 MalDendrogram >> remove: oldObject ifAbsent: anExceptionBlock [
 	

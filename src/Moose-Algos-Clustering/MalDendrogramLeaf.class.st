@@ -12,9 +12,8 @@ Class {
 
 { #category : #'instance creation' }
 MalDendrogramLeaf class >> with: anElement [
-	
-	^(self new)
-		instVarNamed: 'element' put: anElement;
+	^ self new
+		element: anElement;
 		yourself
 ]
 
@@ -22,6 +21,11 @@ MalDendrogramLeaf class >> with: anElement [
 MalDendrogramLeaf >> element [
 	
 	^element
+]
+
+{ #category : #accessing }
+MalDendrogramLeaf >> element: anObject [
+	element := anObject
 ]
 
 { #category : #enumerating }

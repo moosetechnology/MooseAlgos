@@ -7,7 +7,7 @@ Class {
 	#category : #'Moose-Algos-Clustering'
 }
 
-{ #category : #'distance functions' }
+{ #category : #'vector functions' }
 MalSimilarityItem >> dist: anItem [
 	
 	^1 - (self vector cosine: anItem vector)

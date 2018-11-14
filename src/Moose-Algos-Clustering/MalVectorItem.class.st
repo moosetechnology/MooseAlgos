@@ -26,14 +26,14 @@ MalVectorItem class >> with: anElement andAll: aCollection [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : #comparing }
 MalVectorItem >> = anObject [
 	
 	^super = anObject
 		or: [(anObject isKindOf: MalVectorItem) and: [self item = anObject item]]
 ]
 
-{ #category : #'distance functions' }
+{ #category : #'vector functions' }
 MalVectorItem >> dist: anItem [
 	
 	^self vector dist: anItem vector

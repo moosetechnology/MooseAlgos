@@ -104,8 +104,7 @@ MalDendrogram >> isRight [
 
 { #category : #testing }
 MalDendrogram >> isRoot [
-	
-	^parent == nil
+	^ parent isNil
 ]
 
 { #category : #accessing }

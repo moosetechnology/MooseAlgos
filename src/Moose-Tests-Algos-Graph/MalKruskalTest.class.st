@@ -10,7 +10,7 @@ Class {
 
 { #category : #running }
 MalKruskalTest >> setUp [
-
+	super setUp.
 	kruskal := MalKruskal new.
 	nodes := OrderedCollection new.
 	nodes add: MalDisjointSetNode new.

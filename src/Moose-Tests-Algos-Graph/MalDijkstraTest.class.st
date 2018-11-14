@@ -10,6 +10,7 @@ Class {
 { #category : #running }
 MalDijkstraTest >> setUp [ 
 
+	super setUp.
 	dijsktra := MalDijkstra new.
 ]
 

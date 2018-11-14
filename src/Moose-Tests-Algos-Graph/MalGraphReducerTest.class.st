@@ -26,6 +26,7 @@ MalGraphReducerTest >> mergedNodesIn: aNodeList [
 
 { #category : #running }
 MalGraphReducerTest >> setUp [
+	super setUp.
 	graphReducer := MalGraphReducer new.
 ]
 

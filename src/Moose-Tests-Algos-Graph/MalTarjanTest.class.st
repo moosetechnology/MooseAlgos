@@ -15,15 +15,17 @@ MalTarjanTest >> expectedFailures [
 		  ifFalse: [ Array with: #testMondrianSample ]
 ]
 
-{ #category : #tests }
+{ #category : #running }
 MalTarjanTest >> setUp [
+	super setUp.
 	tarjan := MalTarjan new.
 
 ]
 
 { #category : #running }
 MalTarjanTest >> tearDown [
-	window ifNotNil: [ window delete ]
+	window ifNotNil: [ window delete ].
+	super tearDown
 ]
 
 { #category : #tests }

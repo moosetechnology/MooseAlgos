@@ -11,6 +11,7 @@ Class {
 { #category : #running }
 MalDominanceTest >> setUp [
 
+	super setUp.
 	dom := MalDominance new.
 ]
 

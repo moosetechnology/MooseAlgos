@@ -7,15 +7,16 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalDisjointSetsTest >> setUp [
 
+	super setUp.
 	ds := MalDisjointSets new
 ]
 
 { #category : #'as yet unclassified' }
 MalDisjointSetsTest >> test1Component [
-	| components twoNodes threeNodes |
+	| components |
 	ds nodes: (1 to: 5).
 	ds edges: {1 -> 2. 2 -> 3 . 4 -> 5. 1 -> 5} from: #key to: #value.
 	ds run.

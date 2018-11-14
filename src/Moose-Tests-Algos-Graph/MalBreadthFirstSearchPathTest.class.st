@@ -7,9 +7,10 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalBreadthFirstSearchPathTest >> setUp [ 
 
+	super setUp.
 	bfsp := MalBreadthFirstSearchPath new.
 ]
 

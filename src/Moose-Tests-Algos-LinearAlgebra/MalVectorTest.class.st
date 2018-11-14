@@ -17,10 +17,10 @@ MalVectorTest class >> isAbstract [
 	^self name = #MalVectorTest
 ]
 
-{ #category : #fixture }
+{ #category : #running }
 MalVectorTest >> setUp [
 	"comment stating purpose of message"
-	
+	super setUp.
 	v := self vectorClass withAll: (1 to: 10).
 	w := self vectorClass new: 10 withAll: -5
 ]
@@ -205,7 +205,6 @@ MalVectorTest >> testUnitVector [
 	"self assert: v unitVector length asFloat = 1.0d asFloat.
 	self assert: w unitVector length asFloat = 1.0d asFloat"
 
-	| tmp |
 	self assert: v unitVector length asFloat equals: 1.0	"here,something special in pharo. Those two floats have the same values but the egality test return false "	"self assert: (tmp := w unitVector length asFloat) = 1.0."
 ]
 

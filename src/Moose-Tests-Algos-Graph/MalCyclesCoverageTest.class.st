@@ -10,6 +10,7 @@ Class {
 { #category : #running }
 MalCyclesCoverageTest >> setUp [ 
 
+	super setUp.
 	cc := MalCyclesCoverage new.
 ]
 

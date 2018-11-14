@@ -16,6 +16,7 @@ MalLongestPathTest >> assert: aCollectionOfNodesModel hasWeight: values [
 
 { #category : #running }
 MalLongestPathTest >> setUp [
+	super setUp.
 	longestPath := MalLongestPath new
 ]
 

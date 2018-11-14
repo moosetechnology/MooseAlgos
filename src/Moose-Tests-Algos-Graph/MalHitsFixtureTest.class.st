@@ -15,7 +15,7 @@ MalHitsFixtureTest >> initialize [
 
 { #category : #running }
 MalHitsFixtureTest >> setUp [
-
+	super setUp.
 	hits := MalHits new.
 
 ]

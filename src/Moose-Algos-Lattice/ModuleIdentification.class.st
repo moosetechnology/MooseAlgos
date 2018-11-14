@@ -179,8 +179,8 @@ ModuleIdentification >> moduleNodes [
 
 { #category : #accessing }
 ModuleIdentification >> moduleNodes: aColectionOfNodes [
-	
-	(moduleNodes includesAllOf: aColectionOfNodes) ifFalse: [ moduleNodes add: aColectionOfNodes copy].
+	(moduleNodes includesAll: aColectionOfNodes)
+		ifFalse: [ moduleNodes add: aColectionOfNodes copy ]
 ]
 
 { #category : #'end-phase' }

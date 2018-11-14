@@ -18,13 +18,23 @@ MalTopologicalSortingTest >> setUp [
 
 { #category : #tests }
 MalTopologicalSortingTest >> testSortStringHierarchy [
-	sorter
-		addNodesFrom: String
-		childrenBlock: [ :class | class subclasses ].
-
+	| result |
+	sorter addNodesFrom: String childrenBlock: [ :class | class subclasses ].
+	
+	result := sorter run collect: [ :item | item model ] as: Array.
+	
 	self
-		assertCollection: (sorter run collect: [ :item | item model ] as: Array)
-		equals: { WideSymbol . ByteSymbol . Symbol . WideString . ByteString . String }
+		assertCollection: (result first: 2)
+		hasSameElements:
+			{WideSymbol.
+			ByteSymbol}.
+	self
+		assertCollection: (result copyFrom: 3 to: 5)
+		hasSameElements:
+			{Symbol.
+			WideString.
+			ByteString}.
+	self assert: result last equals: String
 ]
 
 { #category : #tests }

@@ -8,7 +8,6 @@ Class {
 	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'sortedEdges',
-		'treeEdges',
 		'sortBlock'
 	],
 	#category : #'Moose-Algos-Graph'
@@ -44,6 +43,7 @@ MalKruskal >> nodeClass [
 
 { #category : #running }
 MalKruskal >> run [
+	| treeEdges |
 	treeEdges := OrderedCollection new.
 	self sortedEdges: edges.
 	nodes do: #makeSet.

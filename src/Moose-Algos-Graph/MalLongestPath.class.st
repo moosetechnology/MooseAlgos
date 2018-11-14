@@ -10,7 +10,6 @@ Class {
 	#superclass : #MalGraphAlgorithm,
 	#instVars : [
 		'previousRanks',
-		'currentRank',
 		'rootNodes',
 		'leafNodes',
 		'maxIterations'
@@ -30,20 +29,20 @@ MalLongestPath >> computeRootNodes [
 
 { #category : #computing }
 MalLongestPath >> computeStep [
-	| nodesToManage |
+	| nodesToManage currentRank |
 	self isCompleted
-		ifFalse: [ 
-			currentRank := OrderedCollection new.
-			nodesToManage := self nodes difference: previousRanks.
-			nodesToManage
-				do: [ :node | 
-					(previousRanks includesAll: node previousNodes)
-						ifTrue: [ 
-							currentRank add: node.
-							node pathWeight: (node previousNodes max: [ :maxNode | maxNode pathWeight ]) + 1 ] ].
-			previousRanks addAll: currentRank.
-			maxIterations := maxIterations -1.
-			self computeStep ]
+		ifTrue: [ ^ self ].
+	currentRank := OrderedCollection new.
+	nodesToManage := self nodes difference: previousRanks.
+	nodesToManage
+		do: [ :node | 
+			(previousRanks includesAll: node previousNodes)
+				ifTrue: [ currentRank add: node.
+					node
+						pathWeight: (node previousNodes max: [ :maxNode | maxNode pathWeight ]) + 1 ] ].
+	previousRanks addAll: currentRank.
+	maxIterations := maxIterations - 1.
+	self computeStep
 ]
 
 { #category : #configuration }
@@ -51,14 +50,14 @@ MalLongestPath >> edgeClass [
 	^ MalGraphEdge
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalLongestPath >> initialize [
 	super initialize.
 	maxIterations := -1.
 	previousRanks := OrderedCollection new
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalLongestPath >> initializeRootNodes [
 	self computeRootNodes.
 	self setRanks: self rootNodes at: 0

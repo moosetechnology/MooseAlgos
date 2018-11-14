@@ -29,14 +29,14 @@ MalUnlimited class >> positive [
 	^Positive ifNil: [Positive := super new initializeWith: true ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 MalUnlimited >> < aMagnitude [
 	"Any number is larger than Unlimited negative, except Unlimited negative itself."
 
 	^(positive not) and: [ self ~~ aMagnitude ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 MalUnlimited >> = aMagnitude [
 	
 	^self == aMagnitude
@@ -57,7 +57,7 @@ MalUnlimited >> adaptToNumber: rcvr andSend: selector [
 		].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #comparing }
 MalUnlimited >> hash [
 
 	^positive 

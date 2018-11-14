@@ -36,7 +36,7 @@ MalHierarchicalGraph class >> with: baseModels [
 	
 ]
 
-{ #category : #api }
+{ #category : #private }
 MalHierarchicalGraph >> addEdge: aModel from: source to: target [
 	"Imperative method to add a single edge to the graph."
 	self addEdges: (OrderedCollection with: aModel) from: source to: target.
@@ -51,29 +51,20 @@ MalHierarchicalGraph >> addEdges: aCollection from: source to: destination [
 { #category : #building }
 MalHierarchicalGraph >> addEdges: aCollection source: source destination: destination [
 	| foundClasses |
-	self addEdges: aCollection
-		sourceBlock: [ :e |
-			(source isKindOf: Array)
-				ifTrue: [ 
-					foundClasses := (source select: [ :asso | e isKindOf: asso key ]).
-					foundClasses ifEmpty: [ nil ] ifNotEmpty: [ foundClasses last value value: e ].
-				]
-	     			"Symbol (method) or block based way"
-				ifFalse: [ 
-					source value: e.
-				].
-		] 
-		destinationBlock: [  :e |
-			(destination isKindOf: Array)
-				ifTrue: [ 
-					foundClasses := (destination select: [ :asso | e isKindOf: asso key ]).
-					foundClasses ifEmpty: [ nil ] ifNotEmpty: [ foundClasses last value value: e ].
-				]
-	     			"Symbol (method) or block based way"
-				ifFalse: [ 
-					destination value: e.
-				].
-		].
+	self
+		addEdges: aCollection
+		sourceBlock: [ :e | 
+			source isArray
+				ifTrue: [ "Symbol (method) or block based way"
+					foundClasses := source select: [ :asso | e isKindOf: asso key ].
+					foundClasses ifEmpty: [ nil ] ifNotEmpty: [ foundClasses last value value: e ] ]
+				ifFalse: [ source value: e ] ]
+		destinationBlock: [ :e | 
+			destination isArray
+				ifTrue: [ "Symbol (method) or block based way"
+					foundClasses := destination select: [ :asso | e isKindOf: asso key ].
+					foundClasses ifEmpty: [ nil ] ifNotEmpty: [ foundClasses last value value: e ] ]
+				ifFalse: [ destination value: e ] ]
 ]
 
 { #category : #building }
@@ -88,7 +79,7 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 		dstEntity := dstBlock value: e.
 
 		"Models should not be nil"
-	      self assert: (srcEntity notNil and: dstEntity notNil) description: 'Models should never be nil. Check correctness of srcBlock and dstBlock.'.
+	      self assert: (srcEntity notNil and: [dstEntity notNil]) description: 'Models should never be nil. Check correctness of srcBlock and dstBlock.'.
 			
 		"Get nodes from entities"
 		(nodes includesKey: srcEntity)
@@ -102,7 +93,7 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 			].
 		
 		"Only create edge if nodes were found."
-		(srcNode isNil or: dstNode isNil) ifFalse: [
+		(srcNode isNil or: [dstNode isNil]) ifFalse: [
 			
 			"Create an edge between the nodes and add it to the graph."
 			edge := MalGraphEdge with: e from: srcNode to: dstNode.
@@ -113,14 +104,13 @@ MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationB
 			"Add edge references to the node themselves"
 			srcNode addOutgoing: edge.
 			dstNode addIncoming: edge.
-		].
-	].
+		] ]
 ]
 
 { #category : #api }
 MalHierarchicalGraph >> aggregation: howToGetParent [
 	| foundClasses |
-	(howToGetParent isKindOf: Array)
+	howToGetParent isArray
 		"Class based"
 		ifTrue: [ 
 			self blockToGetParent: [ :e |
@@ -152,13 +142,11 @@ MalHierarchicalGraph >> blockToGetChildren: aBuildingBlock [
 	nodesToProcess addAll: rootNodes.
 
 	[nodesToProcess notEmpty] whileTrue:  [
-		| node childrenNodes |
+		| node |
 		
 		node := nodesToProcess pop.
 		
-		childrenNodes := self setChildrenOfNode: node builder: aBuildingBlock.
-		
-		(childrenNodes notEmpty) ifTrue: [
+		(self setChildrenOfNode: node builder: aBuildingBlock) ifNotEmpty: [ :childrenNodes |
 			
 			"Need to re-evaluate found children"
 			childrenNodes do: [ :childNode | 
@@ -206,7 +194,7 @@ MalHierarchicalGraph >> bottomUp: howToGetParent [
 { #category : #api }
 MalHierarchicalGraph >> containment: howToGetChildren [
 	| foundClasses |
-	(howToGetChildren isKindOf: Array)
+	howToGetChildren isArray
 		"Class based"
 		ifTrue: [ 
 			self blockToGetChildren: [ :e |
@@ -228,20 +216,14 @@ MalHierarchicalGraph >> deepestLevel [
 
 ]
 
-{ #category : #accessing }
-MalHierarchicalGraph >> edges [ 
-	"Returns a Collection of all edges in this hiGraph."
-	^ edges.
-]
-
-{ #category : #api }
+{ #category : #'building - graph' }
 MalHierarchicalGraph >> edges: aCollection from: source to: destination [
 	"Declerative method to add and propagate edges in one go."
 	self addEdges: aCollection source: source destination: destination.
 	self propagateEdges.
 ]
 
-{ #category : #api }
+{ #category : #'building - graph' }
 MalHierarchicalGraph >> edges: aCollection from: source to: target weight: weightFunction [
 	ShouldNotImplement signal. "There are no weights in a hierarchical graph."
 ]
@@ -258,22 +240,21 @@ MalHierarchicalGraph >> edgesPropagated [
 	^ edges select: [ :rel | rel class = MalHgPropagatedEdge ].
 ]
 
-{ #category : #enumerating }
+{ #category : #accessing }
 MalHierarchicalGraph >> findNode: aModel [
 	"Returns the node wrapping the given model or nil if such a node does not exists in the graph."
 	^ self nodeWrapping: aModel.
 ]
 
-{ #category : #enumerating }
+{ #category : #accessing }
 MalHierarchicalGraph >> findNode: aModel ifAbsent: aBlock [
 	"Returns the node wrapping the given model, runs given block if such a node does not exists in the graph."
 	^ self nodeWrapping: aModel ifAbsent: aBlock.
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalHierarchicalGraph >> initialize [
-	self reset.
-
+	self reset
 ]
 
 { #category : #enumerating }
@@ -333,7 +314,7 @@ MalHierarchicalGraph >> nodes [
 	^ nodes values
 ]
 
-{ #category : #api }
+{ #category : #'building - graph' }
 MalHierarchicalGraph >> nodes: aCollection [
 	"Adds base entites (can be root or leaf nodes) to the graph from which we will start building the complete graph.
 	This has to be done before calling blockToGetChildren or blockToGetParent."
@@ -409,15 +390,10 @@ MalHierarchicalGraph >> nodesWrapping: aModelCollection [
 MalHierarchicalGraph >> printOn: aStream [
 	aStream
 		nextPutAll: 'HiGraph: (n: ';
-		nextPutAll: self nodesDict size printString;
+		print: self nodesDict size;
 		nextPutAll: ', e: ';
-		nextPutAll: self edges size printString;
+		print: self edges size;
 		nextPutAll: ')'.
-]
-
-{ #category : #private }
-MalHierarchicalGraph >> privateEdges: aCollection [
-	self edges: aCollection.
 ]
 
 { #category : #private }
@@ -593,20 +569,14 @@ MalHierarchicalGraph >> searchForModelsNamed: aSearchString onLevel: level [
 MalHierarchicalGraph >> setChildrenOfNode: aNode builder: buildingBlock [
 	"Gets children of given node via buildingBlock and sets them.
 	Returns a collection with found children or an empty one if no children were found."
-	| children currentLevel childrenEntities childNode |
+	| children currentLevel childNode |
 
 	self assert: (self rootNodes notEmpty) description: 'There must be at least one root node set before calling this method.'.
-		
-	"Get children entities via blockToGetChildren"
-	childrenEntities := buildingBlock value: aNode model.
+
 	children := OrderedCollection new.
 
-	"If the entity has no children it is a leaf and we return an empty collection."
-	(childrenEntities isNil)
-		ifTrue: [ ^ children. ]
-		
-		"Else we add found children to the graph."
-		ifFalse: [
+	"Get children entities via blockToGetChildren. If the entity has no children it is a leaf and we return an empty collection, else we add found children to the graph."
+	(buildingBlock value: aNode model) ifNotNil: [ :childrenEntities |
 			
 			currentLevel := aNode level.
 
@@ -638,9 +608,9 @@ MalHierarchicalGraph >> setChildrenOfNode: aNode builder: buildingBlock [
 			levels at: (currentLevel + 1)
 				ifPresent: [ :collection | collection addAll: children ] 
 				ifAbsent: [ levels at: (currentLevel + 1) put: children ].
-	
-			^ children.
 		].
+	
+	^ children
 ]
 
 { #category : #building }

@@ -1,3 +1,9 @@
+"
+Description
+--------------------
+
+I am a Mock class for Mosse Algos tests
+"
 Class {
 	#name : #MalHgTestEdge,
 	#superclass : #Object,

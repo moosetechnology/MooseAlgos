@@ -45,24 +45,20 @@ MalLatticePatterns class >> on: aLattice [
 
 { #category : #complex }
 MalLatticePatterns >> IsHorizontalDecomposition [
-	| nodes |
-	nodes := self lattice top descendants.
-	1 to: nodes size - 1 do: [ :n | 
-		n + 1 to: nodes size do: [ :m | 
-			((nodes at: n) hasDescendant: (nodes at: m))
-				ifFalse: [ (((nodes at: n) allDescendants: self lattice bottom) anySatisfy: [ :each | ((nodes at: m) allDescendants: self lattice bottom) includes: each ])
-						ifFalse: [ ^ true ] ] ] ].
-	^ false
+	self deprecated: 'Use #isHorizontalDecomposition instead' transformWith: '`@receiver IsHorizontalDecomposition' -> '`@receiver isHorizontalDecomposition'.
+	self isHorizontalDecomposition
 ]
 
 { #category : #complex }
-MalLatticePatterns >> IsSubConceptSpecialization: aNode [
-	^ (self lattice bottom = aNode and: [ self isFull: aNode ]) or: [ (self isGrey: aNode) or: [ self isFull: aNode ] ]
+MalLatticePatterns >> IsSubConceptSpecialization: arg [
+	self deprecated: 'Use #isSubConceptSpecialization: instead' transformWith: '`@receiver IsSubConceptSpecialization: `@statements' -> '`@receiver isSubConceptSpecialization: `@statements'.
+	self isSubConceptSpecialization: arg
 ]
 
 { #category : #complex }
-MalLatticePatterns >> IsSuperConceptSpecialization: aNode [
-	^ (self lattice top = aNode and: [ self isFull: aNode ]) or: [ (self isBlack: aNode) or: [ self isFull: aNode ] ]
+MalLatticePatterns >> IsSuperConceptSpecialization: arg [
+	self deprecated: 'Use #isSuperConceptSpecialization: instead' transformWith: '`@receiver IsSuperConceptSpecialization: `@statements' -> '`@receiver isSuperConceptSpecialization: `@statements'.
+	self isSuperConceptSpecialization: arg
 ]
 
 { #category : #nodes }
@@ -132,12 +128,16 @@ MalLatticePatterns >> horizontalDecomposition [
 
 { #category : #complex }
 MalLatticePatterns >> irreducibleSpecialization [
-	
 	| dict |
 	dict := Dictionary new.
-	self lattice nodes do: [:aNode | (self IsSuperConceptSpecialization: aNode) ifTrue: [aNode descendants do:[:aDes | (self IsSubConceptSpecialization: aDes) ifTrue: [dict at: aNode put: aDes] ] ]].
-	^dict 
-		
+	self lattice nodes
+		do: [ :aNode | 
+			(self isSuperConceptSpecialization: aNode)
+				ifTrue: [ aNode descendants
+						do: [ :aDes | 
+							(self isSubConceptSpecialization: aDes)
+								ifTrue: [ dict at: aNode put: aDes ] ] ] ].
+	^ dict
 ]
 
 { #category : #nodes }
@@ -181,6 +181,28 @@ MalLatticePatterns >> isFull: aNode [
 { #category : #nodes }
 MalLatticePatterns >> isGrey: aNode [
 	^self grey includes: aNode
+]
+
+{ #category : #complex }
+MalLatticePatterns >> isHorizontalDecomposition [
+	| nodes |
+	nodes := self lattice top descendants.
+	1 to: nodes size - 1 do: [ :n | 
+		n + 1 to: nodes size do: [ :m | 
+			((nodes at: n) hasDescendant: (nodes at: m))
+				ifFalse: [ (((nodes at: n) allDescendants: self lattice bottom) anySatisfy: [ :each | ((nodes at: m) allDescendants: self lattice bottom) includes: each ])
+						ifFalse: [ ^ true ] ] ] ].
+	^ false
+]
+
+{ #category : #complex }
+MalLatticePatterns >> isSubConceptSpecialization: aNode [
+	^ (self lattice bottom = aNode and: [ self isFull: aNode ]) or: [ (self isGrey: aNode) or: [ self isFull: aNode ] ]
+]
+
+{ #category : #complex }
+MalLatticePatterns >> isSuperConceptSpecialization: aNode [
+	^ (self lattice top = aNode and: [ self isFull: aNode ]) or: [ (self isBlack: aNode) or: [ self isFull: aNode ] ]
 ]
 
 { #category : #top }

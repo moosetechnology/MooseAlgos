@@ -8,42 +8,6 @@ Class {
 }
 
 { #category : #test }
-MalMatrixCoercionTest >> testDouble [
-	"no longer Double in Pharo"
-	"| m n |
-	m := MAColumnMatrix
-		new: 4 @ 3
-		withAll: 2.
-	n := 2.0d.
-	m + n.
-	n + m.
-	m - n.
-	n - m.
-	m * n.
-	n * m.
-	m / n.
-	n / m"
-]
-
-{ #category : #test }
-MalMatrixCoercionTest >> testFixedPoint [
-	"no longer FixedPoint in Pharo"
-	"| m n |
-	m := MAColumnMatrix
-		new: 4 @ 3
-		withAll: 2.
-	n := 2.0s.
-	m + n.
-	n + m.
-	m - n.
-	n - m.
-	m * n.
-	n * m.
-	m / n.
-	n / m"
-]
-
-{ #category : #test }
 MalMatrixCoercionTest >> testFloat [
 	
 	| m n |

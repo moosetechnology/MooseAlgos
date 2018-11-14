@@ -7,16 +7,18 @@ Class {
 	#category : #'Moose-Tests-Algos-LinearAlgebra'
 }
 
-{ #category : #fixture }
+{ #category : #test }
 MalFloatVectorTest >> testQuotient [
-	
-	^true	"the notorious equality problem with floats"
+	"the notorious equality problem with floats"
+
+	self assert: true
 ]
 
 { #category : #test }
 MalFloatVectorTest >> testStoreDenseTextOn [
-	
-	^true	"when comparing text 0 is not 0.0"
+	"when comparing text 0 is not 0.0"
+
+	self assert: true
 ]
 
 { #category : #fixture }

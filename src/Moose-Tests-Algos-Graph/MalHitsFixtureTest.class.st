@@ -7,12 +7,6 @@ Class {
 	#category : #'Moose-Tests-Algos-Graph'
 }
 
-{ #category : #'initialize-release' }
-MalHitsFixtureTest >> initialize [
-
-	self setUp
-]
-
 { #category : #running }
 MalHitsFixtureTest >> setUp [
 	super setUp.

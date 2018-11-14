@@ -1,12 +1,12 @@
 Class {
-	#name : #MalHgPerformanceTests,
+	#name : #MalHgPerformanceTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-HierarchicalGraph'
 }
 
 { #category : #tests }
-MalHgPerformanceTests >> testConstructingLargeHiGraphBottomUp [
-	| hg rootNodes levels leafNodes profiler result |
+MalHgPerformanceTest >> testConstructingLargeHiGraphBottomUp [
+	| hg rootNodes levels leafNodes profiler "result" |
 	
 	"(1 to: 1) do: [ :i |"
 
@@ -15,10 +15,10 @@ MalHgPerformanceTests >> testConstructingLargeHiGraphBottomUp [
 	levels := 11.
 	
 	rootNodes add: 'a'; add: 'b'; add: 'c'.
-	rootNodes do: [ :model | MalHierarchicalGraphTests new recursiveStringFactory: model in: leafNodes to: levels ].
+	rootNodes do: [ :model | MalHierarchicalGraphTest new recursiveStringFactory: model in: leafNodes to: levels ].
 	
 	profiler := TimeProfiler new.
-	result := profiler runBlock: [	
+	"result := "profiler runBlock: [	
 
 		hg := MalHierarchicalGraph with: leafNodes.
 	
@@ -44,15 +44,15 @@ MalHgPerformanceTests >> testConstructingLargeHiGraphBottomUp [
 ]
 
 { #category : #tests }
-MalHgPerformanceTests >> testConstructingLargeHiGraphTopDown [
-	| hg rootNodes profiler children levels result |
+MalHgPerformanceTest >> testConstructingLargeHiGraphTopDown [
+	| hg rootNodes profiler children levels "result" |
 
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'; add: 'b'; add: 'c'.
 	levels := 11.
 	
 	profiler := TimeProfiler new.
-	result := profiler runBlock: [	
+	"result := "profiler runBlock: [	
 	
 		hg := MalHierarchicalGraph with: rootNodes.
 		hg topDown: [ :model |  

@@ -2,7 +2,6 @@ Class {
 	#name : #MalDominanceTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'nodes',
 		'dom'
 	],
 	#category : #'Moose-Tests-Algos-Graph'

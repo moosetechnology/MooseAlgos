@@ -15,11 +15,11 @@ MalClusterEngineTest >> testCentroid [
 	clusty hierarchicalClusteringUsing: #centroid.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size equals: 5.
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 1) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 2) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 3) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 4) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 5) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 1) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 2) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 3) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 4) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 5) ]).
 	^ clusters
 ]
 
@@ -31,11 +31,11 @@ MalClusterEngineTest >> testClustering [
 	clusty hierarchicalClusteringUsing: #averageLinkage.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size equals: 5.
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 1) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 2) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 3) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 4) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 5) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 1) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 2) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 3) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 4) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 5) ]).
 	^ clusters
 ]
 
@@ -47,11 +47,11 @@ MalClusterEngineTest >> testClustering2 [
 	clusty hierarchicalClusteringUsing: #centroid.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size equals: 5.
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 1) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 2) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 3) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 4) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 5) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 1) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 2) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 3) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 4) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 5) ]).
 	^ clusters
 ]
 
@@ -94,10 +94,10 @@ MalClusterEngineTest >> testWardsMethod [
 	clusty hierarchicalClusteringUsing: #wardsMethod.
 	clusters := clusty dendrogram breakInto: 5.
 	self assert: clusters size equals: 5.
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 1) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 2) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 3) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 4) ]).
-	self assert: (clusters contains: [ :each | each equalsTo: (input at: 5) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 1) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 2) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 3) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 4) ]).
+	self assert: (clusters anySatisfy: [ :each | each equalsTo: (input at: 5) ]).
 	^ clusters
 ]

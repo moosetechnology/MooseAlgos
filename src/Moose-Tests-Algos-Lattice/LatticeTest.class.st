@@ -1,11 +1,11 @@
 Class {
-	#name : #LatticeTests,
+	#name : #LatticeTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-Lattice'
 }
 
 { #category : #initialize }
-LatticeTests >> initializeDataMammals [
+LatticeTest >> initializeDataMammals [
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
 	fca := MalFormalContext new.
@@ -13,7 +13,7 @@ LatticeTests >> initializeDataMammals [
 ]
 
 { #category : #initialize }
-LatticeTests >> initializeDataMammals2 [
+LatticeTest >> initializeDataMammals2 [
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#smart #fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
 	fca := MalFormalContext new.
@@ -21,7 +21,7 @@ LatticeTests >> initializeDataMammals2 [
 ]
 
 { #category : #initialize }
-LatticeTests >> initializeHD [
+LatticeTest >> initializeHD [
 	"lattice with horizontal decomposition"
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #thumbed)) #(#Man #(#hair #thumbed)) #(#Whale #(#smart #marine))).
@@ -30,7 +30,7 @@ LatticeTests >> initializeHD [
 ]
 
 { #category : #initialize }
-LatticeTests >> initializeHD2 [
+LatticeTest >> initializeHD2 [
 	"lattice with horizontal decomposition"
 	| data fca |
 	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #thumbed)) #(#Man #(#hair #thumbed)) #(#Whale #(#smart #marine)) #(#a #(#b #c))).
@@ -39,7 +39,7 @@ LatticeTests >> initializeHD2 [
 ]
 
 { #category : #tests }
-LatticeTests >> testAllAncestors [
+LatticeTest >> testAllAncestors [
 	"ancestors of a node"
 
 	| lattice patterns |
@@ -51,11 +51,11 @@ LatticeTests >> testAllAncestors [
 ]
 
 { #category : #tests }
-LatticeTests >> testComplexMammals2 [
+LatticeTest >> testComplexMammals2 [
 	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals2.
 	patterns := MalLatticePatterns on: lattice.
-	self assert: (patterns IsSuperConceptSpecialization: lattice top) not.
+	self assert: (patterns isSuperConceptSpecialization: lattice top) not.
 	self assert: patterns black size equals: 2.
 	self assert: patterns grey size equals: 2.
 	self assert: patterns full size equals: 3.
@@ -63,7 +63,7 @@ LatticeTests >> testComplexMammals2 [
 ]
 
 { #category : #tests }
-LatticeTests >> testLatticeMammals [
+LatticeTest >> testLatticeMammals [
 	| lattice |
 	lattice := MalLattice on: self initializeDataMammals.
 	self assert: lattice nodes size equals: 8.
@@ -75,7 +75,7 @@ LatticeTests >> testLatticeMammals [
 ]
 
 { #category : #tests }
-LatticeTests >> testLatticePatterns [
+LatticeTest >> testLatticePatterns [
 	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals.
 	patterns := MalLatticePatterns on: lattice.
@@ -91,7 +91,7 @@ LatticeTests >> testLatticePatterns [
 ]
 
 { #category : #tests }
-LatticeTests >> testModule [
+LatticeTest >> testModule [
 	| data fca context lattice modules |
 	data := #(#(#a #()) #(#b #(1)) #(#c #(1 2)) #(#(#d) #(1 3)) #(#x #(1 5)) #(#(#e) #(1 2 3 5)) #(#(#f) #(1 2 3 4 5))).
 	fca := MalFormalContext new.
@@ -103,7 +103,7 @@ LatticeTests >> testModule [
 ]
 
 { #category : #tests }
-LatticeTests >> testModule2 [
+LatticeTest >> testModule2 [
 	| data fca context lattice modules |
 	data := #(#(#a #()) #(#b #(1)) #(#c #(1 2)) #(#(#d) #(1 3)) #(#(#e) #(1 2 3)) #(#(#f) #(1 2 3 4))).
 	fca := MalFormalContext new.
@@ -115,50 +115,54 @@ LatticeTests >> testModule2 [
 ]
 
 { #category : #tests }
-LatticeTests >> testPatternsHD [
+LatticeTest >> testPatternsHD [
 	"Horizontal Decomposition lattice"
 
 	| lattice patterns |
 	lattice := MalLattice on: self initializeHD.
 	patterns := MalLatticePatterns on: lattice.
 	self assert: patterns horizontalDecomposition equals: 2.
-	self assert: patterns IsHorizontalDecomposition.
+	self assert: patterns isHorizontalDecomposition.
 	self assert: patterns totalConnections equals: 7
 ]
 
 { #category : #tests }
-LatticeTests >> testPatternsHD2 [
+LatticeTest >> testPatternsHD2 [
 	"A lattice without Horizontal Decomposition"
 
 	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals.
 	patterns := MalLatticePatterns on: lattice.
-	self assert: patterns IsHorizontalDecomposition not.
+	self assert: patterns isHorizontalDecomposition not.
 	self assert: patterns horizontalDecomposition equals: 0
 ]
 
 { #category : #tests }
-LatticeTests >> testPatternsHD3 [
+LatticeTest >> testPatternsHD3 [
 	"Horizontal Decomposition lattice"
 
 	| lattice patterns |
 	lattice := MalLattice on: self initializeHD2.
 	patterns := MalLatticePatterns on: lattice.
 	self assert: patterns horizontalDecomposition equals: 3.
-	self assert: patterns IsHorizontalDecomposition.
+	self assert: patterns isHorizontalDecomposition.
 	self assert: patterns totalConnections equals: 9
 ]
 
 { #category : #tests }
-LatticeTests >> testPatternsSpecialization [
+LatticeTest >> testPatternsSpecialization [
 	"Irreducible specialization"
 
 	| lattice patterns |
 	lattice := MalLattice on: self initializeDataMammals.
 	patterns := MalLatticePatterns on: lattice.
-	self assert: (patterns IsSuperConceptSpecialization: lattice top) not.
-	self assert: (patterns IsSuperConceptSpecialization: (patterns lattice nodes at: 2)).
-	self assert: (patterns IsSubConceptSpecialization: lattice bottom) not.
-	self assert: (patterns IsSubConceptSpecialization: (patterns lattice nodes at: 3)).
+	self assert: (patterns isSuperConceptSpecialization: lattice top) not.
+	self
+		assert:
+			(patterns isSuperConceptSpecialization: (patterns lattice nodes at: 2)).
+	self
+		assert: (patterns isSubConceptSpecialization: lattice bottom) not.
+	self
+		assert: (patterns isSubConceptSpecialization: (patterns lattice nodes at: 3)).
 	self assert: patterns irreducibleSpecialization values size equals: 0
 ]

@@ -31,7 +31,7 @@ MalVectorTest >> testAccessors [
 	
 	v := self vectorClass new: 1.
 	v at: 1 put: 77.
-	self deny: (v at: 1) equals: 0.
+	self deny: (v at: 1) = 0. "For Pharo 6 compatibility because there is no #deny:equals:"
 	self deny: (v at: 1) isNil
 ]
 

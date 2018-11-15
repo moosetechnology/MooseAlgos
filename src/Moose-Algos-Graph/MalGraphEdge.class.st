@@ -22,7 +22,7 @@ Class {
 	#category : #'Moose-Algos-Graph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 MalGraphEdge class >> with: aModel [
 
 	^ self new model: aModel
@@ -65,14 +65,14 @@ MalGraphEdge >> model: aModel [
 	model := aModel
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 MalGraphEdge >> printOn: aStream [
 	self from printOn: aStream.
 	aStream << ' -> '.
 	self to printOn: aStream
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 MalGraphEdge >> printString [
 
 	^ self from printString, ' -> ', self to printString

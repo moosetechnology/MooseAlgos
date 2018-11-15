@@ -21,16 +21,10 @@ MalSccExtractor >> circuits [
 	^ circuits
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 MalSccExtractor >> initialize [ 
 
 	super initialize.
 	circuits := Set new.
 
-]
-
-{ #category : #running }
-MalSccExtractor >> run [
-
-	self subclassResponsibility
 ]

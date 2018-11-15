@@ -104,8 +104,7 @@ MalDendrogram >> isRight [
 
 { #category : #testing }
 MalDendrogram >> isRoot [
-	
-	^parent == nil
+	^ parent isNil
 ]
 
 { #category : #accessing }
@@ -160,6 +159,11 @@ MalDendrogram >> orderLeafs [
 MalDendrogram >> parent [
 	
 	^parent
+]
+
+{ #category : #accessing }
+MalDendrogram >> parent: anObject [
+	parent := anObject
 ]
 
 { #category : #removing }

@@ -6,7 +6,6 @@ Class {
 	#superclass : #MalSymetricMatrix,
 	#instVars : [
 		'distanceBlock',
-		'columnVector',
 		'items',
 		'dendrogram'
 	],
@@ -42,12 +41,6 @@ MalDistanceSquare class >> on: items using: distanceBlock [
 	^(self new: items size)
 		initialize: items using: distanceBlock;
 		yourself
-]
-
-{ #category : #private }
-MalDistanceSquare class >> vectorSpecies [
-	
-	^MalArrayVector	"FloatVector"
 ]
 
 { #category : #accessing }

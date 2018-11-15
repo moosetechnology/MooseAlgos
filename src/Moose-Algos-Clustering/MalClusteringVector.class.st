@@ -28,35 +28,22 @@ MalClusteringVector >> found [
 
 { #category : #accessing }
 MalClusteringVector >> min [
-	"| min0 found0 |"
-
-	found ifNil: [ self update ].	"min0 := Unlimited positive.
-	1 to: self size do: [ :index |
-		(self at: index) < min0 
-			ifTrue: [ min0 := (self at: index). found0 := index ]].
-	[ found0 = found ] assert."
+	found ifNil: [ self update ].
 	^ min
 ]
 
 { #category : #accessing }
 MalClusteringVector >> unsetAt: index [
-	
-	super
-		at: index
-		put: MalUnlimited positive.
-	found = index ifTrue: [found := nil]
+	super at: index put: MalUnlimited positive.
+	found = index ifTrue: [ found := nil ]
 ]
 
 { #category : #private }
 MalClusteringVector >> update [
-	
 	min := MalUnlimited positive.
-	1
-		to: self size
-		do:
-			[:tmpIndex | 
-			(self at: tmpIndex) < min
-				ifTrue:
-					[min := self at: tmpIndex.
-					found := tmpIndex]]
+	self
+		doWithIndex: [ :each :ind | 
+			each < min
+				ifTrue: [ min := each.
+					found := ind ] ]
 ]

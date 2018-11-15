@@ -1,3 +1,10 @@
+# [v1.1.0](https://github.com/moosetechnology/MooseAlgos/compare/v1.0.1...v1.1.0) (2018-11-15)
+
+
+## Features
+
+* **Add graph generators from Serge Stinckwich** ([6c16ef](https://github.com/moosetechnology/MooseAlgos/commit/6c16ef2dc200693b05fb7c5709d10ff30340919d))
+
 # [v1.0.1](https://github.com/moosetechnology/MooseAlgos/compare/v1.0.0...v1.0.1) (2018-11-15)
 
 

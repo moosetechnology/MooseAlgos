@@ -14,7 +14,7 @@ MalDisjointSetsTest >> setUp [
 	ds := MalDisjointSets new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalDisjointSetsTest >> test1Component [
 	| components |
 	ds nodes: (1 to: 5).
@@ -27,7 +27,7 @@ MalDisjointSetsTest >> test1Component [
 	self assert: ((1 to: 5) hasEqualElements: components first)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalDisjointSetsTest >> test2Components [
 	| components twoNodes threeNodes |
 	ds nodes: (1 to: 5).
@@ -43,7 +43,7 @@ MalDisjointSetsTest >> test2Components [
 	self assert: ((4 to: 5) hasEqualElements: twoNodes).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalDisjointSetsTest >> test3Components [
 	| components twoNodes threeNodes singleNodeC |
 	ds nodes: (1 to: 6).

@@ -1,11 +1,11 @@
 Class {
-	#name : #MalHgNodeTests,
+	#name : #MalHgNodeTest,
 	#superclass : #TestCase,
 	#category : #'Moose-Tests-Algos-HierarchicalGraph'
 }
 
 { #category : #tests }
-MalHgNodeTests >> testParentOnLevel [
+MalHgNodeTest >> testParentOnLevel [
 	| hg rootNodes |
 	rootNodes := OrderedCollection new.
 	rootNodes

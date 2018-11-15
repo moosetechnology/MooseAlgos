@@ -14,7 +14,7 @@ MalBreadthFirstSearchPathTest >> setUp [
 	bfsp := MalBreadthFirstSearchPath new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalBreadthFirstSearchPathTest >> testAseGraph [
 	"
 	self debug: #testAseGraph
@@ -30,7 +30,7 @@ MalBreadthFirstSearchPathTest >> testAseGraph [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 MalBreadthFirstSearchPathTest >> testSimpleGraph [
 	"
 	self debug: #testSimpleGraph

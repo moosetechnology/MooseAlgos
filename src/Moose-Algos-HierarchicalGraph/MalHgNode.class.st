@@ -47,34 +47,29 @@ Class {
 	#category : #'Moose-Algos-HierarchicalGraph'
 }
 
-{ #category : #creation }
+{ #category : #'instance creation' }
 MalHgNode class >> in: hiGraph with: aModel [
 	"Creates a new instance of a MalHgNode for given hiGraph, with given object as model."
-	| node |
-	node := MalHgNode new.
-	node hiGraph: hiGraph.
-	node model: aModel.
-	^ node.
+
+	^ self in: hiGraph with: aModel level: nil
 ]
 
-{ #category : #creation }
+{ #category : #'instance creation' }
 MalHgNode class >> in: hiGraph with: aModel level: level [
 	"Creates a new instance of a MalHgNode for given hiGraph, with given object as model, on given level."
-	| node |
-	node := MalHgNode new.
-	node model: aModel.
-	node hiGraph: hiGraph.
-	node level: level.
-	^ node.
+
+	^ self new
+		model: aModel;
+		hiGraph: hiGraph;
+		level: level;
+		yourself
 ]
 
-{ #category : #creation }
+{ #category : #'instance creation' }
 MalHgNode class >> with: aModel [
 	"Creates a new instance of a MalHgNode with given object as model"
-	| node |
-	node := MalHgNode new.
-	node model: aModel.
-	^ node.
+
+	^ self in: nil with: aModel level: nil
 ]
 
 { #category : #adding }

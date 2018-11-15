@@ -2,30 +2,16 @@ Class {
 	#name : #MalTarjanTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'tarjan',
-		'window'
+		'tarjan'
 	],
 	#category : #'Moose-Tests-Algos-Graph'
 }
-
-{ #category : #running }
-MalTarjanTest >> expectedFailures [
-	^ (Smalltalk environment hasClassNamed: 'MOViewRenderer')
-		  ifTrue: [ super expectedFailures ]
-		  ifFalse: [ Array with: #testMondrianSample ]
-]
 
 { #category : #running }
 MalTarjanTest >> setUp [
 	super setUp.
 	tarjan := MalTarjan new.
 
-]
-
-{ #category : #running }
-MalTarjanTest >> tearDown [
-	window ifNotNil: [ window delete ].
-	super tearDown
 ]
 
 { #category : #tests }
@@ -86,22 +72,6 @@ MalTarjanTest >> testCycle [
 	self deny: (tarjan findNode: $d) isInCycle.
 	self assert: (a cycleNodes includesAll: cycleNodesOfA).
 	self assert: (cycleNodesOfA includesAll: a cycleNodes)
-]
-
-{ #category : #example }
-MalTarjanTest >> testMondrianSample [
-	| view firstGraph windowAndView nodes actionBlock |
-	windowAndView := MalTarjan mondrianSample.
-	window := windowAndView first.
-	view := windowAndView second.
-	self assert: view root nodes size equals: 5.
-	firstGraph := view root nodes first.
-	nodes := firstGraph nodes.
-	self assert: nodes size equals: 8.
-	self assert: (nodes allSatisfy: [ :n | (n shape fillColorFor: n) == Color white ]).
-	actionBlock := firstGraph announcer menuItems first value.
-	self shouldnt: [ actionBlock value: firstGraph model ] raise: Error.
-	self assert: (nodes noneSatisfy: [ :n | (n shape fillColorFor: n) == Color white ])
 ]
 
 { #category : #tests }

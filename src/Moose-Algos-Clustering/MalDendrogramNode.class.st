@@ -14,16 +14,11 @@ Class {
 
 { #category : #'instance creation' }
 MalDendrogramNode class >> with: left with: right at: threshold [
-	
-	| new |
-	new := (self new)
-		instVarNamed: 'left' put: left;
-		instVarNamed: 'right' put: right;
-		instVarNamed: 'threshold' put: threshold;
-		yourself.
-	left instVarNamed: 'parent' put: new.
-	right instVarNamed: 'parent' put: new.
-	^new
+	^ self new
+		left: left;
+		right: right;
+		threshold: threshold;
+		yourself
 ]
 
 { #category : #enumerating }
@@ -44,6 +39,12 @@ MalDendrogramNode >> leavesDo: aBlock [
 MalDendrogramNode >> left [
 	
 	^left
+]
+
+{ #category : #accessing }
+MalDendrogramNode >> left: anObject [
+	left := anObject.
+	anObject parent: self
 ]
 
 { #category : #enumerating }
@@ -84,6 +85,12 @@ MalDendrogramNode >> right [
 ]
 
 { #category : #accessing }
+MalDendrogramNode >> right: anObject [
+	right := anObject.
+	anObject parent: self
+]
+
+{ #category : #accessing }
 MalDendrogramNode >> size [
 	
 	^left size + right size
@@ -102,4 +109,9 @@ MalDendrogramNode >> swap [
 MalDendrogramNode >> threshold [
 	
 	^threshold
+]
+
+{ #category : #accessing }
+MalDendrogramNode >> threshold: anObject [
+	threshold := anObject
 ]

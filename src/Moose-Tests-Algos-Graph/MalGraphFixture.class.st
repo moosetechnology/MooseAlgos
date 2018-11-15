@@ -1,3 +1,9 @@
+"
+Description
+--------------------
+
+I am a facade containing some behavior used by MooseAlgos tests.
+"
 Class {
 	#name : #MalGraphFixture,
 	#superclass : #Object,

@@ -18,8 +18,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'sizeTo',
-		'wordsToBeRemoved',
-		'pairs'
+		'wordsToBeRemoved'
 	],
 	#classVars : [
 		'LetterFrequency'
@@ -37,7 +36,7 @@ MalKontractor class >> bench [
 	Time millisecondsToRun: [10000 timesRepeat: [ (self new: 3 ) removeOne: 'hllo']]
 ]
 
-{ #category : #initialize }
+{ #category : #'class initialization' }
 MalKontractor class >> initialize [
 	"self initialize"
 	
@@ -202,12 +201,10 @@ MalKontractor >> cut: aCollectionOfRoots contractUpTo: anInteger [
 	
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalKontractor >> initialize [
-	
 	super initialize.
 	wordsToBeRemoved := #().
-	pairs := {}.
 	self upTo: 5
 ]
 

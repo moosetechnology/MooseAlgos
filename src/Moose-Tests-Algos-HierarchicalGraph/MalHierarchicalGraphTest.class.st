@@ -1,43 +1,34 @@
 Class {
-	#name : #MalHierarchicalGraphTests,
+	#name : #MalHierarchicalGraphTest,
 	#superclass : #TestCase,
-	#classInstVars : [
-		'repository'
-	],
 	#category : #'Moose-Tests-Algos-HierarchicalGraph'
 }
 
 { #category : #util }
-MalHierarchicalGraphTests >> recursiveStringFactory: aString in: aSet to: aLevel. [
-	aString size < aLevel
-	ifTrue: [
-		| childA childB childC |
-		childA := aString , 'a'.
-		aSet add: childA.
-		self recursiveStringFactory: childA in: aSet to: aLevel. 
-		childB := aString , 'b'.
-		aSet add: childB.
-		self recursiveStringFactory: childB in: aSet to: aLevel. 
-		childC := aString , 'c'.
-		aSet add: childC.
-		self recursiveStringFactory: childC in: aSet to: aLevel. 
-	].
-	
-	
+MalHierarchicalGraphTest >> recursiveStringFactory: aString in: aSet to: aLevel [
+	| childA childB childC |
+	aString size < aLevel ifFalse: [ ^ self ].
+	childA := aString , 'a'.
+	aSet add: childA.
+	self recursiveStringFactory: childA in: aSet to: aLevel.
+	childB := aString , 'b'.
+	aSet add: childB.
+	self recursiveStringFactory: childB in: aSet to: aLevel.
+	childC := aString , 'c'.
+	aSet add: childC.
+	self recursiveStringFactory: childC in: aSet to: aLevel
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupSimpleBottomUpModel [
-	| hg result |
-	result := OrderedCollection new.
+MalHierarchicalGraphTest >> setupSimpleBottomUpModel [
+	| hg |
 	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel). 
 	hg topDown: #children.
-	(hg nodesOnLevel: 4) do: [ :e | result add: e model ].
-	^ result.
+	^ (hg nodesOnLevel: 4) collect: #model
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupSimpleBottomUpModelHiGraph [
+MalHierarchicalGraphTest >> setupSimpleBottomUpModelHiGraph [
 	| hg  |
 
 	hg := MalHierarchicalGraph with: (self setupSimpleBottomUpModel).
@@ -47,7 +38,7 @@ MalHierarchicalGraphTests >> setupSimpleBottomUpModelHiGraph [
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupSimpleNumbersHiGraph [
+MalHierarchicalGraphTest >> setupSimpleNumbersHiGraph [
 	| hg leafs relationships |
 
 	"Creates a very simple hiGraph with intergers as nodes. 
@@ -89,7 +80,7 @@ MalHierarchicalGraphTests >> setupSimpleNumbersHiGraph [
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupSimpleTopDownModel [
+MalHierarchicalGraphTest >> setupSimpleTopDownModel [
 	| parent randomizer nodesToProcess numberOfChildrenAdded child root levelsToCreate childrenToCreate |
 	
 	"If these values get changed, tests have to be adapted."
@@ -101,7 +92,7 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModel [
 	root := MalHgTestModelSimple new.
 	root model: 0.
 	root level: 0.
-	nodesToProcess := FILOStack new.
+	nodesToProcess := Stack new.
 	nodesToProcess add: root.
 
 	[nodesToProcess notEmpty] whileTrue: [
@@ -124,7 +115,7 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModel [
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
+MalHierarchicalGraphTest >> setupSimpleTopDownModelHiGraph [
 	| hg |
 
 	hg := MalHierarchicalGraph with: (self setupSimpleTopDownModel).
@@ -134,14 +125,14 @@ MalHierarchicalGraphTests >> setupSimpleTopDownModelHiGraph [
 ]
 
 { #category : #setup }
-MalHierarchicalGraphTests >> setupVerySimpleHierarchicalGraph [
+MalHierarchicalGraphTest >> setupVerySimpleHierarchicalGraph [
 	| hg |
 	hg := MalHierarchicalGraph with: 'aBaseEntity'.
 	self assert: hg nodes size equals: 1
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testBaseEntity [
+MalHierarchicalGraphTest >> testBaseEntity [
 	| hg |
 	hg := MalHierarchicalGraph with: (OrderedCollection with: 2).
 	self assert: hg nodes notEmpty.
@@ -150,7 +141,7 @@ MalHierarchicalGraphTests >> testBaseEntity [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testBlockBasedApiBottomUp [
+MalHierarchicalGraphTest >> testBlockBasedApiBottomUp [
 	| hg |
 	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: [ :e | e parent ].
@@ -169,7 +160,7 @@ MalHierarchicalGraphTests >> testBlockBasedApiBottomUp [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testBottomUpDeepGraphBuilding [
+MalHierarchicalGraphTest >> testBottomUpDeepGraphBuilding [
 	| hg rootNodes leafNodes |
 	
 	rootNodes := OrderedCollection new.
@@ -208,7 +199,7 @@ MalHierarchicalGraphTests >> testBottomUpDeepGraphBuilding [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testBottomUpGraphBuilding [
+MalHierarchicalGraphTest >> testBottomUpGraphBuilding [
 	| hg rootNodes otherNodes |
 	
 	rootNodes := OrderedCollection new.
@@ -239,7 +230,7 @@ MalHierarchicalGraphTests >> testBottomUpGraphBuilding [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testClassBasedApiBottomUp [
+MalHierarchicalGraphTest >> testClassBasedApiBottomUp [
 	| hg |
 	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: {(MalHgTestModelSimple -> #parent)}.
@@ -258,7 +249,7 @@ MalHierarchicalGraphTests >> testClassBasedApiBottomUp [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testClassBasedApiTopDown [
+MalHierarchicalGraphTest >> testClassBasedApiTopDown [
 	| hg |
 	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel.
 	hg topDown: {(MalHgTestModelSimple -> #children)}.
@@ -277,7 +268,7 @@ MalHierarchicalGraphTests >> testClassBasedApiTopDown [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testClassBasedBlockApiBottomUp [
+MalHierarchicalGraphTest >> testClassBasedBlockApiBottomUp [
 	| hg |
 	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: {(MalHgTestModelSimple -> [ :e | e parent ])}.
@@ -301,7 +292,7 @@ MalHierarchicalGraphTests >> testClassBasedBlockApiBottomUp [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testDeepestLevel [
+MalHierarchicalGraphTest >> testDeepestLevel [
 	| hg rootNodes |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
@@ -319,7 +310,7 @@ MalHierarchicalGraphTests >> testDeepestLevel [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testEdgePropagationAsymetrical [
+MalHierarchicalGraphTest >> testEdgePropagationAsymetrical [
 	| hg rootNodes relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
@@ -345,8 +336,8 @@ MalHierarchicalGraphTests >> testEdgePropagationAsymetrical [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodes [
-	| hg rootNodes visualizer relationships |
+MalHierarchicalGraphTest >> testEdgePropagationMultipleRootNodes [
+	| hg rootNodes relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes
 		add: 'a';
@@ -376,7 +367,7 @@ MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodes [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodesAsymetric [
+MalHierarchicalGraphTest >> testEdgePropagationMultipleRootNodesAsymetric [
 	| hg rootNodes relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes
@@ -408,8 +399,8 @@ MalHierarchicalGraphTests >> testEdgePropagationMultipleRootNodesAsymetric [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testEdgePropagationSimple [
-	| hg rootNodes visualizer relationships |
+MalHierarchicalGraphTest >> testEdgePropagationSimple [
+	| hg rootNodes relationships |
 	rootNodes := OrderedCollection new.
 	rootNodes add: 'a'.
 	hg := MalHierarchicalGraph with: rootNodes.
@@ -434,7 +425,7 @@ MalHierarchicalGraphTests >> testEdgePropagationSimple [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testEmptyHiGraph [
+MalHierarchicalGraphTest >> testEmptyHiGraph [
 	| hg |
 	hg := MalHierarchicalGraph with: OrderedCollection new.
 	self assert: hg nodes isEmpty.
@@ -443,7 +434,7 @@ MalHierarchicalGraphTests >> testEmptyHiGraph [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testGraphAsTuple [
+MalHierarchicalGraphTest >> testGraphAsTuple [
 	| hg rootNodes edges hierarchy |
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
@@ -465,7 +456,7 @@ MalHierarchicalGraphTests >> testGraphAsTuple [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testLevels [
+MalHierarchicalGraphTest >> testLevels [
 	| hg |
 	hg := self setupSimpleNumbersHiGraph.
 	self assert: (hg nodeWrapping: 1) level equals: 0.
@@ -479,7 +470,7 @@ MalHierarchicalGraphTests >> testLevels [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testNodeWrapping [
+MalHierarchicalGraphTest >> testNodeWrapping [
 	| hg |
 	hg := self setupSimpleNumbersHiGraph.
 	self assert: (hg nodeWrapping: 999) equals: nil.
@@ -488,7 +479,7 @@ MalHierarchicalGraphTests >> testNodeWrapping [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testNodesForEntities [
+MalHierarchicalGraphTest >> testNodesForEntities [
 	| hg |
 	hg := self setupSimpleNumbersHiGraph.
 	self assert: (hg nodesFor: Set new) isEmpty.
@@ -537,7 +528,7 @@ MalHierarchicalGraphTests >> testNodesForEntities [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testRecursiveChildren [
+MalHierarchicalGraphTest >> testRecursiveChildren [
 	| hg |
 	hg := self setupSimpleTopDownModelHiGraph.	
 	
@@ -551,7 +542,7 @@ MalHierarchicalGraphTests >> testRecursiveChildren [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testSimpleApiBottomUp [
+MalHierarchicalGraphTest >> testSimpleApiBottomUp [
 	| hg |
 	hg := MalHierarchicalGraph with: self setupSimpleBottomUpModel.
 	hg bottomUp: #parent.
@@ -570,7 +561,7 @@ MalHierarchicalGraphTests >> testSimpleApiBottomUp [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testSimpleApiTopDown [
+MalHierarchicalGraphTest >> testSimpleApiTopDown [
 	| hg |
 	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel.
 	hg topDown: #children.
@@ -589,7 +580,7 @@ MalHierarchicalGraphTests >> testSimpleApiTopDown [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testSimpleEdgeApi [
+MalHierarchicalGraphTest >> testSimpleEdgeApi [
 	| hg rootNodes edges |
 	rootNodes := OrderedCollection new.
 	rootNodes
@@ -625,7 +616,7 @@ MalHierarchicalGraphTests >> testSimpleEdgeApi [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testSimpleEdgeApiWithModel [
+MalHierarchicalGraphTest >> testSimpleEdgeApiWithModel [
 	| hg rootNodes edges |
 	rootNodes := OrderedCollection new.
 	rootNodes
@@ -688,7 +679,7 @@ MalHierarchicalGraphTests >> testSimpleEdgeApiWithModel [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testSimpleModel [
+MalHierarchicalGraphTest >> testSimpleModel [
 	| root |
 	root := self setupSimpleTopDownModel.	"We have four levels"
 	self assert: root children size equals: 3.
@@ -701,14 +692,14 @@ MalHierarchicalGraphTests >> testSimpleModel [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testSingleNodeHiGraph [
+MalHierarchicalGraphTest >> testSingleNodeHiGraph [
 	| hg |
 	hg := MalHierarchicalGraph with: (OrderedCollection with: 'someBaseEntity').
 	self assert: hg nodes size equals: 1
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testTopDownDeepGraphBuilding [
+MalHierarchicalGraphTest >> testTopDownDeepGraphBuilding [
 	| hg rootNodes |
 	
 	rootNodes := OrderedCollection new.
@@ -752,7 +743,7 @@ MalHierarchicalGraphTests >> testTopDownDeepGraphBuilding [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testTopDownGraphBuilding [
+MalHierarchicalGraphTest >> testTopDownGraphBuilding [
 	| hg rootNodes |
 	
 	rootNodes := OrderedCollection new.
@@ -789,7 +780,7 @@ MalHierarchicalGraphTests >> testTopDownGraphBuilding [
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testVerySimpleHierarchicalGraph [
+MalHierarchicalGraphTest >> testVerySimpleHierarchicalGraph [
 	| hg rootNodes edges hierarchy |
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
@@ -808,49 +799,35 @@ MalHierarchicalGraphTests >> testVerySimpleHierarchicalGraph [
 	hg addEdges: edges from: [ :e | e key ] to: [ :e | e value ].
 	self assert: hg edges size equals: 4.
 	hg propagateEdges.
-	self assert: hg edges size > 0.
+	self assert: hg edges isNotEmpty.
 	self assert: hg edges size equals: 10.
-	self assert: (hg edges contains: [ :rel | rel from model = 6 and: [ rel to model = 7 ] ])
+	self assert: (hg edges anySatisfy: [ :rel | rel from model = 6 and: [ rel to model = 7 ] ])
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testfindEdge [
+MalHierarchicalGraphTest >> testfindEdge [
 	| hg rootNodes edges hierarchy |
-	
 	"leafs := #(1 2 3 4 5)."
 	rootNodes := #(6 7).
-	
 	hg := MalHierarchicalGraph with: rootNodes.
-	
 	edges := OrderedCollection new.
-	edges 
-		add: (1 -> 2);
-		add: (1 -> 3);
-		add: (3 -> 4);
-		add: (2 -> 5).
-		
+	edges
+		add: 1 -> 2;
+		add: 1 -> 3;
+		add: 3 -> 4;
+		add: 2 -> 5.
 	hierarchy := Dictionary new.
-	hierarchy 
+	hierarchy
 		at: 6 put: #(1 2 3);
 		at: 7 put: #(4 5).
-	
-	hg topDown: [ :m |
-		hierarchy at: m ifAbsent: [ nil ].
-	].
-	
-	hg addEdges: edges 
-		from:  [:e | e key]
-		to: [:e | e value].
-
+	hg topDown: [ :m | hierarchy at: m ifAbsent: [ nil ] ].
+	hg addEdges: edges from: [ :e | e key ] to: [ :e | e value ].
 	hg propagateEdges.
-	
-	self assert: (hg edges contains: [ :e | e = (hg findEdge: (1 -> 2)) ]).
-
-
+	self assert: (hg edges anySatisfy: [ :e | e = (hg findEdge: 1 -> 2) ])
 ]
 
 { #category : #tests }
-MalHierarchicalGraphTests >> testfindNode [
+MalHierarchicalGraphTest >> testfindNode [
 	| hg |
 	hg := MalHierarchicalGraph with: self setupSimpleTopDownModel.
 	hg topDown: {(MalHgTestModelSimple -> #children)}.

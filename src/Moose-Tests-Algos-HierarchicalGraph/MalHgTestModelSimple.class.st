@@ -1,3 +1,9 @@
+"
+Description
+--------------------
+
+I am a Mock class for Mosse Algos tests
+"
 Class {
 	#name : #MalHgTestModelSimple,
 	#superclass : #Object,
@@ -20,9 +26,9 @@ MalHgTestModelSimple >> children: anObject [
 	children := anObject
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalHgTestModelSimple >> initialize [
-	children := OrderedCollection new.
+	children := OrderedCollection new
 ]
 
 { #category : #testing }
@@ -65,21 +71,21 @@ MalHgTestModelSimple >> parent: anObject [
 	parent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #printing }
 MalHgTestModelSimple >> printOn: aStream [
 	aStream
 		nextPutAll: 'Test: ';
 		nextPutAll: model asString.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #enumerating }
 MalHgTestModelSimple >> recursiveChildren [
 	"Returns the whole family tree below myself (excluding myself). "
 	^ self recursiveChildren: false.
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #enumerating }
 MalHgTestModelSimple >> recursiveChildren: withMyself [
 	"Returns the whole family tree below myself. 
 	If withMyself is true, also add myself to the returning set."

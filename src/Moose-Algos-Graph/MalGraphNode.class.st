@@ -10,7 +10,7 @@ Class {
 	#category : #'Moose-Algos-Graph'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 MalGraphNode class >> with: aModel [
 
 	^ self new model: aModel

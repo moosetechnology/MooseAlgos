@@ -108,26 +108,26 @@ MalMatrixTest >> testIsZero [
 MalMatrixTest >> testMatrixMultiplicationDimension [
 	"comment stating purpose of message"
 
-	| A B |
-	A := self matrixClass withAll: #(#(1 2 3) #(4 5 6)).
-	B := self matrixClass withAll: #(#(6 -1) #(3 2) #(0 -3)).
-	self assert: (A *~ B) dimension equals: 2 @ 2.
-	self assert: (B *~ A) dimension equals: 3 @ 3.
-	self assert: (A transposed *~ A) dimension equals: 3 @ 3.
-	self assert: (B transposed *~ B) dimension equals: 2 @ 2
+	| a b |
+	a := self matrixClass withAll: #(#(1 2 3) #(4 5 6)).
+	b := self matrixClass withAll: #(#(6 -1) #(3 2) #(0 -3)).
+	self assert: (a *~ b) dimension equals: 2 @ 2.
+	self assert: (b *~ a) dimension equals: 3 @ 3.
+	self assert: (a transposed *~ a) dimension equals: 3 @ 3.
+	self assert: (b transposed *~ b) dimension equals: 2 @ 2
 ]
 
 { #category : #test }
 MalMatrixTest >> testMatrixMultiplicationValues [
 	"comment stating purpose of message"
 
-	| A B |
-	A := self matrixClass withAll: #(#(1 2 3) #(4 5 6)).
-	B := self matrixClass withAll: #(#(6 -1) #(3 2) #(0 -3)).
-	self assert: A *~ B equals: (self matrixClass withAll: #(#(12 -6) #(39 -12))).
-	self assert: B *~ A equals: (self matrixClass withAll: #(#(2 7 12) #(11 16 21) #(-12 -15 -18))).
-	self assert: A transposed *~ A equals: (self matrixClass withAll: #(#(17 22 27) #(22 29 36) #(27 36 45))).
-	self assert: B transposed *~ B equals: (self matrixClass withAll: #(#(45 0) #(0 14)))
+	| a b |
+	a := self matrixClass withAll: #(#(1 2 3) #(4 5 6)).
+	b := self matrixClass withAll: #(#(6 -1) #(3 2) #(0 -3)).
+	self assert: a *~ b equals: (self matrixClass withAll: #(#(12 -6) #(39 -12))).
+	self assert: b *~ a equals: (self matrixClass withAll: #(#(2 7 12) #(11 16 21) #(-12 -15 -18))).
+	self assert: a transposed *~ a equals: (self matrixClass withAll: #(#(17 22 27) #(22 29 36) #(27 36 45))).
+	self assert: b transposed *~ b equals: (self matrixClass withAll: #(#(45 0) #(0 14)))
 ]
 
 { #category : #test }
@@ -160,11 +160,11 @@ MalMatrixTest >> testMultWithNumber [
 
 { #category : #test }
 MalMatrixTest >> testReadDenseTextFrom [
-	| matrix text stream result |
+	| matrix text stream |
 	matrix := MalArrayMatrix withAll: #(#(2.3 0 4.2) #(0 1.3 2.2) #(3.8 0 0.5) #(0 0 0)).
 	text := '4 3\2.3 0 4.2\0 1.3 2.2\3.8 0 0.5\0 0 0\' withCRs.
 	stream := ReadStream on: text.
-	self assert: matrix equals: (result := self matrixClass readFromDenseText: stream)
+	self assert: matrix equals: (self matrixClass readFromDenseText: stream)
 ]
 
 { #category : #test }

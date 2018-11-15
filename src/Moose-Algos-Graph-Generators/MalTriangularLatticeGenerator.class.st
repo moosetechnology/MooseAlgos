@@ -22,7 +22,7 @@ MalTriangularLatticeGenerator class >> example1 [
 	| v g nodes edges nbNodes |
 	v := RTView new.
 	nbNodes := 10.
-	g := MalTriangularLatticeGenerator new.
+	g := self new.
 	g
 		n: 10;
 		m: 10.
@@ -49,10 +49,9 @@ MalTriangularLatticeGenerator class >> example1 [
 
 { #category : #examples }
 MalTriangularLatticeGenerator class >> example2 [
-	| v g nodes edges nbNodes |
+	| v g nodes edges |
 	v := RTView new.
-	nbNodes := 20.
-	g := MalTriangularLatticeGenerator new.
+	g := self new.
 	g
 		n: 20;
 		m: 20.
@@ -82,7 +81,7 @@ MalTriangularLatticeGenerator >> activeNodes: anObject [
 	activeNodes := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalTriangularLatticeGenerator >> buildLinks [
 	"Connect each nodes to nodes that are in 2 steps "
 
@@ -154,7 +153,7 @@ MalTriangularLatticeGenerator >> nodeClass [
 	^ Mal2DGridNode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalTriangularLatticeGenerator >> nodesAtDistance: aDistance toNode: aNode [
 	"Return nodes that are at the distance p to a node"
 
@@ -168,7 +167,7 @@ MalTriangularLatticeGenerator >> nodesAtDistance: aDistance toNode: aNode [
 			((k - i) raisedTo:2) + ((l - j) raisedTo:2) = aDistance ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalTriangularLatticeGenerator >> nodesOnLineAtDistance: aDistance toNode: aNode [
 	"Return nodes that are at the distance p to a node"
 

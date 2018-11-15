@@ -11,7 +11,7 @@ Class {
 MalErdosRenyiGNPGraphGenerator class >> example1 [
 	| v g nodes edges |
 	v := RTView new.
-	g := MalErdosRenyiGNPGraphGenerator new.
+	g := self new.
 	g
 		nodes: (1 to: 30);
 		probability: 0.1.

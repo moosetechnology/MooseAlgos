@@ -14,7 +14,7 @@ MalHexagonalLatticeGenerator class >> example1 [
 	| v g nodes edges nbNodes |
 	v := RTView new.
 	nbNodes := 20.
-	g := MalHexagonalLatticeGenerator new.
+	g := self new.
 	g
 		n: 20;
 		m: 20.
@@ -43,7 +43,7 @@ MalHexagonalLatticeGenerator class >> example1 [
 MalHexagonalLatticeGenerator class >> example2 [
 	| v g nodes edges |
 	v := RTView new.
-	g := MalHexagonalLatticeGenerator new.
+	g := self new.
 	g
 		n: 6;
 		m: 6.
@@ -73,7 +73,7 @@ MalHexagonalLatticeGenerator >> activeNodes: anObject [
 	activeNodes := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalHexagonalLatticeGenerator >> buildLinks [
 	"Connect each nodes to nodes that are in 2 steps "
 
@@ -173,7 +173,7 @@ MalHexagonalLatticeGenerator >> nodeClass [
 	^ Mal2DGridNode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalHexagonalLatticeGenerator >> nodesAtDistance: aDistance toNode: aNode [
 	"Return nodes that are at the distance p to a node"
 
@@ -187,7 +187,7 @@ MalHexagonalLatticeGenerator >> nodesAtDistance: aDistance toNode: aNode [
 			((k - i) raisedTo:2) + ((l - j) raisedTo:2) = aDistance ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalHexagonalLatticeGenerator >> nodesOnColumnAtDistance: aDistance toNode: aNode [
 	"Return nodes that are at the distance p to a node"
 

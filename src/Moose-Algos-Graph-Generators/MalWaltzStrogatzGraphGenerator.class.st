@@ -2,18 +2,10 @@ Class {
 	#name : #MalWaltzStrogatzGraphGenerator,
 	#superclass : #MalGraphAlgorithm,
 	#instVars : [
-		'beta',
 		'k'
 	],
 	#category : #'Moose-Algos-Graph-Generators'
 }
-
-{ #category : #accessing }
-MalWaltzStrogatzGraphGenerator >> beta: aNumber [
-	"0<=beta<=1"
-
-	beta := aNumber
-]
 
 { #category : #running }
 MalWaltzStrogatzGraphGenerator >> buildRegularLattice [

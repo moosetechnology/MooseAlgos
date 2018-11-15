@@ -16,7 +16,7 @@ Class {
 MalGrid2DGenerator class >> example1 [
 | v g nodes edges |
 	v := RTView new.
-	g := MalGrid2DGenerator new.
+	g := self new.
 	g
 		width: 10;
 		height: 10;
@@ -41,7 +41,7 @@ MalGrid2DGenerator class >> example1 [
 MalGrid2DGenerator class >> example2 [
 | v g nodes edges |
 	v := RTView new.
-	g := MalGrid2DGenerator new.
+	g := self new.
 	g
 		width: 10;
 		height: 10;

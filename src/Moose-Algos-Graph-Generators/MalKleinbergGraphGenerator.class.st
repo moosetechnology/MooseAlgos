@@ -192,7 +192,7 @@ MalKleinbergGraphGenerator >> buildUniformDistributionOfLongRangeLinks [
 				] ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalKleinbergGraphGenerator >> distanceFrom: aNode1 to: aNode2 [
 	| i j k l |
 	i := aNode1 x.
@@ -233,7 +233,7 @@ MalKleinbergGraphGenerator >> nodeClass [
 	^ Mal2DGridNode 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 MalKleinbergGraphGenerator >> nodesLessThanDistance: aDistance toNode: aNode [
 	"Return nodes that are less than distance p to a node"
 

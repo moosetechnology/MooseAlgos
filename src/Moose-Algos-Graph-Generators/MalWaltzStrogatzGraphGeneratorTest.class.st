@@ -13,7 +13,6 @@ MalWaltzStrogatzGraphGeneratorTest >> testNumberOfNodes [
 	g := MalWaltzStrogatzGraphGenerator new.
 	g
 		nodes: (1 to: 30);
-		beta: 0.5;
 		k: 10.
 	g run.
 	self assert: g nodes size equals: 30

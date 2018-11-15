@@ -140,7 +140,7 @@ MalGrid3DGenerator >> run [
 	self nodes: (1 to: length * height * width).
 	neighborhood == #vonNeumann
 		ifTrue: [ self buildVonNeumannNeighorhood ]
-		ifFalse: [ self buildMooreNeighborhood ]
+		ifFalse: [ "self buildMooreNeighborhood" "Not yet implemented" ]
 ]
 
 { #category : #accessing }

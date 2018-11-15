@@ -7,7 +7,7 @@ Class {
 	#category : #'Moose-Algos-Graph-Generators'
 }
 
-{ #category : #accessing }
+{ #category : #configuration }
 MalAlbertBarabasiGraphGenerator >> edgeClass [
 	^ MalGraphEdge
 ]

@@ -1,3 +1,10 @@
+# [v1.1.1](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.0...v1.1.1) (2018-11-24)
+
+
+## Cleaning
+
+* **Move examples depending of Roassal in their own package and add roassal as dependency in an optional group** ([272ef85](https://github.com/moosetechnology/MooseAlgos/commit/272ef85b2d5f0d972a947895cf23ce1eb6f6e5c8))
+
 # [v1.1.0](https://github.com/moosetechnology/MooseAlgos/compare/v1.0.1...v1.1.0) (2018-11-15)
 
 

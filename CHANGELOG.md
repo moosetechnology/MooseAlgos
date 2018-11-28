@@ -1,3 +1,10 @@
+# [v1.1.2](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.1...v1.1.2) (2018-11-28)
+
+
+## Cleaning
+
+* **CollectionExtensions is now in another package** ([23d98db9c99bbe3ea522542a2620e5446b95ee89](https://github.com/moosetechnology/MooseAlgos/commit/23d98db9c99bbe3ea522542a2620e5446b95ee89))
+
 # [v1.1.1](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.0...v1.1.1) (2018-11-24)
 
 

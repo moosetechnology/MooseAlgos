@@ -14,11 +14,12 @@ BaselineOfMooseAlgos >> baseline: spec [
 		for: #common
 		do: [ 
 			"Dependencies"
-			self roassal2: spec.
-			
+			self
+      	collectionExtensions: spec;
+				roassal2: spec.
+
 			"Packages"
 			spec
-				package: 'CollectionExtensions';
 				package: 'Moose-Algos-Clustering' with: [ spec requires: #('Moose-Algos-LinearAlgebra') ];
 				package: 'Moose-Algos-FormalConceptAnalysis';
 				package: 'Moose-Algos-Graph';
@@ -48,8 +49,11 @@ BaselineOfMooseAlgos >> baseline: spec [
 ]
 
 { #category : #dependencies }
+BaselineOfMooseAlgos >> collectionExtensions: spec [
+	spec baseline: 'CollectionExtensions' with: [ spec repository: 'github://pharo-contributions/CollectionExtensions:v1.x.x/src' ]
+]
+
+{ #category : #dependencies }
 BaselineOfMooseAlgos >> roassal2: spec [
-	spec
-		baseline: 'Roassal2'
-		with: [ spec repository: 'github://ObjectProfile/Roassal2/src' ]
+	spec baseline: 'Roassal2' with: [ spec repository: 'github://ObjectProfile/Roassal2/src' ]
 ]

@@ -12,9 +12,12 @@ BaselineOfMooseAlgos >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
-		do: [ "Packages"
+		do: [ 
+			"Dependencies"
+			self collectionExtensions: spec.
+			
+			"Packages"
 			spec
-				package: 'CollectionExtensions';
 				package: 'Moose-Algos-Clustering' with: [ spec requires: #('Moose-Algos-LinearAlgebra') ];
 				package: 'Moose-Algos-FormalConceptAnalysis';
 				package: 'Moose-Algos-Graph';
@@ -38,4 +41,9 @@ BaselineOfMooseAlgos >> baseline: spec [
 			spec
 				group: 'Core' with: #('CollectionExtensions' 'Moose-Algos-Clustering' 'Moose-Algos-FormalConceptAnalysis' 'Moose-Algos-Graph' 'Moose-Algos-Graph-Generators' 'Moose-Algos-HierarchicalGraph' 'Moose-Algos-InformationRetrieval' 'Moose-Algos-Kontractor' 'Moose-Algos-Lattice' 'Moose-Algos-LinearAlgebra');
 				group: 'Tests' with: #('Moose-Algos-Graph-Tests' 'Moose-Algos-Graph-Generators-Tests' 'Moose-Algos-LinearAlgebra-Tests' 'Moose-Algos-Clustering-Tests' 'Moose-Algos-InformationRetrieval-Tests' 'Moose-Algos-FormalConceptAnalysis-Tests' 'Moose-Algos-Kontractor-Tests' 'Moose-Algos-Lattice-Tests' 'Moose-Algos-HierarchicalGraph') ]
+]
+
+{ #category : #dependencies }
+BaselineOfMooseAlgos >> collectionExtensions: spec [
+	spec baseline: 'CollectionExtensions' with: [ spec repository: 'github://pharo-contributions/CollectionExtensions:v1.x.x/src' ]
 ]

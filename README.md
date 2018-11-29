@@ -45,7 +45,8 @@ Note that you can replace the #master by another branch as #development or a tag
 ```Smalltalk
 dijkstra := MalDijkstra new.
 nodes := $a to: $h.
-edges := #(($a $b) ($b $a) ($b $c) ($b $d) ($c $d) ($c $f) ($d $b) ($d $e) ($e $a) ($f $g) ($g $h) ($h $g)).
+edges := #(($a $b) ($b $a) ($b $c) ($b $d) ($c $d) ($c $f) 
+           ($d $b) ($d $e) ($e $a) ($f $g) ($g $h) ($h $g)).
 dijkstra nodes: nodes.
 dijkstra edges: edges from: #first to: #second.
 dijkstra runFrom: $a to: $h
@@ -77,7 +78,12 @@ see https://en.wikipedia.org/wiki/Hierarchical_clustering
 ## Latice
 ### Example
 ```Smalltalk
-	data := #(#(#Cat #(#fourlegs #hair)) #(#Dog #(#smart #fourlegs #hair)) #(#Dolphin #(#smart #marine)) #(#Gibbon #(#hair #smart #thumbed)) #(#Man #(#smart #thumbed)) #(#Whale #(#smart #marine))).
+	data := #(#(#Cat #(#fourlegs #hair)) 
+	  #(#Dog #(#smart #fourlegs #hair)) 
+	  #(#Dolphin #(#smart #marine)) 
+	  #(#Gibbon #(#hair #smart #thumbed)) 
+	  #(#Man #(#smart #thumbed)) 
+	  #(#Whale #(#smart #marine))).
 	formalContext := MalFormalContext new.
 	formalContext with: data using: #first using: #last.
 	lattice := MalLattice on: formalContext.

@@ -63,34 +63,34 @@ see https://en.wikipedia.org/wiki/Hierarchical_clustering
 
 ### Example:
 ```Smalltalk
-	input := #(#(1 2 3 5) #(11 12 15) #(21 22 23 25) #(31 32 35) #(41 42 43 45 47)).
-	clusty := MalClusterEngine with: input flatten shuffle.
-	clusty hierarchicalClusteringUsing: #centroid.
-	clusters := clusty dendrogram breakInto: 5.
+input := #(#(1 2 3 5) #(11 12 15) #(21 22 23 25) #(31 32 35) #(41 42 43 45 47)).
+clusty := MalClusterEngine with: input flatten shuffle.
+clusty hierarchicalClusteringUsing: #centroid.
+clusters := clusty dendrogram breakInto: 5.
 ```
 
 ## Word compacting
 
 ### Example: 
 ```Smalltalk
-	(MalKontractor reduce: 'Hello' upTo: 3) >>> 'Hlo'
+(MalKontractor reduce: 'Hello' upTo: 3) >>> 'Hlo'
 ```
 ## Latice
 ### Example
 ```Smalltalk
-	data := #(#(#Cat #(#fourlegs #hair)) 
-	  #(#Dog #(#smart #fourlegs #hair)) 
-	  #(#Dolphin #(#smart #marine)) 
-	  #(#Gibbon #(#hair #smart #thumbed)) 
-	  #(#Man #(#smart #thumbed)) 
-	  #(#Whale #(#smart #marine))).
-	formalContext := MalFormalContext new.
-	formalContext with: data using: #first using: #last.
-	lattice := MalLattice on: formalContext.
-	patterns := MalLatticePatterns on: lattice.
-	patterns grey "
-		N {{#Dog, #Dolphin, #Gibbon, #Man, #Whale}, {#smart}} 
-		N {{#Cat, #Dog, #Gibbon}, {#hair}}"
+data := #(#(#Cat #(#fourlegs #hair)) 
+  #(#Dog #(#smart #fourlegs #hair)) 
+  #(#Dolphin #(#smart #marine)) 
+  #(#Gibbon #(#hair #smart #thumbed)) 
+  #(#Man #(#smart #thumbed)) 
+  #(#Whale #(#smart #marine))).
+formalContext := MalFormalContext new.
+formalContext with: data using: #first using: #last.
+lattice := MalLattice on: formalContext.
+patterns := MalLatticePatterns on: lattice.
+patterns grey "
+	N {{#Dog, #Dolphin, #Gibbon, #Man, #Whale}, {#smart}} 
+	N {{#Cat, #Dog, #Gibbon}, {#hair}}"
 ```	
 ## Linear algebra
 

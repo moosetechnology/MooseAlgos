@@ -25,7 +25,7 @@ Note that you can replace the #master by another branch as #development or a tag
 
 ## Graph algorithms
 - [Breadth-first search (BFS)](https://en.wikipedia.org/wiki/Breadth-first_search)
-- [Dijkstra's algorithm] (https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
+- [Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)
 - [Disjoint sets](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
 - Dominance
 - Graph reducer

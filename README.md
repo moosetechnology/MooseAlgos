@@ -7,18 +7,18 @@ Moose Algos contains generic libraries for various analysis algorithms.
 To install MooseAlgo on your Pharo image you can just execute the following script:
 
 ```Smalltalk
-    Metacello new
-    	githubUser: 'pharo-contributions' project: 'MooseAlgo' commitish: 'master' path: 'src';
-    	baseline: 'MooseAlgo';
-    	load
+Metacello new
+    githubUser: 'moosetechnology' project: 'MooseAlgos' commitish: 'master' path: 'src';
+    baseline: 'MooseAlgos';
+    load
 ```
 
 To add MooseAlgo to your baseline just add this:
 
 ```Smalltalk
     spec
-    	baseline: 'MooseAlgo'
-    	with: [ spec repository: 'github://pharo-contributions/MooseAlgo:master/src' ]
+    	baseline: 'MooseAlgos'
+    	with: [ spec repository: 'github://moosetechnology/MooseAlgos:master/src' ]
 ```
 
 Note that you can replace the #master by another branch as #development or a tag as #v1.0.0, #v1.? or #v1.2.? .

@@ -4,6 +4,9 @@ Baseline for the MooseAlgo project
 Class {
 	#name : #BaselineOfMooseAlgos,
 	#superclass : #BaselineOf,
+	#instVars : [
+		'repository'
+	],
 	#category : #BaselineOfMooseAlgos
 }
 
@@ -52,6 +55,11 @@ BaselineOfMooseAlgos >> baseline: spec [
 { #category : #dependencies }
 BaselineOfMooseAlgos >> collectionExtensions: spec [
 	spec baseline: 'CollectionExtensions' with: [ spec repository: 'github://pharo-contributions/CollectionExtensions:v1.x.x/src' ]
+]
+
+{ #category : #accessing }
+BaselineOfMooseAlgos >> projectClass [
+	^ MetacelloCypressBaselineProject
 ]
 
 { #category : #dependencies }

@@ -8,12 +8,8 @@ LargePositiveInteger >> bitMaskDo: aBlock [
 	mask := #(1 2 4 8 16 32 64 128).
 	index := 0.
 	"-- iterate over all bytes (called digits here)"
-	1 to: self digitLength do: [ :byteIndex |
-		byte := self digitAt: byteIndex.
-		0 ~~ byte ifTrue: [
-			1 to: 8 do: [ :each |
-				0 ~~ ((mask at: each) bitAnd: byte) ifTrue: [
-					aBlock value: index + each ]]].
-		index := index + 8.
-	].
+	1 to: self bytesCount do: [ :byteIndex | 
+		byte := self byteAt: byteIndex.
+		0 ~~ byte ifTrue: [ 1 to: 8 do: [ :each | 0 ~~ ((mask at: each) bitAnd: byte) ifTrue: [ aBlock value: index + each ] ] ].
+		index := index + 8 ]
 ]

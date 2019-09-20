@@ -18,7 +18,7 @@ BaselineOfMooseAlgos >> baseline: spec [
 		do: [ 
 			"Dependencies"
 			self
-      	collectionExtensions: spec;
+				collectionExtensions: spec;
 				roassal2: spec.
 
 			"Packages"
@@ -49,7 +49,14 @@ BaselineOfMooseAlgos >> baseline: spec [
 				group: 'default' with: #('Core' 'Tests');
 				group: 'Core' with: #('CollectionExtensions' 'Moose-Algos-Clustering' 'Moose-Algos-Clustering-Deprecated' 'Moose-Algos-FormalConceptAnalysis' 'Moose-Algos-Graph' 'Moose-Algos-Graph-Generators' 'Moose-Algos-HierarchicalGraph' 'Moose-Algos-InformationRetrieval' 'Moose-Algos-Kontractor' 'Moose-Algos-Lattice' 'Moose-Algos-LinearAlgebra');
 				group: 'Examples' with: #('Moose-Algos-Graph-Generators-Examples');
-				group: 'Tests' with: #('Moose-Algos-Graph-Tests' 'Moose-Algos-Graph-Generators-Tests' 'Moose-Algos-LinearAlgebra-Tests' 'Moose-Algos-Clustering-Tests' 'Moose-Algos-InformationRetrieval-Tests' 'Moose-Algos-FormalConceptAnalysis-Tests' 'Moose-Algos-Kontractor-Tests' 'Moose-Algos-Lattice-Tests' 'Moose-Algos-HierarchicalGraph') ]
+				group: 'Tests' with: #('Moose-Algos-Graph-Tests' 'Moose-Algos-Graph-Generators-Tests' 'Moose-Algos-LinearAlgebra-Tests' 'Moose-Algos-Clustering-Tests' 'Moose-Algos-InformationRetrieval-Tests' 'Moose-Algos-FormalConceptAnalysis-Tests' 'Moose-Algos-Kontractor-Tests' 'Moose-Algos-Lattice-Tests' 'Moose-Algos-HierarchicalGraph') ].
+			
+	spec
+		for: #(#'pharo4.x' #'pharo5.x' #'pharo6.x' #'pharo7.x')
+		do: [
+			spec
+				package: 'Moose-Algos-Pharo8Compatibility';
+				group: 'Core' with: #('Moose-Algos-Pharo8Compatibility') ]
 ]
 
 { #category : #dependencies }

@@ -1,4 +1,4 @@
-# [v1.1.3](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.2...v1.1.3) (2019-09-20)
+# [v1.1.5](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.4...v1.1.5) (2019-09-20)
 
 
 ## Cleaning

@@ -244,59 +244,34 @@ MalLatticePatterns >> lattice: aLattice [
 MalLatticePatterns >> printModulesReport [
 	| modules nodes |
 	modules := ModuleIdentification on: self lattice.
-	nodes := (modules flatCollect: [ :each | each ]) asSet.
-	modules
-		ifNotNil: [ Transcript
-				show: 'Number of modules ';
-				show: modules size printString;
-				cr.
-			Transcript
-				show: 'Number of Nodes in modules ';
-				show: nodes size printString;
-				cr ]
-		ifNil: [ Transcript
-				show: 'Number of modules 0';
-				cr.
-			Transcript
-				show: 'Number of Nodes in modules 0';
-				cr ]
+	nodes := modules flatten asSet.
+	self
+		trace: 'Number of modules ';
+		traceCr: modules size printString;
+		trace: 'Number of Nodes in modules ';
+		traceCr: nodes size printString
 ]
 
 { #category : #report }
 MalLatticePatterns >> reportPatterns [
-	Transcript
-		show: '# of nodes: ';
-		show: self lattice nodes size printString;
-		cr.
-	Transcript
-		show: 'Connections ';
-		show: self totalConnections printString;
-		cr.
-	Transcript
-		show: 'Top ';
-		show: self isTopPattern printString;
-		cr.
-	Transcript
-		show: 'Bottom ';
-		show: self isBottomPattern printString;
-		cr.
-	Transcript
-		show: 'Specialization ';
-		show: self irreducibleSpecialization keys size printString;
-		cr.
-	Transcript
-		show: 'Specialization ';
-		show: self irreducibleSpecialization values size printString;
-		cr.
-	Transcript
-		show: 'Horizontal Decomposition ';
-		show: self horizontalDecomposition printString;
-		cr.
-	Transcript
-		show: 'Horizontal Decomposition Size ';
-		show: self hDNodeSize printString;
-		cr.
-	self printModulesReport
+	self
+		trace: '# of nodes: ';
+		traceCr: self lattice nodes size printString;
+		trace: 'Connections ';
+		traceCr: self totalConnections printString;
+		trace: 'Top ';
+		traceCr: self isTopPattern printString;
+		trace: 'Bottom ';
+		traceCr: self isBottomPattern printString;
+		trace: 'Specialization ';
+		traceCr: self irreducibleSpecialization keys size printString;
+		trace: 'Specialization ';
+		traceCr: self irreducibleSpecialization values size printString;
+		trace: 'Horizontal Decomposition ';
+		traceCr: self horizontalDecomposition printString;
+		trace: 'Horizontal Decomposition Size ';
+		traceCr: self hDNodeSize printString;
+		printModulesReport
 ]
 
 { #category : #complex }

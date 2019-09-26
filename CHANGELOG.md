@@ -1,3 +1,9 @@
+# [v1.1.6](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.5...v1.1.6) (2019-09-26)
+
+## Cleaning
+
+* Remove hardcoded references to Transcript ([5e306a3](https://github.com/moosetechnology/MooseAlgos/commit/5e306a3e149893d1619215ca78882b480939f99c))
+
 # [v1.1.5](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.4...v1.1.5) (2019-09-20)
 
 

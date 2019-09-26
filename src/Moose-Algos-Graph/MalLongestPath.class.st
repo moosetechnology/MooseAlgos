@@ -29,17 +29,14 @@ MalLongestPath >> computeRootNodes [
 
 { #category : #computing }
 MalLongestPath >> computeStep [
-	| nodesToManage currentRank |
-	self isCompleted
-		ifTrue: [ ^ self ].
+	| currentRank |
+	self isCompleted ifTrue: [ ^ self ].
 	currentRank := OrderedCollection new.
-	nodesToManage := self nodes difference: previousRanks.
-	nodesToManage
-		do: [ :node | 
-			(previousRanks includesAll: node previousNodes)
-				ifTrue: [ currentRank add: node.
-					node
-						pathWeight: (node previousNodes max: [ :maxNode | maxNode pathWeight ]) + 1 ] ].
+	(self nodes difference: previousRanks)
+		select: [ :node | previousRanks includesAll: node previousNodes ]
+		thenDo: [ :node | 
+			currentRank add: node.
+			node pathWeight: (node previousNodes max: [ :maxNode | maxNode pathWeight ]) + 1 ].
 	previousRanks addAll: currentRank.
 	maxIterations := maxIterations - 1.
 	self computeStep

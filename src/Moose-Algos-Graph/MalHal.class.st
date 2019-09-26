@@ -64,7 +64,8 @@ MalHal >> showLevels [
 					s print: k.
 					v
 						do: [ :n | 
-							s nextPutAll: ' '.
-							s print: n ].
+							s
+								space;
+								print: n ].
 					s cr ] ]
 ]

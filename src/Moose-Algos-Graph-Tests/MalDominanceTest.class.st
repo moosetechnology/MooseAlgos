@@ -9,9 +9,8 @@ Class {
 
 { #category : #running }
 MalDominanceTest >> setUp [
-
 	super setUp.
-	dom := MalDominance new.
+	dom := MalDominance new
 ]
 
 { #category : #tests }
@@ -22,11 +21,10 @@ MalDominanceTest >> testCycle [
 	dom nodes
 		do: [ :n | 
 			n model = $c
-				ifTrue: [ 
+				ifTrue: [
 					self assert: n isDominant.
 					self deny: n isDominated ]
-				ifFalse: [ 
-					self deny: n isDominant.
+				ifFalse: [ self deny: n isDominant.
 					n model = $d
 						ifTrue: [ self deny: n isDominated ]
 						ifFalse: [ self assert: n isDominated ] ] ].

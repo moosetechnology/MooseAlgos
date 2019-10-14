@@ -8,44 +8,30 @@ Class {
 }
 
 { #category : #running }
-MalDijkstraTest >> setUp [ 
-
+MalDijkstraTest >> setUp [
 	super setUp.
-	dijsktra := MalDijkstra new.
+	dijsktra := MalDijkstra new
 ]
 
 { #category : #tests }
 MalDijkstraTest >> testAseBasicCircuit [
-	"
-	self debug: #testAseBasicCircuit 
-	"
-
 	MalGraphFixture aseCircuitGraph: dijsktra.
-	"self halt."
-	self 	assert: 1
-			equals: (dijsktra runFrom: $a to: $b).
+
+	self assert: 1 equals: (dijsktra runFrom: $a to: $b).
 	dijsktra reset.
-	self 	assert: 3
-			equals: (dijsktra runFrom: $a to: $e).
+	self assert: 3 equals: (dijsktra runFrom: $a to: $e).
 	dijsktra reset.
-	self 	assert: 2
-			equals: (dijsktra runFrom: $c to: $b).
+	self assert: 2 equals: (dijsktra runFrom: $c to: $b).
 	dijsktra reset.
-	self 	assert: 5 
-			equals: (dijsktra runFrom: $a to: $h).
+	self assert: 5 equals: (dijsktra runFrom: $a to: $h).
 	dijsktra reset.
-	self 	assert: Float infinity 
-			equals: (dijsktra runFrom: $h to: $a).
+	self assert: Float infinity equals: (dijsktra runFrom: $h to: $a)
 ]
 
 { #category : #tests }
 MalDijkstraTest >> testAseBasicCircuitBacktrack [
-	"
-	self debug: #testAseBasicCircuitBacktrack 
-	"
-
 	MalGraphFixture aseCircuitGraph: dijsktra.
-	"self halt."
+
 	self assert: (#($a $b) hasEqualElements: (dijsktra runFrom: $a to: $b; backtrack)).
 	dijsktra reset.
 	self assert: (#($a $b $d $e) hasEqualElements: (dijsktra runFrom: $a to: $e; backtrack)).

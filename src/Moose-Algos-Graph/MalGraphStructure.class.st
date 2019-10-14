@@ -44,6 +44,5 @@ MalGraphStructure >> nodeModels [
 
 { #category : #running }
 MalGraphStructure >> run [
-
-self shouldNotImplement
+	self shouldNotImplement
 ]

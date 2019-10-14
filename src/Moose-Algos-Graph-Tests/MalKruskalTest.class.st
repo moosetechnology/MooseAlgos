@@ -21,72 +21,50 @@ MalKruskalTest >> setUp [
 
 { #category : #tests }
 MalKruskalTest >> testMaxSpanningTree [
-
-
 	| tree expectedEdges |
 	MalGraphFixture simpleWeightedGraph: kruskal.
 	kruskal maxSpanningTree.
-	tree := kruskal run collect: [:e| e asTuple].
+	tree := kruskal run collect: [ :e | e asTuple ].
 
-	expectedEdges := #((1 2 5) (3 4 5) (1 3 4) (1 5 3)).
-	expectedEdges do: [:e|
-		self assert: (tree includes: e)
-	].
-	tree do: [:e|
-		self assert: (expectedEdges includes: e)	
-	]
+	expectedEdges := #(#(1 2 5) #(3 4 5) #(1 3 4) #(1 5 3)).
+	expectedEdges do: [ :e | self assert: (tree includes: e) ].
+	tree do: [ :e | self assert: (expectedEdges includes: e) ]
 ]
 
 { #category : #tests }
 MalKruskalTest >> testMaxSpanningTree2 [
-
-
 	| tree expectedEdges |
 	MalGraphFixture complexWeightedGraph: kruskal.
 	kruskal maxSpanningTree.
-	tree := kruskal run collect: [:e| e asTuple].
+	tree := kruskal run collect: [ :e | e asTuple ].
 
-	expectedEdges := #(($a $b 30) ($b $s 1) ($b $c 30) ($d $e 30) ($d $f 20) ($d $j 10) ($e $a 15) ($f $m 8) ($g $h 20) ($g $r 3) ($i $a 14) ($i $k 4) ($j $q 5) ($k $l 10) ($k $g 5) ($m $n 7) ($m $o 6) ($p $b 5)).
-	expectedEdges do: [:e|
-		self assert: (tree includes: e)
-	].
-	tree do: [:e|
-		self assert: (expectedEdges includes: e)	
-	]
+	expectedEdges := #(#($a $b 30) #($b $s 1) #($b $c 30) #($d $e 30) #($d $f 20) #($d $j 10) #($e $a 15) #($f $m 8) #($g $h 20) #($g $r 3) #($i $a 14) #($i $k 4) #($j $q 5) #($k $l 10) #($k $g 5) #($m $n 7) #($m $o 6) #($p $b 5)).
+	expectedEdges do: [ :e | self assert: (tree includes: e) ].
+	tree do: [ :e | self assert: (expectedEdges includes: e) ]
 ]
 
 { #category : #tests }
 MalKruskalTest >> testMinSpanningTree [
-
 	| tree expectedEdges |
 	MalGraphFixture simpleWeightedGraph: kruskal.
-	tree := kruskal run collect: [:e| e asTuple].
+	tree := kruskal run collect: [ :e | e asTuple ].
 
-	expectedEdges := #((4 5 1) (5 1 2) (2 3 2) (2 4 3)).
-	"self assert: tree asArray = expectedEdges."
-	expectedEdges do: [:e|
-		self assert: (tree includes: e)
-	].
-	tree do: [:e|
-		self assert: (expectedEdges includes: e)	
-	]
+	expectedEdges := #(#(4 5 1) #(5 1 2) #(2 3 2) #(2 4 3)).
+	self assert: tree asArray equals: expectedEdges.
+	expectedEdges do: [ :e | self assert: (tree includes: e) ].
+	tree do: [ :e | self assert: (expectedEdges includes: e) ]
 ]
 
 { #category : #tests }
 MalKruskalTest >> testMinSpanningTree1 [
-
 	| tree expectedEdges |
 	MalGraphFixture complexWeightedGraph: kruskal.
-	tree := kruskal run collect: [:e| e asTuple].
+	tree := kruskal run collect: [ :e | e asTuple ].
 
-	expectedEdges := #(($a $b 30) ($b $s 1) ($b $p 4) ($d $f 20) ($e $a 15) ($f $m 8) ($g $h 20) ($g $r 3) ($i $a 14) ($i $k 4) ($i $d 3) ($j $q 5) ($k $l 10) ($k $g 5) ($m $n 7) ($m $o 6) ($n $c 5) ($q $i 4)).
-	"self assert: tree asArray = expectedEdges."
-	expectedEdges do: [:e|
-		self assert: (tree includes: e)
-	].
-	tree do: [:e|
-		self assert: (expectedEdges includes: e)	
-	]
+	expectedEdges := #(#($a $b 30) #($b $s 1) #($b $p 4) #($d $f 20) #($e $a 15) #($f $m 8) #($g $h 20) #($g $r 3) #($i $a 14) #($i $k 4) #($i $d 3) #($j $q 5) #($k $l 10) #($k $g 5) #($m $n 7) #($m $o 6) #($n $c 5) #($q $i 4)).
+	"self assert: tree asArray equals: expectedEdges."
+	expectedEdges do: [ :e | self assert: (tree includes: e) ].
+	tree do: [ :e | self assert: (expectedEdges includes: e) ]
 ]
 
 { #category : #tests }

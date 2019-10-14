@@ -1,3 +1,5 @@
+<!--git log --pretty="* %s ([%h](https://github.com/moosetechnology/MooseAlgos/commit/%H))" v1.1.7...HEAD --grep="Merge pull" -->
+
 # [v1.1.6](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.5...v1.1.6) (2019-09-26)
 
 ## Cleaning

@@ -7,7 +7,7 @@ Class {
 	#category : #'Moose-Algos-Graph-Tests'
 }
 
-{ #category : #'private - utility' }
+{ #category : #helpers }
 MalGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 	aNodeList 
 		collect: #model
@@ -18,28 +18,23 @@ MalGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 				description: model asString , ' should not be referenced!' ] 
 ]
 
-{ #category : #'private - utility' }
+{ #category : #helpers }
 MalGraphReducerTest >> mergedNodesIn: aNodeList [
-	^ (aNodeList select: [ :node | node mergedNodes notNil ])
-		flatCollect: #mergedNodes
+	^ (aNodeList select: [ :node | node mergedNodes notNil ]) flatCollect: #mergedNodes
 ]
 
 { #category : #running }
 MalGraphReducerTest >> setUp [
 	super setUp.
-	graphReducer := MalGraphReducer new.
+	graphReducer := MalGraphReducer new
 ]
 
 { #category : #tests }
 MalGraphReducerTest >> testComplexCycle2 [
 	MalGraphFixture complexCycleGraph2: graphReducer.
 	graphReducer run.
-	self
-		assert: graphReducer nodes size
-		equals: 6.
-	self
-		assert: (graphReducer nodes at: 6) mergedNodes size
-		equals: 4
+	self assert: graphReducer nodes size equals: 6.
+	self assert: (graphReducer nodes at: 6) mergedNodes size equals: 4
 ]
 
 { #category : #tests }
@@ -76,10 +71,9 @@ MalGraphReducerTest >> testMergedNodesNotReferencedInPreviousNodes [
 MalGraphReducerTest >> testNextNodesFor [
 	| nodes |
 	MalGraphFixture complexCycleGraph2: graphReducer.
-	nodes := { (graphReducer findNode: $f) . (graphReducer findNode: $g) }.
-	self 
-		assert: ((graphReducer nextNodesFor: nodes) 
-						collect: #model as: SortedCollection) asArray
+	nodes := {(graphReducer findNode: $f) . (graphReducer findNode: $g)}.
+	self
+		assert: ((graphReducer nextNodesFor: nodes) collect: #model as: SortedCollection) asArray
 		equals: #($a $b $d $e $i)
 ]
 
@@ -98,9 +92,8 @@ MalGraphReducerTest >> testNoCycle [
 MalGraphReducerTest >> testPreviousNodesFor [
 	| nodes |
 	MalGraphFixture complexCycleGraph2: graphReducer.
-	nodes := { (graphReducer findNode: $f) . (graphReducer findNode: $g) }.
-	self 
-		assert: ((graphReducer previousNodesFor: nodes) 
-						collect: #model as: SortedCollection) asArray
+	nodes := {(graphReducer findNode: $f) . (graphReducer findNode: $g)}.
+	self
+		assert: ((graphReducer previousNodesFor: nodes) collect: #model as: SortedCollection) asArray
 		equals: #($a $b $c)
 ]

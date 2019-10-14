@@ -10,8 +10,7 @@ Class {
 { #category : #running }
 MalTarjanTest >> setUp [
 	super setUp.
-	tarjan := MalTarjan new.
-
+	tarjan := MalTarjan new
 ]
 
 { #category : #tests }
@@ -46,14 +45,11 @@ MalTarjanTest >> testComplexCycle [
 MalTarjanTest >> testComplexCycle2 [
 	| circuits |
 	MalGraphFixture complexCycleGraph2: tarjan.
-	circuits := tarjan 
+	circuits := tarjan
 		run;
 		circuits.
-	#($a $c $g $h $i) 
-		do: [ :each | self deny: (tarjan findNode: each) isInCycle ].
-	self
-		assert: circuits size
-		equals: 1.
+	#($a $c $g $h $i) do: [ :each | self deny: (tarjan findNode: each) isInCycle ].
+	self assert: circuits size equals: 1.
 	self assert: ((circuits first collect: #model) includesAll: #($b $d $e $f))
 ]
 
@@ -103,7 +99,6 @@ MalTarjanTest >> testNestedCycle [
 
 { #category : #tests }
 MalTarjanTest >> testNoCycle [
-
 	MalGraphFixture simpleGraph: tarjan.
 	tarjan run.
 	tarjan nodes do: [ :n | self deny: n isInCycle ]

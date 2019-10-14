@@ -73,13 +73,10 @@ MalDijkstra >> pathWeight [
 	^ self end pathWeight
 ]
 
-{ #category : #running }
+{ #category : #initialization }
 MalDijkstra >> reset [
-
-	self nodes do: [:n|
-		n pathWeight: Float infinity ].
-	self edges do: [:e |
-		e visited: false ]
+	self nodes do: [ :n | n pathWeight: Float infinity ].
+	self edges do: [ :e | e visited: false ]
 ]
 
 { #category : #running }
@@ -110,7 +107,7 @@ MalDijkstra >> start: aDijsktraNode [
 { #category : #running }
 MalDijkstra >> traverse: node [
 
-	self flag: #todo. "optimize traversal of nodes"
+	self flag: #pharoTodo. "optimize traversal of nodes"
 	node nextEdges do: [:edge |
 		edge isVisited ifFalse: [
 			edge to pathWeight: (edge to pathWeight min: (node pathWeight + edge weight)).

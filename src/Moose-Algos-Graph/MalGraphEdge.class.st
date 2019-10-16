@@ -68,14 +68,8 @@ MalGraphEdge >> model: aModel [
 { #category : #printing }
 MalGraphEdge >> printOn: aStream [
 	self from printOn: aStream.
-	aStream << ' -> '.
+	aStream nextPutAll: ' -> '.
 	self to printOn: aStream
-]
-
-{ #category : #printing }
-MalGraphEdge >> printString [
-
-	^ self from printString, ' -> ', self to printString
 ]
 
 { #category : #accessing }

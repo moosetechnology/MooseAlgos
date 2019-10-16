@@ -1,4 +1,16 @@
-<!--git log --pretty="* %s ([%h](https://github.com/moosetechnology/MooseAlgos/commit/%H))" v1.1.7...HEAD --grep="Merge pull" -->
+<!--git log --pretty="* %s ([%h](https://github.com/moosetechnology/MooseAlgos/commit/%H))" v1.1.8...HEAD --grep="Merge pull" -->
+
+# [v1.1.8](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.7...v1.1.8) (2019-10-16)
+
+## Cleaning
+
+* Harvest Pharo changes ([377613c](https://github.com/moosetechnology/MooseAlgos/commit/377613c5982fdcb40fa9b35e52b718c92b58a489))
+
+# [v1.1.7](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.6...v1.1.7) (2019-10-14)
+
+## Cleaning
+
+* Sync MooseAlgo Grouphs with Pharo version ([f3c08c2](https://github.com/moosetechnology/MooseAlgos/commit/f3c08c274746b41581def0959bdfde7533f6dbb6))
 
 # [v1.1.6](https://github.com/moosetechnology/MooseAlgos/compare/v1.1.5...v1.1.6) (2019-09-26)
 

@@ -29,18 +29,16 @@ MalCamelcaseScanner >> onStream: input [
 
 { #category : #private }
 MalCamelcaseScanner >> privateNext [
-
-	next isNil ifTrue: [^nil].
+	next ifNil: [ ^ nil ].
 	buffer reset.
-	[self xWhitespace.
-	 next isLowercase
-		ifTrue: [self xLowercaseWord]
-		ifFalse: [self xCapitalizedWord]
-	] on: Stream endOfStreamSignal do: [:ex | next := nil].
+	[ self xWhitespace.
+	next isLowercase
+		ifTrue: [ self xLowercaseWord ]
+		ifFalse: [ self xCapitalizedWord ] ]
+		on: Stream endOfStreamSignal
+		do: [ :ex | next := nil ].
 
-	^buffer contents isEmpty
-		ifTrue: [nil]
-		ifFalse: [buffer contents]
+	^ buffer contents ifEmpty: [ nil ]
 ]
 
 { #category : #private }

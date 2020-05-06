@@ -71,40 +71,33 @@ MalHierarchicalGraph >> addEdges: aCollection source: source destination: destin
 MalHierarchicalGraph >> addEdges: aCollection sourceBlock: srcBlock destinationBlock: dstBlock [
 	"Add given edges to the higraph.
 	If through given edges new nodes are found, they are NOT added to the graph."
-	| srcEntity dstEntity srcNode dstNode edge |
-	aCollection do: [ :e | 
-		
-		"Get source and destination models."
-		srcEntity := srcBlock value: e.
-		dstEntity := dstBlock value: e.
 
-		"Models should not be nil"
-	      self assert: (srcEntity notNil and: [dstEntity notNil]) description: 'Models should never be nil. Check correctness of srcBlock and dstBlock.'.
-			
-		"Get nodes from entities"
-		(nodes includesKey: srcEntity)
-			ifTrue: [
-				srcNode := nodes at: srcEntity.
-			].
-			
-		(nodes includesKey: dstEntity)
-			ifTrue: [
-				dstNode := nodes at: dstEntity.
-			].
-		
-		"Only create edge if nodes were found."
-		(srcNode isNil or: [dstNode isNil]) ifFalse: [
-			
-			"Create an edge between the nodes and add it to the graph."
-			edge := MalGraphEdge with: e from: srcNode to: dstNode.
-			
-			"Adding edge to the graphs edge collection"
-			self edges add: edge.
-			
-			"Add edge references to the node themselves"
-			srcNode addOutgoing: edge.
-			dstNode addIncoming: edge.
-		] ]
+	| srcEntity dstEntity srcNode dstNode edge |
+	aCollection
+		do: [ :e | 
+			"Get source and destination models."
+			srcEntity := srcBlock value: e.
+			dstEntity := dstBlock value: e.
+
+			"Models should not be nil"
+			self assert: (srcEntity isNotNil and: [ dstEntity isNotNil ]) description: 'Models should never be nil. Check correctness of srcBlock and dstBlock.'.
+
+			"Get nodes from entities"
+			(nodes includesKey: srcEntity) ifTrue: [ srcNode := nodes at: srcEntity ].
+
+			(nodes includesKey: dstEntity) ifTrue: [ dstNode := nodes at: dstEntity ].
+
+			"Only create edge if nodes were found."
+			(srcNode isNil or: [ dstNode isNil ])
+				ifFalse: [ "Create an edge between the nodes and add it to the graph."
+					edge := MalGraphEdge with: e from: srcNode to: dstNode.
+
+					"Adding edge to the graphs edge collection"
+					self edges add: edge.
+
+					"Add edge references to the node themselves"
+					srcNode addOutgoing: edge.
+					dstNode addIncoming: edge ] ]
 ]
 
 { #category : #api }
@@ -125,13 +118,13 @@ MalHierarchicalGraph >> aggregation: howToGetParent [
 ]
 
 { #category : #building }
-MalHierarchicalGraph >> blockToGetChildren: aBuildingBlock [ 
+MalHierarchicalGraph >> blockToGetChildren: aBuildingBlock [
 	"Builds the hierarchical graph based on root entities and given block"
-	| rootNodes nodesToProcess |
 
+	| rootNodes nodesToProcess |
 	"Make sure base entities are set before calling this method."
-	self assert: (nodes notEmpty) description: 'Base nodes have to be set before calling this method.'.
-	
+	self assert: nodes isNotEmpty description: 'Base nodes have to be set before calling this method.'.
+
 	"If this method is called we know that we are in top down building mode, 
 	this means all given base nodes are root nodes (level 0)."
 	rootNodes := self nodes asOrderedCollection.
@@ -141,48 +134,35 @@ MalHierarchicalGraph >> blockToGetChildren: aBuildingBlock [
 	nodesToProcess := Stack new.
 	nodesToProcess addAll: rootNodes.
 
-	[nodesToProcess notEmpty] whileTrue:  [
-		| node |
-		
-		node := nodesToProcess pop.
-		
-		(self setChildrenOfNode: node builder: aBuildingBlock) ifNotEmpty: [ :childrenNodes |
-			
-			"Need to re-evaluate found children"
-			childrenNodes do: [ :childNode | 
-				nodesToProcess push: childNode.
-			].
-		]
-	].
+	[ nodesToProcess isNotEmpty ]
+		whileTrue: [ | node |
+			node := nodesToProcess pop.
+
+			(self setChildrenOfNode: node builder: aBuildingBlock)
+				ifNotEmpty: [ :childrenNodes | "Need to re-evaluate found children" childrenNodes do: [ :childNode | nodesToProcess push: childNode ] ] ]
 ]
 
 { #category : #building }
-MalHierarchicalGraph >> blockToGetParent: aBuildingBlock [ 
+MalHierarchicalGraph >> blockToGetParent: aBuildingBlock [
 	"Builds the hierarchical graph based on the leaf entities and given block"
+
 	| nodesToProcess |
-	
 	"Make sure leafs are set before calling this method."
-	self assert: (nodes notEmpty) description: 'Base nodes have to be set before calling this method.'.
-	
+	self assert: nodes isNotEmpty description: 'Base nodes have to be set before calling this method.'.
+
 	nodesToProcess := Stack new.
 	nodesToProcess addAll: nodes values.
 
-	[nodesToProcess notEmpty] whileTrue:  [
-		| node parentNode |
-		
-		node := nodesToProcess pop.
-		
-		parentNode := self setParentOfNode: node builder: aBuildingBlock.
-		
-		(parentNode notNil) ifTrue: [
-			"Need to re-evaluate found parent"
-			nodesToProcess push: parentNode.
-		]
-	].
+	[ nodesToProcess isNotEmpty ]
+		whileTrue: [ | node parentNode |
+			node := nodesToProcess pop.
+
+			parentNode := self setParentOfNode: node builder: aBuildingBlock.
+			parentNode ifNotNil: [ "Need to re-evaluate found parent" nodesToProcess push: parentNode ] ].
 
 	"After we have set up the hierarchy, we have to set the levels of the node(s), 
 	so we can use this information when propagating relationships."
-	self setLevels.
+	self setLevels
 ]
 
 { #category : #api }
@@ -411,103 +391,73 @@ MalHierarchicalGraph >> propagateEdges [
 MalHierarchicalGraph >> propagateEdges: classCollection [
 	"Propagates relationships up in the hiGraph from the leaf nodes.
 	If a collection with classes is provied, only relationships between given classes are propagated."
-	| nodesToProcess propagatedRelationship srcNode dstNode srcAncestry dstAncestry  srcAncestorNodeIsAllowedClass dstAncestorNodeIsAllowedClass |
-	
+
+	| nodesToProcess propagatedRelationship srcNode dstNode srcAncestry dstAncestry srcAncestorNodeIsAllowedClass dstAncestorNodeIsAllowedClass |
 	nodesToProcess := Stack new.
 	nodesToProcess addAll: self nodes.
 
-	[nodesToProcess notEmpty] whileTrue: [
-		srcNode := nodesToProcess pop.
+	[ nodesToProcess isNotEmpty ]
+		whileTrue: [ srcNode := nodesToProcess pop.
 
-		"Only check non-root nodes."
-		(srcNode isRootNode) ifFalse: [
-		
-			"If there are outgoing relationships from this node..."
-			(srcNode outgoing notEmpty) 
-				ifTrue: [
-					
-					"Go through all original relations."
-					srcNode outgoingNotPropagated do: [ :outgoingRelationship |
+			"Only check non-root nodes."
+			srcNode isRootNode
+				ifFalse: [ "If there are outgoing relationships from this node..."
+					srcNode outgoing
+						ifNotEmpty: [ "Go through all original relations."
+							srcNode outgoingNotPropagated
+								do: [ :outgoingRelationship | 
+									"Get destination node of relationship"
+									dstNode := outgoingRelationship to.
 
-						"Get destination node of relationship"
-						dstNode := outgoingRelationship to.
-						
-						srcAncestry := LinkedList new.
-						dstAncestry := LinkedList new.
+									srcAncestry := LinkedList new.
+									dstAncestry := LinkedList new.
 
-						"Initialize ancestries with src and dest nodes."
-						srcAncestry add: srcNode.
-						dstAncestry add: dstNode.
-	
-						"Have to bring ancestries to the same level."
-						[srcAncestry last level = dstAncestry last level] whileFalse: [
-							srcAncestry last level > dstAncestry last level ifTrue: [
-								srcAncestry add: (srcAncestry last parent).
-							]
-							ifFalse: [
-								dstAncestry add: (dstAncestry last parent).
-							].
-						].
-					
-						"Fill up ancestry chains by searching for either common ancestor or two separate parents that are root nodes."
-						[(srcAncestry last parent == dstAncestry last parent) 
-						or: 
-						((srcAncestry last isRootNode) or: (dstAncestry last isRootNode))]
-						whileFalse: [
-							srcAncestry add: (srcAncestry last parent).
-							dstAncestry add: (dstAncestry last parent).
-						].
+									"Initialize ancestries with src and dest nodes."
+									srcAncestry add: srcNode.
+									dstAncestry add: dstNode.
 
-						"Now add outgoing relations from source node and its ancestry to destination node and its ancestry."
-						srcAncestry do: [ :srcAncestorNode |
-							
-							"Relationships from all source ancestry nodes to all destination ancestry nodes."
-							dstAncestry do: [ :dstAncestorNode |
-								
-								"Reset class restrictions. Assuming not allowed."
-								srcAncestorNodeIsAllowedClass := false.
-								dstAncestorNodeIsAllowedClass := false.
-									
-								"Add all connections in the ancestries as new relations. Except :
+									"Have to bring ancestries to the same level."
+									[ srcAncestry last level = dstAncestry last level ]
+										whileFalse: [ srcAncestry last level > dstAncestry last level
+												ifTrue: [ srcAncestry add: srcAncestry last parent ]
+												ifFalse: [ dstAncestry add: dstAncestry last parent ] ].
+
+									"Fill up ancestry chains by searching for either common ancestor or two separate parents that are root nodes."
+									[ srcAncestry last parent == dstAncestry last parent or: (srcAncestry last isRootNode or: dstAncestry last isRootNode) ]
+										whileFalse: [ srcAncestry add: srcAncestry last parent.
+											dstAncestry add: dstAncestry last parent ].
+
+									"Now add outgoing relations from source node and its ancestry to destination node and its ancestry."
+									srcAncestry
+										do: [ :srcAncestorNode | 
+											"Relationships from all source ancestry nodes to all destination ancestry nodes."
+											dstAncestry
+												do: [ :dstAncestorNode | 
+													"Reset class restrictions. Assuming not allowed."
+													srcAncestorNodeIsAllowedClass := false.
+													dstAncestorNodeIsAllowedClass := false.
+
+													"Add all connections in the ancestries as new relations. Except :
 								 - the original relation
 								 - If they are the same node
 								 - if a given class restriction is not satisfied"
-								((srcAncestorNode = srcNode and: (dstAncestorNode = dstNode)) 
-								or: 
-								(srcAncestorNode = dstAncestorNode)) 
-								ifFalse: [
+													((srcAncestorNode = srcNode and: dstAncestorNode = dstNode) or: srcAncestorNode = dstAncestorNode)
+														ifFalse: [ classCollection isEmpty
+																ifTrue: [ srcAncestorNodeIsAllowedClass := true.
+																	dstAncestorNodeIsAllowedClass := true ]
+																ifFalse: [ "Are the classes of both nodes in the collection of allowed classes?"
+																	classCollection
+																		do: [ :class | 
+																			srcAncestorNode model class == class ifTrue: [ srcAncestorNodeIsAllowedClass := true ].
+																			dstAncestorNode model class == class ifTrue: [ dstAncestorNodeIsAllowedClass := true ] ] ].
 
-									classCollection isEmpty ifTrue: [
-										srcAncestorNodeIsAllowedClass := true.
-										dstAncestorNodeIsAllowedClass := true.
-									] ifFalse: [
-										"Are the classes of both nodes in the collection of allowed classes?"
-										classCollection do: [ :class |
-	
-											srcAncestorNode model class == class ifTrue: [srcAncestorNodeIsAllowedClass := true ].
-											dstAncestorNode model class == class ifTrue: [dstAncestorNodeIsAllowedClass := true ].
-										].
-									].
-								
-									"Only add the propoagated relationships if it satisfied the class restrictions."
-									(srcAncestorNodeIsAllowedClass and: dstAncestorNodeIsAllowedClass) ifTrue: [
-										
-										"And finally, create and add a new propagated relationship."
-										propagatedRelationship := MalHgPropagatedEdge 
-											with: outgoingRelationship model 
-											from: srcAncestorNode 
-											to: dstAncestorNode.
-										edges add: propagatedRelationship.
-										srcAncestorNode addOutgoing: propagatedRelationship.
-										dstAncestorNode addIncoming: propagatedRelationship.
-									].
-								].
-							].
-						].
-					].
-				].
-			].
-		].
+															"Only add the propoagated relationships if it satisfied the class restrictions."
+															(srcAncestorNodeIsAllowedClass and: dstAncestorNodeIsAllowedClass)
+																ifTrue: [ "And finally, create and add a new propagated relationship."
+																	propagatedRelationship := MalHgPropagatedEdge with: outgoingRelationship model from: srcAncestorNode to: dstAncestorNode.
+																	edges add: propagatedRelationship.
+																	srcAncestorNode addOutgoing: propagatedRelationship.
+																	dstAncestorNode addIncoming: propagatedRelationship ] ] ] ] ] ] ] ]
 ]
 
 { #category : #resetting }
@@ -569,47 +519,41 @@ MalHierarchicalGraph >> searchForModelsNamed: aSearchString onLevel: level [
 MalHierarchicalGraph >> setChildrenOfNode: aNode builder: buildingBlock [
 	"Gets children of given node via buildingBlock and sets them.
 	Returns a collection with found children or an empty one if no children were found."
-	| children currentLevel childNode |
 
-	self assert: (self rootNodes notEmpty) description: 'There must be at least one root node set before calling this method.'.
+	| children currentLevel childNode |
+	self assert: self rootNodes isNotEmpty description: 'There must be at least one root node set before calling this method.'.
 
 	children := OrderedCollection new.
 
 	"Get children entities via blockToGetChildren. If the entity has no children it is a leaf and we return an empty collection, else we add found children to the graph."
-	(buildingBlock value: aNode model) ifNotNil: [ :childrenEntities |
-			
+	(buildingBlock value: aNode model)
+		ifNotNil: [ :childrenEntities | 
 			currentLevel := aNode level.
 
 			"Go through all found children..."
-			childrenEntities do: [ :childEntity | 
-		
-				"Check if we already have the child stored in the graph, if yes retrieve it, else store it."
-				(nodes includesKey: childEntity) 
-				ifTrue: [
-					childNode := nodes at: childEntity.
-				]
-				"Else ceate new child node."
-				ifFalse: [
-					childNode := MalHgNode in: self with: childEntity level: currentLevel + 1.
-					nodes at: childEntity put: childNode.
-				].
-			
-				"Add given node as parent to child."
-				childNode parent: aNode.
-			
-				"Add child to given node."
-				aNode addChild: childNode.
-			
-				"Add node to found children."
-				children add: childNode.
-			].
-		
+			childrenEntities
+				do: [ :childEntity | 
+					"Check if we already have the child stored in the graph, if yes retrieve it, else store it."
+					(nodes includesKey: childEntity)
+						ifTrue: [ "Else ceate new child node." childNode := nodes at: childEntity ]
+						ifFalse: [ childNode := MalHgNode in: self with: childEntity level: currentLevel + 1.
+							nodes at: childEntity put: childNode ].
+
+					"Add given node as parent to child."
+					childNode parent: aNode.
+
+					"Add child to given node."
+					aNode addChild: childNode.
+
+					"Add node to found children."
+					children add: childNode ].
+
 			"Need to add children to correct level in the higraph."
-			levels at: (currentLevel + 1)
-				ifPresent: [ :collection | collection addAll: children ] 
-				ifAbsent: [ levels at: (currentLevel + 1) put: children ].
-		].
-	
+			levels
+				at: currentLevel + 1
+				ifPresent: [ :collection | collection addAll: children ]
+				ifAbsent: [ levels at: currentLevel + 1 put: children ] ].
+
 	^ children
 ]
 
@@ -626,39 +570,29 @@ MalHierarchicalGraph >> setLevels [
 MalHierarchicalGraph >> setParentOfNode: aNode builder: buildingBlock [
 	"Gets parent of given node via blockToGetParent, and sets it - or adds node to root nodes, if there is no parent.
 	Returns parent if one was found, nil else"
-	| parentNode parentEntity rootNodes |
 
+	| parentNode rootNodes |
 	"Get parent entity through blockToGetParent"
-	parentEntity := buildingBlock value: aNode model.
-
 	"If the entity has no parent, it is a rootNode"
-	(parentEntity isNil) 
-	ifTrue: [
-		rootNodes := levels at: 0 ifAbsentPut: [ OrderedCollection new ].
-		(rootNodes includes: aNode) ifFalse: [ rootNodes add: aNode ].
-		^ nil.
-	]
-	ifFalse: [
-		
-		"Check if we already have the parent stored in the graph, if yes retrieve it, else store it."
-		(nodes includesKey: parentEntity) 
-			ifTrue: [
-				parentNode := nodes at: parentEntity.
-			]
-			ifFalse: [
-				parentNode := MalHgNode in: self with: parentEntity.
-				nodes at: parentEntity put: parentNode.
-			].
-			
-		"Add current node as child to parent"
-		parentNode addChild: aNode.
-			
-		"Add parent to current node as parent"
-		aNode parent: parentNode.
+	(buildingBlock value: aNode model)
+		ifNil: [ rootNodes := levels at: 0 ifAbsentPut: [ OrderedCollection new ].
+			(rootNodes includes: aNode) ifFalse: [ rootNodes add: aNode ].
+			^ nil ]
+		ifNotNil: [ :parentEntity | 
+			"Check if we already have the parent stored in the graph, if yes retrieve it, else store it."
+			(nodes includesKey: parentEntity)
+				ifTrue: [ parentNode := nodes at: parentEntity ]
+				ifFalse: [ parentNode := MalHgNode in: self with: parentEntity.
+					nodes at: parentEntity put: parentNode ].
 
-		"Return parent."
-		^ parentNode.
-	].
+			"Add current node as child to parent"
+			parentNode addChild: aNode.
+
+			"Add parent to current node as parent"
+			aNode parent: parentNode.
+
+			"Return parent."
+			^ parentNode ]
 ]
 
 { #category : #api }

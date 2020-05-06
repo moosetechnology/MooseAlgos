@@ -42,10 +42,7 @@ MalRowMatrix >> checkInvariant [
 
 { #category : #accessing }
 MalRowMatrix >> columnSize [
-	
-	^rows isEmpty
-		ifTrue: [0]
-		ifFalse: [rows first size]
+	^ rows ifEmpty: [ 0 ] ifNotEmpty: [ rows first size ]
 ]
 
 { #category : #'initialize-release' }

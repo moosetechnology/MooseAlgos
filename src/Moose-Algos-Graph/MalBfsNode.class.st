@@ -41,6 +41,5 @@ MalBfsNode >> notVisited [
 
 { #category : #testing }
 MalBfsNode >> visited [
-
-	^ firstDepth notNil
+	^ firstDepth isNotNil
 ]

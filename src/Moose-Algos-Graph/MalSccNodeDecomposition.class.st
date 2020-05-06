@@ -17,7 +17,7 @@ MalSccNodeDecomposition >> retrieveCircuit: aNode [
 	| c i |
 	c := OrderedCollection new.
 	i := aNode.
-	[ i notNil ]
+	[ i isNotNil ]
 		whileTrue: [ c addFirst: i model.
 			i := i bfsAncestor ].
 	^ c

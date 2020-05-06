@@ -124,10 +124,7 @@ MalLatticeNode >> maybeAppendChild: aNode [
 
 { #category : #ancestorsLabel }
 MalLatticeNode >> myAttribLabel [
-		(self anscentorLabel isEmpty) 
-			ifFalse: [^(self concept attributes)asSet difference: (self anscentorLabel) asSet] 
-			ifTrue: [^self concept attributes]
-		
+	^ self anscentorLabel ifEmpty: [ self concept attributes ] ifNotEmpty: [ :label | self concept attributes asSet difference: label asSet ]
 ]
 
 { #category : #printing }

@@ -33,10 +33,8 @@ MalStemmer class >> stem: aString [
 { #category : #'private-algorithm' }
 MalStemmer >> cache [
 	"Answer the cache of stemmed words."
-	
-	^cache isNil
-		ifTrue: [cache := Dictionary new]
-		ifFalse: [cache]
+
+	^ cache ifNil: [ cache := Dictionary new ]
 ]
 
 { #category : #'private-algorithm' }

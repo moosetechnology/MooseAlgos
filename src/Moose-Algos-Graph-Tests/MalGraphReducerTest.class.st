@@ -20,7 +20,7 @@ MalGraphReducerTest >> assertNodes: aNodeList doesNotInclude: anotherNodeList [
 
 { #category : #helpers }
 MalGraphReducerTest >> mergedNodesIn: aNodeList [
-	^ (aNodeList select: [ :node | node mergedNodes notNil ]) flatCollect: #mergedNodes
+	^ (aNodeList select: [ :node | node mergedNodes isNotNil ]) flatCollect: #mergedNodes
 ]
 
 { #category : #running }

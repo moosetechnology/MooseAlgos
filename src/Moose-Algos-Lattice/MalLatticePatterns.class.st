@@ -34,7 +34,7 @@ Class {
 	#category : #'Moose-Algos-Lattice'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 MalLatticePatterns class >> on: aLattice [
 	^ self new
 		lattice: aLattice;

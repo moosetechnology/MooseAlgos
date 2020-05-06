@@ -8,12 +8,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-MalMedianAccumulator class >> new [
-	
-	^self basicNew initialize
-]
-
-{ #category : #'instance creation' }
 MalMedianAccumulator class >> withAll: aCollection [
 	
 	^(self new)
@@ -45,9 +39,10 @@ MalMedianAccumulator >> firstQuartil [
 	^values at: (values size / 4) asInteger
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMedianAccumulator >> initialize [
-	
+	super initialize.
+
 	values := SortedCollection new
 ]
 

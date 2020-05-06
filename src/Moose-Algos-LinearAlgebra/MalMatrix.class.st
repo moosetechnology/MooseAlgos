@@ -612,7 +612,7 @@ MalMatrix >> hash [
 		bitXor: (self at: self dimension) hash
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrix >> initializeRows: m columns: n [
 	
 	^self subclassResponsibility

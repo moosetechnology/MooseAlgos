@@ -54,12 +54,14 @@ MalNumberMapping >> do: aBlock [
 	back do: aBlock
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalNumberMapping >> initialize [
 	"Sets up instance variables.
 	back -- maps from ordinal keys to indices, ie. its values are indices (old indices).
 	forth -- maps from indices to ordinal keys, ie. its values are ordinal keys (new indices) and thus may be nil."
-	
+
+	super initialize.
+
 	back := OrderedCollection new.
 	forth := OrderedCollection new
 ]
@@ -107,7 +109,7 @@ MalNumberMapping >> replaceAll: aCollection [
 	self addAll: aCollection
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalNumberMapping >> setSize: size [
 	
 	back := forth := 1 to: size

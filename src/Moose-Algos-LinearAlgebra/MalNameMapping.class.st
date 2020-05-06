@@ -52,13 +52,13 @@ MalNameMapping >> do: aBlock [
 		do: [:each | aBlock value: each]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalNameMapping >> forEquality [
 	
 	self setComparisonBlock: [:a :b | a = b]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalNameMapping >> forIdentity [
 	
 	self setComparisonBlock: [:a :b | a == b]
@@ -70,9 +70,10 @@ MalNameMapping >> includesName: name [
 	^names anySatisfy: [:each | comparisonBlock value: each value: name]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalNameMapping >> initialize [
-	
+	super initialize.
+
 	names := OrderedCollection new
 ]
 
@@ -111,7 +112,7 @@ MalNameMapping >> names [
 	^names
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalNameMapping >> setComparisonBlock: aComparisonBlock [
 	
 	^comparisonBlock := aComparisonBlock

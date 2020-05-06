@@ -54,19 +54,19 @@ MalMatrixPath >> at: index put: aNumber [
 		put: aNumber
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixPath >> initializeSize: aSize [
 	
 	^size := aSize
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixPath >> setMapBlock: aBlock [
 	
 	^mapBlock := aBlock
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixPath >> setMatrix: aMatrix [
 	
 	^matrix := aMatrix
@@ -78,7 +78,7 @@ MalMatrixPath >> size [
 	^size
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixPath >> species [
 	
 	^matrix vectorSpecies

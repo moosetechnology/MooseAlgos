@@ -44,7 +44,7 @@ MalSymetricMatrix >> columnSize [
 	^partialColumns size
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalSymetricMatrix >> initializeRows: m columns: n [
 	
 	m = n ifFalse: [Array new noMatchError].

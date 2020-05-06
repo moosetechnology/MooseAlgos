@@ -30,13 +30,13 @@ MalVectorDecorator >> at: index put: aNumber [
 	^vector at: index put: aNumber
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalVectorDecorator >> initializeSize: aSize [
 	
 	^self shouldNotImplement
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalVectorDecorator >> setVector: aVector [
 	
 	^vector := aVector

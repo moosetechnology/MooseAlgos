@@ -38,7 +38,7 @@ MalMappedVector >> at: anIndex put: aNumber [
 		put: aNumber
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMappedVector >> setIndices: aReindexing [
 	
 	indices := aReindexing ifNil: [MalNumberMapping new: vector size]

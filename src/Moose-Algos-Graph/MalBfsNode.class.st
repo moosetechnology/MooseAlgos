@@ -21,10 +21,10 @@ MalBfsNode >> firstDepth: anObject [
 ]
 
 { #category : #initialization }
-MalBfsNode >> initialize [ 
+MalBfsNode >> initialize [
+	super initialize.
 
-	nextEdges := OrderedCollection new.
-
+	nextEdges := OrderedCollection new
 ]
 
 { #category : #accessing }

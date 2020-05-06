@@ -18,7 +18,7 @@ MalSmartMapping class >> on: parent [
 		yourself
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalSmartMapping >> isRoot [
 	
 	^parent isNil
@@ -44,7 +44,7 @@ MalSmartMapping >> nameForKey: key [
 		ifFalse: [parent nameForKey: (self atKey: key)]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalSmartMapping >> setParent: mapping [
 	
 	^parent := mapping

@@ -161,8 +161,9 @@ MalGraphAlgorithm >> graph [
 
 { #category : #initialization }
 MalGraphAlgorithm >> initialize [
+	super initialize.
 	nodes := OrderedCollection new.
-	edges := OrderedCollection new.
+	edges := OrderedCollection new
 ]
 
 { #category : #configuration }

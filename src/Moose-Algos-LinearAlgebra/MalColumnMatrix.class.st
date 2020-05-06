@@ -63,7 +63,7 @@ MalColumnMatrix >> columns: anObject [
 	columns := anObject
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalColumnMatrix >> initializeRows: m columns: n [
 	
 	columns := Array new: n.

@@ -74,13 +74,13 @@ MalMappedMatrix >> rowSize [
 	^rowMap size
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMappedMatrix >> setColumnMap: mapping [
 	
 	columnMap := mapping ifNil: [MalNumberMapping new: matrix columnSize]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMappedMatrix >> setRowMap: mapping [
 	
 	rowMap := mapping ifNil: [MalNumberMapping new: matrix rowSize]

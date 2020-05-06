@@ -154,7 +154,7 @@ MalAccumulator >> index [
 	^index
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalAccumulator >> merge: anAccumulator [
 	
 	size := size + anAccumulator size.
@@ -163,7 +163,7 @@ MalAccumulator >> merge: anAccumulator [
 		withIndex: anAccumulator index
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalAccumulator >> resetValue: aValue [
 	
 	size := 0.
@@ -171,13 +171,13 @@ MalAccumulator >> resetValue: aValue [
 	value := aValue
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalAccumulator >> setAccumulateBlock: aBlock [
 	
 	accumulateBlock := aBlock
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalAccumulator >> setValue: aValue [
 	size := 0.
 	^ value

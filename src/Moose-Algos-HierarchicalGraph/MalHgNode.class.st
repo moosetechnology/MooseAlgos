@@ -258,9 +258,11 @@ MalHgNode >> incomingSources: aLevel [
 { #category : #initialization }
 MalHgNode >> initialize [
 	"Initializes this node by resetting it."
+
+	super initialize.
 	self resetHierarchy.
 	self resetEdges.
-	self resetAttributes.
+	self resetAttributes
 ]
 
 { #category : #testing }

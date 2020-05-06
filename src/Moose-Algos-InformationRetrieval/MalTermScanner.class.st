@@ -25,12 +25,6 @@ Class {
 	#category : #'Moose-Algos-InformationRetrieval'
 }
 
-{ #category : #'instance creation' }
-MalTermScanner class >> new [
-	
-	^self basicNew initialize
-]
-
 { #category : #running }
 MalTermScanner class >> scan: input [
 
@@ -57,7 +51,8 @@ MalTermScanner >> atEnd [
 
 { #category : #initialization }
 MalTermScanner >> initialize [
-	
+	super initialize.
+
 	buffer := String new writeStream
 ]
 

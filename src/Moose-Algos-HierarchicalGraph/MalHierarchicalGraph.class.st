@@ -234,6 +234,7 @@ MalHierarchicalGraph >> findNode: aModel ifAbsent: aBlock [
 
 { #category : #initialization }
 MalHierarchicalGraph >> initialize [
+	super initialize.
 	self reset
 ]
 
@@ -442,10 +443,10 @@ MalHierarchicalGraph >> propagateEdges: classCollection [
 								 - If they are the same node
 								 - if a given class restriction is not satisfied"
 													((srcAncestorNode = srcNode and: dstAncestorNode = dstNode) or: srcAncestorNode = dstAncestorNode)
-														ifFalse: [ classCollection isEmpty
-																ifTrue: [ srcAncestorNodeIsAllowedClass := true.
+														ifFalse: [ classCollection
+																ifEmpty: [ srcAncestorNodeIsAllowedClass := true.
 																	dstAncestorNodeIsAllowedClass := true ]
-																ifFalse: [ "Are the classes of both nodes in the collection of allowed classes?"
+																ifNotEmpty: [ "Are the classes of both nodes in the collection of allowed classes?"
 																	classCollection
 																		do: [ :class | 
 																			srcAncestorNode model class == class ifTrue: [ srcAncestorNodeIsAllowedClass := true ].

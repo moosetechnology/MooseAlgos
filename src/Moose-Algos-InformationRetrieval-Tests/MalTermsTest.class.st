@@ -11,7 +11,7 @@ Class {
 	#category : #'Moose-Algos-InformationRetrieval-Tests'
 }
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testAddFew [
 	terms := MalTerms fromString: 'and the super of a'.
 	self assert: terms size equals: 5.
@@ -19,7 +19,7 @@ MalTermsTest >> testAddFew [
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testAddMany [
 	terms := MalTerms fromString: 'and the super of the a of the a'.
 	self assert: terms size equals: 9.
@@ -27,7 +27,7 @@ MalTermsTest >> testAddMany [
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testCollect [
 	
 	| collection |
@@ -42,14 +42,14 @@ MalTermsTest >> testCollect [
 	^collection
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testDistinctSize [
 	terms := MalTerms sample.
 	self assert: terms distinctSize equals: 56.
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testEmpty [
 	terms := MalTerms new.
 	self assert: terms size equals: 0.
@@ -57,21 +57,21 @@ MalTermsTest >> testEmpty [
 	terms do: [ :each | self assert: false ]
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testEnumerate [
 	
 	terms := MalTerms sample.
 	terms do: [:each | self assert: each isString]
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testEnumerateValues [
 	
 	terms := MalTerms sample.
 	terms termsDo: [:each | self assert: each isString]
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testIncludesFalse [
 	
 	terms := MalTerms sample.
@@ -83,7 +83,7 @@ MalTermsTest >> testIncludesFalse [
 	^terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testIncludesTrue [
 	
 	terms := MalTerms sample.
@@ -95,14 +95,14 @@ MalTermsTest >> testIncludesTrue [
 	^terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testNewColon [
 	terms := MalTerms new: 7.
 	self assert: terms size equals: 0.
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testOccurrencesOf [
 	terms := MalTerms sample.
 	self assert: (terms occurrencesOf: 'tree') equals: 5.
@@ -113,7 +113,7 @@ MalTermsTest >> testOccurrencesOf [
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testPrune [
 	
 	terms := MalTerms sample.
@@ -125,7 +125,7 @@ MalTermsTest >> testPrune [
 	^terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testRemoveHapaxes [
 	terms := MalTerms sample.
 	self assert: terms distinctSize equals: 56.
@@ -134,7 +134,7 @@ MalTermsTest >> testRemoveHapaxes [
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testRemoveStopwords [
 	terms := MalTerms sample.
 	self assert: terms distinctSize equals: 56.
@@ -143,14 +143,14 @@ MalTermsTest >> testRemoveStopwords [
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testSize [
 	terms := MalTerms sample.
 	self assert: terms size equals: 76.
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testStellAll [
 	terms := MalTerms sample.
 	self assert: terms distinctSize equals: 56.
@@ -161,7 +161,7 @@ MalTermsTest >> testStellAll [
 	^ terms
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermsTest >> testTopTen [
 	| charts |
 	terms := MalTerms sample.

@@ -8,12 +8,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-MalMedianAccumulator class >> new [
-	
-	^self basicNew initialize
-]
-
-{ #category : #'instance creation' }
 MalMedianAccumulator class >> withAll: aCollection [
 	
 	^(self new)

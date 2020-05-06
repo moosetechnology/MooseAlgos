@@ -15,12 +15,6 @@ MalVector class >> browserIcon [
 ]
 
 { #category : #'instance creation' }
-MalVector class >> new [
-	
-	^self new: 0
-]
-
-{ #category : #'instance creation' }
 MalVector class >> new: aSize [
 	
 	^(self basicNew)

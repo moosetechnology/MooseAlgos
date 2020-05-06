@@ -26,12 +26,6 @@ MalCorpus class >> deer90 [
 	^corpus
 ]
 
-{ #category : #'instance creation' }
-MalCorpus class >> new [
-	
-	^self basicNew initialize
-]
-
 { #category : #adding }
 MalCorpus >> addDocument: anObject [
 

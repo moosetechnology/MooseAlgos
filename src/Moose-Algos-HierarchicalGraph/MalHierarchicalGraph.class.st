@@ -234,6 +234,7 @@ MalHierarchicalGraph >> findNode: aModel ifAbsent: aBlock [
 
 { #category : #initialization }
 MalHierarchicalGraph >> initialize [
+	super initialize.
 	self reset
 ]
 

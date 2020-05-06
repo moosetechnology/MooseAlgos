@@ -51,7 +51,8 @@ MalTermScanner >> atEnd [
 
 { #category : #initialization }
 MalTermScanner >> initialize [
-	
+	super initialize.
+
 	buffer := String new writeStream
 ]
 

@@ -41,7 +41,8 @@ MalMedianAccumulator >> firstQuartil [
 
 { #category : #initialization }
 MalMedianAccumulator >> initialize [
-	
+	super initialize.
+
 	values := SortedCollection new
 ]
 

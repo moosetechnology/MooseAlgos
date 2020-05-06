@@ -72,7 +72,8 @@ MalNameMapping >> includesName: name [
 
 { #category : #initialization }
 MalNameMapping >> initialize [
-	
+	super initialize.
+
 	names := OrderedCollection new
 ]
 

@@ -102,7 +102,8 @@ MalCorpus >> documents [
 
 { #category : #initialization }
 MalCorpus >> initialize [
-	
+	super initialize.
+
 	documents := Dictionary new
 ]
 

@@ -38,7 +38,7 @@ MalArrayMatrix >> columnSize [
 	^columnSize
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalArrayMatrix >> initializeRows: n columns: m [
 	
 	rowSize := n.

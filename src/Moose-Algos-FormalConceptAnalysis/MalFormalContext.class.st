@@ -120,7 +120,7 @@ MalFormalContext >> printOn: stream [
 		nextPut: $)
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalFormalContext >> with: collection using: foBlock using: faBlock [
 	
 	| dict fobject fattribute |

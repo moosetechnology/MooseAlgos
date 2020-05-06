@@ -45,7 +45,7 @@ MalBooleanVector >> getBits [
 	^bits
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalBooleanVector >> initializeSize: aSize [
 	
 	bits := 0.

@@ -10,7 +10,7 @@ Class {
 	#category : #'Moose-Algos-LinearAlgebra'
 }
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalVectorCoercion class >> with: aNumber [
 	
 	^(aNumber isKindOf: MalVector)
@@ -39,7 +39,7 @@ MalVectorCoercion >> hasSize: aSize [
 	^true
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalVectorCoercion >> initializeSize: aSize [
 	
 	^self noDimensionError
@@ -60,7 +60,7 @@ MalVectorCoercion >> printOn: aStream [
 		print: number
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalVectorCoercion >> setNumber: aNumber [
 	
 	^number := aNumber

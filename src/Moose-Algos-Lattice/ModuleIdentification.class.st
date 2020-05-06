@@ -38,7 +38,7 @@ Class {
 	#category : #'Moose-Algos-Lattice'
 }
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 ModuleIdentification class >> on: lattice [
 	^ self new
 		lattice: lattice;

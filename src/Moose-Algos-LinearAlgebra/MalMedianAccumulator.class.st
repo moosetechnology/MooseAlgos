@@ -39,7 +39,7 @@ MalMedianAccumulator >> firstQuartil [
 	^values at: (values size / 4) asInteger
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMedianAccumulator >> initialize [
 	
 	values := SortedCollection new

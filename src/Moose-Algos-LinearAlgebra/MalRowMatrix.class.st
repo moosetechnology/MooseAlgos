@@ -45,7 +45,7 @@ MalRowMatrix >> columnSize [
 	^ rows ifEmpty: [ 0 ] ifNotEmpty: [ rows first size ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalRowMatrix >> initializeRows: m columns: n [
 	
 	rows := Array new: m.

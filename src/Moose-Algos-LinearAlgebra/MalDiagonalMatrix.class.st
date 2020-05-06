@@ -49,7 +49,7 @@ MalDiagonalMatrix >> checkInvariant [
 	^partialColumns isCollection	"(DiagonalMatrix new: 10) checkInvariant"
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalDiagonalMatrix >> initializeRows: m columns: n [
 	
 	m = n ifFalse: [Array new noMatchError].

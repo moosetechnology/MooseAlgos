@@ -86,7 +86,7 @@ MalClusteringData >> findMinimum [
 					foundA0 := columnVector found]]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalClusteringData >> initialize: distanceMatrix [
 	
 	partialColumns := distanceMatrix copyClusteringData
@@ -100,7 +100,7 @@ MalClusteringData >> initialize: distanceMatrix [
 		do: [:n | (partialColumns at: n) unsetAt: n]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalClusteringData >> initializeRows: m columns: n [
 	
 	^self shouldNotImplement

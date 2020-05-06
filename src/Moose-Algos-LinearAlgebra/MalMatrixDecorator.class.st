@@ -42,7 +42,7 @@ MalMatrixDecorator >> columnSize [
 	^matrix columnSize
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixDecorator >> initializeRows: m columns: n [
 	
 	self shouldNotImplement
@@ -54,13 +54,13 @@ MalMatrixDecorator >> rowSize [
 	^matrix rowSize
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixDecorator >> setMatrix: aMatrix [
 	
 	^matrix := aMatrix
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixDecorator >> species [
 	
 	^matrix species

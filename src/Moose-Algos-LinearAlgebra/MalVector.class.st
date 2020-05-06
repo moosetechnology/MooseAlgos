@@ -325,7 +325,7 @@ MalVector >> hash [
 	^ (self size hash bitXor: (self at: 1) hash) bitXor: (self at: self size) hash
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalVector >> initializeSize: aSize [
 	
 	^self subclassResponsibility

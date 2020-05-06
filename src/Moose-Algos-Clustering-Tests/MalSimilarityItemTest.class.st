@@ -7,7 +7,7 @@ Class {
 	#category : #'Moose-Algos-Clustering-Tests'
 }
 
-{ #category : #'As yet unclassified' }
+{ #category : #tests }
 MalSimilarityItemTest >> testDistance [
 	| a b c elements engine clusters |
 	a := MalVectorItem with: #a and: #(1 0).
@@ -25,7 +25,7 @@ MalSimilarityItemTest >> testDistance [
 	self assert: ((clusters select: [ :each | each size = 2 ]) first includes: b)
 ]
 
-{ #category : #'As yet unclassified' }
+{ #category : #tests }
 MalSimilarityItemTest >> testSimilarity [
 	| a b c elements engine clusters |
 	a := MalSimilarityItem with: #a and: #(1 0).

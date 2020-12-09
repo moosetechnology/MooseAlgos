@@ -7,7 +7,7 @@ Class {
 	#category : #'Moose-Algos-InformationRetrieval-Tests'
 }
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testCompleteSentence [
 	
 	self
@@ -17,7 +17,7 @@ MalCamelcaseScannerTest >> testCompleteSentence [
 			#('the' 'next' 'BIG' 'thing' 'is' 'kind' 'of' 'hype' 'very' 'BIG' 'BIG') asBag.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testDanglingLetter [
 	
 	
@@ -34,7 +34,7 @@ MalCamelcaseScannerTest >> testDanglingLetter [
 	equals: #('foo' 'A') asBag
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testEmptyString [
 	
 	
@@ -43,7 +43,7 @@ MalCamelcaseScannerTest >> testEmptyString [
 		self assert: (MalCamelcaseScanner scan: '     ') isEmpty
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testNonLetter [
 	
 	
@@ -54,7 +54,7 @@ assert: (MalCamelcaseScanner scan: 'abc123abc')
 	equals: #('abc' 'abc') asBag
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testScanAcronymWords [
 	
 	
@@ -79,7 +79,7 @@ assert: (MalCamelcaseScanner scan: 'TheNextBIG Thing')
 equals: #('the' 'next' 'BIG' 'thing') asBag.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testScanWords [
 	
 	
@@ -101,7 +101,7 @@ assert: (MalCamelcaseScanner scan: 'FooBar ')
 equals: #('foo' 'bar') asBag
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testWhiteSpaces [
 	
 	
@@ -118,7 +118,7 @@ assert: (MalCamelcaseScanner scan: 'FooBar')
 	equals: #('foo' 'bar') asBag
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCamelcaseScannerTest >> testZeroWordAreWhitespace [
 	
 	

@@ -7,7 +7,7 @@ Class {
 	#category : #'Moose-Algos-InformationRetrieval-Tests'
 }
 
-{ #category : #running }
+{ #category : #tests }
 MalCorpusTest >> testDeer90 [
 	| deer |
 	deer := MalCorpus deer90.
@@ -16,7 +16,7 @@ MalCorpusTest >> testDeer90 [
 	^ deer
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCorpusTest >> testRemoveStopwords [
 	| deer |
 	deer := self testDeer90.
@@ -28,7 +28,7 @@ MalCorpusTest >> testRemoveStopwords [
 	^ deer
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalCorpusTest >> testStemDeer90 [
 	| deer |
 	deer := self testDeer90.

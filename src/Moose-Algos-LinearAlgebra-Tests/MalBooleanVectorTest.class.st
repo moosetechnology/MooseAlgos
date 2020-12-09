@@ -10,7 +10,7 @@ Class {
 	#category : #'Moose-Algos-LinearAlgebra-Tests'
 }
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testAccessingLarge [
 	v := MalBooleanVector new: 100.
 	v at: 83 put: true.
@@ -22,7 +22,7 @@ MalBooleanVectorTest >> testAccessingLarge [
 	self assert: (v allSatisfy: #not)
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testAccessingSmall [
 	v := MalBooleanVector new: 5.
 	v at: 3 put: true.
@@ -34,7 +34,7 @@ MalBooleanVectorTest >> testAccessingSmall [
 	self assert: (v allSatisfy: #not)
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testAnd [
 	| w vw |
 	v := MalBooleanVector withAll: #(false false true true false false true true).
@@ -44,41 +44,41 @@ MalBooleanVectorTest >> testAnd [
 	self assert: vw asArray equals: #(false false false true false false true false)
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testNew [
 	v := MalBooleanVector new.
 	self assert: v size equals: 0
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testNewLarge [
 	v := MalBooleanVector new: 100.
 	self assert: v size equals: 100.
 	self assert: (v allSatisfy: #not)
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testNewSmall [
 	v := MalBooleanVector new: 5.
 	self assert: v size equals: 5.
 	self assert: (v allSatisfy: #not)
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testNewWithAll [
 	v := MalBooleanVector new: 100 withAll: true.
 	self assert: v size equals: 100.
 	self assert: (v allSatisfy: #yourself)
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testNot [
 	v := MalBooleanVector withAll: #(false false true true false false true true).
 	self assert: v not size equals: 8.
 	self assert: v not asArray equals: #(true true false false true true false false)
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalBooleanVectorTest >> testOr [
 	| w vw |
 	v := MalBooleanVector withAll: #(false false true true false false true true).

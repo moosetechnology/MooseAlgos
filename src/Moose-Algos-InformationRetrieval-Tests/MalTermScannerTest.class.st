@@ -7,24 +7,24 @@ Class {
 	#category : #'Moose-Algos-InformationRetrieval-Tests'
 }
 
-{ #category : #running }
+{ #category : #tests }
 MalTermScannerTest >> testDanglingLetter [
 	self assert: (MalTermScanner scan: '   a') asArray equals: #('a')
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermScannerTest >> testEmptyString [
 	
 	self assert: (MalTermScanner scan: '') isEmpty
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermScannerTest >> testNonLetter [
 	self assert: (MalTermScanner scan: '123456') isEmpty.
 	self assert: (MalTermScanner scan: 'abc123abc') asArray equals: #('abc' 'abc')
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermScannerTest >> testScanWords [
 	
 	
@@ -45,13 +45,13 @@ assert: (MATermScanner scan: 'foo bar')
 equals: #('foo' 'bar')"
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermScannerTest >> testTrailingWhitespace [
 	self assert: (MalTermScanner scan: 'foo') asArray equals: #('foo').
 	self assert: (MalTermScanner scan: '  foo  ') asArray equals: #('foo')
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalTermScannerTest >> testWhitespaceString [
 	self assert: (MalTermScanner scan: '               ') isEmpty.
 	self assert: (MalTermScanner scan: 'foo') asArray equals: #('foo').

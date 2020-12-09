@@ -25,12 +25,6 @@ Class {
 	#category : #'Moose-Algos-InformationRetrieval'
 }
 
-{ #category : #'instance creation' }
-MalTermScanner class >> new [
-	
-	^self basicNew initialize
-]
-
 { #category : #running }
 MalTermScanner class >> scan: input [
 
@@ -57,7 +51,8 @@ MalTermScanner >> atEnd [
 
 { #category : #initialization }
 MalTermScanner >> initialize [
-	
+	super initialize.
+
 	buffer := String new writeStream
 ]
 
@@ -94,20 +89,18 @@ MalTermScanner >> onString: text [
 
 { #category : #private }
 MalTermScanner >> privateNext [
-
-	| next |	
+	| next |
 	buffer reset.
 
-	[	[(next := stream informationRetrievalNext) isLetter ] whileFalse.
-		[buffer nextPut: next asLowercase.
-		 (next := stream informationRetrievalNext) isLetter] whileTrue.
-		[(next := stream informationRetrievalNext) isLetter ] whileFalse.
-		stream skip: -1.
-	] on: Stream endOfStreamSignal do: [:ex | "-- do nothing" ].
-	
-	^buffer contents isEmpty
-		ifTrue: [nil]
-		ifFalse: [buffer contents]
+	[ [ (next := stream informationRetrievalNext) isLetter ] whileFalse.
+	[ buffer nextPut: next asLowercase.
+	(next := stream informationRetrievalNext) isLetter ] whileTrue.
+	[ (next := stream informationRetrievalNext) isLetter ] whileFalse.
+	stream skip: -1 ]
+		on: Stream endOfStreamSignal
+		do: [ :ex | "-- do nothing" ].
+
+	^ buffer contents ifEmpty: [ nil ]
 ]
 
 { #category : #accessing }

@@ -84,13 +84,13 @@ MalLogLikelihoodRatio >> logL: p and: k and: n [
 						ifFalse: [(n - k) * (1 - p) ln])]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalLogLikelihoodRatio >> setTerms1: aHapaxTerms [
 	
 	terms1 := aHapaxTerms
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalLogLikelihoodRatio >> setTerms2: aHapaxTerms [
 	
 	terms2 := aHapaxTerms

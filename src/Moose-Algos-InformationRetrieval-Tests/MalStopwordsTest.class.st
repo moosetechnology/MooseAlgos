@@ -10,14 +10,14 @@ Class {
 	#category : #'Moose-Algos-InformationRetrieval-Tests'
 }
 
-{ #category : #running }
+{ #category : #tests }
 MalStopwordsTest >> testFewWords [
 	sw := MalStopwords fromString: 'and the super of a'.
 	self assert: sw size equals: 5.
 	^ sw
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalStopwordsTest >> testIncludesFalse [
 	
 	sw := MalStopwords fromString: 'and the super of a'.
@@ -29,7 +29,7 @@ MalStopwordsTest >> testIncludesFalse [
 	^sw
 ]
 
-{ #category : #running }
+{ #category : #tests }
 MalStopwordsTest >> testIncludesTrue [
 	
 	sw := MalStopwords fromString: 'and the super of a'.

@@ -80,7 +80,7 @@ MalGanterAlgorithm >> findNextExtent: extent [
 	self error: nil
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalGanterAlgorithm >> on: formalContext [
 	
 	context := formalContext

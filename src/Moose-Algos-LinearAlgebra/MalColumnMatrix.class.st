@@ -63,7 +63,7 @@ MalColumnMatrix >> columns: anObject [
 	columns := anObject
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalColumnMatrix >> initializeRows: m columns: n [
 	
 	columns := Array new: n.
@@ -78,8 +78,5 @@ MalColumnMatrix >> initializeRows: m columns: n [
 
 { #category : #accessing }
 MalColumnMatrix >> rowSize [
-	
-	^columns isEmpty
-		ifTrue: [0]
-		ifFalse: [columns last size]
+	^ columns ifEmpty: [ 0 ] ifNotEmpty: [ columns last size ]
 ]

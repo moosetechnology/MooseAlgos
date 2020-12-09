@@ -83,10 +83,10 @@ LatticeTest >> testLatticePatterns [
 	self assert: patterns black size equals: 1.
 	self assert: patterns grey size equals: 2.
 	self assert: patterns empty size equals: 2.
-	self assert: patterns isTopBlack equals: false.
+	self deny: patterns isTopBlack.
 	self assert: (patterns isEmpty: patterns lattice top).
-	self assert: patterns isTopGrey equals: false.
-	self assert: patterns isTopFull equals: false.
+	self deny: patterns isTopGrey.
+	self deny: patterns isTopFull.
 	self assert: patterns totalConnections equals: 10
 ]
 

@@ -88,13 +88,13 @@ MalSparseVector >> dotProduct: aVector [
 	^sum
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalSparseVector >> initializeContents: anAssociationArray [
 	
 	contents := anAssociationArray
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalSparseVector >> initializeSize: aSize [
 	size := aSize.
 	contents := OrderedCollection new

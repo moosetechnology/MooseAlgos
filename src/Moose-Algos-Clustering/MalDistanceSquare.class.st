@@ -81,7 +81,7 @@ MalDistanceSquare >> distanceBlock: anObject [
 	distanceBlock := anObject
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalDistanceSquare >> initialize: vectorA and: vectorB using: aDistanceBlock [
 	
 	items := nil.
@@ -97,7 +97,7 @@ MalDistanceSquare >> initialize: vectorA and: vectorB using: aDistanceBlock [
 						value: (vectorB at: row)]]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalDistanceSquare >> initialize: someItems using: aDistanceBlock [
 	
 	items := someItems.

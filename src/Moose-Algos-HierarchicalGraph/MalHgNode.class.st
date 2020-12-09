@@ -182,36 +182,29 @@ MalHgNode >> incomingEdges: aLevel [
 	"Returns a collection of of all incoming edges that are on given level.
 	Returns an empty collection if there are no incoming edges. 
 	Returns all incoming edges if given level is nil"
+
 	| incomingEdges |
-	 incomingEdges := Set new.
-	self incoming do: [ :rel | 	
-		aLevel isNil ifTrue: [
-			incomingEdges add: rel.
-		]
-		ifFalse: [
-			rel from level = level ifTrue: [
-				incomingEdges add: rel.
-			].
-		].
-		
-	].
-	^ incomingEdges.
+	incomingEdges := Set new.
+	self incoming
+		do: [ :rel | 
+			aLevel
+				ifNil: [ incomingEdges add: rel ]
+				ifNotNil: [ rel from level = level ifTrue: [ incomingEdges add: rel ] ] ].
+	^ incomingEdges
 ]
 
 { #category : #enumerating }
 MalHgNode >> incomingFrom: aNode [
 	"Returns all edges that are incoming from given node, nil if no such edge was found."
+
 	| result |
 	result := nil.
-	self incoming do: [:rel | 
-		(rel from == aNode) ifTrue: [
-			(result isNil) ifTrue: [
-				result := Set new.
-			].
-			result add: rel.
-		].
-	].
-	^ result.
+	self incoming
+		do: [ :rel | 
+			rel from == aNode
+				ifTrue: [ result ifNil: [ result := Set new ].
+					result add: rel ] ].
+	^ result
 ]
 
 { #category : #enumerating }
@@ -251,28 +244,25 @@ MalHgNode >> incomingSources: aLevel [
 	"Returns a collection of all source nodes of all incoming edges that are on given level.
 	Returns an empty collection if there are no incoming edges.
 	Returns all incoming sources if given level is nil."
+
 	| incomingSources |
-	 incomingSources := Set new.
-	self incoming do: [ :rel | 	
-		aLevel isNil ifTrue: [
-			incomingSources add: rel from.
-		]
-		ifFalse: [
-			rel from level = level ifTrue: [
-				incomingSources add: rel from.
-			].
-		].
-		
-	].
-	^ incomingSources.
+	incomingSources := Set new.
+	self incoming
+		do: [ :rel | 
+			aLevel
+				ifNil: [ incomingSources add: rel from ]
+				ifNotNil: [ rel from level = level ifTrue: [ incomingSources add: rel from ] ] ].
+	^ incomingSources
 ]
 
 { #category : #initialization }
 MalHgNode >> initialize [
 	"Initializes this node by resetting it."
+
+	super initialize.
 	self resetHierarchy.
 	self resetEdges.
-	self resetAttributes.
+	self resetAttributes
 ]
 
 { #category : #testing }
@@ -303,15 +293,15 @@ MalHgNode >> level: aLevel [
 { #category : #testing }
 MalHgNode >> notLeafNode [
 	"Return whether this node is not a leaf node, false if it is."
-	^ children notEmpty.
 
+	^ children isNotEmpty
 ]
 
 { #category : #testing }
 MalHgNode >> notRootNode [
 	"Return whether this node is not a root node, false if it is."
-	^ parent notNil.
 
+	^ parent isNotNil
 ]
 
 { #category : #accessing }
@@ -333,19 +323,15 @@ MalHgNode >> outgoingDestinations: aLevel [
 	"Returns a collection of all destination nodes of all outgoing relationship that are on given level.
 	Returns an empty collection if there are no such nodes.
 	Returns all outgoing destinations if given level is nil."
+
 	| outgoingDestinations |
-	 outgoingDestinations := Set new.
-	self outgoing do: [ :rel | 
-		aLevel isNil ifTrue: [
-			outgoingDestinations add: rel destination.
-		]
-		ifFalse: [
-			rel destination level = level ifTrue: [
-				outgoingDestinations add: rel destination.
-			].
-		].
-	].
-	^ outgoingDestinations.
+	outgoingDestinations := Set new.
+	self outgoing
+		do: [ :rel | 
+			aLevel
+				ifNil: [ outgoingDestinations add: rel destination ]
+				ifNotNil: [ rel destination level = level ifTrue: [ outgoingDestinations add: rel destination ] ] ].
+	^ outgoingDestinations
 ]
 
 { #category : #enumerating }
@@ -353,19 +339,15 @@ MalHgNode >> outgoingEdges: aLevel [
 	"Returns a collection of all of all outgoing relationship that are on given level.
 	Returns an empty collection if there are no such relationships.
 	Returns all outgoing relationships if given level is nil."
+
 	| outgoingRelationships |
-	 outgoingRelationships := Set new.
-	self outgoing do: [ :rel | 
-		aLevel isNil ifTrue: [
-			outgoingRelationships add: rel.
-		]
-		ifFalse: [
-			rel to level = level ifTrue: [
-				outgoingRelationships add: rel.
-			].
-		].
-	].
-	^ outgoingRelationships.
+	outgoingRelationships := Set new.
+	self outgoing
+		do: [ :rel | 
+			aLevel
+				ifNil: [ outgoingRelationships add: rel ]
+				ifNotNil: [ rel to level = level ifTrue: [ outgoingRelationships add: rel ] ] ].
+	^ outgoingRelationships
 ]
 
 { #category : #enumerating }
@@ -498,23 +480,20 @@ MalHgNode >> resetHierarchy [
 { #category : #ordering }
 MalHgNode >> setLevels [
 	"Set levels of all my children if I have any. I have to have a level set for this to work."
+
 	| currLevelCollection |
-	
-	self assert: (level notNil) description: 'This node must have a level set to set its childrens level'.
+	self assert: level isNotNil description: 'This node must have a level set to set its childrens level'.
 	currLevelCollection := hiGraph levels at: level ifAbsentPut: [ OrderedCollection new ].
-	
+
 	"We have already added the root nodes in the process. No need to add them again."
-	self notRootNode ifTrue: [ 
-		currLevelCollection add: self.
-	].
-	
+	self notRootNode ifTrue: [ currLevelCollection add: self ].
+
 	"Recurse if this node has children."
-	self notLeafNode ifTrue: [
-		children do: [ :childNode |
-			childNode level: level + 1.
-			childNode setLevels.
-		].
-	].
+	self notLeafNode
+		ifTrue: [ children
+				do: [ :childNode | 
+					childNode level: level + 1.
+					childNode setLevels ] ]
 ]
 
 { #category : #printing }

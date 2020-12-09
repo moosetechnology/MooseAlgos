@@ -57,7 +57,7 @@ MalMatrixView >> columnSize [
 	^columnSize
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixView >> initializeRows: m columns: n [
 	
 	rowSize := m.
@@ -70,7 +70,7 @@ MalMatrixView >> rowSize [
 	^rowSize
 ]
 
-{ #category : #'initialize-release' }
+{ #category : #initialization }
 MalMatrixView >> setMapBlock: block [
 	
 	^mapBlock := block

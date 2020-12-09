@@ -36,7 +36,7 @@ MalKontractor class >> bench [
 	Time millisecondsToRun: [10000 timesRepeat: [ (self new: 3 ) removeOne: 'hllo']]
 ]
 
-{ #category : #'class initialization' }
+{ #category : #initialization }
 MalKontractor class >> initialize [
 	"self initialize"
 	

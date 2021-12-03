@@ -65,8 +65,7 @@ BaselineOfMooseAlgos >> packages: spec [
 		with: [ spec requires: #( 'Moose-Algos-Clustering' ) ];
 		
 		package: 'Moose-Algos-FormalConceptAnalysis-Tests' with: [ 
-			spec requires: #( 'Moose-Algos-FormalConceptAnalysis'
-					   'Moose-Algos-Lattice' ) ];
+			spec requires: #( 'Moose-Algos-FormalConceptAnalysis' ) ];
 				
 		package: 'Moose-Algos-InformationRetrieval-Tests'
 		with: [ spec requires: #( 'Moose-Algos-InformationRetrieval' ) ];

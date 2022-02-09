@@ -14,7 +14,8 @@ Class {
 BaselineOfMooseAlgos >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [ "Dependencies"
+	spec for: #common do: [ 
+		"Dependencies"
 		self collectionExtensions: spec.
 
 		self packages: spec.
@@ -46,7 +47,10 @@ BaselineOfMooseAlgos >> baseline: spec [
 
 { #category : #dependencies }
 BaselineOfMooseAlgos >> collectionExtensions: spec [
-	spec baseline: 'CollectionExtensions' with: [ spec repository: 'github://pharo-contributions/CollectionExtensions:v1.x.x/src' ]
+
+	spec baseline: 'CollectionExtensions' with: [ 
+		spec repository:
+			'github://pharo-contributions/CollectionExtensions:v1.x.x/src' ]
 ]
 
 { #category : #baselines }
@@ -63,34 +67,18 @@ BaselineOfMooseAlgos >> packages: spec [
 		package: 'Moose-Algos-LinearAlgebra';
 		package: 'Moose-Algos-Clustering-Tests'
 		with: [ spec requires: #( 'Moose-Algos-Clustering' ) ];
-		
-		package: 'Moose-Algos-FormalConceptAnalysis-Tests' with: [ 
-			spec requires: #( 'Moose-Algos-FormalConceptAnalysis' ) ];
-				
+		package: 'Moose-Algos-FormalConceptAnalysis-Tests'
+		with: [ spec requires: #( 'Moose-Algos-FormalConceptAnalysis' ) ];
 		package: 'Moose-Algos-InformationRetrieval-Tests'
 		with: [ spec requires: #( 'Moose-Algos-InformationRetrieval' ) ];
 		package: 'Moose-Algos-Kontractor-Tests'
 		with: [ spec requires: #( 'Moose-Algos-Kontractor' ) ];
 		package: 'Moose-Algos-LinearAlgebra-Tests'
-		with: [ spec requires: #( 'Moose-Algos-LinearAlgebra' ) ].
-
-	spec for: #( #'pharo8.x' ) do: [ 
-		self roassal3: spec.
-		spec package: 'Moose-Algos-Graph-Generators-Examples' with: [ 
-			spec requires: #( 'Moose-Algos-Graph-Generators'
-			   'Roassal3' ) ] ].
-	spec for: #( #'pharo9.x' ) do: [ "Roassal3 is integrated in P9" ]
+		with: [ spec requires: #( 'Moose-Algos-LinearAlgebra' ) ]
 ]
 
 { #category : #accessing }
 BaselineOfMooseAlgos >> projectClass [
+
 	^ MetacelloCypressBaselineProject
-]
-
-{ #category : #dependencies }
-BaselineOfMooseAlgos >> roassal3: spec [
-
-	spec
-		baseline: 'Roassal3'
-		with: [ spec repository: 'github://ObjectProfile/Roassal3:v0.9.5' ]
 ]
